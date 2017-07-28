@@ -15,6 +15,7 @@ java.util.Date utildate=new java.util.Date(System.getCurrentTime());
 java.sql.Date  sqldate=new java.sql.Date(utildate.getTime());
 ```
 
+		
 这种方式来转换，由于sql.Date是util.Date的子类，所以可以直接将sql.Date赋值给util.Date.
 
 ##### 2.日期和字符串
