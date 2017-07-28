@@ -1,4 +1,4 @@
-##### 1.日期
+#####1.日期
 
 日期：主要使用的是*java.util.Date* 以及*java.sql.Date* ,
 
@@ -107,6 +107,34 @@ LocalDateTime is an immutable date-time object that represents a date-time, ofte
 主要分为java.util.Date类和java.time这两个区分，前者通过getTime()取得long值相减而得出，还有before()和after()两个方法，后者通过也可以通过getLong()来相减比较，也可以通过isAfter(), isBefore(), isEqual()等方法来得出，还有就是通过compareTo()方法来获得结果。
 
 ##### 5.Joda Time
+*==Joda Time ==*是一个非常好用的时间日期包，其有不可变性，瞬间性，局部性，时区等信息。**Joda 与 JDK 是百分之百可互操作的**，Joda的类能够生成java.util.Date 的实例（和 Calendar），Joda 类具有不可变性，因此它们的实例无法被修改。不可变类的一个优点就是它们是线程安全的。
+
+重要的类：
+==*DateTime*==，DateTime是一个标准的不可变的时间类，其中包含了时区信息。
+>DateTime is the standard implementation of an unmodifiable datetime class.
+DateTime is the most widely used implementation of ReadableInstant. As with all instants, it represents an exact point on the time-line, but limited to the precision of milliseconds. A DateTime calculates its fields with respect to a time zone.
+Internally, the class holds two pieces of data. Firstly, it holds the datetime as milliseconds from the Java epoch of 1970-01-01T00:00:00Z. Secondly, it holds a Chronology which determines how the millisecond instant value is converted into the date time fields. The default Chronology is ISOChronology which is the agreed international standard and compatible with the modern Gregorian calendar.
+
+==*LocalDate*==，LocalDate是一个标准的不可变的日期类，其中没有包含时区信息，关注点在于日期之上,但在创建时，所有的信息都需要(年月日)。
+>LocalDate is an immutable datetime class representing a date without a time zone.
+LocalDate implements the ReadablePartial interface. To do this, the interface methods focus on the key fields - Year, MonthOfYear and DayOfMonth. However, all date fields may in fact be queried.
+LocalDate differs from DateMidnight in that this class does not have a time zone and does not represent a single instant in time.
+Calculations on LocalDate are performed using a Chronology. This chronology will be set internally to be in the UTC time zone for all calculations.
+
+==*LocalDateTime*==，LocalDateTime是一个不可变的日期类，其中没有包含时区信息，关注点在于日期和时间之上，创建时所有的信息都需要（年月日时分秒）。
+>LocalDateTime is an unmodifiable datetime class representing a datetime without a time zone.
+LocalDateTime implements the ReadablePartial interface. To do this, certain methods focus on key fields Year, MonthOfYear, DayOfYear and MillisOfDay. However, all fields may in fact be queried.
+Internally, LocalDateTime uses a single millisecond-based value to represent the local datetime. This value is only used internally and is not exposed to applications.
+Calculations on LocalDateTime are performed using a Chronology. This chronology will be set internally to be in the UTC time zone for all calculations.
+
+==*LocalTime*==，LocalTime是一个不可变的时间，其不包含时区信息。关注点在于时间之上。
+>LocalTime is an immutable time class representing a time without a time zone.
+LocalTime implements the ReadablePartial interface. To do this, the interface methods focus on the key fields - HourOfDay, MinuteOfHour, SecondOfMinute and MillisOfSecond. However, all time fields may in fact be queried.
+Calculations on LocalTime are performed using a Chronology. This chronology will be set internally to be in the UTC time zone for all calculations.
+
+
+
+
 
 ##### 6.案例Demo
 
@@ -282,9 +310,78 @@ LocalDateTime is an immutable date-time object that represents a date-time, ofte
     }
   }
 ```
+==*UseJodaTime.java* ==
+```java
+	package DateAndTime;
+
+	import org.joda.time.DateTime;
+	import org.joda.time.DateTimeZone;
+	import org.joda.time.LocalTime;
+	import org.joda.time.format.DateTimeFormat;
+
+	import java.time.LocalDate;
+	import java.util.Date;
+
+	/**
+ 	* Created by renjiaxin on 2017/7/28.
+ 	*/
+	public class UseJodaTime {
+    public static void main(String[] args)
+    {
+        org.joda.time.DateTime datetime1= DateTime.now();
+
+        System.out.println(datetime1.centuryOfEra());
+        System.out.println(datetime1.getZone());//获得时区
+        org.joda.time.DateTime datetime2=new DateTime(1998,2,14,12,25);//创建时间
+        String str1="2016-12-23";
+        String str2="2016-12-23 12:46:29";
+        org.joda.time.DateTime datetime3=DateTime.parse(str1);//提取时间，prase方法直接在类中。
+        org.joda.time.format.DateTimeFormatter format = DateTimeFormat .forPattern("yyyy-MM-dd HH:mm:ss");
+        DateTime dateTime4 = DateTime.parse("2015-12-21 23:22:45", format);
+        org.joda.time.DateTime datetime4=DateTime.parse(str2,format);//提取时间，prase方法直接在类中。
+        System.out.println(datetime2);//获得时区
+        System.out.println("datetime3.toString():"+datetime3.toString());//获得时区
+        boolean isAfter1=datetime2.isAfter(datetime3);//比较时间先后
+        boolean isBefore1=datetime2.isBefore(datetime4);//比较时间先后
+        System.out.println(isAfter1+","+isBefore1);
+        LocalDate localDate1=LocalDate.now();//当前时间
+        org.joda.time.LocalDate localDate2=dateTime4.toLocalDate();
+        org.joda.time.LocalDate.Property day1=localDate2.dayOfMonth();
+        org.joda.time.LocalDate localDate3=localDate2.plusYears(20);//添加年
+        System.out.println("day1:"+day1.getAsString());
+        System.out.println("localDate1:"+localDate1);
+        System.out.println("localDate3:"+localDate3);
+        DateTimeZone.setDefault(DateTimeZone.forID("Asia/Chongqing"));//设置时区
+        DateTime dt1 = new DateTime();
+        System.out.println(dt1.toString("yyyy-MM-dd HH:mm:ss"));//日期转化成字符串
+        System.out.println(dt1.plusDays(120).toString("yyyy-MM-dd HH:mm:ss"));//计算120天之后，并且打印
+        java.util.Date date=new Date();
+        org.joda.time.LocalDate localDate4=new org.joda.time.LocalDate(date.getTime());//joda->util
+        java.util.Date date2=new Date(String.valueOf(localDate2.toDate()));//util->joda
+        System.out.println("util_time:"+date+"，joda_time："+localDate4);
+        System.out.println("util_time:"+date2+"，joda_time："+localDate2);
+        org.joda.time.LocalTime time1= LocalTime.now();//时间
+        org.joda.time.LocalTime time2=new  LocalTime(20,18,39);
+        System.out.println("time1:"+time1+"，time2："+time2);
+        org.joda.time.LocalDate LocalDate8= org.joda.time.LocalDate.now();
+        org.joda.time.LocalDate LocalDate9=new  org.joda.time.LocalDate(2012,6,9);
+        org.joda.time.Period period=new org.joda.time.Period(LocalDate8,LocalDate9);
+        int subyear=period.getYears();
+        int submonth=period.getMonths();
+        int subday=period.getDays();
+        System.out.println(LocalDate8+"和"+LocalDate9+"相差"+Math.abs(subyear)+"年，"+
+                Math.abs(submonth)+"月，"+Math.abs(subday)+"日");//计算日期差
+
+   }
+  }
+```
 
 
 ref:
-[java中Date与String的相互转化](http://blog.csdn.net/woshisap/article/details/6742423/),
-[java日期比较，日期计算](http://www.cnblogs.com/xu-lei/p/5881899.html),
-[Java8 日期/时间（Date Time）API指南](http://www.importnew.com/14140.html)
+[java中Date与String的相互转化](http://blog.csdn.net/woshisap/article/details/6742423/)
+[java日期比较，日期计算](http://www.cnblogs.com/xu-lei/p/5881899.html)
+[Java8 日期/时间（Date Time）API指南](http://www.importnew.com/14140.html) 
+[Joda-Time 用法](http://blog.csdn.net/top_code/article/details/50374078)
+[Joda-Time 简介](https://www.ibm.com/developerworks/cn/java/j-jodatime.html#artdownload)
+[Joda-Time Quick start guide](http://www.joda.org/joda-time/quickstart.html)
+[jodaTime 的使用说明](http://www.cnblogs.com/cb0327/archive/2016/05/18/5127507.html)
