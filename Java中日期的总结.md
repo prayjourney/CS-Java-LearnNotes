@@ -15,7 +15,6 @@ java.util.Date utildate=new java.util.Date(System.getCurrentTime());
 java.sql.Date  sqldate=new java.sql.Date(utildate.getTime());
 ```
 
-		
 这种方式来转换，由于sql.Date是util.Date的子类，所以可以直接将sql.Date赋值给util.Date.
 
 ##### 2.日期和字符串
@@ -133,6 +132,25 @@ Calculations on LocalDateTime are performed using a Chronology. This chronology 
 LocalTime implements the ReadablePartial interface. To do this, the interface methods focus on the key fields - HourOfDay, MinuteOfHour, SecondOfMinute and MillisOfSecond. However, all time fields may in fact be queried.
 Calculations on LocalTime are performed using a Chronology. This chronology will be set internally to be in the UTC time zone for all calculations.
 
+常用的方法：（以*org.joda.time*.==LocalDate==方法为案例，其他三者相似）
+
+| 返回值 | 名称 |  说明  |
+|--------|--------|--------|
+|Constructors|LocalDate(int year, int monthOfYear, int dayOfMonth)Constructs an instance set to the specified date and time using ISOChronology. | 构造器|
+| static LocalDate|**now()** **|Obtains a LocalDate set to the current system millisecond time using ISOChronology in the default time zone.|
+| int	|getYear()|Get the year field value.|
+| int	|getDayOfMonth()|Get the day of month field value.|
+| static LocalDate|	**parse(String str)**|Parses a LocalDate from the specified string.|
+|static LocalDate|parse(String str, DateTimeFormatter formatter)|Parses a LocalDate from the specified string using a formatter.|
+|  Date|**	toDate()**|Get the date time as a java.util.Date. |
+| String|**	toString()**|Output the date time in ISO8601 format (yyyy-MM-dd).|
+|String	|**toString(String pattern)**|Output the date using the specified format pattern.|
+|String	|**toString(String pattern, Locale locale)**|Output the date using the specified format pattern.|
+| LocalDate|**plusMonths(int months)**|Returns a copy of this date plus the specified number of months. |
+|LocalDate |**minusWeeks(int weeks)**|Returns a copy of this date minus the specified number of weeks.|
+| int	|compareTo(ReadablePartial other)|Compares this partial with another returning an integer indicating the order. |
+| boolean|	isBefore(ReadablePartial partial)|Is this partial earlier than the specified partial.| 
+|  DateTime	|toDateTime(ReadableInstant baseInstant)|Resolves this partial against another complete instant to create a new full instant.|
 
 
 
@@ -373,16 +391,62 @@ Calculations on LocalTime are performed using a Chronology. This chronology will
         System.out.println(LocalDate8+"和"+LocalDate9+"相差"+Math.abs(subyear)+"年，"+
                 Math.abs(submonth)+"月，"+Math.abs(subday)+"日");//计算日期差
 
+
    }
   }
+```
+==*JodaTimeUsing.java*==
+```java
+  package DateAndTime;
+
+  import org.joda.time.DateTime;
+  import org.joda.time.LocalDate;
+  import org.joda.time.format.DateTimeFormat;
+  import org.joda.time.format.DateTimeFormatter;
+
+  import java.util.Date;
+  import java.util.Locale;
+
+   /**
+   * Created by renjiaxin on 2017/7/31.
+   * 基本的转化，Joda<->Date，Joda<->String
+   */
+    public class JodaTimeUsing {
+    public static void main(String[] args) {
+        org.joda.time.DateTime jodate1 = new DateTime(1999, 2, 3, 6, 28, 32);
+        org.joda.time.DateTime jodate2 = DateTime.now();
+        org.joda.time.LocalDate joLoDate1 = jodate1.toLocalDate();
+        org.joda.time.LocalDate joLoDate2 = new LocalDate(2016, 6, 26);
+        String str1 = "2008-09-12";
+        System.out.println(jodate1.dayOfWeek().get());
+        System.out.println(jodate1.plusDays(28).toLocalDate());
+        System.out.println(jodate1.isAfterNow());
+        System.out.println(jodate1.toString());
+        org.joda.time.LocalDate joLoDate3 = LocalDate.parse(str1);//String转成Joda-time
+        java.util.Date date1 = new Date();
+        org.joda.time.LocalDate joLoDate4 = new LocalDate(date1);//Date-->joda-time
+        java.util.Date date2 = jodate2.toDate();//Joda-time-->Date
+        System.out.println("date2:" + date2);
+        String joLoDate1String1 = joLoDate1.toString("yyyy/MM/dd HH:mm:ss EE");//Joda-time转成String
+        String joLoDate1String2 = joLoDate1.toString("yyyy/MM/dd", Locale.CHINESE);//Joda-time转成String
+        System.out.println("joLoDate2:" + joLoDate2);
+        System.out.println("joLoDate3:" + joLoDate3);
+        System.out.println("joLoDate1String1:" + joLoDate1String1);
+        System.out.println("joLoDate1String2:" + joLoDate1String2);
+
+    }
+  }
+
 ```
 
 
 ref:
 [java中Date与String的相互转化](http://blog.csdn.net/woshisap/article/details/6742423/)
 [java日期比较，日期计算](http://www.cnblogs.com/xu-lei/p/5881899.html)
-[Java8 日期/时间（Date Time）API指南](http://www.importnew.com/14140.html) 
-[Joda-Time 用法](http://blog.csdn.net/top_code/article/details/50374078)
+[Java8 日期/时间（Date Time）API指南](http://www.importnew.com/14140.html)
+[ Joda-Time 用法](http://blog.csdn.net/top_code/article/details/50374078)
 [Joda-Time 简介](https://www.ibm.com/developerworks/cn/java/j-jodatime.html#artdownload)
 [Joda-Time Quick start guide](http://www.joda.org/joda-time/quickstart.html)
 [jodaTime 的使用说明](http://www.cnblogs.com/cb0327/archive/2016/05/18/5127507.html)
+[Joda-Time Date(jdk) String相互转换](http://blog.csdn.net/u014633144/article/details/48789447)
+[joda-time的使用](http://www.jcodecraeer.com/a/chengxusheji/java/2015/0127/2367.html)	
