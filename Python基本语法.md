@@ -61,7 +61,7 @@ printfun(s) #元组作为参数
      yourinfo(22,"海燕","杭州") #Error
   ```
   - 关键字参数：关键字参数，在传递给函数时是**名---值**对，直接在调用时将名称和值关联了起来，*这样就可以防止位置参数中的混淆的问题了*。
-    ```python
+  ```python
      #位置实参，其位置顺序很重要
      def profile(name,age,city):
         print("your name is: "+name+", age is: "+
@@ -69,18 +69,17 @@ printfun(s) #元组作为参数
 
      profile(name="Lucy",age=24,city="上海")
      profile(name="张三",age=22,city="重庆")
-  ```
- 
-  - 任意多的参数：当我们的函数要处理的参数很多时候，我们可以定义任意多参数的函数，这样也算是一种实现*"多态"*的方式，也很方便，Python对参数的数量在理论上是没有限制的。
-    ```python
-       #任意多的参数
-       def animal(*name):
-           '''将animal name 打印 '''
-           print(name)
+  ```	
+  - 任意多的参数：当我们的函数要处理的参数很多时候，我们可以定义任意多参数的函数，这样也算是一种实现"多态的方式，也很方便，Python对参数的数量在理论上是没有限制的。
+  ```python
+     #任意多的参数
+     def animal(*name):
+         '''将animal name 打印 '''
+         print(name)
 
-       animal("tiger")
-       animal("tiger","pander","horse","pig","dog","cat")
-    ```	
+     animal("tiger")
+     	animal("tiger","pander","horse","pig","dog","cat")
+  ```	
   > 需要说明的是，在有任意多的参数的函数之中，不管有1个，2个或者是n个，所有的参数都将被封装在一个元组(tuple)之中，此处打印形成("tiger")和("tiger","pander","horse","pig","dog","cat")的样式，而非单个的animal name.
 
   - 任意多的参数和位置参数：位置参数其实就是普通的参数，对应的位置很重要，而任意多的参数，都将被封装在一个元组之中，这时，*重要的是位置参数和任意多参数的顺序*，**位置参数在前，任意多的参数在其后**。
