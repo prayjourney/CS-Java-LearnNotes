@@ -484,7 +484,7 @@ printfun(s) #元组作为参数
        statement    #运行别的代码
    except Exception：
        statement    #如果在try部份引发了'name'异常
-   except <名字>，<数据>:
+   except <名字>,	<数据>:
        statement    #如果引发了'name'异常，获得附加的数据
    else:
        statement    #如果没有异常发生
