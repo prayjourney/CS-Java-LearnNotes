@@ -478,6 +478,44 @@ printfun(s) #元组作为参数
     ```
 
 7.异常
+  在Python之中对于异常的处理，也是使用try语句来实现的，不过其和Java之中的异常关键字不太一样，Python之中的关键字为==try,expect,else==，Python之中，基本的异常类是**BaseException**，常见的异常的基类是*Exception*，其语法如下，try用来抓取错误，except用来抛出错误，在其中作出一些说明和处理，else的作用是比如在其中做一些处理，比如关闭数据库，在没有发生异常的时候。
+```python
+   try:
+       statement    #运行别的代码
+   except Exception：
+       statement    #如果在try部份引发了'name'异常
+   except <名字>，<数据>:
+       statement    #如果引发了'name'异常，获得附加的数据
+   else:
+       statement    #如果没有异常发生
+```
+案例1：
+```python
+    print("Give me two numbers, and I'll divide them.")
+    print("Enter 'q' to quit.")
+    while True:
+        first_number = input("\nFirst number: ")
+        if first_number == 'q':
+            break
+        second_number = input("Second number: ")
+        if second_number == 'q':
+            break
+        answer = int(first_number) / int(second_number)
+        print(answer)
+```
+案例2：
+```python
+    # -*- coding: UTF-8 -*-
+
+    try:
+        fh = open("testfile", "w")
+        fh.write("这是一个测试文件，用于测试异常!!")
+    except IOError:
+        print("Error: 没有找到文件或读取文件失败")
+    else:
+        print("内容写入文件成功")
+        fh.close()
+```
 8.IO操作
 9.单元测试
 10.标准库学习指南
@@ -487,4 +525,5 @@ ref:
 [python类中普通方法，类方法，静态方法](http://blog.csdn.net/y_angpeng/article/details/38168635),
 [Python的类方法,静态方法,实例方法,类变量,实例变量,静态变量的总结](http://blog.csdn.net/imba123456789/article/details/54150812),
 [ Python中\*args 和\**kwargs的用法](http://blog.csdn.net/chenjinyu_tang/article/details/8136841),
-[Python函数的各种参数(含星号参数)](http://bbs.fishc.com/thread-67011-1-1.html)  
+[Python函数的各种参数(含星号参数)](http://bbs.fishc.com/thread-67011-1-1.html),
+[Python 异常处理](http://www.runoob.com/python/python-exceptions.html)	
