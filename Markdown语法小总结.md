@@ -172,6 +172,7 @@
 4.[Markdown中插入数学公式的法](http://blog.csdn.net/xiahouzuoxin/article/details/26478179)
 5.[markdown流程图语法](http://blog.csdn.net/aizhaoyu/article/details/44350821)
 6.[为什么我的markdown里无法直接画出流程图？](https://segmentfault.com/q/1010000010637970)
+7.[ markdown绘图插件----mermaid简介]	(http://blog.csdn.net/wangyaninglm/article/details/5288704)
 
 [^1]:李白，701年－762年，字太白，号青莲居士，又号“谪仙人”，是唐代伟大的浪漫主义诗人，被后人誉为“诗仙”，与杜甫并称为“李杜”，为了与另两位诗人李商隐与杜牧即“小李杜”，区别，杜甫与李白又合称“大李杜”[3]。其人爽朗大方，爱饮酒作诗，喜交友。
 [^2]:尔同你。
