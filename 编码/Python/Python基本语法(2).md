@@ -182,6 +182,43 @@
         unittest.main()
     ```
 10.Lambda表达式
+&nbsp;&nbsp;&nbsp;&nbsp;**lambda是一个表达式而不是一个语句**。它能够出现在python语法不允许def出现的地方。作为表达式，**lambda返回一个值（即一个新的函数）**。lambda用来编写简单的函数，而def用来处理更强大的任务。lambda表达式的定义为`lambda argument1,argument2,...argumentN:expression using arguments`。在下面的例子中，`func`和`f`的作用完全相同，lambda表达式返回的是一个函数，给其赋值调用之后，就会出现相应的结果。
+```python
+   def func(x,y,z):#1
+       return x+y+z
+
+   f=lambda x,y,z:x+y+z#
+```
+**默认参数也可以在lambda表达式中使用**，如下：
+```python
+   x=(lambda a="fee",b="file123",c="hello":a+b+c)
+   x("qwe")
+```
+其运行结果如下：
+![lambda默认值](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_lambda.png)
+lambda表达式通常来写跳转表（包含行为的列表或者字典），**lambda针对*小段的内联代码，而且专注于在使用`def`定义时繁琐的情况下**，++**lambda表达式之中通常是*短小精悍的*==逻辑代码==**++，在实践之中，最好别嵌套lambda表达式。
+```python
+	#lambda表达式写跳转表
+    L = [(lambda x: x**2),
+        (lambda x: x**3),
+        (lambda x: x**4)]
+    print(L[0](2),L[1](2),L[2](2))
+
+    D = {'f1':(lambda: 2+3),
+        'f2':(lambda: 2*3),
+        'f3':(lambda: 2**3)}
+    print(D['f1'](),D['f2'](),D['f3']())
+```
+![运行情况](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_111.png)
+```python
+	#python交互模式下lambda表达式嵌套的情况
+    >>> action=lambda x:(lambda y:x+y)
+    >>> act=action(99)
+    >>> act
+    <function <lambda>.<locals>.<lambda> at 0x00000000040EF0D0>#说明了返回的是函数
+    >>> act(3)
+```
+![lambda嵌套](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_222.png)
 11.标准库学习指南
 12.注意
 &nbsp;&nbsp;在Python之中，字符的处理对于编码有要求，Python默认的字符集对于中文的支持不太好，所以我们需要在__*每个py文件的第一句，写上如下代码:*__
@@ -191,3 +228,4 @@
 
 ref:
 >1.[Python自带的操作手册怎么学习？](https://segmentfault.com/q/1010000010640464)
+2.[Python学习笔记（十二）：lambda表达式与函数式编程](http://blog.csdn.net/mathboylinlin/article/details/9413551)
