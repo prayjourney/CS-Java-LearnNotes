@@ -154,4 +154,4 @@ def div(a, b):
 |  git add ./file      |  添加文件到缓存状态     |
 |  git commit -m "XXX"      |  提交到本地仓库     |
 ref:
-[图解Git](http://marklodato.github.io/visual-git-guide/index-zh-cn.html), [Git Step by Step – (1) Git 简介](http://www.cnblogs.com/wilber2013/p/4185643.html), [Git Step by Step – (2) 本地Repo](http://www.cnblogs.com/wilber2013/p/4189920.html), [沉浸式学 Git](http://igit.linuxtoy.org/contents.html)
+[图解Git](http://marklodato.github.io/visual-git-guide/index-zh-cn.html), [Git Step by Step – (1) Git 简介](http://www.cnblogs.com/wilber2013/p/4185643.html), [Git Step by Step – (2) 本地Repo](http://www.cnblogs.com/wilber2013/p/4189920.html), [沉浸式学 Git](http://igit.linuxtoy.org/contents.html), [git diff命令详解](http://www.cnblogs.com/wish123/p/3963224.html)
