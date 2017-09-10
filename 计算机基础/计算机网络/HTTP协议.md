@@ -392,7 +392,20 @@ name=Professional%20Ajax&publisher=Wiley
 |505	 |  HTTP Version not supported  |  服务器不支持请求的HTTP协议的版本，无法完成处理  |
 
 #####一次完整的浏览器请求流程
+整个过程如下:
+1.**域名解析**：解析域名对应的IP地址
+1. 浏览器**搜索浏览器自身的DNS缓存**，如找不到，进行第2步
+2. 向**本地配置的首选DNS服务器**发起域名解析请求，如找不到，进行第3步
+3. **找到根DNS地址**，**发起请求（请问www.jianshu.com这个域名的IP地址是多少啊？）**，根域发现这是一个顶级域com域的一个域名，于是就告诉运营商的DNS我不知道这个域名的IP地址，但是我知道com域的IP地址，进行第4步
+4. **com域服务器**告诉运营商的DNS我不知道www.jianshu.com这个域名的IP地址，但是我知道jianshu.com这个域的DNS地址，进行第5步
+5. 运营商的DNS又向www.jianshu.com这个域名的DNS地址（这个一般就是由**域名注册商**提供的，像万网，新网等）发起请求，这个时候运营商的DNS服务器就拿到了www.jianshu.com这个域名对应的IP地址，并返回给Windows系统内核，内核又把结果返回给浏览器，终于浏览器拿到了www.jianshu.com对应的IP地址
+![域名解析](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_DNS%e8%af%b7%e6%b1%822.jpg)
 
+2.发起TCP的**3次握手**，建立连接（关闭连接时用4次挥手）
+3.建立TCP连接后**发起http请求**
+4.服务器**响应http请求**，浏览器得到html代码
+5.浏览器**解析html代码**，并请求html代码中的资源（如js、css、图片等）
+6.浏览器对页面进行**渲染**呈现给用户
 
 ref:
 1.[HTTP 协议入门](http://www.ruanyifeng.com/blog/2016/08/http.html), 2.[关于HTTP协议，一篇就够了](http://www.cnblogs.com/ranyonsue/p/5984001.html), 3.[详解URL的组成](http://blog.csdn.net/ergouge/article/details/8185219), 4.[HTTP状态码](http://www.runoob.com/http/http-status-codes.html), 5.[HTTP协议详解](http://www.cnblogs.com/TankXiao/archive/2012/02/13/2342672.html), 6.[关于HTTP协议，一篇就够了](http://www.jianshu.com/p/80e25cb1d81a), 7.[深入理解HTTP协议（转）](http://www.blogjava.net/zjusuyong/articles/304788.html), 8.[Journey to HTTP/2](http://kamranahmed.info/blog/2016/08/13/http-in-depth/), 9.[HTTP协议详解](http://blog.csdn.net/sayhello_world/article/details/75018519), 10.[网络请求过程扫盲](http://www.jianshu.com/p/8a40f99da882), 11.[一次完整的浏览器请求流程](http://www.jianshu.com/p/fbe0e9fa45a6), 12.[通信协议——Http、TCP、UDP](http://www.cnblogs.com/xhwy/archive/2012/03/03/2378293.html)
