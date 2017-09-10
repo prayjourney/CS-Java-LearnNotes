@@ -406,6 +406,7 @@ name=Professional%20Ajax&publisher=Wiley
 4.服务器**响应http请求**，浏览器得到html代码
 5.浏览器**解析html代码**，并请求html代码中的资源（如js、css、图片等）
 6.浏览器对页面进行**渲染**呈现给用户
-
+***IP--->MAC***:ARP(地址解析协议)
+***MAC--->IP***:RARP(反向地址解析协议)
 ref:
 1.[HTTP 协议入门](http://www.ruanyifeng.com/blog/2016/08/http.html), 2.[关于HTTP协议，一篇就够了](http://www.cnblogs.com/ranyonsue/p/5984001.html), 3.[详解URL的组成](http://blog.csdn.net/ergouge/article/details/8185219), 4.[HTTP状态码](http://www.runoob.com/http/http-status-codes.html), 5.[HTTP协议详解](http://www.cnblogs.com/TankXiao/archive/2012/02/13/2342672.html), 6.[关于HTTP协议，一篇就够了](http://www.jianshu.com/p/80e25cb1d81a), 7.[深入理解HTTP协议（转）](http://www.blogjava.net/zjusuyong/articles/304788.html), 8.[Journey to HTTP/2](http://kamranahmed.info/blog/2016/08/13/http-in-depth/), 9.[HTTP协议详解](http://blog.csdn.net/sayhello_world/article/details/75018519), 10.[网络请求过程扫盲](http://www.jianshu.com/p/8a40f99da882), 11.[一次完整的浏览器请求流程](http://www.jianshu.com/p/fbe0e9fa45a6), 12.[通信协议——Http、TCP、UDP](http://www.cnblogs.com/xhwy/archive/2012/03/03/2378293.html)
