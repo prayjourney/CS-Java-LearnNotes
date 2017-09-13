@@ -53,3 +53,18 @@ select * from student order by sname desc,class desc;*/
 -- not
 -- not 可以否定任何条件，相当于取反，其位于条件之前
 -- select * from score where not degree>80; 
+
+
+-- like
+-- select * from student where  sname like '王%';
+-- select * from student where  sname like '%王%';
+# select * from student where  class like %95; #通配符之能对文本类型的字段使用，无法对非文本类型字段使用
+#select * from student where sname like '王_';
+#select * from student where sname like '_王_';
+#select * from student where sname like '[王李]%';#[]在mysql之中好像不起作用？
+
+-- 拼接
+-- select sname +'|'+ ssex +'|'+ from student;
+select sname,ssex,concat( sname, '-' , ssex) as info from student;
+select concat( sname, '-' , ssex) as info from student;
+select GROUP_CONCAT(sname,ssex)from student;
