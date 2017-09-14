@@ -1,69 +1,100 @@
-DAY# select * from student;
+###1.了解
+-- 略
+
+
+
+###2.检索
+#select
+# select * from student;
 -- select sno,sname from student;
 -- select * from student;
 
+#插入
 -- insert into student(sno,sname,ssex,sbirthday,class) values(110,"李时珍","男",'1533-06-24 00:00:00',95054);
 -- insert into student(sno,sname,ssex,sbirthday,class) values(112,"李时珍","男",'1995-06-24 00:00:00',95023);
 -- insert into student(sno,sname,ssex,sbirthday,class) values(118,"李时珍","男",'2005-12-09 00:00:00',95012);
 
-
--- select
+#检索多个字段
 # select distinct sname from student;
 # select sname from student;
 # select distinct sno,sname from student;
 
--- limit
+#结果限制
+#limit关键字
 -- Mysql之中没有Top关键字
 # select TOP 5 sno,sname,ssex from student;
--- Mysql之中可以用limit关键字来代替
+#Mysql之中可以用limit关键字来代替
 -- select  sname,sno,ssex from student limit 5;
+
+#注释
 -- 从第3行其返回6个数据, offset表示从何处开始
 #select * from student limit 6 offset 3;
 
--- order by
+
+
+###3.排序
+#order by
 #order by后面可以有多个字段，依次进行排序
 #select * from student order by class,sno;
+
 #order by支持按列排序
 #select  sno,sname,ssex from student order by 3,1;
+
 #order by是最后一个子句，desc的作用范围是其前面的一条，如果有多条，则需要每条后面都要说明course
 /*select * from student order by sno desc,class;
 select * from student order by sname desc,class asc;
 select * from student order by sname desc,class desc;*/
 
 
-#where
+
+###4.where子句过滤(行数据)
 #select * from score where sno>103 order by sno desc,degree desc;
 #select * from  student as s  where s.sbirthday>'1974-06-03'  and s.sbirthday <'1977-09-01 00:00:00'
+
 #测试空值
 #select * from student where sbirthday is Null;
+
 #and
 #select * from teacher where tsex='女' and depart ='计算机系';
+
 #or
 #select * from teacher where tsex='女' or depart ='助教';
+
 #and 和or的组合，and优先级更高,导致有sno<107的数据进入
 -- select * from score where sno>107 or degree>80 and cno='3-105';
 #and 和or的组合，and优先级更高,用小括号消除歧义
 -- select * from score where (sno>107 or degree>80) and cno='3-105';
 
--- in
+
+
+###5.where子句高级使用
+#in
 #select * from  student where  sname in('李时珍','陆君','王丽') order by sbirthday desc;
 /*select * from  student where  sname in(
     select sname from student where sname !='李时珍');#此处子查询只能有一条返回的数据
     */
--- not
+
+#not
 -- not 可以否定任何条件，相当于取反，其位于条件之前
 -- select * from score where not degree>80; 
 
 
--- like
+
+###6.通配符
+#like
 -- select * from student where  sname like '王%';
 -- select * from student where  sname like '%王%';
 # select * from student where  class like %95; #通配符之能对文本类型的字段使用，无法对非文本类型字段使用
+
+#'_','%'
 #select * from student where sname like '王_';
 #select * from student where sname like '_王_';
 #select * from student where sname like '[王李]%';#[]在mysql之中好像不起作用？
 
--- 拼接
+
+
+###7.拼接，计算
+#拼接
 -- mysql不支持这种，支持的是concat函数
 -- select sname +'|'+ ssex +'|'+ from student;
 -- select sname,ssex,concat( sname, '-' , ssex) as info from student;
@@ -71,13 +102,67 @@ select * from student order by sname desc,class desc;*/
 #select GROUP_CONCAT(sname,ssex)from student;
 #select concat(sname,'-', ssex) as info from student; #中间的-是一个连接符
 #select *from student where sno>104;
+
 #执行算数计算
 #select sno, sname, ssex,class, sno+sno as 2sno from student  where  sno>109;
 #select now();
 #select trim('abc');
 
--- 使用函数
+
+
+###8.使用函数
 -- select upper(sname), ssex from student ;
 -- select length(sname), ssex from student ;
 -- select sname,sbirthday from student where Year(sbirthday)>1978;
-select sin(sno) as sinsno from student where dayofmonth(sbirthday)=14;
+-- select sin(sno) as sinsno from student where dayofmonth(sbirthday)=14;
+-- select PI();
+-- select curdate();
+-- select now();
+-- select dayofmonth(now());
+-- select dayofmonth(sbirthday) from student;
+-- select * from student as s where DayofMonth(s.sbirthday)>13;
+
+
+
+###9.聚合函数sum avg count max min 返回一个值,对于Null值忽略，是不是不能用于where子句？
+-- select concat(sum(degree),'---',avg(degree),'---',count(sno)) as allinof,sno from score;
+-- select concat(sum(degree),'---',avg(degree),'---',count(sno)) as allinof,sno from score where degree>avg(degree);#invalid use group function
+-- select sno, avg(degree) as avg_degree from  score where sno>101 order by sno desc ;
+
+/*select sno, avg(distinct(degree)) as avg_degree from  score where sno>avg(sno);
+select sno, avg(distinct(degree)) as avg_degree from  score where sno>(select avg(sno) from score);
+*/
+
+
+
+###10.分组
+-- select sno,count(*) as nu from score group by sno order by sno desc;
+-- having和where在语法上是相同的，但是作用上是不一样，而“类似的”，having过滤分组数据，where过滤行数据。
+-- select ssex,count(*) as nu from student group by ssex having count(*)>3;
+-- select ssex,count(*) as nu from student where sno>104 group by ssex having count(*)>3;#where group by having 可以同时使用
+-- select sno,ssex,count(*) as nu from student where sno>104 group by ssex having count(*)>2 order by sno asc;#排序不能只依靠group by,还是要用order by
+-- select tbname,count(tbname) as book,press from textbook where price>30 group by press having count(*)>2;
+-- select  tbname,tbno,author,count(author) as a from textbook group by author having count(author)>1;
+-- select  tbname,press,count(press) as a from textbook group by author having count(press)>1 order by a desc;
+
+
+
+###11.子查询
+#刘冰老师所教课程的出版社与书名
+/*
+select tno from teacher where tname='刘冰';
+select cno from course where tno='831';
+select press, tbname from textbook where cno ='5-238';
+
+select press, tbname from textbook where cno in(
+    select cno from course where tno in(
+        select tno from teacher where tname='刘冰'));
+*/
+
+#所有老师所教课程的出版社与书名，输出press, tbname
+/*select press, tbname from textbook where cno in(
+    select cno from course where tno in(
+        select tno from teacher));
+*/
+
+#所有老师所教课程的出版社与书名，输出tno，press, tbname
