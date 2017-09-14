@@ -165,4 +165,42 @@ select press, tbname from textbook where cno in(
         select tno from teacher));
 */
 
-#所有老师所教课程的出版社与书名，输出tno，press, tbname
+#所有老师所教课程的出版社与书名，输出tname，press, tbname
+-- select tname,press,tbname from 
+-- select cno from course where tno in(
+-- select tno from teacher);
+
+/*
+select tname,tno,tbname,press
+from teacher,textbook
+where textbook.cno in
+(select course.cno from course where course.tno=teacher.tno);*/
+
+###12.联结
+/*select cname,tbname,press,price,author 
+from course,textbook
+where course.cno=textbook.cno order by price desc;
+*/
+
+#笛卡尔积(结果是表一行数*表二行数)
+/*select tname,tno,tbname,press
+from teacher,textbook;*/
+#等值联结
+/*
+select cname,tbname,press
+from course,textbook
+where course.cno=textbook.cno;
+*/
+
+#内联（就是等值联结）
+#上面一句和这一句相等同
+/*
+select cname,tbname,press
+from course inner join textbook
+on course.cno=textbook.cno;*/
+
+#多个表的内联
+/*select tname,cname, tbname,press
+from teacher,course,textbook
+where teacher.tno=course.tno and course.cno=textbook.cno order by tname;
+*/
