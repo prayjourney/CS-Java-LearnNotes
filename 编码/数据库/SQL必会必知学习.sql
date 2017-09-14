@@ -1,4 +1,4 @@
-# select * from student;
+DAY# select * from student;
 -- select sno,sname from student;
 -- select * from student;
 
@@ -64,7 +64,20 @@ select * from student order by sname desc,class desc;*/
 #select * from student where sname like '[王李]%';#[]在mysql之中好像不起作用？
 
 -- 拼接
+-- mysql不支持这种，支持的是concat函数
 -- select sname +'|'+ ssex +'|'+ from student;
-select sname,ssex,concat( sname, '-' , ssex) as info from student;
-select concat( sname, '-' , ssex) as info from student;
-select GROUP_CONCAT(sname,ssex)from student;
+-- select sname,ssex,concat( sname, '-' , ssex) as info from student;
+#select concat( sname, '-' , ssex) as info from student;
+#select GROUP_CONCAT(sname,ssex)from student;
+#select concat(sname,'-', ssex) as info from student; #中间的-是一个连接符
+#select *from student where sno>104;
+#执行算数计算
+#select sno, sname, ssex,class, sno+sno as 2sno from student  where  sno>109;
+#select now();
+#select trim('abc');
+
+-- 使用函数
+-- select upper(sname), ssex from student ;
+-- select length(sname), ssex from student ;
+-- select sname,sbirthday from student where Year(sbirthday)>1978;
+select sin(sno) as sinsno from student where dayofmonth(sbirthday)=14;

@@ -38,6 +38,16 @@ CREATE TABLE IF NOT EXISTS `teacher` (
   `depart` varchar(10) NOT NULL COMMENT '部门'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='教师';
 
+-- 导出  表 aboutstudent.textbook 结构
+CREATE TABLE IF NOT EXISTS `textbook` (
+  `tbno` varchar(10) NOT NULL COMMENT '教材号',
+  `tbname` varchar(60) NOT NULL COMMENT '教材名',
+  `cno` varchar(5) NOT NULL COMMENT '课程号',
+  `press` varchar(20) NOT NULL COMMENT '出版社',
+  `presstime` datetime NOT NULL COMMENT '出版时间',
+  `author` varchar(30) NOT NULL COMMENT '作者',
+  `price` decimal(10,2) NOT NULL COMMENT '价格'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='教材';
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
