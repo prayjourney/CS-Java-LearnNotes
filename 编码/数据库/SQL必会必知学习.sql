@@ -233,3 +233,20 @@ where teacher.tno=course.tno and course.cno=textbook.cno order by tname;
 -- select sc.*,st.sno as stno, st.sname as stsname ,count(st.sno) as numbers, st.ssex as stssex from score as sc right outer join student as st on  sc.sno=st.sno group by sc.degree asc,sc.sno desc;
 -- select  sc.sno as num, sc.degree as deg, sc.cno, count(sc.sno) as snonum from score as sc where deg>75;#列之中的别名不传递
 -- select  sc.sno as num, sc.degree as deg, sc.cno, count(sc.cno) as snonum from score as sc where degree>75 group by sc.cno;
+
+
+
+###组合查询
+#UNION（多个where子句，就可转化成UNION的形式）
+/*UNION中两个select语句所查之列，必须数据相同
+select s.sno, s.sname, s.sex from student as s where sno>110
+Union
+select t.tbname, t.press, t.price  from textbook as t where price>36;
+*/
+#union all不去除重复，union默认去除重复
+/*
+select s.sno as sn from score as s where s.sno>60
+union all
+select st.sno as stn from student as st where st.sno>80
+order by  sn; 
+*/
