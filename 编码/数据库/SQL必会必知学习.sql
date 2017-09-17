@@ -204,3 +204,32 @@ on course.cno=textbook.cno;*/
 from teacher,course,textbook
 where teacher.tno=course.tno and course.cno=textbook.cno order by tname;
 */
+-- select tbname as bookname,press as pressname,price as bookprice from textbook as tb,course as cs where  tb.cno=cs.cno;
+
+###创建高级连接
+#自连接
+-- select * from course where  cname=(select cname from course where cname='计算机导论');
+-- 等价于select * from course where cname='计算机导论';
+-- #当cname处的=，子查询的返回结果大于1条的时候，会报错，下面的语句是错误的，下下面的是正确的
+-- select * from course where  cname=(select cname from course where length(cname)>4);
+-- select * from course where  cname in (select cname from course where length(cname)>4);
+#使用自连接（自连接代替子查询，效率也很高）
+-- select c1.cno,c1.cname,c1.tno from course as c1,course as c2 where c1.cno=c2.cno and c1.cname=c2.cname;
+
+#自然连接（保持每个列只出现一次）
+-- 自然联结要求你只能选择那些唯一的列，一般通过对一个表使用通配符（SELECT *）。
+-- select sc.*,st.sno as stno, st.sname as stsname ,st.ssex as stssex from score as sc,student as st where  sc.sno=st.sno;
+
+#外连接（包含了在表中没有关联的行）
+-- 关联时候，无where，一律换成on
+-- inner join:select sc.*,st.sno as stno, st.sname as stsname ,st.ssex as stssex from score as sc inner join student as st on  sc.sno=st.sno;
+-- left outer join:select sc.*,st.sno as stno, st.sname as stsname ,st.ssex as stssex from score as sc left outer join student as st on  sc.sno=st.sno;
+-- right outer join:select sc.*,st.sno as stno, st.sname as stsname ,st.ssex as stssex from score as sc right outer join student as st on  sc.sno=st.sno;
+-- full outer join（MySQL无full outer join）：select sc.*,st.sno as stno, st.sname as stsname ,st.ssex as stssex from score as sc full outer join student as st on  sc.sno=st.sno;
+
+#使用聚合函数的连接
+#聚合函数返回的结果是一个结果，所以其结果是一个数字，此时，如果所要展示的列之中，必须是条件之中所过滤后的列
+-- select sc.*,st.sno as stno, st.sname as stsname ,st.ssex as stssex from score as sc right outer join student as st on  sc.sno=st.sno group by sc.degree asc,sc.sno desc;
+-- select sc.*,st.sno as stno, st.sname as stsname ,count(st.sno) as numbers, st.ssex as stssex from score as sc right outer join student as st on  sc.sno=st.sno group by sc.degree asc,sc.sno desc;
+-- select  sc.sno as num, sc.degree as deg, sc.cno, count(sc.sno) as snonum from score as sc where deg>75;#列之中的别名不传递
+-- select  sc.sno as num, sc.degree as deg, sc.cno, count(sc.cno) as snonum from score as sc where degree>75 group by sc.cno;
