@@ -267,4 +267,26 @@ order by  sn;
 ##Insert Select和Select  Into的区别
 -- Insert select:导出数据
 -- Select   into:导入数据(select * into custcopy from customer)
-insert into 
+-- insert into book select * from booktemp where bid<106;
+-- (mysql不支持)select  * into  booktemp from  book;
+-- create table booktable1  as select * from booktemp;
+-- create table booktable2  as select * from booktemp where price >60;
+-- create table booktable3  as select * from booktemp group by press having count(*)>=2
+-- create table booktable4  as select * from booktemp;#(为了删除数据库)
+/*INSERT INTO `aboutstudent`.`booktable3` (`bid`, `bname`, `press`, `price`) VALUES ('102', '红楼春梦', 'XXX出版社', '399.5');
+INSERT INTO `aboutstudent`.`booktable3` (`bid`, `bname`, `press`, `price`) VALUES ('103', '红楼轶梦', 'XXX出版社', '69.50');
+INSERT INTO `aboutstudent`.`booktable3` (`bid`, `bname`, `press`, `price`) VALUES ('104', '红楼轶梦', 'XXX出版社', '69.50');*/
+
+
+###Update and Delete
+#update
+-- 有where(某一行),无where(全表)
+-- update booktable3 set bname='红楼春梦' where bid=102; 
+-- update booktable3 set bname='红楼遗梦', press='国色天香出版社' where bid=103; 
+-- update booktable3 set bname='红楼遗梦', press=null where bid=104;#相当于删除某列的值
+
+#delete(删除的是表之中的数据)
+-- 有where(某一行),无where(全表)
+-- delete from booktable4 where bid=101;
+-- delete from booktable4;
+
