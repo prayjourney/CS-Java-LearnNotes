@@ -153,7 +153,6 @@ select sno, avg(distinct(degree)) as avg_degree from  score where sno>(select av
 select tno from teacher where tname='刘冰';
 select cno from course where tno='831';
 select press, tbname from textbook where cno ='5-238';
-
 select press, tbname from textbook where cno in(
     select cno from course where tno in(
         select tno from teacher where tname='刘冰'));
@@ -250,3 +249,17 @@ union all
 select st.sno as stn from student as st where st.sno>80
 order by  sn; 
 */
+
+
+
+###Insert
+-- insert into  teacher values('326','张学友','M','1968-07-22 18:36:54','歌手','音乐学院');
+-- insert into  teacher (tno,tname,tsex,tbirthday,prof,depart) values('325','Bie','M','1992-09-12 18:36:54','歌手','音乐学院');
+-- insert into book values(110,'繁星春水','巴金','国家出版社',15.9);
+-- insert into book(bid,bname,author,press,price) values(109,'京华春梦','梁羽生','成人出版社',92.8);
+-- insert into book(bid,bname,price) values(111,'Cava编程思想',192.8);
+#Insert Select检索插入语句(要保证两个表的结构相同)
+#Insert Select(Error)
+-- insert into teacher values(select t1.tno,t1.tname,t1.tsex,t1.tbirthday,t1.prof,t1.depart from  teacher as t1 where t1.tno='326' union select  *from  teacher as t2 where t2.tno='100');
+#Insert Select(Okay)
+-- insert  into book(bid,bname,author,press,price) select * from booktemp where bid<106;# insert select;
