@@ -261,5 +261,10 @@ order by  sn;
 #Insert Select检索插入语句(要保证两个表的结构相同)
 #Insert Select(Error)
 -- insert into teacher values(select t1.tno,t1.tname,t1.tsex,t1.tbirthday,t1.prof,t1.depart from  teacher as t1 where t1.tno='326' union select  *from  teacher as t2 where t2.tno='100');
-#Insert Select(Okay)
+#Insert Select(Okay)(可以用where过滤，更可以一次性插入多条语句)
 -- insert  into book(bid,bname,author,press,price) select * from booktemp where bid<106;# insert select;
+
+##Insert Select和Select  Into的区别
+-- Insert select:导出数据
+-- Select   into:导入数据(select * into custcopy from customer)
+insert into 
