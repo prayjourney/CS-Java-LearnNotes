@@ -278,6 +278,7 @@ INSERT INTO `aboutstudent`.`booktable3` (`bid`, `bname`, `press`, `price`) VALUE
 INSERT INTO `aboutstudent`.`booktable3` (`bid`, `bname`, `press`, `price`) VALUES ('104', '红楼轶梦', 'XXX出版社', '69.50');*/
 
 
+
 ###Update and Delete
 #update
 -- 有where(某一行),无where(全表)
@@ -290,3 +291,33 @@ INSERT INTO `aboutstudent`.`booktable3` (`bid`, `bname`, `press`, `price`) VALUE
 -- delete from booktable4 where bid=101;
 -- delete from booktable4;
 
+
+
+###create and manipulate database
+#create(选择某种缩进，最好是四个空格，主键，注释，默认值，默认值好于null)
+/*
+#注意在定义语句里面和外面，有：有“=”和无“=”的区别#
+create table if not exists parent(
+    pid int auto_increment not null comment'ID',
+    pfname varchar(25)  not null default 'XXX的爸爸' comment '学生爸爸名字',
+    pmname varchar(25)  not null default 'XXX的妈妈' comment '学生妈妈名字',
+    sno    varchar(3)   not null comment '学生学号',
+    pftel  varchar(11)  not null comment '学生爸爸电话',
+    pmtel  varchar(11)  not null comment '学生妈妈电话',
+    primary key(pid)
+ )default charset=utf8 AUTO_INCREMENT=100 comment='学生父母的信息';
+-- 有主键，自增信息，以及自增开始处的定义方式
+*/
+
+#alter table(更新表的定义，主要是字段)
+#alter table要和数据备份（包括模式与数据）联系起来，修改表的操作有一定的风险性
+/*create table foralter as select * from booktemp; 准备工作*/
+-- alter table foralter add presstime date default current_date();
+-- alter table foralter add testinfo varchar(20) default "test";
+-- alter table foralter drop testinfo;
+
+#drop table(删除表)
+-- drop table foralter;
+
+#Rename(重命名表)
+-- rename table foralter to foralter1;
