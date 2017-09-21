@@ -321,3 +321,17 @@ create table if not exists parent(
 
 #Rename(重命名表)
 -- rename table foralter to foralter1;
+
+
+
+###View视图
+#view(主要目的是为了SQL的重用)
+-- (error)create view v1;#创建view
+-- create view bookview as select * from book where price >50;#不能丢了AS,后面要有检索填充的数据
+-- drop view v1;
+/*select p.pfname, p.pmname, s.sno,s.sname, sc.cno,sc.degree from parent as p,student as s,score as sc where p.sno=s.sno and s.sno=sc.sno;*/
+-- 简化SQL，重用SQL
+-- create view par_stu_scopar_stu_sco as select p.pfname, p.pmname, s.sno,s.sname, sc.cno,sc.degree from parent as p,student as s,score as sc where p.sno=s.sno and s.sno=sc.sno;
+-- select * from bookview where bid>103;#view的查询
+-- 格式化数据
+-- create view bookcontactview as select concat(bid,'-',bname,'-',author,'-',press,'-',price) as bookinfo from book where price>40;
