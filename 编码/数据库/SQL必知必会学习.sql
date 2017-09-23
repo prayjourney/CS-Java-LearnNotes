@@ -335,3 +335,50 @@ create table if not exists parent(
 -- select * from bookview where bid>103;#view的查询
 -- 格式化数据
 -- create view bookcontactview as select concat(bid,'-',bname,'-',author,'-',press,'-',price) as bookinfo from book where price>40;
+
+
+
+###存储过程
+#略
+
+
+
+###事务管理
+#MySQL事务管理
+/*
+begin;
+insert into booktable2(bid,bname,author,press,price)values(220,"东京爱情故事",'小田正和','文艺出版社',93.2);
+insert into booktable2(bid,bname,author,press,price)values(221,"西西里美丽传说",'雅马哈','文艺出版社',117.2);
+insert into booktable2(bid,bname,author,press,price)values(222,"孽海花",'曾朴','商务出版社',36.8);
+delete  from booktable2 where bid=106; 
+commit;
+*/
+
+#MySQl事务回滚
+/*
+begin;
+insert into booktable2 (bid,bname,author,press,price)values(223,'西北往事','玛尔莎','西安大学出版社',36.9);
+delete  from booktable2 where bid=222;
+rollback;
+select * from booktable2 where bid =222;
+select * from booktable2 where bid =223;
+*/
+
+#MySQL创建保留点
+begin ;
+insert into booktable2(bid,bname,author,press,price)values(230,'长安乱','韩寒','天神出版社',22.8);
+insert into booktable2(bid,bname,author,press,price)values(231,'乱世佳人','lucy','朗文版社',232.7);
+insert into booktable2(bid,bname,author,press,price)values(232,'汤姆叔叔的小屋','马克','纽约大学出版社',72.8);
+delete from booktable2 where bid=223;
+savepoint spoint1;
+insert into booktable2(bid,bname,author,press,price)values(233,'轰动武林','霹雳','霹雳出版社',122.3);
+delete from booktable2 where bid=224;
+savepoint spoint2;
+insert into booktable2(bid,bname,author,press,price)values(234,'轰定干戈','霹雳','霹雳出版社',112.6);
+insert into booktable2(bid,bname,author,press,price)values(235,'轰掣天下','霹雳','霹雳出版社',152.7);
+insert into booktable2(bid,bname,author,press,price)values(236,'轰霆剑海录','霹雳','霹雳出版社',142.8);
+delete from booktable2 where bid=225;
+savepoint spoint3;
+rollback to spoint2;#只能这样在里面弄吗？
+commit;
+select * from booktable2 where bid=223 or bname='乱世佳人' or bid>230 and bid<236;
