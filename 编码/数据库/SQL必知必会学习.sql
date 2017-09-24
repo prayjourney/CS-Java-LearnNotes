@@ -365,6 +365,7 @@ select * from booktable2 where bid =223;
 */
 
 #MySQL创建保留点
+/*
 begin ;
 insert into booktable2(bid,bname,author,press,price)values(230,'长安乱','韩寒','天神出版社',22.8);
 insert into booktable2(bid,bname,author,press,price)values(231,'乱世佳人','lucy','朗文版社',232.7);
@@ -382,3 +383,7 @@ savepoint spoint3;
 rollback to spoint2;#只能这样在里面弄吗？
 commit;
 select * from booktable2 where bid=223 or bname='乱世佳人' or bid>230 and bid<236;
+*/
+
+
+###游标
