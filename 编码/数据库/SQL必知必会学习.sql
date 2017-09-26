@@ -387,3 +387,161 @@ select * from booktable2 where bid=223 or bname='乱世佳人' or bid>230 and bi
 
 
 ###游标
+
+
+
+###高级特性
+#约束:管理如何插入或处理数据库数据的规则
+
+##主键
+/*
+create table product (
+    pdtid int  primary key auto_increment comment '产品id',
+	 pdtname varchar(20) default '产品X' comment '产品名称',
+	 pdtprice int  not null comment '产品价格',
+	 pdtdescribe text comment '产品说明'
+	 )default charset='utf8' comment='产品信息表'
+*/
+
+#外键：必须是其他表的主键，一张表之中可以有多个外键
+#机器自动生成的定义
+/*
+CREATE TABLE `order` (
+	`oid` INT(11) NOT NULL COMMENT '订单ID',
+	`oname` VARCHAR(50) NULL DEFAULT NULL COMMENT '订单名',
+	`pno` VARCHAR(50) NOT NULL DEFAULT '0' COMMENT '商品数量',
+	`odescribe` TINYTEXT NULL COMMENT '订单描述',
+	`otime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '下单时间',
+	`pid` INT(11) NOT NULL COMMENT '商品ID',
+	PRIMARY KEY (`oid`),
+	INDEX `pid` (`pid`),
+	CONSTRAINT `pid` FOREIGN KEY (`pid`) REFERENCES `product` (`pdtid`) ON UPDATE CASCADE ON DELETE CASCADE
+)
+COLLATE='utf8_general_ci' ENGINE=InnoDB;
+*/
+
+#这个定义OKAY，是一个简易的定义
+/*create table foreigntable1(
+    tid int,
+    tname varchar(50),
+    primary key(tid)
+    )engine=InnoDB ;
+*/
+/*create table foreigntable2(
+    tid2 int,
+    t2name varchar(50),
+	 tidid int,
+	 primary key(tid2),
+	 FOREIGN KEY(tidid) REFERENCES t1 (tid)
+	 )engine=InnoDB;    
+*/
+#比较实际复杂一点的外键定义
+
+/*create table orderinfo (
+    oid int comment '订单ID',
+    oname varchar(50)  not null default '订单名：' comment '订单名',
+    pid int not null comment '订单商品的商品ID',
+    pno int default 0 comment '订单上屏数量',
+    odetail tinytext null comment '订单详情',
+    otime timestamp default current_timestamp comment '订单时间',
+    primary key(oid),
+    foreign  key (pid) references product(pdtid) on update cascade on delete cascade
+    )engine=Innodb default charset='utf8' comment='订单详情';
+*/
+
+/*
+insert into product(pdtid,pdtname,pdtprice,pdtdescribe) values
+    (100,'健力宝',3.5,'健力宝'),
+    (101,'可口可乐',3.5,'可口可乐'),
+    (102,'王老吉',5,'王老吉'),
+    (103,'海飞丝',23.5,'海飞丝')
+*/
+
+#给订单之中插入数据，必须是在商品表之中存在的商品ID
+/*insert into orderinfo(oid,oname,pid,pno,odetail) values
+      (1000,'订购可口可乐',101,30,'订购可口可乐30箱'),
+      (1001,'订购健力宝',100,50,'订购健力宝50箱'),
+      (1002,'订购海飞丝',103,18,'订购海飞丝18瓶')
+*/
+-- delete from product where pdtname='健力宝';#设置为cascade，同时删除了product表和orderinfo之中的数据
+-- update product set pdtname='海飞丝活力版',pdtprice=25.6  where pdtname='海飞丝'; #此处也设置了级联，但是没有数据上的影响，因为没有用到相关的数据
+-- insert into product values(120,'walkman',1629,'walkman音乐播放器');
+-- insert into product(pdtid,pdtname,pdtprice,pdtdescribe)values(121,'macbook pro',11800,'macbook pro 2017款，金属灰，256G');
+-- insert into product(pdtid,pdtname,pdtprice,pdtdescribe)values(122,'new balance 376',678,'new balance 376跑鞋');
+/*
+insert into orderinfo(oid,oname,pid,pno,odetail) values 
+       (1020,'new balance 跑鞋',122,30,'30双new balance跑鞋'),
+       (1021,'macbook pro',121,5,'5台macbook pro'),
+       (1022,'walkman',120,10,'10台walkman');
+*/
+-- insert into orderinfo(oid,oname,pid,pno,odetail) values  (1050,'new balance 跑鞋',130,30,'30双new balance跑鞋');#报错，因为没有这个商品
+
+##check and  unique 检查约束和唯一约束
+/*create table check_unique(
+        id int auto_increment comment 'id',
+        name varchar(20) not null comment '姓名',
+        age int not null comment '年龄' ,
+        unique (name),#定义了unique约束
+        check(age>15),
+        primary key(id)
+        )engine=Innodb default charset='utf8' comment='检查check和唯一unique' auto_increment=10 ;
+#在定义完了数据库表之后，最下面的一行是需要用=将key和value来连接起来的；
+#比如单独放一个auto_increment就会出错,定义auto_increment是在ID处，而最后一行定义的是从那个值开始增长
+*/
+-- insert into check_unique values(1,'jhon',22);
+-- insert into check_unique(name,age) values('mary',26);
+-- insert into check_unique(name,age) values('张三',18);
+-- insert into check_unique(name,age) values('李四',13);
+-- insert into check_unique(name,age) values('李四',18)#违反unique约束，一个表之中可以有多个unique约束
+-- alter table check_unique rename to uniquetable;
+/*
+create table uniquetable(
+        id int auto_increment comment 'id',
+        name varchar(20) not null comment'姓名',
+        age int not null comment'年龄',
+        primary key(id),
+        unique(name),#定义了unique约束
+        check(age>20)#定义了check约束,check在mysql之中就是个摆设，会被忽略
+        )engine=innodb auto_increment=checktablechecktable10 default charset='utf8' comment='年龄，姓名，ID表';*/
+
+-- insert into checktable(name,age)  values('jhon',3);
+-- insert into checktable(name,age)  values('jhon',3);#违反unique约束
+-- alter table checktable rename to tb_check;
+-- alter table uniquetable rename to tb_unique;
+
+##索引index,
+#创建索引的目的是为了加快查询，过多的索引会占据大量空间，所以也会导致查询速度下降很严重；
+#索引是一种特殊的文件(InnoDB数据表上的索引是表空间的一个组成部分)，它们包含着对数据表里所有记录的引用指针。
+#索引分为聚簇索引和非聚簇索引两种，聚簇索引是按照数据存放的物理位置为顺序的，而非聚簇索引就不一样了；聚簇索引能提高多行检索的速度，而非聚簇索引对于单行的检索很快。
+#索引按照种类可以分为1.普通索引，2.唯一索引，3.全文索引（仅可用于 MyISAM 表），4.单列索引、多列索引，5. 组合索引（最左前缀）
+/*
+create table tb_index(
+        id int auto_increment,
+        name varchar(20) not null comment'姓名',
+        age int not null comment'年龄',
+        height float not null comment'身高',
+        birthday date not null comment'生日',
+        home varchar(50) default 'X省X市X区' comment'故乡',
+        hobby varchar(100) null comment'喜好',
+        primary key(id),
+        index cmonindex(age),#普通索引
+        unique index uqindex(height)#唯一索引
+        )engine=Innodb default charset='utf8' comment='个人信息的索引表';
+show index from tb_index;
+*/
+#创建组合索引
+-- create index combindex on tb_index (home,hobby);
+-- create index tempindex on tb_index(birthday);
+#删除索引
+-- drop index tempindex on tb_index;uniquetableuniquetableuniquetable
+/*
+insert into tb_index values
+       (1,'zhangsan',22,173,'1992-09-08','承德','唱歌'),
+       (2,'lisi',24,163,'1991-09-08','铁岭','街舞'),
+       (3,'wangerxiao',20,179,'1997-02-03','石家庄','摇滚'),
+       (4,'marry',34,176,'1982-09-08','杭州','游泳'),
+       (5,'kuang hai',24,181,'1992-09-08','重庆','吃火锅'),
+       (6,'wawenhui',27,169,'1990-09-08','德令哈','啪啪啪')
+*/
+-- select * from tb_index where id=6;
+
