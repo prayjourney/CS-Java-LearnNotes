@@ -545,3 +545,59 @@ insert into tb_index values
 */
 -- select * from tb_index where id=6;
 
+#触发器
+/*
+create table tb_trigger_goods(
+       id int primary key auto_increment comment 'ID',
+       name varchar(20) default '商品X' comment '商品X',
+       price float not null comment'商品价格',
+       nature varchar(100) default '' comment'商品性质 ',
+       unique index(name)
+       )engine=innodb default charset='utf8' comment='商品表';
+       
+create table tb_trigger_goodscalist(
+       glid int auto_increment,
+       glnu int not null comment '商品数量',
+       gldatetime datetime  comment'更新时间',
+       primary key(glid)
+       )engine=innodb default charset='utf8' comment='商品库存表';
+*/
+-- alter table  tb_trigger_goodscalist drop column gldatetime;#删除一列
+#创建触发器
+-- drop trigger tginsert; --删除触发器
+/*
+create trigger tginsert
+after insert
+on tb_trigger_goods for each row
+insert into tb_trigger_goodscalist(glnu,gldatetime) values(glnu+1,now());
+
+create trigger tgdelete
+after insert
+on tb_trigger_goods for each row
+update tb_trigger_goodscalist set glnu=glnu-1;
+*/
+/*insert into tb_trigger_goods(id,name,price,nature) values(1,'LV'，22.5，'奢侈品');*/
+/*
+CREATE TABLE tg_student_info (
+  stu_no INT(11) NOT NULL AUTO_INCREMENT,
+  stu_name VARCHAR(255) DEFAULT NULL,
+  PRIMARY KEY (stu_no)
+);
+CREATE TABLE tg_student_count (
+  student_count INT(11) DEFAULT 0
+);
+*/
+-- INSERT INTO tg_student_count VALUES(0);
+-- 创建触发器
+/*
+CREATE TRIGGER trigger_student_count_insert
+AFTER INSERT
+ON tg_student_info FOR EACH ROW
+UPDATE tg_student_count SET student_count=student_count+1;
+
+CREATE TRIGGER trigger_student_count_delete
+AFTER DELETE
+ON tg_student_info FOR EACH ROW
+UPDATE tg_student_count SET student_count=student_count-1;
+*/
+-- INSERT INTO tg_student_info VALUES(NULL,'张明'),(NULL,'李明'),(NULL,'王明');#触发触发器
