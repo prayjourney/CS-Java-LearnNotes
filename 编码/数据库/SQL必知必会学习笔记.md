@@ -225,10 +225,111 @@ where Orders.cust_id = Customers.cust_id
 
 
 ###chapter12 联结表
+**联结**:联结是利用sql的select能执行的最重要的操作，相同的数据出现多次造成的冗余对于数据库的效能有很大的影响
+**创建联结**:指定要连接的**所有表**，以及**关联它们的方式**即可，例子如下
+```sql
+select vend_name, prod_name, prod_price
+from Vendors, Products
+where Vendors.vend_id = Products.vend_id;
+```
+++这里最大的差别是**Select语句所指定的两列不在同一张表之中**，*prod_name*和*prod_price*在一个表中，而*vend_name*在另一个表中++；**From子句表示查询的来源有两张表**，分别是***Vendors***和***Products***。它们就是这条select语句联结的两个表的名字。这两个表用where子句正确地联结，**where子句指示DBMS将Vendors表中的vend_id与Products表中的vend_id匹配起来**，这就是联结的条件
+**Where子句的重要性**:在数据库表的定义中没有指示DBMS如何对表进行联结的内容。必须自己做这件事情。**在联结两个表时，实际要做的是将第一个表中的每一行与第二个表中的每一行配对**，而这个条件的动作，是要在Where子句之中实现
+**笛卡儿积**:笛卡儿积(cartesian product)**由没有联结条件**的表关系返回的结果为*笛卡儿积*。++检索出的行的数目将是第一个表中的行数乘以第二个表中的行数++，**笛卡儿积有时也称叉联结(cross join)**，假设A表有10行，B表有6行，则A表与B表进行笛卡尔联结，一共有60个结果
+```sql
+SELECT vend_name, prod_name, prod_price
+FROM Vendors, Products;
+```
+**内联结**:基于两个表之间的**相等测试的联结称为等值联结**(equijoin)，也称为**内联结**(inner join)，此语句中的SELECT部分没有改变，++但from子句不同++。这里，两个表之间的关系是以inner join指定的部分from子句。在使用这种语法时，联结条件用特定的on子句而不是where子句给出。传递给on的实际条件与传递给where的相同。
+```sql
+SELECT vend_name, prod_name, prod_price
+FROM Vendors INNER JOIN Products
+ON Vendors.vend_id = Products.vend_id;
+```
+**联结多个表**:SQL不限制一条SELECT语句中可以联结的表的数目，多个表的联结主要是在where子句之中，设定联结多个条件。**使用联结时候，需要考虑数据库的性能**，不要联结不必要的表。联结的表越多，性能下降越厉害。
+**联结和子查询**:子查询并不总是执行复杂SELECT操作的最有效方法，有时候联结和子查询可以转换，下面两个就是等价抓换的例子。
+```sql
+SELECT cust_name, cust_contact
+FROM Customers
+WHERE cust_id IN (SELECT cust_id
+                  FROM Orders
+                  WHERE order_num IN (SELECT order_num
+                                      FROM OrderItems
+                                      WHERE prod_id = 'RGAN01'));
+```
+```sql
+SELECT cust_name, cust_contact
+FROM Customers, Orders, OrderItems
+WHERE Customers.cust_id = Orders.cust_id
+      AND OrderItems.order_num = Orders.order_num
+      AND prod_id = 'RGAN01';
+```
 
 
 
+###chapter13 创建高级联结
+**使用表别名**:**表别名只在查询执行中使用**。与列别名不一样，表别名不返回到客户端，关键字为**AS**
+```sql
+SELECT cust_name, cust_contact
+FROM Customers AS C, Orders AS O, OrderItems AS OI
+WHERE C.cust_id = O.cust_id
+AND OI.order_num = O.order_num
+AND prod_id = 'RGAN01';
+```
+**自联结**:使用表别名的一个主要原因是能在一条SELECT语句中不止一次引用相同的表，当查询条件之中只有一个值的时候，可以使用等号，下面是自连接的例子，以下是两种功能相同的查询操作，第一种使用的是子查询，第二种使用的是自联结，**自联结通常作为外部语句，用来替代从相同表中检索数据的使用子查询语句，但是自联结的效率高于子查询**，重点是某个属性，对自身表的操作(也是一种特殊的自然联结，只是两张表都是它自己)
+```sql
+SELECT cust_id, cust_name, cust_contact
+FROM Customers
+WHERE cust_name = (SELECT cust_name
+                   FROM Customers
+                   WHERE cust_contact = 'Jim Jones');
+```
+```sql
+SELECT c1.cust_id, c1.cust_name, c1.cust_contact
+FROM Customers AS c1, Customers AS c2
+WHERE c1.cust_name = c2.cust_name
+      AND c2.cust_contact = 'Jim Jones';
+```
+**自然联结**:无论何时对表进行联结，应该至少有一列不止出现在一个表中（被联结的列）。**标准的联结（内联结）返回所有数据**，相同的列甚至多次出现。自**然联结排除多次出现，使每一列只返回一次**。自然联结要求你只能选择那些唯一的列，一般通过对一个表使用通配符（SELECT *），而对其他表的列使用明确的子集来完成，==++自然连接是在广义笛卡尔积R×S中选出同名属性上符合相等条件元组，再进行投影，去掉重复的同名属性，组成新的关系。即自然连接是在两张表中寻找那些数据类型和列名都相同的字段，然后自动地将他们连接起来，并返回所有符合条件按的结果++==，重点是都相同，对两张表操作
+```sql
+SELECT C.*, O.order_num, O.order_date, OI.prod_id, OI.quantity, OI.item_price
+FROM Customers AS C, Orders AS O, OrderItems AS OI
+WHERE C.cust_id = O.cust_id
+      AND OI.order_num = O.order_num
+      AND prod_id = 'RGAN01';
+```
+**外联结**:**外连接返回到查询结果集合中的不仅包含符合连接条件的行，而且还包括左表(左外连接或左连接))、右表(右外连接或右连接)或两个边接表(全外连接)中的所有数据行**。SELECT语句使用了关键字**OUTER JOIN**来指定联结类型（而不是在WHERE子句中指定）。但是，与内联结关联两个表中的行不同的是，**外联结还包括没有关联行的行**。在使用OUTER JOIN语法时，**必须使用RIGHT或LEFT关键字指定包括其所有行的表**（RIGHT指出的是OUTER JOIN右边的表，而LEFT指出的是OUTER JOIN左边的表）
+```sql
+SELECT Customers.cust_id, Orders.order_num
+FROM Customers LEFT OUTER JOIN Orders
+ON Customers.cust_id = Orders.cust_id;
+```
+需要说明的是**Access、MariaDB、MySQL、Open Office Base或SQLite不支持FULL OUTER JOIN语法**。*left join*(左联接)等价于(left outer join)  返回包括左表中的所有记录和右表中联结字段相等的记录；***right join*(右联接)等价于(right outer join）返回包括右表中的所有记录和左表中联结字段相等的记录**；*full join*(全连接)等价于(full outer join)查询结果等于左外连接和右外连接的和
+**联结种类**:联结包括笛卡尔联结，**内联结(等值联结)**，**外联结**，**自然联结**
+**联结使用实践**:1.注意所使用的联结类型。一般我们使用内联结，但使用外联结也有效。2.应该总是提供联结条件，否则会得出笛卡儿积。3.在一个联结中可以包含多个表，甚至可以对每个联结采用不同的联结类型。虽然这样做是合法的，一般也很有用，但应该在一起测试它们前分别测试每个联结。这会使故障排除更为简单。
+**使用带聚集函数的联结**：聚合函数返回的结果是一个**数字**，所以此时，如果所要展示到列之中，必须是条件之中所过滤后得到的列，可以起别名，这样容易辨识，另外，如果group by时候往往需要对应的聚合函数的结果来分组
+```sql
+SELECT Customers.cust_id,
+COUNT(Orders.order_num) AS num_ord
+FROM Customers INNER JOIN Orders
+ON Customers.cust_id = Orders.cust_id
+GROUP BY Customers.cust_id;
+```
 
 
 
-
+###chapter14 组合查询
+**组合查询**:利用**UNION**操作符将多条SELECT语句**组合**成一个结果集。这些组合查询通常称为并(union)或复合查询(compound query)
+```sql
+SELECT cust_name, cust_contact, cust_email
+FROM Customers
+WHERE cust_state IN ('IL','IN','MI')
+UNION
+SELECT cust_name, cust_contact, cust_email
+FROM Customers
+WHERE cust_name = 'Fun4All';
+```
+**Union使用**:**使用union很简单，所要做的只是给出每条SELECT语句，在各条语句之间放上关键字union**
+**Union使用规则**:**union必须由两条或两条以上的SELECT语句组成，语句之间用关键字union分隔**(因此，如果组合四条SELECT语句，将要使用三个union关键字)**union中的每个查询必须包含相同的列、表达式或聚集函数**(不过，各个列不需要以相同的次序列出)**列数据类型必须兼容：类型不必完全相同**
+**组合查询使用场景**:1.在一个查询中从不同的表返回结构数据；2.对一个表执行多个查询，按一个查询返回数据。任何具有多个WHERE子句的SELECT语句都可以作为一个组合查询
+**去除重复**:union从查询结果集中**自动去除了重复的行**，想要保留重复的行，可以使用**union all**，DBMS不取消重复的行。
+**使用Union时排序**:++在用union组合查询时，只能使用一条ORDER BY子句，并且它必须位于最后一条SELECT语句之后++，*某些DBMS还支持另外两种union: **except**(有时称为minus)可用来检索只在第一个表中存在而在第二个表中不存在的行；而**intersect**可用来检索两个表中都存在的行。实际上，这些union很少使用，因为相同的结果可利用联结得到*
