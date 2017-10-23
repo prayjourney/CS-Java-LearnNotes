@@ -332,4 +332,118 @@ WHERE cust_name = 'Fun4All';
 **Union使用规则**:**union必须由两条或两条以上的SELECT语句组成，语句之间用关键字union分隔**(因此，如果组合四条SELECT语句，将要使用三个union关键字)**union中的每个查询必须包含相同的列、表达式或聚集函数**(不过，各个列不需要以相同的次序列出)**列数据类型必须兼容：类型不必完全相同**
 **组合查询使用场景**:1.在一个查询中从不同的表返回结构数据；2.对一个表执行多个查询，按一个查询返回数据。任何具有多个WHERE子句的SELECT语句都可以作为一个组合查询
 **去除重复**:union从查询结果集中**自动去除了重复的行**，想要保留重复的行，可以使用**union all**，DBMS不取消重复的行。
-**使用Union时排序**:++在用union组合查询时，只能使用一条ORDER BY子句，并且它必须位于最后一条SELECT语句之后++，*某些DBMS还支持另外两种union: **except**(有时称为minus)可用来检索只在第一个表中存在而在第二个表中不存在的行；而**intersect**可用来检索两个表中都存在的行。实际上，这些union很少使用，因为相同的结果可利用联结得到*
+**使用Union时排序**:++在用union组合查询时，只能使用一条ORDER BY子句，并且它必须位于最后一条SELECT语句之后++，*某些DBMS还支持另外两种union: **except**(有时称为minus)可用来检索只在第一个表中存在而在第二个表中不存在的行；而**intersect**可用来检索两个表中都存在的行。实际上，这些union很少使用，因为相同的结果可利用联结得到*、
+
+
+
+###chapter15 插入数据
+**数据插入**:插入分为完整的行和部分数据,但是都需要使用**insert**关键字，insert后的into通常是可选的，但是最好不要省略。*其含义是将一些字段插入到某个表之中的一些字段之中*，第一个例子是完整版本，第二个例子是默认对所有的字段都提供数据，在第一个例子之中可以只插入部分数据。一个原则是**不要使用没有明确给出列的INSERT语句。给出列能使SQL代码继续发挥作用，即使表结构发生了变化**。
+```sql
+INSERT INTO Customers
+(cust_id,cust_name,cust_address,cust_city,cust_state,
+cust_zip,cust_country,cust_contact,cust_email)
+VALUES('1000000006','Toy Land','123 Any Street','New York',
+'NY','11111','USA',NULL,NULL);
+```
+```sql
+INSERT INTO Customers
+VALUES('1000000006','Toy Land','123 Any Street','New York',
+'NY','11111','USA',NULL,NULL);
+```
+**插入检索出的数据**:使用的语法是**Insert Select**，由一条Insert语句和一条Select语句组成，需要注意的是，**select出来的数据必须和insert插入的字段相一致**,其后可以使用where语句过滤，普通情况下如果要增加多行数据，则需要执行多条语句，但是**在Insert Select语句之中，可以一次性插入多条记录**。
+```sql
+INSERT INTO Customers(cust_id,cust_contact,cust_email,
+cust_name,cust_address,cust_city,cust_state,
+cust_zip,cust_country)
+	SELECT cust_id,cust_contact,cust_email,
+		cust_name,cust_address,cust_city,cust_state,
+		cust_zip,cust_country
+	FROM CustNew;
+```
+**从一个表复制到另一个表**:**Select Into将数据复制到一个新表**，Select Into和Insert Select的区别是，select into将数据从一个表复制到另一个新表，而insert select是导出数据。使用select into想要全部信息，则可以用"\*,如果只想要复制部分的列，可以明确给出列名，而不是使用/*通配符.
+```sql
+SELECT *
+INTO CustCopy
+FROM Customers;
+
+SELECT ID,Name,Email
+INTO CustCopy
+FROM Customers;
+```
+
+
+
+###chapter16 更新和删除数据
+**更新数据**:更新表中的数据分为，**更新表中特定的行**，**更新表中的所有行**，*要删除某个列的值，可设置它为NULL(假如表定义允许NULL值)*
+```sql
+UPDATE Customers
+SET cust_contact = 'Sam Roberts',
+    cust_email = 'sam@toyland.com'
+WHERE cust_id = '1000000006';
+```
+**删除数据**:从表中删除数据有删除一行和删除所有的行这两种，使用的关键字是**Delete From**，删除语句的使用要小心，另外也需要有足够的权限，Delete后面的From是可选的，但是最好别省略。
+```sql
+ELETE FROM Customers
+WHERE cust_id = '1000000006';
+```
+**更新和删除的指导原则**:
+- 除非确实打算更新和删除每一行，否则绝对不要使用不带WHERE子句的UPDATE或DELETE语句
+- **保证每个表都有主键**，尽可能像WHERE子句那样使用它（可以指定各主键、多个值或值的范围）
+- 在UPDATE或DELETE语句使用WHERE子句前，应该先用SELECT进行测试，保证它过滤的是正确的记录，以防编写的WHERE子句不正确
+- 使用强制实施引用完整性的数据库，这样DBMS将不允许删除其数据与其他表相关联的行
+- 有的DBMS允许数据库管理员施加约束，防止执行不带WHERE子句的UPDATE或DELETE语句。如果所采用的DBMS支持这个特性，应该使用它
+
+
+
+###chapter17 创建和操纵表
+**创建表**：创建表使用Create Table关键字，表名紧跟Create Table关键字，定义体之中是表中的字段。*sql语句最好以某种格式缩进*
+```sql
+create table if not exists parent(
+    pid int auto_increment not null comment'ID',
+    pfname varchar(25)  not null default 'XXX的爸爸' comment '学生爸爸名字',
+    pmname varchar(25)  not null default 'XXX的妈妈' comment '学生妈妈名字',
+    sno    varchar(3)   not null comment '学生学号',
+    pftel  varchar(11)  not null comment '学生爸爸电话',
+    pmtel  varchar(11)  not null comment '学生妈妈电话',
+    primary key(pid)
+ )default charset=utf8 AUTO_INCREMENT=100 comment='学生父母的信息';
+-- 有主键，自增信息，以及自增开始处的定义方式
+*/
+```
+**默认值**：SQL允许指定默认值，在插入行时如果不给出值，DBMS将自动采用默认值，另外，最好不要使用NULL值，让所有的字段都有默认值，是一个比较好的方法，而且，不要混淆Null和空字符串，二者是不一样的。
+**更新表**：更新表定义，可以使用**ALTER TABLE**语句，以下是使用ALTER
+TABLE时需要考虑的事情。
+- 理想情况下，不要在表中包含数据时对其进行更新。应该在表的设计过程中充分考虑未来可能的需求，避免今后对表的结构做大改动。
+- 所有的DBMS都允许给现有的表增加列，不过对所增加列的数据类型（以及NULL和DEFAULT的使用）有所限制。
+- 许多DBMS不允许删除或更改表中的列。
+- 多数DBMS允许重新命名表中的列。
+- 许多DBMS限制对已经填有数据的列进行更改，对未填有数据的列几乎没有限制。
+
+```sql
+-- 添加一列
+ALTER TABLE Vendors
+ADD vend_phone CHAR(20);
+-- 删除一列
+ALTER TABLE Vendors
+DROP COLUMN vend_phone;
+```
+**复杂表结构**:对于复杂的表结构更改一般需要手动删除过程，它涉及以下步骤：
+- 用新的列布局创建一个新表；
+- 使用**INSERT SELECT**语句（关于这条语句的详细介绍，请参阅第15课）从旧表复制数据到新表。有必要的话，可以使用转换函数和计算字
+段；
+- 检验包含所需数据的新表；
+- 重命名旧表（如果确定，可以删除它）；
+- 用旧表原来的名字重命名新表；
+- 根据需要，重新创建触发器、存储过程、索引和外键。
+
+**删除表**:删除表（删除整个表而不是其内容）非常简单，使用DROP TABLE语句即可
+
+**重命名表**:每个DBMS对表重命名的支持有所不同,-
+```sql
+-- MySQL修改表名
+RENAME TABLE 表名 TO 新表名； -- 这里面的TO不可以省略
+```
+
+
+
+###chapter18 使用视图
