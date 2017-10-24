@@ -438,7 +438,7 @@ DROP COLUMN vend_phone;
 
 **删除表**:删除表（删除整个表而不是其内容）非常简单，使用DROP TABLE语句即可
 
-**重命名表**:每个DBMS对表重命名的支持有所不同,-
+**重命名表**:每个DBMS对表重命名的支持有所不同
 ```sql
 -- MySQL修改表名
 RENAME TABLE 表名 TO 新表名； -- 这里面的TO不可以省略
@@ -447,3 +447,151 @@ RENAME TABLE 表名 TO 新表名； -- 这里面的TO不可以省略
 
 
 ###chapter18 使用视图
+**视图**:视图是虚拟的表，视图的数据来源于表之中，*视图只包含使用时动态检索数据的查询*。通俗的说，**视图不包含“原始数据”，包含查询数据，这些查询数据来自于一个SQL语句的执行结果**。
+**为何使用视图**:粗略而言有如下原因，但是也要注意，*视图的数据源自于查询，查询会导致效率下降*
+- 重用SQL语句
+- 简化复杂的SQL操作。在编写查询后，可以方便地重用它而不必知道其基本查询细节
+- 使用表的一部分而不是整个表
+- 保护数据。可以授予用户访问表的特定部分的权限，而不是整个表的访问权限
+- 更改数据格式和表示。视图可返回与底层表的表示和格式不同的数据
+
+**视图的规则和限制**:粗略而言有如下限制
+- 与表一样，视图必须唯一命名（不能给视图取与别的视图或表相同的名字）
+- 创建视图，必须具有足够的访问权限。这些权限通常由数据库管理人员授予
+- 视图可以嵌套，即可以利用从其他视图中检索数据的查询来构造视图。所允许的嵌套层数在不同的DBMS中有所不同（嵌套视图可能会严重降低查询的性能，因此在产品环境中使用之前，应该对其进行全面测试）
+- 许多DBMS禁止在视图查询中使用ORDER BY子句
+
+**创建视图**:创建视图使用**Create View**关键字，删除视图使用**Drop View viewname**，在创建的时候，**AS关键字不能丢了**
+```sql
+CREATE VIEW ProductCustomers AS
+SELECT cust_name, cust_contact, prod_id
+FROM Customers, Orders, OrderItems
+WHERE Customers.cust_id = Orders.cust_id
+AND OrderItems.order_num = Orders.order_num;
+-- 当创建了视图之后，可以对其进行查询
+SELECT cust_name, cust_contact
+FROM ProductCustomers
+WHERE prod_id = 'RGAN01';
+```
+**视图的过滤作用**:结合Where子句，可以过滤一些不想要的数据
+```sql
+CREATE VIEW CustomerEMailList AS
+SELECT cust_id, cust_name, cust_email
+FROM Customers
+WHERE cust_email IS NOT NULL;
+-- email为空的数据被过滤掉了
+```
+**小结**:视图为虚拟的表。它们包含的不是数据而是根据需要检索数据的查询。视图提供了一种封装SELECT语句的层次，可用来简化数据处理，重新格式化或保护基础数据
+
+
+
+
+###chapter19 使用存储过程
+**存储过程**:存储过程就是为以后使用而保存的一条或多条SQL语句。可将其视为批文件，但是其作用不止于此，不同的数据库的语法不同。存储过程有如下优点，1.**通过把处理封装在一个易用的单元中，可以简化复杂的操作（如前面例子所述）**。2.**由于不要求反复建立一系列处理步骤，因而保证了数据的一致性**。MySQL从MySQL5开始支持存储过程，如下提供一个Oracle存储过程的例子
+```sql
+CREATE PROCEDURE MailingListCount (
+ListCount OUT INTEGER
+) IS
+v_rows INTEGER;
+BEGIN
+    SELECT COUNT(*) INTO v_rows
+    FROM Customers
+    WHERE NOT cust_email IS NULL;
+    ListCount := v_rows;
+END;
+```
+
+
+
+###chapter20 事务处理
+**事务处理**:事务处理(transaction processing)，通过确保成批的SQL操作要么完全执行，要么完全不执行，来维护数据库的完整性，**保证了数据操作的原子性**，事务处理用来**管理INSERT、UPDATE和DELETE语句**，不能回退SELECT语句(回退SELECT语句也没有必要)，也不能回退CREATE或DROP操作。事务处理中可以使用这些语句，但进行回退时，这些操作也不撤销
+
+**相关术语**:事务处理中的相关术语
+- **事务**（transaction）指一组SQL语句
+- **回退**（rollback）指撤销指定SQL语句的过程
+- **提交**（commit）指将未存储的SQL语句结果写入数据库表
+- **保留点**（savepoint）指事务处理中设置的临时占位符（placeholder），可以对它发布回退（与回退整个事务处理不同）
+
+**控制事务处理**:不同的数据库的实现不太一样
+SQL Server之中
+```sql
+BEGIN TRANSACTION
+...
+COMMIT TRANSACTION
+```
+在MariaDB和MySQL，相同的功能如下代码实现
+```sql
+START TRANSACTION
+...
+-- 其中的...表示省略的SQL操作语句
+```
+SQL的**ROLLBACK**命令用来回退（撤销）SQL语句
+```sql
+DELETE FROM Orders;
+ROLLBACK;
+```
+在事务处理块中，提交不会隐式进行。不同DBMS的做法有所不同。进行明确的提交，使用**COMMIT**语句。
+```sql
+begin;  # 开始事务
+insert into runoob_transaction_test value(5);
+insert into runoob_transaction_test value(6);
+commit; # 提交事务
+```
+```sql
+begin;    # 开始事务
+insert into runoob_transaction_test values(7);
+rollback;  # 回滚
+select * from runoob_transaction_test;
+```
+**使用保留点**:使用简单的ROLLBACK和COMMIT语句，就可以写入或撤销整个事务。但是，只对简单的事务才能这样做，复杂的事务可能需要部分提交或回退，**要支持回退部分事务，必须在事务处理块中的合适位置放置占位符**。这样，如果需要回退，可以回退到某个占位符。在SQL中，这些占位符称为**保留点**。在MariaDB、MySQL和Oracle中创建占位符，可使用**SAVEPOINT**语句，可以在SQL代码中设置任意多的保留点，越多越好。为什么呢？因为保留点越多，你就越能灵活地进行回退
+```sql
+SAVEPOINT delete1;
+```
+```sql
+begin ;
+insert into booktable2(bid,bname,author,press,price)values(230,'长安乱','韩寒','天神出版社',22.8);
+insert into booktable2(bid,bname,author,press,price)values(231,'乱世佳人','lucy','朗文版社',232.7);
+insert into booktable2(bid,bname,author,press,price)values(232,'汤姆叔叔的小屋','马克','纽约大学出版社',72.8);
+delete from booktable2 where bid=223;
+savepoint spoint1;
+insert into booktable2(bid,bname,author,press,price)values(233,'轰动武林','霹雳','霹雳出版社',122.3);
+delete from booktable2 where bid=224;
+savepoint spoint2;
+insert into booktable2(bid,bname,author,press,price)values(234,'轰定干戈','霹雳','霹雳出版社',112.6);
+insert into booktable2(bid,bname,author,press,price)values(235,'轰掣天下','霹雳','霹雳出版社',152.7);
+insert into booktable2(bid,bname,author,press,price)values(236,'轰霆剑海录','霹雳','霹雳出版社',142.8);
+delete from booktable2 where bid=225;
+savepoint spoint3;
+rollback to spoint1;#只能这样在里面弄吗？
+commit;
+select * from booktable2 where bid=223 or bname='乱世佳人';
+```
+
+
+
+###chapter21 游标
+**创建游标**:SQL检索操作返回一组称为结果集的行，这组返回的行都是与SQL语句相匹配的行（零行或多行）。使用**DECLARE语句**创建游标
+```sql
+DECLARE CustCursor CURSOR
+FOR
+SELECT * FROM Customers
+WHERE cust_email IS NULL
+```
+**使用游标**:使用OPEN CURSOR语句打开游标，用FETCH语句访问游标数据，使用CLOSE CustCursor来关闭游标
+```sql
+OPEN CURSOR CustCursor
+```
+```sql
+DECLARE TYPE CustCursor IS REF CURSOR
+RETURN Customers%ROWTYPE;
+DECLARE CustRecord Customers%ROWTYPE
+BEGIN
+OPEN CustCursor;
+LOOP
+FETCH CustCursor INTO CustRecord;
+EXIT WHEN CustCursor%NOTFOUND;
+...
+END LOOP;
+CLOSE CustCursor;
+END;
+```
