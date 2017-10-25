@@ -595,3 +595,157 @@ END LOOP;
 CLOSE CustCursor;
 END;
 ```
+
+
+
+###chapter22 高级SQL特性
+**约束**:**管理如何插入或处理数据库数据的规则**，利用键来建立从一个表到另一个表的引用(由此产生了术语引用完整性(referential integrity))
+**主键**:**主键是一种特殊的约束**，用来保证一列（或一组列）中的值是唯一的，**而且永不改动**。换句话说，表中的一列（或多个列）的值唯一标识表中的每一行。这方便了直接或交互地处理表中的行。没有主键，要安全地UPDATE或DELETE特定行而不影响其他行会非常困难。
+```sql
+CREATE TABLE Vendors(
+vend_id CHAR(10) NOT NULL PRIMARY KEY,
+vend_name CHAR(50) NOT NULL,
+vend_address CHAR(50) NULL,
+vend_city CHAR(50) NULL,
+vend_state CHAR(5) NULL,
+vend_zip CHAR(10) NULL,
+vend_country CHAR(50) NULL
+);
+```
+```sql
+-- 给表的vend_id列定义添加关键字PRIMARY KEY，使其成为主键
+ALTER TABLE Vendors
+ADD CONSTRAINT PRIMARY KEY (vend_id);
+```
+**外键**:**外键是表中的一列，其值必须列在另一表的主键中**。外键是保证引用完整性的极其重要部分。在定义外键后，DBMS不允许删除在另一个表中具有关联行的行,由于需要一系列的删除，因而利用**外键可以防止意外删除数据**
+```sql
+create table orderinfo (
+    oid int comment '订单ID',
+    oname varchar(50)  not null default '订单名：' comment '订单名',
+    pid int not null comment '订单商品的商品ID',
+    pno int default 0 comment '订单上屏数量',
+    odetail tinytext null comment '订单详情',
+    otime timestamp default current_timestamp comment '订单时间',
+    primary key(oid),
+    foreign  key (pid) references product(pdtid) on update cascade on delete cascade
+    )engine=Innodb default charset='utf8' comment='订单详情';
+```
+```sql
+ALTER TABLE Orders
+ADD CONSTRAINT
+FOREIGN KEY (cust_id) REFERENCES Customers (cust_id)
+```
+**唯一约束**:**唯一约束用来保证一列（或一组列）中的数据是唯一的**。它们类似于主键
+- 表可包含多个唯一约束，但每个表只允许一个主键
+- 唯一约束列可包含NULL值
+- 唯一约束列可修改或更新
+- 唯一约束列的值可重复使用
+- 与主键不一样，唯一约束不能用来定义外键
+
+```sql
+create table check_unique(
+        id int auto_increment comment 'id',
+        name varchar(20) not null comment '姓名',
+        age int not null comment '年龄' ,
+        unique (name),#定义了unique约束
+        check(age>15),
+        primary key(id)
+        )engine=Innodb default charset='utf8' comment='检查check和唯一unique' auto_increment=10 ;
+```
+**检查约束**:用来保证一列（或一组列）中的数据满足一组指定的条件,检查约束的常见用途有以下几点
+- 检查最小或最大值。例如，防止0个物品的订单（即使0是合法的数）
+- 指定范围。例如，保证发货日期大于等于今天的日期，但不超过今天起一年后的日期
+- 只允许特定的值。例如，在性别字段中只允许M或F
+
+```sql
+CREATE TABLE OrderItems(
+order_num INTEGER NOT NULL,
+order_item INTEGER NOT NULL,
+prod_id CHAR(10) NOT NULL,
+quantity INTEGER NOT NULL CHECK (quantity > 0),
+item_price MONEY NOT NULL
+);
+```
+```sql
+-- 添加检查约束，在Mysql之中，检查约束形同虚设
+ADD CONSTRAINT CHECK (gender LIKE '[MF]')
+```
+
+**索引**:索引用来排序数据以加快搜索和排序操作的速度，不要忘了创建时候的**ON**关键字，在开始创建索引前，应该记住以下内容
+- 索引改善检索操作的性能，**但降低了数据插入、修改和删除的性能**。在执行这些操作时，DBMS必须动态地更新索引。
+- 索引数据可能要占用大量的存储空间
+- 并非所有数据都适合做索引。取值不多的数据（如州）不如具有更多可能值的数据（如姓或名），能通过索引得到那么多的好处
+- 索引用于数据过滤和数据排序。如果你经常以某种特定的顺序排序数据，则该数据可能适合做索引
+- 可以在索引中定义多个列（例如，州加上城市）。这样的索引仅在以州加城市的顺序排序时有用。如果想按城市排序，则这种索引没有用处
+
+```sql
+##索引index,
+#创建索引的目的是为了加快查询，过多的索引会占据大量空间，所以也会导致查询速度下降很严重；
+#索引是一种特殊的文件(InnoDB数据表上的索引是表空间的一个组成部分)，它们包含着对数据表里所有记录的引用指针。
+#索引分为聚簇索引和非聚簇索引两种，聚簇索引是按照数据存放的物理位置为顺序的，而非聚簇索引就不一样了；聚簇索引能提高多行检索的速度，而非聚簇索引对于单行的检索很快。
+#索引按照种类可以分为1.普通索引，2.唯一索引，3.全文索引（仅可用于 MyISAM 表），4.单列索引、多列索引，5. 组合索引（最左前缀）
+/*
+create table tb_index(
+        id int auto_increment,
+        name varchar(20) not null comment'姓名',
+        age int not null comment'年龄',
+        height float not null comment'身高',
+        birthday date not null comment'生日',
+        home varchar(50) default 'X省X市X区' comment'故乡',
+        hobby varchar(100) null comment'喜好',
+        primary key(id),
+        index cmonindex(age),#普通索引
+        unique index uqindex(height)#唯一索引
+        )engine=Innodb default charset='utf8' comment='个人信息的索引表';
+show index from tb_index;
+*/
+#创建组合索引
+-- create index combindex on tb_index (home,hobby);
+-- create index tempindex on tb_index(birthday);
+#删除索引
+-- drop index tempindex on tb_index;uniquetableuniquetableuniquetable
+/*
+insert into tb_index values
+       (1,'zhangsan',22,173,'1992-09-08','承德','唱歌'),
+       (2,'lisi',24,163,'1991-09-08','铁岭','街舞'),
+       (3,'wangerxiao',20,179,'1997-02-03','石家庄','摇滚'),
+       (4,'marry',34,176,'1982-09-08','杭州','游泳'),
+       (5,'kuang hai',24,181,'1992-09-08','重庆','吃火锅'),
+       (6,'wawenhui',27,169,'1990-09-08','德令哈','啪啪啪')
+*/
+-- select * from tb_index where id=6;
+```
+
+**触发器**:**触发器是特殊的存储过程**，它在特定的数据库活动发生时自动执行。*触发器可以与特定表上的INSERT、UPDATE和DELETE操作（或组合）相关联*。与存储过程不一样（存储过程只是简单的存储SQL语句），**触发器与单个的表相关联**，
+**用途**:触发器有如下的一些常见用途
+- 保证数据一致。例如，在INSERT或UPDATE操作中将所有州名转换为大写
+- 基于某个表的变动在其他表上执行活动。例如，每当更新或删除一行时将审计跟踪记录写入某个日志表
+- 进行额外的验证并根据需要回退数据。例如，保证某个顾客的可用资金不超限定，如果已经超出，则阻塞插入
+- 计算计算列的值或更新时间戳
+
+**比较**:和约束相比，一般来说，**约束的处理比触发器快，因此在可能的时候，应该尽量使用约束**
+```sql
+-- drop trigger tginsert; --删除触发器
+
+-- 创建触发器，不要忘了ON关键字
+
+CREATE TRIGGER trigger_student_count_insert
+AFTER INSERT
+ON tg_student_info FOR EACH ROW
+UPDATE tg_student_count SET student_count=student_count+1;
+
+CREATE TRIGGER trigger_student_count_delete
+AFTER DELETE
+ON tg_student_info FOR EACH ROW
+UPDATE tg_student_count SET student_count=student_count-1;
+
+-- INSERT INTO tg_student_info VALUES(NULL,'张明'),(NULL,'李明'),(NULL,'王明');#触发触发器
+```
+
+** 数据库安全**:安全性使用SQL的**GRANT**和**REVOKE**语句来管理，不过，大多数DBMS提供了交互式的管理实用程序，这些实用程序在内部使用GRANT和REVOKE语句。一般说来，需要保护的操作有如下一些
+- 对数据库管理功能（创建表、更改或删除已存在的表等）的访问
+- 对特定数据库或表的访问
+- 访问的类型（只读、对特定列的访问等）
+- 仅通过视图或存储过程对表进行访问
+- 创建多层次的安全措施，从而允许多种基于登录的访问和控制
+- 限制管理用户账号的能力
