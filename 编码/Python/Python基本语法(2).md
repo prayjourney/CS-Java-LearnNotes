@@ -219,8 +219,8 @@ lambda表达式通常来写跳转表（包含行为的列表或者字典），**
     >>> act(3)
 ```
 ![lambda嵌套](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_222.png)
-11.标准库学习指南
-12.注意
+11.标准库学习指南（待续）
+12.注意（待续）
 &nbsp;&nbsp;在Python之中，字符的处理对于编码有要求，Python默认的字符集对于中文的支持不太好，所以我们需要在__*每个py文件的第一句，写上如下代码:*__
 ```python
 # -*- coding: utf-8 -*-
