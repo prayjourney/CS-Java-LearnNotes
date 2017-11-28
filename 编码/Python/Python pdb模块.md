@@ -33,7 +33,20 @@
 | **help**           | 帮助            |
 
 
-。
+
+##### pdb 常用函数
+
+| 函数签名                                     | 作用                                       |
+| ---------------------------------------- | ---------------------------------------- |
+| pdb.run(statement, globals=None, locals=None) | 运行语句,statement接收的是一个str类型的方法，如“模块名.方法"此种类型，返回结果 |
+| pdb.set_trace()                          | 设置断点，通常在硬编码之中使用，运行到此处时，开始调用栈帧            |
+| pdb.pm()                                 | 调试结束后，进入调试信息的回溯                          |
+| pdb.runeval(expression, globals=None, locals=None) | 评估表达式，表达式是一个str对象或者code对象，返回运行的结果，和run函数类似 |
+| pdb.runcall(function, *args, /*/*kwds)   | 调用函数(函数或者方法对象，而非str)，并且给予参数，返回函数调用的结果    |
+| pdb.post_mortem(traceback=None)          | 给出调试完成后的回溯对象，如果没有回溯，将返回一个正在处理的           |
+
+
+
 ref:
 
 1.[python 调试 pdb](http://blog.csdn.net/kevin_darkelf/article/details/50585970), 2.[零基础学习PDB命令行调试Python代码](http://python.jobbole.com/81184/), 3.[用PDB库调试Python程序](http://www.cnblogs.com/dkblog/archive/2010/12/07/1980682.html), 4.[Python 代码调试技巧](https://www.ibm.com/developerworks/cn/linux/l-cn-pythondebugger/)
