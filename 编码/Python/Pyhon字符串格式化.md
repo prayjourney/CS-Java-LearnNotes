@@ -37,7 +37,7 @@ py3
 5. 精度（4）
 6. 格式化类型（f）
 - 1、6必须，2、3、4、5可选
-具体的使用，见如下使用小例
+  具体的使用，见如下使用小例
 
 
 
@@ -109,3 +109,6 @@ print(poemdict)
 # string类型可以有精度，但是没有作用
 # string类型不能格式化成int，但是int类型可以转化为string类型
 ```
+ref:
+
+1.[Python字符串格式化](http://www.jianshu.com/p/6417cc0ea26d),   2.[python字符串格式化输出](http://www.jianshu.com/p/25dd0bf1d7a2),  3.[python字符串格式化、os模块和sys模块](http://www.jianshu.com/p/f543f85cda61)
