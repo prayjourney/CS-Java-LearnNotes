@@ -35,7 +35,8 @@ openpyxl就是围绕着这三个概念进行的，
 # from openpyxl.workbook import Workbook
 
 from openpyxl import Workbook, load_workbook
-
+from openpyxl.drawing.image import Image
+from openpyxl.styles import Alignment, Font
 # 写入
 wb = Workbook()  # 创建一个工作簿，一个工作簿创建好之后，默认就有一个sheet
 # wb = workbook.Workbook()
@@ -51,6 +52,17 @@ for x in range(10):
 sheet['E1'].value = "=SUM(A:A)"
 for st in wb:  # 打印标题
     print(st.title)
+
+# 插入图片，需要PIL库支持
+sheet2['E2'] = 'You should see three logos below'
+img = Image('mg.jpg')
+sheet2.add_image(img, 'E2')
+
+
+# 样式设置，字体大小
+font = Font(name="小米兰亭", size=20)
+sheet2.cell(row=3, column=1).font = font
+
 wb.save("myfrist.xlsx")  # 保存
 
 # 读取
@@ -68,9 +80,16 @@ for i in sheet['A']:
 
 ss = wr.get_sheet_by_name('自己创建的sheet2')
 ss['C4'] = "MLGB"
+ss.append([1, 2, "hello"])  # 添加三个cell数值,一般要求添加的格式是list,tuple,dict,不能是str
+# ss.append({"hi": "你好"})  # 添加一个值
 # 遍历多个单元格
 for row in ss.iter_rows('A1:D2'):
     for cell in row:
         print(cell)
+# 使用sheet中的cell来操作Cell
+md1 = ss.cell('A3').value
+mdc = ss.cell(row=4, column=3)
+md2 = mdc.value
+print("====", md1, md2)
 
 wr.save("myfrist.xlsx")
