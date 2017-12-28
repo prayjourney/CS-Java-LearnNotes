@@ -520,6 +520,298 @@ $ git commit -m'mv rename'
 
 ```
 
+##### 查看提交历史
+
+最基本的查看提交历史的命令就是`git log`了，它会显示所有的历史，此时进入文本read-only模式(VIM)，需要使用基本的进入，退出等操作，这个不在话下。`git log`命令常有很多 的参数，一个常用的选项是 `-p`，**用来显示每次提交的内容差异**。 加上 `-2` 来仅显示最近两次提交；`--stat` 选项在每次提交的下面列出所有文件的增删改和文件内容的增删改情况，这是基本常用的命令，其他命令可以查询
+
+```shell
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git log -p -2
+commit e56502a144d8f157dfc60296636089ee3235337b (HEAD -> master)
+Author: hello <123456@qq.com>
+Date:   Thu Dec 28 15:24:04 2017 +0800
+
+    mv rename
+
+diff --git a/tt.txt b/tt1.txt
+similarity index 100%
+rename from tt.txt
+rename to tt1.txt
+
+commit 63475c1e79f00f0b11c153a01bcb6fba26985d8a
+Author: hello <123456@qq.com>
+Date:   Thu Dec 28 15:21:42 2017 +0800
+
+    move action
+
+diff --git a/aaa.txt b/s1/123.txt
+similarity index 100%
+rename from aaa.txt
+rename to s1/123.txt
+
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git log --stat -3
+commit e56502a144d8f157dfc60296636089ee3235337b (HEAD -> master)
+Author: hello <123456@qq.com>
+Date:   Thu Dec 28 15:24:04 2017 +0800
+
+    mv rename
+
+ tt.txt => tt1.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit 63475c1e79f00f0b11c153a01bcb6fba26985d8a
+Author: hello <123456@qq.com>
+Date:   Thu Dec 28 15:21:42 2017 +0800
+
+    move action
+
+ aaa.txt => s1/123.txt | 0
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+commit b627e58c45f055b6e64dcf79096cf802cbe982a3
+Author: hello <123456@qq.com>
+Date:   Thu Dec 28 15:20:46 2017 +0800
+
+    213213
+
+ s1/qqq.txt | 1 +
+ 1 file changed, 1 insertion(+)
+
+```
+
+git log 的常用选项
+
+| 选项              |                    说明                    |
+| --------------- | :--------------------------------------: |
+| -p              |            按补丁格式显示每个更新之间的差异。             |
+| --stat          |             显示每次更新的文件修改统计信息。             |
+| --shortstat     |        只显示 --stat 中最后的行数修改添加移除统计。        |
+| --name-only     |            仅在提交信息后显示已修改的文件清单。            |
+| --name-status   |             显示新增、修改、删除的文件清单。             |
+| --abbrev-commit |      仅显示 SHA-1 的前几个字符，而非所有的 40 个字符。      |
+| --relative-date |      使用较短的相对时间显示（比如，“2 weeks ago”）。      |
+| --graph         |          显示 ASCII 图形表示的分支合并历史。           |
+| --pretty        | 使用其他格式显示历史提交信息。可用的选项包括 oneline，short，full，fuller 和 format（后跟指定格式）。 |
+
+##### 撤消操作
+
+###### 提交后(未修改快照)，修改提交信息
+
+有时候我们提交完了才发现漏掉了几个文件没有添加，或者提交信息写错了。 此时，可以运行带有 `--amend` 选项的提交命令尝试重新提交
+
+```shell
+$ git commit --amend
+```
+
+这个命令会将暂存区中的文件提交。 如果自上次提交以来你还未做任何修改（例如，在上次提交后马上执行了此命令），那么快照会保持不变，而修改的只是提交信息。如果提交后发现忘记了暂存某些需要的修改，可以像下面这样操作，(暂时没有演示，只展示命令)
+
+```shell
+$ git commit -m 'initial commit'
+$ git add forgotten_file
+$ git commit --amend
+```
+
+最终只会有一个提交，也就是第二次提交将代替第一次提交的结果，如下
+
+```shell
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git add mmm123.txt
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git commit -m 'add mmm123.txt'
+[master a575e22] add mmm123.txt
+ 1 file changed, 1 insertion(+)
+ create mode 100644 mmm123.txt
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git log -p -1
+commit a575e2225c1b35411d133b1115bca6393290766e (HEAD -> master)
+Author: prayjourney <2247359268@qq.com>
+Date:   Thu Dec 28 17:18:20 2017 +0800
+
+    add mmm123.txt     # 提交的信息
+
+diff --git a/mmm123.txt b/mmm123.txt
+new file mode 100644
+index 0000000..6e9e156
+--- /dev/null
++++ b/mmm123.txt
+@@ -0,0 +1 @@
++1232132112312
+\ No newline at end of file
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git commit --amend -m'add mmm123.txt hello'    # 修改提交的信息
+[master c97ccc3] add mmm123.txt hello
+ Date: Thu Dec 28 17:18:20 2017 +0800
+ 1 file changed, 1 insertion(+)
+ create mode 100644 mmm123.txt
+
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git log -p -1
+commit c97ccc30c76e148bbc3ab2c07b64d10da9944f3e (HEAD -> master)
+Author: prayjourney <2247359268@qq.com>
+Date:   Thu Dec 28 17:18:20 2017 +0800
+
+    add mmm123.txt hello    # 修改了提交的信息
+
+diff --git a/mmm123.txt b/mmm123.txt
+new file mode 100644
+index 0000000..6e9e156
+--- /dev/null
++++ b/mmm123.txt
+@@ -0,0 +1 @@
++1232132112312
+\ No newline at end of file
+
+```
+
+
+
+###### 取消暂存文件
+
+取消暂存文件，说明此时，文件已经被暂存起来了，也就是已经运行过了`git add xxx`命令，此时需要取消这次add，那么就需要使用`git reset HEAD <file>`命令，而且可如果一次存了多个文件，可以使用具体的文件名，一个一个的取消，使用例子如下
+
+```shell
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git status
+On branch master
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        mg.txt
+        pt.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git add .
+
+renjiaxin@PC-RENJIAXIN MINGW64 /e/Codes/gittest (master)
+$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        new file:   mg.txt
+        new file:   pt.txt
+
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git reset HEAD mg.txt  # 取消单个文件
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        new file:   pt.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        mg.txt
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git add .
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        new file:   mg.txt
+        new file:   pt.txt
+
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git reset HEAD .    # 取消多个文件
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git status
+On branch master
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        mg.txt
+        pt.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+```
+
+
+
+###### 撤消对文件的修改
+
+此处所讲的撤销对文件的修改指的是本地的**工作目录中的文件**，此时工作目录中的文件已经修改，但是此时还未提交到git仓库之中，此时如果我们想撤销所有对于工作目录中文件的修改，一个方法就是使用仓库中的文件，因为仓库中的文件没有修改过，所以我们可以使用它覆盖本地文件，但是这是一个很危险的动作，因为这样会让我们的工作成果，在不经意之间化为乌有，所以一定要**谨慎**！撤销的命令为`git checkout <file>`，**运行了此命令，本地文档的修改就被撤销**。比如，文档`sg.txt`的内容本来如下`123456`，提交之后，又修改`pt.txt`的内容，在第3行添加`654321 hello`
+
+```shell
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git status
+On branch master
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        sg.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git add .
+
+renjiaxin@PC-RENJIAXIN MINGW64 /e/Codes/gittest (master)
+$ git commit -m'sg 123456'
+[master 5257ed3] sg 123456
+ 1 file changed, 1 insertion(+)
+ create mode 100644 sg.txt
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   sg.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git checkout sg.txt
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git status
+On branch master
+nothing to commit, working tree clean
+
+```
+
+##### 远程仓库的使用
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ### Git 分支
@@ -528,5 +820,5 @@ $ git commit -m'mv rename'
 
 ref:
 
-1.[1.3 起步 - Git 基础](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-Git-%E5%9F%BA%E7%A1%80),   2.[1.6 起步 - 初次运行 Git 前的配置](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%88%9D%E6%AC%A1%E8%BF%90%E8%A1%8C-Git-%E5%89%8D%E7%9A%84%E9%85%8D%E7%BD%AE#_first_time),   3.[1.7 起步 - 获取帮助](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E8%8E%B7%E5%8F%96%E5%B8%AE%E5%8A%A9),   4.[2.1 Git 基础 - 获取 Git 仓库](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%8E%B7%E5%8F%96-Git-%E4%BB%93%E5%BA%93),   5.[2.2 Git 基础 - 记录每次更新到仓库](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%AE%B0%E5%BD%95%E6%AF%8F%E6%AC%A1%E6%9B%B4%E6%96%B0%E5%88%B0%E4%BB%93%E5%BA%93)   6.[]()
+1.[1.3 起步 - Git 基础](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-Git-%E5%9F%BA%E7%A1%80),   2.[1.6 起步 - 初次运行 Git 前的配置](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%88%9D%E6%AC%A1%E8%BF%90%E8%A1%8C-Git-%E5%89%8D%E7%9A%84%E9%85%8D%E7%BD%AE#_first_time),   3.[1.7 起步 - 获取帮助](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E8%8E%B7%E5%8F%96%E5%B8%AE%E5%8A%A9),   4.[2.1 Git 基础 - 获取 Git 仓库](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%8E%B7%E5%8F%96-Git-%E4%BB%93%E5%BA%93),   5.[2.2 Git 基础 - 记录每次更新到仓库](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%AE%B0%E5%BD%95%E6%AF%8F%E6%AC%A1%E6%9B%B4%E6%96%B0%E5%88%B0%E4%BB%93%E5%BA%93)   6.[2.3 Git 基础 - 查看提交历史](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2),   7.[2.4 Git 基础 - 撤消操作](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%92%A4%E6%B6%88%E6%93%8D%E4%BD%9C)
 
