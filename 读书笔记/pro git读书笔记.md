@@ -1,3 +1,5 @@
+
+
 ## pro git读书笔记
 
 ### 起步
@@ -28,7 +30,7 @@ Git之中的文件有三种状态，文件可能处于其中之一：**已提交
 
 当安装完 Git 应该做的第一件事就是设置你的用户名称与邮件地址。 **每一次 Git 提交都会使用这些信息**，并且它会写入到每一次提交中，不可更改，需要说明的是，**如下的配置都是在bash命令行之中执行的，而不是在`git config`文件之中**
 
-```cmake
+```shell
 $ git config --global user.name "prayjourney"
 $ git config --global user.email johndoe@example.com
 ```
@@ -39,7 +41,7 @@ $ git config --global user.email johndoe@example.com
 
 Git 会使用操作系统默认的文本编辑器，通常是 Vim。 如果你想使用不同的文本编辑器，例如 Emacs，可以使用如下配置：
 
-```cmake
+```shell
 $ git config --global core.editor emacs
 ```
 
@@ -47,7 +49,7 @@ $ git config --global core.editor emacs
 
 如果想要检查你的配置，可以使用 `git config --list` 命令来列出所有 Git 当时能找到的配置。
 
-```cmake
+```shell
 $ git config --list
 user.name=John Doe
 user.email=johndoe@example.com
@@ -60,7 +62,7 @@ color.diff=auto
 
 可以通过输入 `git config <key>`： 来检查 Git 的某一项配置
 
-```cmake
+```shell
 $ git config user.name
 prayjourney
 ```
@@ -69,7 +71,7 @@ prayjourney
 
 若使用 Git 时需要获取帮助，有三种方法可以找到 Git 命令的使用手册：
 
-```cmake
+```shell
 $ git help <verb>
 $ git <verb> --help
 $ man git-<verb>
@@ -77,7 +79,7 @@ $ man git-<verb>
 
 例如，要想获得 config 命令的手册，执行
 
-```cmake
+```shell
 $ git help config
 ```
 
@@ -91,13 +93,13 @@ $ git help config
 
 使用 Git 来对现有的项目进行管理，需要进入该项目目录并输入：
 
-```cmake
+```shell
 $ git init
 ```
 
 该命令将创建一个名为 `.git` 的子目录，这个子目录含有初始化的 Git 仓库中所有的必须文件，这些文件是 Git 仓库的骨干。此时仅仅是做了一个初始化的操作，项目里的文件还没有被跟踪。在一个已经存在文件的文件夹（而不是空文件夹）中初始化 Git 仓库来进行版本控制的话，**应该开始跟踪这些文件并提交**。 可通过 `git add` 命令来实现对指定文件的跟踪，然后执行 `git commit` 提交
 
-```cmake
+```shell
 $ git add *.c
 $ git add LICENSE
 $ git commit -m 'initial project version'
@@ -107,13 +109,13 @@ $ git commit -m 'initial project version'
 
 如果想获得一份已经存在了的 Git 仓库的拷贝，比如说github上面的某一个项目，这时就要用到 `git clone` 命令。 **Git 克隆的是该 Git 仓库服务器上的几乎所有数据，而不是仅仅复制完成你的工作所需要文件**。 *当执行 `git clone` 命令的时候，默认配置下远程 Git 仓库中的每一个文件的每一个版本都将被拉取下来*。 克隆仓库的命令格式是 `git clone [url]` 。 比如，要克隆 Git 的可链接库 libgit2，可以用下面的命令
 
-```cmake
+```shell
 $ git clone https://github.com/libgit2/libgit2
 ```
 
 这会在当前目录下创建一个名为 “libgit2” 的目录，并在这个目录下初始化一个 `.git` 文件夹，从远程仓库拉取下所有数据放入 `.git` 文件夹，然后从中读取最新版本的文件的拷贝。 以上命令得到的本地仓库和远程仓库名称相同，如果想在克隆远程仓库的时候，**自定义本地仓库的名字**，可以使用如下命令
 
-```cmake
+```shell
 $ git clone https://github.com/libgit2/libgit2 mylibgit
 ```
 
@@ -127,7 +129,7 @@ $ git clone https://github.com/libgit2/libgit2 mylibgit
 
 要查看哪些文件处于什么状态，可以用 `git status` 命令。 如果在克隆仓库后立即使用此命令，会看到类似这样的输出
 
-```cmake
+```shell
 $ git status
 On branch master
 nothing to commit, working directory clean
@@ -137,7 +139,7 @@ nothing to commit, working directory clean
 
 现在在项目下创建一个新的 README 文件。 如果之前并不存在这个文件，使用 `git status` 命令，你将看到一个新的**未跟踪文件**
 
-```cmake
+```shell
 $ echo 'My Project' > README
 $ git status
 On branch master
@@ -157,13 +159,13 @@ nothing added to commit but untracked files present (use "git add" to track)
 
 使用命令 `git add` 开始跟踪一个文件。 所以，要跟踪 README 文件，可以运行如下命令行
 
-```cmake
+```shell
 $ git add README
 ```
 
 此时再运行 `git status` 命令，会看到 README 文件已被跟踪，并处于暂存状态
 
-```
+```shell
 $ git status
 On branch master
 Changes to be committed:
@@ -178,7 +180,7 @@ Changes to be committed:
 
 现在我们来修改一个已被跟踪的文件。 如果**修改**了一个名为 `CONTRIBUTING.md` 的**已被跟踪的文件**，然后运行 `git status` 命令，就可实现对已经暂存的文件的状态查看
 
-```
+```shell
 $ git status
 On branch master
 Changes to be committed:
@@ -197,9 +199,9 @@ Changes not staged for commit:
 
 ###### 查看已暂存
 
-然后运行 `git add` 将"CONTRIBUTING.md"放到暂存区，输入 `git status` 可看到
+然后运行 `git add` 将"CONTRIBUTING.md"放到暂存区，现在两个文件都已暂存，下次提交时就会一并记录到仓库。输入 `git status` 可看到
 
-```
+```shell
 $ git add CONTRIBUTING.md
 $ git status
 On branch master
@@ -210,13 +212,9 @@ Changes to be committed:
     modified:   CONTRIBUTING.md
 ```
 
-现在两个文件都已暂存，下次提交时就会一并记录到仓库。
-
-######查看未暂存已修改的文件 
-
 假设此时，需要在 `CONTRIBUTING.md` 里加条注释， 然后保存，再运行 `git status` ，则有如下输出
 
-```
+```shell
 $ vim CONTRIBUTING.md
 $ git status
 On branch master
@@ -235,7 +233,7 @@ Changes not staged for commit:
 
 **此时的 `CONTRIBUTING.md` 文件同时出现在暂存区和非暂存区**。 此时的操作是**1.刚`git add`过一次，2.然后立即又修改了文档，3.再又运行`git status`命令**。实际上此时的 Git 只不过暂存了运行 `git add` 命令时的版本（**1处的版本**）， 如果此时提交，`CONTRIBUTING.md` 的版本是你最后一次运行 `git add` 命令时的那个版本（**1处的版本**），而不是在工作目录中的当前版本（**2处的版本**）。 所以，**运行了 `git add` 之后又作了修订的文件，需要重新运行 `git add` 把最新版本重新暂存起来**
 
-```
+```shell
 $ git add CONTRIBUTING.md
 $ git status
 On branch master
@@ -252,12 +250,12 @@ Changes to be committed:
 
 - `git status`:   文件的增减，修改
 - `git diff`:   文件内容的增加和修改
-  - 查看**未暂存**修改：`git diff`
-  - 查看**已暂存**修改：`git diff --cached`
+  - 查看**未暂存**修改：`git diff`，也就是**比较运行`git add`前后，修改的文件之间的差别**
+  - 查看**已暂存**修改：`git diff --cached`，这个是**比较同一个文件，在本次`git add`和前一次`git add`，两次`git add`之间的差别，cached表示两个快照之间的差别**
 
 假如再次修改 README 文件后暂存，然后编辑 `CONTRIBUTING.md` 文件后先不暂存， 运行 `status` 命令将会看到：
 
-```
+```shell
 $ git status
 On branch master
 Changes to be committed:
@@ -272,9 +270,11 @@ Changes not staged for commit:
     modified:   CONTRIBUTING.md
 ```
 
+###### 查看未暂存的修改
+
 **要查看尚未暂存的文件更新了哪些部分，不加参数直接输入 `git diff`**
 
-```
+```shell
 $ git diff
 diff --git a/CONTRIBUTING.md b/CONTRIBUTING.md
 index 8ebb991..643e24f 100644
@@ -294,9 +294,9 @@ index 8ebb991..643e24f 100644
 
 **此命令比较的是工作目录中当前文件和暂存区域快照之间的差异， 也就是修改之后还没有暂存起来的变化内容**
 
-若要查看已暂存的将要添加到下次提交里的内容，可以用 `git diff --cached` 命令。（Git 1.6.1 及更高版本还允许使用 `git diff --staged`，效果是相同的，但更好记些。）
+若要查看已暂存的将要添加到下次提交里的内容，可以用 `git diff --cached` 命令。也就是**比较同一个文件，在本次`git add`和前一次`git add`，两次`git add`之间的差别，cached表示两个快照之间的差别**，Git 1.6.1 及更高版本还允许使用 `git diff --staged`，效果是相同的，但更好记些）
 
-```
+```shell
 $ git diff --staged
 diff --git a/README b/README
 new file mode 100644
@@ -307,63 +307,218 @@ index 0000000..03902a1
 +My Project
 ```
 
-请注意，git diff 本身只显示尚未暂存的改动，而不是自上次提交以来所做的所有改动。 所以有时候你一下子暂存了所有更新过的文件后，运行 `git diff` 后却什么也没有，就是这个原因。
+请注意，**git diff 本身只显示尚未暂存的改动，而不是自上次提交以来所做的所有改动**。 所以有时候一下子暂存了所有更新过的文件后，运行 `git diff` 后却什么也没有，就是这个原因
 
-像之前说的，暂存 `CONTRIBUTING.md` 后再编辑，运行 `git status` 会看到暂存前后的两个版本。 如果我们的环境（终端输出）看起来如下：
+###### 查看已暂存的修改
 
-```
-$ git add CONTRIBUTING.md
-$ echo '# test line' >> CONTRIBUTING.md
+引入新的例子，新建一个仓库，加入aaa.txt文档在其中，将其引入跟踪，运行一次`git add aaa.txt`，其中的内容为`aaa` ，然后修改aaa.txt，在第6行加入`bbb`，此时运行 `git status` ，**但是此时并未『再次运行』`git add`命令**，此时运行 `git status` 会看到暂存前后的两个版本。***此处要查看的是未暂存的修改***，效果如下
+
+```shell
 $ git status
 On branch master
 Changes to be committed:
   (use "git reset HEAD <file>..." to unstage)
 
-    modified:   CONTRIBUTING.md
+        new file:   aaa.txt
 
 Changes not staged for commit:
   (use "git add <file>..." to update what will be committed)
   (use "git checkout -- <file>..." to discard changes in working directory)
 
-    modified:   CONTRIBUTING.md
-```
-
-现在运行 `git diff` 看暂存前后的变化：
+        modified:   aaa.txt
 
 ```
+
+现在运行 `git diff` 看暂存前后的变化，**此时查看的是未暂存的修改**
+
+```shell
 $ git diff
-diff --git a/CONTRIBUTING.md b/CONTRIBUTING.md
-index 643e24f..87f08c8 100644
---- a/CONTRIBUTING.md
-+++ b/CONTRIBUTING.md
-@@ -119,3 +119,4 @@ at the
- ## Starter Projects
+diff --git a/aaa.txt b/aaa.txt
+index 7c4a013..6dad95f 100644
+--- a/aaa.txt
++++ b/aaa.txt
+@@ -1 +1,6 @@
+-aaa
+\ No newline at end of file
++aaa
++
++
++
++
++bbb
+\ No newline at end of file
 
- See our [projects list](https://github.com/libgit2/libgit2/blob/development/PROJECTS.md).
-+# test line
 ```
 
-然后用 `git diff --cached` 查看已经暂存起来的变化：（--staged 和 --cached 是同义词）
+然后用 当运行了`git add`命令后，再次运行`git diff --cached` ，**查看的就是已暂存的修改，比较前后两个stage(暂存)之间的修改和变化**，--staged 和 --cached 是同义词
 
-```
+```shell
 $ git diff --cached
-diff --git a/CONTRIBUTING.md b/CONTRIBUTING.md
-index 8ebb991..643e24f 100644
---- a/CONTRIBUTING.md
-+++ b/CONTRIBUTING.md
-@@ -65,7 +65,8 @@ branch directly, things can get messy.
- Please include a nice description of your changes when you submit your PR;
- if we have to read the whole diff to figure out why you're contributing
- in the first place, you're less likely to get feedback and have your change
--merged in.
-+merged in. Also, split your changes into comprehensive chunks if your patch is
-+longer than a dozen lines.
+diff --git a/aaa.txt b/aaa.txt
+new file mode 100644
+index 0000000..6dad95f
+--- /dev/null
++++ b/aaa.txt
+@@ -0,0 +1,6 @@
++aaa
++
++
++
++
++bbb
+\ No newline at end of file
 
- If you are starting to work on a particular area, feel free to submit a PR
- that highlights your work in progress (and note in the PR title that it's
 ```
 
-### 
+##### 提交更新
+
+当暂存区域已经准备妥当可以提交了。*在此之前，请一定要确认还有什么修改过的或新建的文件还没有 `git add` 过，否则提交的时候不会记录这些还没暂存起来的变化*。 **这些修改过的文件只保留在本地磁盘。 所以，每次准备提交前，先用 `git status` 看下，是不是都已暂存起来了**， 然后再运行提交命令 `git commit`
+
+```shell
+$ git commit
+```
+
+ 如果想要更详细的对修改了哪些内容的提示，可以用 `-v` 选项，这会将所做的改变的 diff 输出放到编辑器中从而使你知道本次提交具体做了哪些修改。退出编辑器时，Git 会丢掉注释行，用你输入提交附带信息生成一次提交。
+
+另外，也可以在 `commit` 命令后添加 `-m` 选项，将提交信息与命令放在同一行，如下所示：
+
+```shell
+$ git commit -m "Story 182: Fix benchmarks for speed"
+[master 463dc4f] Story 182: Fix benchmarks for speed
+ 2 files changed, 2 insertions(+)
+ create mode 100644 README
+```
+
+可以看到，提交后它会告诉你，当前是在哪个分支（`master`）提交的，本次提交的完整 SHA-1 校验和是什么（`463dc4f`），以及在本次提交中，有多少文件修订过，多少行添加和删改过。
+
+**提交时记录的是放在暂存区域的快照**。*任何已经修改，但还未暂存(放到快照区(使用git add提交))的文件，在本次提交之中其所作的修改不会保存其中，而在下次添加到缓存区之后，才可以纳入版本管理*。 每一次运行提交操作，都是对项目作一次快照，以后可以回到这个状态，或者进行比较
+
+##### 跳过使用暂存区域
+
+使用暂存区域的方式略显繁琐，Git 提供了一个跳过使用暂存区域的方式， 只要在提交的时候，给 `git commit` 加上 `-a` 选项，**Git 就会自动把所有已经跟踪过的文件暂存起来一并提交**，从而跳过 `git add` 步骤，而直接提交，**但是，这种操作只是针对已经加入追踪的文件，对于从未加入追踪的文件，是不会加入追踪的，所以仍然需要`git add xxx`**。如下，`111.txt`早已加入到追踪，修改之后，并未使用`git add`，而是直接使用`git commit -a -m'commit without add step'`，而`11tt.txt`文件从未加入过追踪，所以直接提交的时候，对其不起作用，只能先加入追踪，以后才可以使用直接提交的命令，为了保险起见，建议使用add步骤，然后提交
+
+```shell
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   111.txt
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        11tt.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git commit -a -m'commit without add step'
+[master 9d5b684] commit without add step
+ 1 file changed, 3 insertions(+)
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git status
+On branch master
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+        11tt.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git log
+commit 9d5b6842302a0b7d3fcb4d58f694cf19a9530972 (HEAD -> master)
+Author: prayjourney <2247359268@qq.com>
+Date:   Thu Dec 28 14:38:07 2017 +0800
+
+    commit without add step
+
+```
+
+##### 移除文件
+
+**要从 Git 仓库中移除某个文件，就必须要从已跟踪文件清单中移除（确切地说，是从暂存区域移除），然后提交**。 可以用 `git rm` 命令完成此项工作，并连带从工作目录中删除指定的文件，**在下一次提交之后，删除的文档就不会出现在跟踪文件清单中，但是当删除文件未提交时，仍然受跟踪，并且是`deleted`状态**。注意的一点是，**当使用了`git rm` 命令删除了某一文件之后，其会立即进入已追踪等待提交的状态，经过实验有无`git add .`都是可以的，『.』表示当前目录的所有文件**，。如下例子中，删除了`123.txt`文件，并且提交之后显示此分支是clean的
+
+```shell
+hello@PC-HELLO  MINGW64 /e/Codes/gittest (master)
+$ ls
+11tt.txt  123.txt  aaa.txt  odf.txt  ppp.txt  tt.py
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git rm 123.txt
+rm '123.txt'
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git commit -m'delete'
+[master 72d0b8b] delete
+ 1 file changed, 1 deletion(-)
+ delete mode 100644 123.txt
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git status
+On branch master
+nothing to commit, working tree clean
+
+```
+
+##### 移动文件
+
+**git中的移动文件，其实也就是改名字+移动两个功能**，使用`mv`命令来完成，格式是`$ git mv file_from file_to`，可以同一层级改名，也可以不同层级改名+移动，运行 `git mv` 就相当于运行了如下3条命令
+
+```shell
+$ mv README.md README
+$ git rm README.md
+$ git add README
+```
+
+下面两个例子分别是不同层级的移动和同级移动，`s1`是git仓库下的一个文件夹
+
+```shell
+# eg.1
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ ls
+11tt.txt  aaa.txt  hello.c  p1.txt  s1/  tt.py  tt.txt  wqe.py
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git mv aaa.txt s1/123.txt
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        renamed:    aaa.txt -> s1/123.txt
+
+# eg.2
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git commit -m 'move action'
+[master 63475c1] move action
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ rename aaa.txt => s1/123.txt (100%)
+ 
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git mv tt.txt tt1.txt
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git status
+On branch master
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        renamed:    tt.txt -> tt1.txt
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git commit -m'mv rename'
+[master e56502a] mv rename
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+ rename tt.txt => tt1.txt (100%)
+
+```
 
 
 
@@ -373,5 +528,5 @@ index 8ebb991..643e24f 100644
 
 ref:
 
-1.[1.3 起步 - Git 基础](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-Git-%E5%9F%BA%E7%A1%80),   2.[1.6 起步 - 初次运行 Git 前的配置](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%88%9D%E6%AC%A1%E8%BF%90%E8%A1%8C-Git-%E5%89%8D%E7%9A%84%E9%85%8D%E7%BD%AE#_first_time),   3.[1.7 起步 - 获取帮助](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E8%8E%B7%E5%8F%96%E5%B8%AE%E5%8A%A9),   4.[2.1 Git 基础 - 获取 Git 仓库](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%8E%B7%E5%8F%96-Git-%E4%BB%93%E5%BA%93),   5.[]()
+1.[1.3 起步 - Git 基础](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-Git-%E5%9F%BA%E7%A1%80),   2.[1.6 起步 - 初次运行 Git 前的配置](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%88%9D%E6%AC%A1%E8%BF%90%E8%A1%8C-Git-%E5%89%8D%E7%9A%84%E9%85%8D%E7%BD%AE#_first_time),   3.[1.7 起步 - 获取帮助](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E8%8E%B7%E5%8F%96%E5%B8%AE%E5%8A%A9),   4.[2.1 Git 基础 - 获取 Git 仓库](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%8E%B7%E5%8F%96-Git-%E4%BB%93%E5%BA%93),   5.[2.2 Git 基础 - 记录每次更新到仓库](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%AE%B0%E5%BD%95%E6%AF%8F%E6%AC%A1%E6%9B%B4%E6%96%B0%E5%88%B0%E4%BB%93%E5%BA%93)   6.[]()
 
