@@ -1,6 +1,6 @@
+# pro git读书笔记
 
 
-## pro git读书笔记
 
 ### 起步
 
@@ -82,6 +82,8 @@ $ man git-<verb>
 ```shell
 $ git help config
 ```
+
+
 
 ### Git 基础
 
@@ -792,25 +794,97 @@ nothing to commit, working tree clean
 
 ```
 
+
+
 ##### 远程仓库的使用
 
+获取远程的仓库，可以使用`git clone giturl`来将远程的仓库**复制**到本地，查看远程仓库使用的是`git remote`，使用` git remote -v`，可以获取得到需要读写远程仓库使用的 Git 保存的简写与其对应的 URL。 **origin**是 Git 给克隆的仓库服务器的默认名字。添加一个远程Git仓库使用`git remote add <shortname> <url>` 命令，同时还可以指定一个轻松引用的简写，设定好简写之后，可以在命令行中使用**设定的字符串**来代替整个 URL，从远程服务器抓取仓库数据，可以使用`git fetch [remote-name]`，这样会**访问远程仓库，并且从中拉取本地还没有的数据**，获取其所有分支。如果使用 `clone` 命令克隆了一个仓库，命令会自动将其添加为远程仓库并默认以 “origin” 为简写。 所以，`git fetch origin` 会抓取克隆（或上一次抓取）后新推送的所有工作。 **注意 `git fetch` 命令会将数据拉取到你的本地仓库，它并不会自动合并或修改你当前的工作**。有获取也有推送，当我们更新了本地代码，就可以将其推送到远程仓库，使用`git push [remote-name] [branch-name]`,比如想要将 master 分支推送到 `origin` 服务器时，那么运行`git push origin master`命令就可以将本地修改推送到远程服务器。如果想要查看某一个远程仓库的更多信息，可以使用 `git remote show [remote-name]` 命令。如果想要**重命名**引用的名字可以运行 `git remote rename oldname newname` 去修改一个远程仓库的简写名，远程**删除**仓库的分支可以使用`git remote rm ` [branch-name]
+
+```shell
+$ git clone https://github.com/schacon/ticgit
+Cloning into 'ticgit'...
+remote: Reusing existing pack: 1857, done.
+remote: Total 1857 (delta 0), reused 0 (delta 0)
+Receiving objects: 100% (1857/1857), 374.35 KiB | 268.00 KiB/s, done.
+Resolving deltas: 100% (772/772), done.
+Checking connectivity... done.
+
+$ git remote
+origin
+
+$ git remote -v
+origin	https://github.com/schacon/ticgit (fetch)
+origin	https://github.com/schacon/ticgit (push)
+
+$ git remote add pb https://github.com/paulboone/ticgit
+$ git remote -v
+pb	https://github.com/paulboone/ticgit (fetch)
+pb	https://github.com/paulboone/ticgit (push)
+
+$ git fetch pb
+remote: Counting objects: 43, done.
+remote: Compressing objects: 100% (36/36), done.
+remote: Total 43 (delta 10), reused 31 (delta 5)
+Unpacking objects: 100% (43/43), done.
+From https://github.com/paulboone/ticgit
+ * [new branch]      master     -> pb/master
+ * [new branch]      ticgit     -> pb/ticgit
+ 
+$ git remote rename pb paul
+$ git remote
+origin
+paul
+
+$ git remote rm paul
+$ git remote
+origin
+```
 
 
 
+##### 标签
+
+Git 可以给历史中的某一个提交打上标签，以示重要。列出标签只需要输入 `git tag`。Git 使用两种主要类型的标签：**轻量标签**（lightweight）与**附注标签**（annotated）。一个轻量标签很像一个不会改变的分支，它只是一个**特定提交的引用**。**附注标签是存储在 Git 数据库中的一个完整对象**。 它们是可以被校验的；其中包含打标签者的名字、电子邮件地址、日期时间；还有一个标签信息；并且可以使用 GNU Privacy Guard （GPG）签名与验证。 通常建议创建附注标签，这样就可以拥有以上所有信息；但是如果只是想用一个临时的标签，或者因为某些原因不想要保存那些信息，轻量标签也是可用的。 **轻量标签本质上是将提交校验和存储到一个文件中 - 没有保存任何其他信息**。 创建轻量标签，不需要使用 `-a`、`-s` 或 `-m` 选项，只需要提供标签名字。创建**附注标签最简单的方式是当你在运行 `tag` 命令时指定 `-a` 选项,`-m` 选项指定了一条将会存储在标签中的信息**，通过使用 `git show` 命令可以看到标签信息与对应的提交信息
+
+```shell
+$ git tag
+v0.1
+v1.3
 
 
+$ git tag v1.4-lw
+$ git tag
+v0.1
+v1.3
+v1.4
+v1.4-lw
+v1.5
+$ git show v1.4-lw
+commit ca82a6dff817ec66f44342007202690a93763949
+Author: Scott Chacon <schacon@gee-mail.com>
+Date:   Mon Mar 17 21:52:11 2008 -0700
+
+    changed the version number
 
 
+$ git tag -a v1.4 -m 'my version 1.4'
+$ git tag
+v0.1
+v1.3
+v1.4
+$ git show v1.4
+tag v1.4
+Tagger: Ben Straub <ben@straub.cc>
+Date:   Sat May 3 20:19:12 2014 -0700
 
+my version 1.4
 
+commit ca82a6dff817ec66f44342007202690a93763949
+Author: Scott Chacon <schacon@gee-mail.com>
+Date:   Mon Mar 17 21:52:11 2008 -0700
 
-
-
-
-
-
-
-
+    changed the version number
+```
 
 
 
@@ -820,5 +894,5 @@ nothing to commit, working tree clean
 
 ref:
 
-1.[1.3 起步 - Git 基础](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-Git-%E5%9F%BA%E7%A1%80),   2.[1.6 起步 - 初次运行 Git 前的配置](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%88%9D%E6%AC%A1%E8%BF%90%E8%A1%8C-Git-%E5%89%8D%E7%9A%84%E9%85%8D%E7%BD%AE#_first_time),   3.[1.7 起步 - 获取帮助](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E8%8E%B7%E5%8F%96%E5%B8%AE%E5%8A%A9),   4.[2.1 Git 基础 - 获取 Git 仓库](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%8E%B7%E5%8F%96-Git-%E4%BB%93%E5%BA%93),   5.[2.2 Git 基础 - 记录每次更新到仓库](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%AE%B0%E5%BD%95%E6%AF%8F%E6%AC%A1%E6%9B%B4%E6%96%B0%E5%88%B0%E4%BB%93%E5%BA%93)   6.[2.3 Git 基础 - 查看提交历史](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2),   7.[2.4 Git 基础 - 撤消操作](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%92%A4%E6%B6%88%E6%93%8D%E4%BD%9C)
+1.[1.3 起步 - Git 基础](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-Git-%E5%9F%BA%E7%A1%80),   2.[1.6 起步 - 初次运行 Git 前的配置](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%88%9D%E6%AC%A1%E8%BF%90%E8%A1%8C-Git-%E5%89%8D%E7%9A%84%E9%85%8D%E7%BD%AE#_first_time),   3.[1.7 起步 - 获取帮助](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E8%8E%B7%E5%8F%96%E5%B8%AE%E5%8A%A9),   4.[2.1 Git 基础 - 获取 Git 仓库](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%8E%B7%E5%8F%96-Git-%E4%BB%93%E5%BA%93),   5.[2.2 Git 基础 - 记录每次更新到仓库](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%AE%B0%E5%BD%95%E6%AF%8F%E6%AC%A1%E6%9B%B4%E6%96%B0%E5%88%B0%E4%BB%93%E5%BA%93)   6.[2.3 Git 基础 - 查看提交历史](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2),   7.[2.4 Git 基础 - 撤消操作](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%92%A4%E6%B6%88%E6%93%8D%E4%BD%9C),   8.[2.5 Git 基础 - 远程仓库的使用](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8),   9.[2.6 Git 基础 - 打标签](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%89%93%E6%A0%87%E7%AD%BE)
 
