@@ -31,8 +31,8 @@ Git之中的文件有三种状态，文件可能处于其中之一：**已提交
 当安装完 Git 应该做的第一件事就是设置你的用户名称与邮件地址。 **每一次 Git 提交都会使用这些信息**，并且它会写入到每一次提交中，不可更改，需要说明的是，**如下的配置都是在bash命令行之中执行的，而不是在`git config`文件之中**
 
 ```shell
-$ git config --global user.name "prayjourney"
-$ git config --global user.email johndoe@example.com
+$ git config --global user.name "hello"
+$ git config --global user.email 123456789@qq.com
 ```
 
 如果使用了 `--global` 选项，那么该命令只需要运行一次，这样是一种全局配置，如果要针对特定项目使用不同的用户名称与邮件地址时，可以在那个项目目录下运行没有 `--global` 选项的命令来配置
@@ -51,8 +51,8 @@ $ git config --global core.editor emacs
 
 ```shell
 $ git config --list
-user.name=John Doe
-user.email=johndoe@example.com
+user.name=hello
+user.email=123456789@qq.com
 color.status=auto
 color.branch=auto
 color.interactive=auto
@@ -64,7 +64,7 @@ color.diff=auto
 
 ```shell
 $ git config user.name
-prayjourney
+hello
 ```
 
 ##### 获取帮助
@@ -434,7 +434,7 @@ nothing added to commit but untracked files present (use "git add" to track)
 hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
 $ git log
 commit 9d5b6842302a0b7d3fcb4d58f694cf19a9530972 (HEAD -> master)
-Author: prayjourney <2247359268@qq.com>
+Author: hello <123456789@qq.com>
 Date:   Thu Dec 28 14:38:07 2017 +0800
 
     commit without add step
@@ -530,7 +530,7 @@ $ git commit -m'mv rename'
 hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
 $ git log -p -2
 commit e56502a144d8f157dfc60296636089ee3235337b (HEAD -> master)
-Author: hello <123456@qq.com>
+Author: hello <123456789@qq.com>
 Date:   Thu Dec 28 15:24:04 2017 +0800
 
     mv rename
@@ -541,7 +541,7 @@ rename from tt.txt
 rename to tt1.txt
 
 commit 63475c1e79f00f0b11c153a01bcb6fba26985d8a
-Author: hello <123456@qq.com>
+Author: hello <123456789@qq.com>
 Date:   Thu Dec 28 15:21:42 2017 +0800
 
     move action
@@ -555,7 +555,7 @@ rename to s1/123.txt
 hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
 $ git log --stat -3
 commit e56502a144d8f157dfc60296636089ee3235337b (HEAD -> master)
-Author: hello <123456@qq.com>
+Author: hello <123456789@qq.com>
 Date:   Thu Dec 28 15:24:04 2017 +0800
 
     mv rename
@@ -564,7 +564,7 @@ Date:   Thu Dec 28 15:24:04 2017 +0800
  1 file changed, 0 insertions(+), 0 deletions(-)
 
 commit 63475c1e79f00f0b11c153a01bcb6fba26985d8a
-Author: hello <123456@qq.com>
+Author: hello <123456789@qq.com>
 Date:   Thu Dec 28 15:21:42 2017 +0800
 
     move action
@@ -573,7 +573,7 @@ Date:   Thu Dec 28 15:21:42 2017 +0800
  1 file changed, 0 insertions(+), 0 deletions(-)
 
 commit b627e58c45f055b6e64dcf79096cf802cbe982a3
-Author: hello <123456@qq.com>
+Author: hello <123456789@qq.com>
 Date:   Thu Dec 28 15:20:46 2017 +0800
 
     213213
@@ -630,7 +630,7 @@ $ git commit -m 'add mmm123.txt'
 hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
 $ git log -p -1
 commit a575e2225c1b35411d133b1115bca6393290766e (HEAD -> master)
-Author: prayjourney <2247359268@qq.com>
+Author: hello <123456789@qq.com>
 Date:   Thu Dec 28 17:18:20 2017 +0800
 
     add mmm123.txt     # 提交的信息
@@ -655,7 +655,7 @@ $ git commit --amend -m'add mmm123.txt hello'    # 修改提交的信息
 hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
 $ git log -p -1
 commit c97ccc30c76e148bbc3ab2c07b64d10da9944f3e (HEAD -> master)
-Author: prayjourney <2247359268@qq.com>
+Author: hello <123456789@qq.com>
 Date:   Thu Dec 28 17:18:20 2017 +0800
 
     add mmm123.txt hello    # 修改了提交的信息
@@ -844,7 +844,7 @@ origin
 
 ##### 标签
 
-Git 可以给历史中的某一个提交打上标签，以示重要。列出标签只需要输入 `git tag`。Git 使用两种主要类型的标签：**轻量标签**（lightweight）与**附注标签**（annotated）。一个轻量标签很像一个不会改变的分支，它只是一个**特定提交的引用**。**附注标签是存储在 Git 数据库中的一个完整对象**。 它们是可以被校验的；其中包含打标签者的名字、电子邮件地址、日期时间；还有一个标签信息；并且可以使用 GNU Privacy Guard （GPG）签名与验证。 通常建议创建附注标签，这样就可以拥有以上所有信息；但是如果只是想用一个临时的标签，或者因为某些原因不想要保存那些信息，轻量标签也是可用的。 **轻量标签本质上是将提交校验和存储到一个文件中 - 没有保存任何其他信息**。 创建轻量标签，不需要使用 `-a`、`-s` 或 `-m` 选项，只需要提供标签名字。创建**附注标签最简单的方式是当你在运行 `tag` 命令时指定 `-a` 选项,`-m` 选项指定了一条将会存储在标签中的信息**，通过使用 `git show` 命令可以看到标签信息与对应的提交信息
+Git 可以给历史中的某一个提交打上标签，以示重要。列出标签只需要输入 `git tag`。Git 使用两种主要类型的标签：**轻量标签**（lightweight）与**附注标签**（annotated）。一个轻量标签很像一个不会改变的分支，它只是一个**特定提交的引用**。**附注标签是存储在 Git 数据库中的一个完整对象**。 它们是可以被校验的；其中包含打标签者的名字、电子邮件地址、日期时间；还有一个标签信息；并且可以使用 GNU Privacy Guard （GPG）签名与验证。 通常建议创建附注标签，这样就可以拥有以上所有信息；但是如果只是想用一个临时的标签，或者因为某些原因不想要保存那些信息，轻量标签也是可用的。 **轻量标签本质上是将提交校验和存储到一个文件中 , 没有保存任何其他信息**。 创建轻量标签，不需要使用 `-a`、`-s` 或 `-m` 选项，只需要提供标签名字。创建**附注标签最简单的方式是当你在运行 `tag` 命令时指定 `-a` 选项,`-m` 选项指定了一条将会存储在标签中的信息**，通过使用 `git show` 命令可以看到标签信息与对应的提交信息
 
 ```shell
 $ git tag
