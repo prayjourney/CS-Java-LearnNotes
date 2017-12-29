@@ -890,9 +890,97 @@ Date:   Mon Mar 17 21:52:11 2008 -0700
 
 ### Git 分支
 
+##### 分支简介
+
+**Git 保存的不是文件的变化或者差异，而是一系列不同时刻的文件快照**。假设现在有一个工作目录，里面包含了三个将要被暂存和提交的文件。 暂存操作会为每一个文件计算校验和（SHA-1 哈希算法），然后会把当前版本的文件快照保存到 Git 仓库中（Git 使用 blob 对象来保存它们），最终将校验和加入到暂存区域等待提交：
+
+```shell
+$ git add README test.rb LICENSE
+$ git commit -m 'The initial commit of my project'
+```
+
+当使用 `git commit` 进行提交操作时，Git 会先计算每一个子目录（本例中只有项目根目录）的校验和，然后在 Git 仓库中这些校验和保存为**树对象**。 随后，**Git 便会创建一个提交对象**，*它除了包含上面提到的那些信息外，还包含指向这个树对象（项目根目录）的* **指针**。如此一来，**Git 就可以在需要的时候重现此次保存的快照**。现在，Git 仓库中有五个对象：**三个 blob 对象**（保存着文件快照）、**一个树对象**（记录着目录结构和 blob 对象索引）以及**一个提交对象**（包含着指向前述树对象的指针和所有提交信息）
+
+![首次提交对象及其树结构。](https://git-scm.com/book/en/v2/images/commit-and-tree.png)
+
+如果我们做些修改后再次提交，那么**这次产生的提交对象会包含一个指向上次提交对象（父对象）的指针**
+
+![提交对象及其父对象。](https://git-scm.com/book/en/v2/images/commits-and-parents.png)
+
+**Git 的分支，其实本质上仅仅是指向提交对象的可变指针**。 Git 的默认分支名字是 `master`。 在多次提交操作之后，*其实已经有一个指向最后那个提交对象的 `master` 分支*。 它会在每次的提交操作中自动向前移动
+
+![分支及其提交历史。](https://git-scm.com/book/en/v2/images/branch-and-history.png)
+
+##### 分支创建
+
+**Git 创建新分支实际相当于它只是创建了一个可以移动的新的指针**。 比如，创建一个 testing 分支， 只需要使用 `git branch testing ` 命令，即可创建一个新的分支，这会**在当前所在的提交对象上创建一个指针**。这会在当前所在的提交对象上创建一个指针
+
+![两个指向相同提交历史的分支。](https://git-scm.com/book/en/v2/images/two-branches.png)
+
+*当有多个分支时，Git 是怎么知道当前在哪一个分支上呢*？ **它使用名为 `HEAD` 的特殊指针**。在 Git 中，**`HEAD` 指向当前所在的本地分支**（将 `HEAD` 想象为当前分支的别名）。 在本例中，此时仍然在 `master` 分支上。 `git branch` 命令仅仅 *创建* 一个新分支，并不会自动切换到新分支中去。**此时，当前 “master” 和 “testing” 分支均指向校验和以 `f30ab` 开头的提交对象**
+
+![HEAD 指向当前所在的分支。](https://git-scm.com/book/en/v2/images/head-to-master.png)
+
+你可以简单地使用 `git log` 命令查看各个分支当前所指的对象。 提供这一功能的参数是 `--decorate`。
+
+```shell
+$ git log --oneline --decorate
+f30ab (HEAD, master, testing) add feature #32 - ability to add new
+34ac2 fixed bug #1328 - stack overflow under certain conditions
+98ca9 initial commit of my project
+```
+
+
+
+##### 分支切换
+
+要切换到一个已存在的分支，需要使用 `git checkout [branche name]` 命令。 `git checkout testing`将分支切换到新创建的 `testing` 分支上，这样 `HEAD` 就指向 `testing` 分支了。就是说，**切换分支，其实是将HEAD指针的位置切换在对应的分支**，而`HEAD` 指针本身指向当前所在的本地分支，就将分支切换过去了
+
+![HEAD 指向当前所在的分支。](https://git-scm.com/book/en/v2/images/head-to-testing.png)
+
+此时，我们在 `testing` 分支，修改其中的文件内容，然后再次提交
+
+```shell
+$ vim test.rb
+$ git commit -a -m 'made a change'
+```
+
+![HEAD 分支随着提交操作自动向前移动。](https://git-scm.com/book/en/v2/images/advance-testing.png)
+
+如图所示， `testing` 分支向前移动了，但是 `master` 分支却没有，它仍然指向运行 `git checkout` 时所指的对象。现在我们运行`$ git checkout master`，切换回 `master` 分支，有如下情况，显示了`HEAD` 指针的移动情况![检出时 HEAD 随之移动。](https://git-scm.com/book/en/v2/images/checkout-master.png)
+
+这条命令做了两件事： **一是使 HEAD 指回 `master` 分支，二是将工作目录恢复成 `master` 分支所指向的快照内容**。 也就是说，现在做修改的话，项目将始于一个较旧的版本。**本质上来讲，这就是忽略 `testing` 分支所做的修改，以便于向另一个方向进行开发**。*分支切换会改变工作目录中的文件，在切换分支时，一定要注意工作目录里的文件会被改变。 如果是切换到一个较旧的分支，你的工作目录会恢复到该分支最后一次提交时的样子*。此时我们在`master` 分支上做些修改并提交
+
+```shell
+$ vim test.rb
+$ git commit -a -m 'made other changes'
+```
+
+现在，**此项目的提交历史已经产生了分叉**。 因为我们在两个分支上切换，并且进行了一些修改和提交。 上述两次改动针对的是不同分支，所以导致提交历史有了分叉。我们可以在不同分支间不断地来回切换和工作，在时机成熟时可以将它们合并起来。 完成这些工作需要的命令有 `branch`、`checkout` 和 `commit`
+
+![项目分叉历史。](https://git-scm.com/book/en/v2/images/advance-master.png)
+
+###### 项目分叉历史
+
+可以简单地使用 `git log` 命令查看分叉历史。 运行 `git log --oneline --decorate --graph --all` ，它会输出提交历史、各个分支的指向以及项目的分支分叉情况
+
+```shell
+$ git log --oneline --decorate --graph --all
+* c2b9e (HEAD, master) made other changes
+| * 87ab2 (testing) made a change
+|/
+* f30ab add feature #32 - ability to add new formats to the
+* 34ac2 fixed bug #1328 - stack overflow under certain conditions
+* 98ca9 initial commit of my project
+```
+
+**由于 Git 的分支实质上仅是包含所指对象校验和（长度为 40 的 SHA-1 值字符串）的文件，所以它的创建和销毁都异常高效。 创建一个新分支就相当于往一个文件中写入 41 个字节（40 个字符和 1 个换行符）** ，这与过去大多数版本控制系统形成了鲜明的对比，它们在创建分支时，将所有的项目文件都复制一遍，并保存到一个特定的目录。 完成这样繁琐的过程通常需要好几秒钟，有时甚至需要好几分钟。所需时间的长短，完全取决于项目的规模。而在 Git 中，任何规模的项目都能在瞬间创建新分支。 同时，由于每次提交都会记录父对象，所以寻找恰当的合并基础（即**共同祖先**）也是同样的简单和高效。 这些高效的特性使得 Git 鼓励开发人员频繁地创建和使用分支
+
+##### 分支的新建与合并
+
 
 
 ref:
 
-1.[1.3 起步 - Git 基础](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-Git-%E5%9F%BA%E7%A1%80),   2.[1.6 起步 - 初次运行 Git 前的配置](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%88%9D%E6%AC%A1%E8%BF%90%E8%A1%8C-Git-%E5%89%8D%E7%9A%84%E9%85%8D%E7%BD%AE#_first_time),   3.[1.7 起步 - 获取帮助](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E8%8E%B7%E5%8F%96%E5%B8%AE%E5%8A%A9),   4.[2.1 Git 基础 - 获取 Git 仓库](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%8E%B7%E5%8F%96-Git-%E4%BB%93%E5%BA%93),   5.[2.2 Git 基础 - 记录每次更新到仓库](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%AE%B0%E5%BD%95%E6%AF%8F%E6%AC%A1%E6%9B%B4%E6%96%B0%E5%88%B0%E4%BB%93%E5%BA%93)   6.[2.3 Git 基础 - 查看提交历史](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2),   7.[2.4 Git 基础 - 撤消操作](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%92%A4%E6%B6%88%E6%93%8D%E4%BD%9C),   8.[2.5 Git 基础 - 远程仓库的使用](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8),   9.[2.6 Git 基础 - 打标签](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%89%93%E6%A0%87%E7%AD%BE)
+1.[1.3 起步 - Git 基础](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-Git-%E5%9F%BA%E7%A1%80),   2.[1.6 起步 - 初次运行 Git 前的配置](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%88%9D%E6%AC%A1%E8%BF%90%E8%A1%8C-Git-%E5%89%8D%E7%9A%84%E9%85%8D%E7%BD%AE#_first_time),   3.[1.7 起步 - 获取帮助](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E8%8E%B7%E5%8F%96%E5%B8%AE%E5%8A%A9),   4.[2.1 Git 基础 - 获取 Git 仓库](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%8E%B7%E5%8F%96-Git-%E4%BB%93%E5%BA%93),   5.[2.2 Git 基础 - 记录每次更新到仓库](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%AE%B0%E5%BD%95%E6%AF%8F%E6%AC%A1%E6%9B%B4%E6%96%B0%E5%88%B0%E4%BB%93%E5%BA%93)   6.[2.3 Git 基础 - 查看提交历史](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2),   7.[2.4 Git 基础 - 撤消操作](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%92%A4%E6%B6%88%E6%93%8D%E4%BD%9C),   8.[2.5 Git 基础 - 远程仓库的使用](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8),   9.[2.6 Git 基础 - 打标签](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%89%93%E6%A0%87%E7%AD%BE),   10.[3.1 Git 分支 - 分支简介](https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%AE%80%E4%BB%8B),   11.[3.2 Git 分支 - 分支的新建与合并](https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%9A%84%E6%96%B0%E5%BB%BA%E4%B8%8E%E5%90%88%E5%B9%B6)
 
