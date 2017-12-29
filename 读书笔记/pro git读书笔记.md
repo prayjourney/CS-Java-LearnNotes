@@ -692,7 +692,7 @@ nothing added to commit but untracked files present (use "git add" to track)
 hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
 $ git add .
 
-renjiaxin@PC-RENJIAXIN MINGW64 /e/Codes/gittest (master)
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
 $ git status
 On branch master
 Changes to be committed:
@@ -767,7 +767,7 @@ nothing added to commit but untracked files present (use "git add" to track)
 hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
 $ git add .
 
-renjiaxin@PC-RENJIAXIN MINGW64 /e/Codes/gittest (master)
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
 $ git commit -m'sg 123456'
 [master 5257ed3] sg 123456
  1 file changed, 1 insertion(+)
