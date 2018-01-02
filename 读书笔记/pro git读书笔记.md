@@ -978,9 +978,368 @@ $ git log --oneline --decorate --graph --all
 
 ##### 分支的新建与合并
 
+###### 新建分支
+
+新建一个分支并同时切换到那个分支上，可以运行一个带有 `-b` 参数的 `git checkout` 命令
+
+```shell
+$ git checkout -b iss53
+Switched to a new branch "iss53"
+```
+
+它是下面两条命令的简写：
+
+```shell
+$ git branch iss53
+$ git checkout iss53
+```
+
+**当切换分支的时候，Git 会重置工作目录，使其看起来像回到了在那个分支上最后一次提交的样子。 Git 会自动添加、删除、修改文件以确保此时的工作目录和这个分支最后一次提交时的样子一模一样**。现在我们假如在master分支上遇到了问题，切换到master分支，并且新建一个针对此问题的分支hotfix，其形式如下
+
+```shell
+$ git checkout master
+Switched to branch 'master'
+
+$ git checkout -b hotfix
+Switched to a new branch 'hotfix'
+$ vim index.html
+$ git commit -a -m 'fixed the broken email address'
+[hotfix 1fb7853] fixed the broken email address
+ 1 file changed, 2 insertions(+)
+```
+
+![基于 `master` 分支的紧急问题分支（hotfix branch）。](https://git-scm.com/book/en/v2/images/basic-branching-4.png)
+
+###### 快进合并
+
+当问题处理好了之后，可以将其合并到master 分支上，使用`git merge`就可以完成操作。**合并分为快进合并，普通合并和有冲突的合并三种**。*快进合并最为简单*，**由于`master` 分支所指向的提交是当前提交（有关 hotfix 的提交）的直接上游，所以 Git 只是简单的将指针向前移动**，这种就是快进合并。换句话说，当试图合并两个分支时，*如果顺着一个分支走下去能够到达另一个分支，那么 Git 在合并两者的时候，只会简单的将指针向前推进（指针右移），因为这种情况下的合并操作没有需要解决的分歧——这就叫做 “快进（fast-forward）”*。**当前分支为`A`，`git merge B`，此操作将`B`分支合并到`A`分支**，这是分支合并的方向
+
+```shell
+$ git checkout master
+$ git merge hotfix
+Updating f42c576..3a0874c
+Fast-forward
+ index.html | 2 ++
+ 1 file changed, 2 insertions(+)
+```
+
+![`master` 被快进到 `hotfix`。](https://git-scm.com/book/en/v2/images/basic-branching-5.png)
+
+###### 删除分支
+
+如果要删除某一个分支，则可以使用`$ git branch -d [branch name]`语句，运行过后，提交的情况如下图
+
+```shell
+$ git branch -d hotfix
+Deleted branch hotfix (3a0874c).
+```
+
+![继续在 `iss53` 分支上的工作。](https://git-scm.com/book/en/v2/images/basic-branching-6.png)
+
+`hotfix`分支已经删除，在 `hotfix` 分支上所做的工作并没有包含到 `iss53` 分支中。 如果需要拉取 `hotfix` 所做的修改，可以使用 `git merge master` 命令将 `master` 分支合并入 `iss53` 分支，或者也可以等到 `iss53` 分支完成其使命，再将其合并回 `master` 分支。
+
+###### 普通合并
+
+假设你已经修正了`iss53` 问题，并且打算将工作合并入 `master` 分支。 为此需要合并 `iss53` 分支到 `master` 分支，这和之前合并 `hotfix` 分支所做的工作差不多。**只需要checkout想合并入的分支，然后运行 `git merge` 命令**，即可运行
+
+```shell
+$ git checkout master
+Switched to branch 'master'
+$ git merge iss53
+Merge made by the 'recursive' strategy.
+index.html |    1 +
+1 file changed, 1 insertion(+)
+```
+
+这和之前合并 `hotfix` 分支的时候看起来有一点不一样。 在这种情况下，开发历史从一个更早的地方开始分叉开来（diverged）。 因为，`master` 分支所在提交并不是 `iss53` 分支所在提交的直接祖先，Git 不得不做一些额外的工作。 **出现这种情况的时，Git 会使用两个分支的末端所指的快照（`C4` 和 `C5`）以及这两个分支的工作祖先（`C2`），做一个简单的三方合并**。
+
+![一次典型合并中所用到的三个快照。](https://git-scm.com/book/en/v2/images/basic-merging-1.png)
+
+和之前将分支指针向前推进所不同的是，**Git 将此次三方合并的结果做了一个新的快照并且自动创建一个新的提交指向它。 这个被称作一次合并提交，它的特别之处在于他有不止一个父提交**
+
+![一个合并提交。](https://git-scm.com/book/en/v2/images/basic-merging-2.png)
+
+需要指出的是，**Git 会自行决定选取哪一个提交作为最优的共同祖先，并以此作为合并的基础**；这和更加古老的 CVS 系统或者 Subversion （1.5 版本之前）不同，在这些古老的版本管理系统中，用户需要自己选择最佳的合并基础。 Git 的这个优势使其在合并操作上比其他系统要简单很多，在自己的电脑上的例子如下
+
+```shell
+# 打印master之中的文档列表
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ ls
+111333.txt  fsdafsaf.txt  hellomaster.txt  p1.txt   s1/     tt1.txt
+11tt.txt    ganggang.txt  m1.txt           ppp.txt  sg.txt  v1.txt
+222.txt     hello.c       mmm123.txt       pt.txt   tt.py   wqe.py
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git checkout v1
+Switched to branch 'v1'
+
+# 切换分支后，添加新的文档，我是一个新建的文档.txt是要添加的文档
+hello@PC-HELLO MINGW64 /e/Codes/gittest (v1)
+$ ls
+111333.txt  222.txt       ppp.txt  v1.txt    我是一个新建的文档.txt
+123.txt     fsdafsaf.txt  tt.py    v1v1.txt
+
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (v1)
+$ git add .
+hello@PC-HELLO MINGW64 /e/Codes/gittest (v1)
+$ git commit -m '添加了文档'
+[v1 939bc2b] 娣诲姞浜嗘枃妗▒
+ 1 file changed, 1 insertion(+)
+ create mode 100644 "\346\210\221\346\230\257\344\270\200\344\270\252\346\226\260\345\273\272\347\232\204\346\226\207\346\241\243.txt"
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (v1)
+$ git checkout master
+Switched to branch 'master'
+
+# 将v1合并到master，checkout master，然后将v1合并到当前的master分支
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git merge v1
+Merge made by the 'recursive' strategy.
+ v1v1.txt                                                                 | 1 +
+ ...\252\346\226\260\345\273\272\347\232\204\346\226\207\346\241\243.txt" | 1 +
+ 2 files changed, 2 insertions(+)
+ create mode 100644 v1v1.txt
+ create mode 100644 "\346\210\221\346\230\257\344\270\200\344\270\252\346\226\260\345\273\272\347\232\204\346\226\207\346\241\243.txt"
+
+# 打印master合并之后的文档列表
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ ls
+111333.txt    ganggang.txt     mmm123.txt  s1/      v1.txt
+11tt.txt      hello.c          p1.txt      sg.txt   v1v1.txt
+222.txt       hellomaster.txt  ppp.txt     tt.py    wqe.py
+fsdafsaf.txt  m1.txt           pt.txt      tt1.txt  我是一个新建的文档.txt
+
+```
+
+分支与合并的情况如图显示，此图之中有两次合并，最新的一次是当前的，此时这两个分支都是处于HEAD处的，但是其实，此时仍然可以在v1和master分支上面各自提交文档或者其他内容，但是一般而言，此时会选择将合并后的分支删除掉，或者保留不再去有新的更新
+
+![branchstatus](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_branchstatus.jpg)
+
+
+
+###### 遇到冲突时的分支合并
+
+有时候合并操作不会如此顺利。 **如果在两个不同的分支中，对同一个文件的同一个部分进行了不同的修改，Git 就没法干净的合并它们**。 
+
+```shell
+# master分支上面添加了mtk.txt
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ ls
+111333.txt    hello.c          p1.txt   tt.py     我是一个新建的文档.txt
+11tt.txt      hellomaster.txt  ppp.txt  tt1.txt
+222.txt       m1.txt           pt.txt   v1.txt
+fsdafsaf.txt  mmm123.txt       s1/      v1v1.txt
+ganggang.txt  mtk.txt          sg.txt   wqe.py
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git add .
+g
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git commit -m'add mtk.txt'
+[master 1f58e1e] add mtk.txt
+ 1 file changed, 6 insertions(+)
+ create mode 100644 mtk.txt
+
+# 创建v3分支
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git branch v3
+
+# 查看所有分支
+renjiaxin@PC-RENJIAXIN MINGW64 /e/Codes/gittest (master)
+$ git branch
+* master
+  v1
+  v3
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git checkout v3
+Switched to branch 'v3'
+
+# 修改v3分支上的mtk.txt文件
+hello@PC-HELLO MINGW64 /e/Codes/gittest (v3)
+$ git status
+On branch v3
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   mtk.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (v3)
+$ git add .
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (v3)
+$ git commit -m'update mtk.txt'
+[v3 c5baa2c] update mtk.txt
+ 1 file changed, 15 insertions(+), 6 deletions(-)
+
+# 修改master分支上的mtk.txt文件，并且提交
+hello@PC-HELLO MINGW64 /e/Codes/gittest (v3)
+$ git checkout master
+Switched to branch 'master'
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git add .
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git commit -m 'update mtk.txt'
+[master be8df15] update mtk.txt
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+# 合并v3分支到master分支
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$ git merge v3
+Auto-merging mtk.txt
+CONFLICT (content): Merge conflict in mtk.txt
+Automatic merge failed; fix conflicts and then commit the result.
+
+# 此时出现冲突，用(master|MERGING)表示
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master|MERGING)
+$
+```
+
+**以上的操作，Git 做了合并，但是没有自动地创建一个新的合并提交**。 Git 会暂停下来，**等待我们手动去解决合并产生的冲突**。 *可以在合并冲突后的任意时刻使用 `git status` 命令来查看那些因包含合并冲突而处于未合并（unmerged）状态的文件* 。使用`git status`来查看冲突情况，有冲突的文件使用**unmerged**来标记，且会显示其路径，其在库之中会标记出来，如下图
+
+```shell
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master|MERGING)
+$ git status
+On branch master
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+
+        both modified:   mtk.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+```
+
+![gitmergeconflict](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_gitmergeconflict.jpg)
+
+**任何因包含合并冲突而有待解决的文件，都会以未合并状态标识出来**。 Git 会在有冲突的文件中加入标准的冲突解决标记，这样你可以打开这些包含冲突的文件然后手动解决冲突。 出现冲突的文件会包含一些特殊区段，看起来像下面这个样子
+
+```shell
+<<<<<<< HEAD:index.html
+<div id="footer">contact : email.support@github.com</div>
+=======
+<div id="footer">
+ please contact us at support@github.com
+</div>
+>>>>>>> iss53:index.html
+```
+
+这表示 `HEAD` 所指示的版本（也就是 `master` 分支所在的位置，**即当前所在的分支**，因为在运行 merge 命令的时候已经检出到了这个分支）在这个区段的上半部分（`=======` 的上半部分），而 `iss53` 分支所指示的版本在 `=======` 的下半部分。 **为了解决冲突，必须选择使用由 `=======` 分割的两部分中的一个，或者你也可以自行合并这些内容**。 例如，可以通过把这段内容换成下面的样子来解决冲突
+
+```shell
+<div id="footer">
+please contact us at email.support@github.com
+```
+
+上述的冲突解决方案仅保留了其中一个分支的修改，并且 `<<<<<<<` , `=======` , 和 `>>>>>>>` 这些行被完全删除了。 解决了所有文件里的冲突之后，对每个文件使用 `git add` 命令来将其标记为冲突已解决。 一旦暂存这些原本有冲突的文件，Git 就会将它们标记为冲突已解决
+
+此时冲突文档`mtk.txt`之中的内容如下图，**需要我们手动解决冲突，保留`=======`的以上或者以下的部分，也可以自己修改，添加其他内容，然后存到暂存状态(stash)`git add`，就会消除冲突状态**
+
+![statusttxt](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_statusttxt.jpg)
+
+```shell
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master|MERGING)
+$ git status
+On branch master
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+  (use "git merge --abort" to abort the merge)
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+
+        both modified:   mtk.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+# 修改完了mtk.txt,然后暂存，暂存之后，就会消除冲突状态
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master|MERGING)
+$ git add .
+# 此时已经不是冲突状态，而是修改状态了
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master|MERGING)
+$  git status
+On branch master
+All conflicts fixed but you are still merging.
+  (use "git commit" to conclude merge)
+
+Changes to be committed:
+
+        modified:   mtk.txt
+
+# 提交
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master|MERGING)
+$ git commit -m'slove conflict'
+[master 85157c0] slove conflict
+
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
+$
+```
+
+当前的状态如下，此时已经又在各个分支上做了提交操作，表示各个分支已经又改变了，而非仅仅是合并时的情况
+
+![nowstatus](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_nowstatus.jpg)
+
+如果想使用图形化工具来解决冲突，你可以运行 `git mergetool`，该命令会为启动一个合适的可视化合并工具，并一步一步解决这些冲突。解决了冲突之后，如果对结果感到满意，并且确定之前有冲突的的文件都已经暂存了，这时你可以输入 `git commit` 来完成合并提交
+
+
+
+##### 分支管理
+
+现在已经创建、合并、删除了一些分支。可以在此基础上进行分支管理。分支管理的基础是`git branch`命令。 **`git branch` 命令不只是可以创建与删除分支**。 如果不加任何参数运行它，会得到当前所有分支的一个列表
+
+```shell
+$ git branch
+  iss53
+* master
+  testing
+```
+
+注意 `master` 分支前的 `*` 字符：它代表现在检出的那一个分支（也就是说，当前 `HEAD` 指针所指向的分支）。 这意味着如果在这时候提交，`master` 分支将会随着新的工作向前移动。 如果需要查看每一个分支的最后一次提交，可以运行 `git branch -v` 命令
+
+```shell
+$ git branch -v
+  iss53   93b412c fix javascript issue
+* master  7a98805 Merge branch 'iss53'
+  testing 782fd34 add scott to the author list in the readmes
+```
+
+`--merged` 与 `--no-merged` 这两个有用的选项可以过滤这个列表中已经合并或尚未合并到当前分支的分支。 如果要查看哪些分支已经合并到当前分支，可以运行 `git branch --merged`
+
+```shell
+$ git branch --merged
+  iss53
+* master
+```
+
+因为之前已经合并了 `iss53` 分支，所以现在看到它在列表中。 在这个列表中分支名字前没有 `*` 号的分支通常可以使用 `git branch -d` 删除掉；因为我们已经将它们的工作整合到了另一个分支，所以并不会失去任何东西。查看所有包含未合并工作的分支，可以运行 `git branch --no-merged`
+
+```shell
+$ git branch --no-merged
+  testing
+```
+
+这里显示了其他分支。 因为它包含了还未合并的工作，尝试使用 `git branch -d` 命令删除它时会失败
+
+```shell
+$ git branch -d testing
+error: The branch 'testing' is not fully merged.
+If you are sure you want to delete it, run 'git branch -D testing'.
+```
+
+如果真的想要删除分支并丢掉那些工作，如同帮助信息里所指出的，可以使用 `-D` 选项强制删除它
+
 
 
 ref:
 
-1.[1.3 起步 - Git 基础](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-Git-%E5%9F%BA%E7%A1%80),   2.[1.6 起步 - 初次运行 Git 前的配置](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%88%9D%E6%AC%A1%E8%BF%90%E8%A1%8C-Git-%E5%89%8D%E7%9A%84%E9%85%8D%E7%BD%AE#_first_time),   3.[1.7 起步 - 获取帮助](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E8%8E%B7%E5%8F%96%E5%B8%AE%E5%8A%A9),   4.[2.1 Git 基础 - 获取 Git 仓库](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%8E%B7%E5%8F%96-Git-%E4%BB%93%E5%BA%93),   5.[2.2 Git 基础 - 记录每次更新到仓库](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%AE%B0%E5%BD%95%E6%AF%8F%E6%AC%A1%E6%9B%B4%E6%96%B0%E5%88%B0%E4%BB%93%E5%BA%93)   6.[2.3 Git 基础 - 查看提交历史](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2),   7.[2.4 Git 基础 - 撤消操作](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%92%A4%E6%B6%88%E6%93%8D%E4%BD%9C),   8.[2.5 Git 基础 - 远程仓库的使用](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8),   9.[2.6 Git 基础 - 打标签](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%89%93%E6%A0%87%E7%AD%BE),   10.[3.1 Git 分支 - 分支简介](https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%AE%80%E4%BB%8B),   11.[3.2 Git 分支 - 分支的新建与合并](https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%9A%84%E6%96%B0%E5%BB%BA%E4%B8%8E%E5%90%88%E5%B9%B6)
+1.[1.3 起步 - Git 基础](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-Git-%E5%9F%BA%E7%A1%80),   2.[1.6 起步 - 初次运行 Git 前的配置](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%88%9D%E6%AC%A1%E8%BF%90%E8%A1%8C-Git-%E5%89%8D%E7%9A%84%E9%85%8D%E7%BD%AE#_first_time),   3.[1.7 起步 - 获取帮助](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E8%8E%B7%E5%8F%96%E5%B8%AE%E5%8A%A9),   4.[2.1 Git 基础 - 获取 Git 仓库](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%8E%B7%E5%8F%96-Git-%E4%BB%93%E5%BA%93),   5.[2.2 Git 基础 - 记录每次更新到仓库](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%AE%B0%E5%BD%95%E6%AF%8F%E6%AC%A1%E6%9B%B4%E6%96%B0%E5%88%B0%E4%BB%93%E5%BA%93)   6.[2.3 Git 基础 - 查看提交历史](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2),   7.[2.4 Git 基础 - 撤消操作](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%92%A4%E6%B6%88%E6%93%8D%E4%BD%9C),   8.[2.5 Git 基础 - 远程仓库的使用](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8),   9.[2.6 Git 基础 - 打标签](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%89%93%E6%A0%87%E7%AD%BE),   10.[3.1 Git 分支 - 分支简介](https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%AE%80%E4%BB%8B),   11.[3.2 Git 分支 - 分支的新建与合并](https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%9A%84%E6%96%B0%E5%BB%BA%E4%B8%8E%E5%90%88%E5%B9%B6),   12.[git merge 合并分支](http://blog.csdn.net/wangjia55/article/details/8791195),   13.
 
