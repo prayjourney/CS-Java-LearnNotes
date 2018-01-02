@@ -1146,7 +1146,7 @@ hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
 $ git branch v3
 
 # 查看所有分支
-renjiaxin@PC-RENJIAXIN MINGW64 /e/Codes/gittest (master)
+hello@PC-HELLO MINGW64 /e/Codes/gittest (master)
 $ git branch
 * master
   v1
@@ -1244,7 +1244,7 @@ please contact us at email.support@github.com
 
 此时冲突文档`mtk.txt`之中的内容如下图，**需要我们手动解决冲突，保留`=======`的以上或者以下的部分，也可以自己修改，添加其他内容，然后存到暂存状态(stash)`git add`，就会消除冲突状态**
 
-![statusttxt](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_statusttxt.jpg)
+![txtstatus](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_txtstatus.jpg)
 
 ```shell
 hello@PC-HELLO MINGW64 /e/Codes/gittest (master|MERGING)
@@ -1286,7 +1286,7 @@ $
 
 当前的状态如下，此时已经又在各个分支上做了提交操作，表示各个分支已经又改变了，而非仅仅是合并时的情况
 
-![nowstatus](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_nowstatus.jpg)
+![nowsta](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_nowsta.jpg)
 
 如果想使用图形化工具来解决冲突，你可以运行 `git mergetool`，该命令会为启动一个合适的可视化合并工具，并一步一步解决这些冲突。解决了冲突之后，如果对结果感到满意，并且确定之前有冲突的的文件都已经暂存了，这时你可以输入 `git commit` 来完成合并提交
 
