@@ -1397,7 +1397,29 @@ If you are sure you want to delete it, run 'git branch -D testing'.
 
 ###### origin/master和master的关系
 
-从远程仓库克隆到本地，Git 的 `clone` 命令会在本地建立两个分支，一个是代表本地仓库分支的`master`，一个是代表远程仓库分支的`origin/master`，当本地修改，提交到远程时，一般这两个指针指向同一个HEAD，但是当本地和远程有不同的操作时，这两个分支的头会有不同，此时就会产生分叉，简而言之，**就是两个不同的分支，一个代表本地分支，一个代表远程分支**。在未改变仓库分支内容时，这两个分支指向是一致的
+从远程仓库克隆到本地，Git 的 `clone` 命令会在本地建立两个分支，一个是代表本地仓库分支的`master`，一个是代表远程仓库分支的`origin/master`，当本地修改，提交到远程时，一般这两个指针指向同一个HEAD，但是当本地和远程有不同的操作时，这两个分支的头会有不同，此时就会产生分叉，简而言之，**就是两个不同的分支，一个代表本地分支，一个代表远程分支**。在未改变仓库分支内容时，这两个分支指向是一致的。下图是本地提交，二者合并后的情况
+
+![mergeagain](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_mergeagain.jpg)
+
+
+
+###### 添加另一个远程仓库
+
+为了演示有多个远程仓库与远程分支的情况，我们假定有另一个内部 Git 服务器，仅用于 sprint 小组的开发工作。 这个服务器位于 `git.team1.ourcompany.com`。 **我们可以运行 `git remote add` 命令添加一个新的远程仓库引用到当前的项目**。 将这个远程仓库命名为 `teamone`，将其作为整个 URL 的缩写
+
+![添加另一个远程仓库。](https://git-scm.com/book/en/v2/images/remote-branches-4.png)
+
+此时，*我们可以运行 `git fetch teamone` 来抓取远程仓库 `teamone` 有，而本地没有的数据*。 **因为那台服务器上现有的数据是 `origin` 服务器上的一个子集**，~~所以 Git 并不会抓取数据而是会设置远程跟踪分支 `teamone/master` 指向 `teamone` 的 `master` 分支~~，这相当于新开了一个分支
+
+![远程跟踪分支 `teamone/master`。](https://git-scm.com/book/en/v2/images/remote-branches-5.png)
+
+
+
+
+
+
+
+
 
 ref:
 
