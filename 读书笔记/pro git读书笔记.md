@@ -1337,9 +1337,40 @@ If you are sure you want to delete it, run 'git branch -D testing'.
 
 如果真的想要删除分支并丢掉那些工作，如同帮助信息里所指出的，可以使用 `-D` 选项强制删除它
 
+##### 分支开发工作流
+
+使用分支开发工作流，可以减少开发中因为代码版混乱而带来的问题，同时可以发挥git强大的分支管理功能，对于开发十分有帮助，此处介绍的是git 原始的分支开发工作流，更专业的还有[git flow](http://danielkummer.github.io/git-flow-cheatsheet/index.zh_CN.html)，可以完成对于主版本，发布版本，开发版本，修复版本等的区分，简化了开发的代码管理问题
+
+###### 长期分支
+
+一般开发之中，都会有bug产生，然后需要我们去处理和修复这些问题，因此稳定分支的指针总是在提交历史中落后一大截，而前沿分支的指针往往比较靠前。一般而言，我们会fork多个分支，比如`master`,`develop`,作为平行分支，当开发的功能达到一个比较稳定的状态时，就将其合并到`master`分支，这样，在确保这些已完成的特性分支（短期分支，比如之前的 `iss53` 分支）能够通过所有测试，并且不会引入更多 bug 之后，就可以合并入主干分支中，等待下一次的发布
+
+![渐进稳定分支的线性图。](https://git-scm.com/book/en/v2/images/lr-branches-1.png)
+
+通常可以把各个分支的流，想象成流水线（work silos），那些经过测试考验的提交会被遴选到更加稳定的流水线上去
+
+![渐进稳定分支的工作流（“silo”）视图。](https://git-scm.com/book/en/v2/images/lr-branches-2.png)
+
+使用多个长期分支的方法并非必要，但是这么做通常很有帮助，尤其是当你在一个非常庞大或者复杂的项目中工作时，因此而言，使用`git flow`将会是一个有益的尝试
+
+###### 特性分支
+
+特性分支对任何规模的项目都适用。 **特性分支是一种短期分支，它被用来实现单一特性或其相关工作**。*通常我们在一个特性分支上完成相关的功能，经过测试达到比较稳定的状态之后，会将他们合并到主干分支，然后删除删除了它们*。这在做代码审查之类的工作的时候能更加容易地看出做了哪些改动。当然特性分支也可以保留，等它们成熟之后再合并，而不用在乎它们建立的顺序或工作进度
+
+假如，在 `master` 分支上工作到 `C1`，这时为了解决一个问题而新建 `iss91` 分支，在 `iss91`分支上工作到 `C4`，然而对于那个问题我们又有了新的想法，于是可以再新建一个 `iss91v2` 分支试图用另一种方法解决那个问题，接着回到 `master` 分支工作了一会儿，又冒出了一个不太确定的想法，便在 `C10`的时候新建一个 `dumbidea` 分支，并在上面做些实验。 我们的提交记录可以描述如下
+
+![拥有多个特性分支的提交历史。](https://git-scm.com/book/en/v2/images/topic-branches-1.png)
+
+现在，我们假设两件事情：决定使用第二个方案来解决那个问题，即使用在 `iss91v2` 分支中方案；另外，当我们将 `dumbidea` 分支拿给其他同事看过之后，结果发现这是个惊人之举。 这时我们可以抛弃 `iss91` 分支（即丢弃 `C5` 和 `C6` 提交），然后把另外两个分支合并入主干分支。 最终我们的提交历史看起来像下
+
+![合并了 `dumbidea` 和 `iss91v2` 分支之后的提交历史。](https://git-scm.com/book/en/v2/images/topic-branches-2.png)
+
+以上的所有这一切都只发生在本地的 Git 版本库中，暂时没有和服务器发生交互
+
+
+
 
 
 ref:
 
-1.[1.3 起步 - Git 基础](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-Git-%E5%9F%BA%E7%A1%80),   2.[1.6 起步 - 初次运行 Git 前的配置](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%88%9D%E6%AC%A1%E8%BF%90%E8%A1%8C-Git-%E5%89%8D%E7%9A%84%E9%85%8D%E7%BD%AE#_first_time),   3.[1.7 起步 - 获取帮助](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E8%8E%B7%E5%8F%96%E5%B8%AE%E5%8A%A9),   4.[2.1 Git 基础 - 获取 Git 仓库](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%8E%B7%E5%8F%96-Git-%E4%BB%93%E5%BA%93),   5.[2.2 Git 基础 - 记录每次更新到仓库](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%AE%B0%E5%BD%95%E6%AF%8F%E6%AC%A1%E6%9B%B4%E6%96%B0%E5%88%B0%E4%BB%93%E5%BA%93)   6.[2.3 Git 基础 - 查看提交历史](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2),   7.[2.4 Git 基础 - 撤消操作](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%92%A4%E6%B6%88%E6%93%8D%E4%BD%9C),   8.[2.5 Git 基础 - 远程仓库的使用](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8),   9.[2.6 Git 基础 - 打标签](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%89%93%E6%A0%87%E7%AD%BE),   10.[3.1 Git 分支 - 分支简介](https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%AE%80%E4%BB%8B),   11.[3.2 Git 分支 - 分支的新建与合并](https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%9A%84%E6%96%B0%E5%BB%BA%E4%B8%8E%E5%90%88%E5%B9%B6),   12.[git merge 合并分支](http://blog.csdn.net/wangjia55/article/details/8791195),   13.[3.3 Git 分支 - 分支管理](https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86)
-
+1.[1.3 起步 - Git 基础](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-Git-%E5%9F%BA%E7%A1%80),   2.[1.6 起步 - 初次运行 Git 前的配置](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%88%9D%E6%AC%A1%E8%BF%90%E8%A1%8C-Git-%E5%89%8D%E7%9A%84%E9%85%8D%E7%BD%AE#_first_time),   3.[1.7 起步 - 获取帮助](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E8%8E%B7%E5%8F%96%E5%B8%AE%E5%8A%A9),   4.[2.1 Git 基础 - 获取 Git 仓库](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%8E%B7%E5%8F%96-Git-%E4%BB%93%E5%BA%93),   5.[2.2 Git 基础 - 记录每次更新到仓库](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%AE%B0%E5%BD%95%E6%AF%8F%E6%AC%A1%E6%9B%B4%E6%96%B0%E5%88%B0%E4%BB%93%E5%BA%93)   6.[2.3 Git 基础 - 查看提交历史](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2),   7.[2.4 Git 基础 - 撤消操作](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%92%A4%E6%B6%88%E6%93%8D%E4%BD%9C),   8.[2.5 Git 基础 - 远程仓库的使用](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8),   9.[2.6 Git 基础 - 打标签](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%89%93%E6%A0%87%E7%AD%BE),   10.[3.1 Git 分支 - 分支简介](https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%AE%80%E4%BB%8B),   11.[3.2 Git 分支 - 分支的新建与合并](https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%9A%84%E6%96%B0%E5%BB%BA%E4%B8%8E%E5%90%88%E5%B9%B6),   12.[git merge 合并分支](http://blog.csdn.net/wangjia55/article/details/8791195),   13.[3.3 Git 分支 - 分支管理](https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86),   14.[git flow](http://danielkummer.github.io/git-flow-cheatsheet/index.zh_CN.html)
