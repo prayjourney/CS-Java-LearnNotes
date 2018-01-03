@@ -1413,9 +1413,9 @@ If you are sure you want to delete it, run 'git branch -D testing'.
 
 ![远程跟踪分支 `teamone/master`。](https://git-scm.com/book/en/v2/images/remote-branches-5.png)
 
+###### 推送
 
-
-
+运行 `git push (remote) (branch)`，可以将本地的修改，推送到远程仓库之中。
 
 
 
