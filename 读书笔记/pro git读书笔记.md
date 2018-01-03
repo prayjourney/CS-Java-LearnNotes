@@ -1371,31 +1371,33 @@ If you are sure you want to delete it, run 'git branch -D testing'.
 
 远程引用是对远程仓库的引用（指针），包括分支、标签等等。 可以通过 `git ls-remote (remote)` 来显式地获得远程引用的完整列表，或者通过 `git remote show (remote)` 获得远程分支的更多信息。一个更常见的做法是利用远程跟踪分支，**远程跟踪分支是远程分支状态的引用**，其实就是*将本地的修改，更新等一系列本地的操作，提交到远程仓库之中去*
 
-**远程分支以 `(remote)/(branch)` 形式命名，这是在本地的git系统对于远程git仓库的理解的命名**。如`origin/master`。**但是，就我的理解而言，本地仓库的分支是`master`，远程仓库的分支也是`master` ,而这个`origin/master`更像是为了区分本地仓库的分支和远程仓库的分支的一个flag**
+在本地情况下，对于远程仓库的分支，**以 `(remote)/(branch)` 形式命名**，这是在本地的git系统对于远程git仓库的理解的命名。如`origin/master`。**就我的理解而言，本地仓库的分支是`master`，远程仓库的分支也是`master` ,而这个`origin/master`更像是为了区分本地仓库的分支和远程仓库的分支的一个flag，是远程仓库在本地仓库的分支**
 
-假设网络里有一个在 `git.ourcompany.com` 的 Git 服务器。服务器上的分支为master, 如果从这里克隆，Git 的 `clone` 命令会自动将其命名为 `origin`，拉取它的所有数据，创建一个指向它的 `master` 分支的指针，并且命名**服务器**上的分支为 `origin/master`。 Git 也会给一个与 origin 的 `master` 分支在指向同一个地方的本地 `master` 分支，这样我们就有工作的基础
+假设网络里有一个在 `git.ourcompany.com` 的 Git 服务器。**服务器上的分支为`master`，如果从这里克隆，Git 的 `clone` 命令会在本地建立两个分支，但是在未改变仓库分支内容时，这两个分支指向是一致的，一个是代表本地仓库分支的`master`，一个是代表远程仓库分支的`origin/master`**，这就有工作的基础
 
 **需要说明的是，可以从下图看出，本地的分支和远程的分支，仍然都是叫`master` ，而这个 `origin/master`的作用，就是为了标记出来本地和远程的区别，当了一个flag，相当于一个中间的标记。本地提交到远程，可以通过这个特殊的指针，区分那些文件更新了，那些是新的内容，借此来实现更新，此时这个指针会向前移动，和当前的本地分支`master`的头指针处于同一个位置处，当然，从远程拉取更新到本地，也会该表这个指针的位置**
 
-`“origin”` 并无特殊含义远程仓库名字` “origin”` 与分支名字 `“master”` 一样，在 Git 中并没有任何特别的含义一样。 同时` “master”` 是当我们运行 `git init` 时默认的起始分支名字，原因仅仅是它的广泛使用，`“origin”` 是当你运行 `git clone` 时默认的远程仓库名字。 如果你运行 `git clone -o booyah`，那么你默认的远程分支名字将会是 `booyah/master`。从远程`clone`仓库的示意图如下
+~~`“origin”` 并无特殊含义远程仓库名字` “origin”` 与分支名字 `“master”` 一样，在 Git 中并没有任何特别的含义一样。 同时` “master”` 是当我们运行 `git init` 时默认的起始分支名字，原因仅仅是它的广泛使用，`“origin”` 是当你运行 `git clone` 时默认的远程仓库名字。 如果你运行 `git clone -o booyah`，那么你默认的远程分支名字将会是 `booyah/master`。~~从远程`clone`仓库的示意图如下
 
 ![克隆之后的服务器与本地仓库。](https://git-scm.com/book/en/v2/images/remote-branches-1.png)
 
-如果在本地的 `master` 分支做了一些工作，然而在同一时间，其他人推送提交到 `git.ourcompany.com`并更新了它的 `master` 分支，那么我们的提交历史将向不同的方向前进。 但是，只要不与 origin 服务器连接 `origin/master` 指针就不会移动
+如果在本地的 `master` 分支做了一些工作，然而在同一时间，其他人推送提交到 `git.ourcompany.com`并更新了它的 `master` 分支，那么我们的提交历史将向不同的方向前进。 但是，**只要不与origin 服务器连接 `origin/master` 指针就不会移动， `origin/master` 是远程仓库在本地的分支，`master`是本地仓库的分支**
 
 ![本地与远程的工作可以分叉。](https://git-scm.com/book/en/v2/images/remote-branches-2.png)
 
 ###### 获取数据
 
-如果远程的仓库有更新，我们要将其同步到本地仓库，可以运行 `git fetch origin` 命令来获取更新。 这个命令查找 “origin” 是哪一个服务器（在本例中，它是 `git.ourcompany.com`），从中抓取本地没有的数据，并且更新本地数据库，移动 `origin/master` 指针指向新的、更新后的位置。**可以看出，当本地和远程有不同的更新时候，其会在最近的共同祖先节点(`f4265`)处分叉** 
+如果远程的仓库有更新，我们要将其同步到本地仓库，可以运行 `git fetch origin` 命令来获取更新。 这个命令查找 “origin” 是哪一个服务器（在本例中，它是 `git.ourcompany.com`），从中抓取本地没有的数据，并且更新本地数据库，移动 `origin/master` 指针指向新的、更新后的位置。**可以看出，当本地和远程有不同的更新时候，其会在最近的共同祖先节点(`f4265`)处分叉** ,下面第二张图片说明了`origin/master`和`master`之间的关系
 
 ![`git fetch` 更新你的远程仓库引用。](https://git-scm.com/book/en/v2/images/remote-branches-3.png)
 
+![originandoriginmaster](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_originandoriginmaster.jpg)
 
 
 
+###### origin/master和master的关系
 
-
+从远程仓库克隆到本地，Git 的 `clone` 命令会在本地建立两个分支，一个是代表本地仓库分支的`master`，一个是代表远程仓库分支的`origin/master`，当本地修改，提交到远程时，一般这两个指针指向同一个HEAD，但是当本地和远程有不同的操作时，这两个分支的头会有不同，此时就会产生分叉，简而言之，**就是两个不同的分支，一个代表本地分支，一个代表远程分支**。在未改变仓库分支内容时，这两个分支指向是一致的
 
 ref:
 
