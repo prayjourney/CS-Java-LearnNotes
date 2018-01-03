@@ -1397,7 +1397,7 @@ If you are sure you want to delete it, run 'git branch -D testing'.
 
 ###### origin/master和master的关系
 
-从远程仓库克隆到本地，Git 的 `clone` 命令会在本地建立两个分支，一个是代表本地仓库分支的`master`，一个是代表远程仓库分支的`origin/master`，当本地修改，提交到远程时，一般这两个指针指向同一个HEAD，但是当本地和远程有不同的操作时，这两个分支的头会有不同，此时就会产生分叉，简而言之，**就是两个不同的分支，一个代表本地分支，一个代表远程分支**。在未改变仓库分支内容时，这两个分支指向是一致的。下图是本地提交，二者合并后的情况
+从远程仓库克隆到本地，Git 的 `clone` 命令会在本地建立两个分支，一个是代表本地仓库分支的`master`，一个是代表远程仓库分支的`origin/master`，当本地修改，提交到远程时，一般这两个指针指向同一个HEAD，但是当本地和远程有不同的操作时，这两个分支的头会有不同，此时就会产生分叉，简而言之，**就是两个不同的分支，一个代表本地分支，一个代表远程分支**。在未改变仓库分支内容时，这两个分支指向是一致的。详细可见**跟踪分支**部分。下图是本地提交，二者合并后的情况
 
 ![mergeagain](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_mergeagain.jpg)
 
@@ -1415,12 +1415,76 @@ If you are sure you want to delete it, run 'git branch -D testing'.
 
 ###### 推送
 
-运行 `git push (remote) (branch)`，可以将本地的修改，推送到远程仓库之中。
+运行 `git push (remote) (branch)`，可以将本地的修改，推送到远程仓库之中。实验得知，如果远程仓库不存在某个分支，然后去推送，会报错，也就是说，**推送的时候，分支需要存在，即先要创建分支**
 
+```shell
+hello@HELLO MINGW64 /f/mydoc/forgit/gitextensions/SummaryOfProgramming/读书笔记 (master)
+$ git push origin testpush
+error: src refspec testpush does not match any.
+error: failed to push some refs to 'https://github.com/prayjourney/SummaryOfProgramming.git'
+```
 
+###### 跟踪分支
+
+从一个远程跟踪分支检出一个本地分支会自动创建一个叫做 “**跟踪分支**”（有时候也叫做 “上游分支”）。 跟踪分支是与远程分支有直接关系的本地分支。也就是`origin/master`和`master`的关系。**如果在一个跟踪分支上输入 `git pull`，Git 能自动地识别去哪个服务器上抓取、合并到哪个分支**
+
+**当克隆一个仓库时，它通常会自动地创建一个跟踪 `origin/master` 的 `master` 分支**。 也可以设置其他的跟踪分支 - 其他远程仓库上的跟踪分支，或者不跟踪 `master` 分支。 最简单的就是之前看到的例子，运行 `git checkout -b [branch] [remotename]/[branch]`。 这是一个十分常用的操作所以 Git 提供了 `--track` 快捷方式
+
+```shell
+$ git checkout --track origin/serverfix
+Branch serverfix set up to track remote branch serverfix from origin.
+Switched to a new branch 'serverfix'
+```
+
+如果想要将本地分支与远程分支设置为不同名字，可以轻松地增加一个不同名字的本地分支的上一个命令
+
+```shell
+$ git checkout -b sf origin/serverfix
+Branch sf set up to track remote branch serverfix from origin.
+Switched to a new branch 'sf'
+```
+
+现在，本地分支 `sf` 会自动从 `origin/serverfix` 拉取
+
+想要让已有的本地分支跟踪一个刚刚拉取下来的远程分支，或者想要修改正在跟踪的上游分支，可以在任意时间使用 `-u` 或 `--set-upstream-to` 选项运行 `git branch` 来显式地设置
+
+```shell
+$ git branch -u origin/serverfix
+Branch serverfix set up to track remote branch serverfix from origin.
+```
+
+如果想要查看设置的所有跟踪分支，可以使用 `git branch` 的 `-vv` 选项。 这会将所有的本地分支列出来并且包含更多的信息，如每一个分支正在跟踪哪个远程分支与本地分支是否是领先、落后或是都有
+
+```shell
+$ git branch -vv
+  iss53     7e424c3 [origin/iss53: ahead 2] forgot the brackets
+  master    1ae2a45 [origin/master] deploying index fix
+* serverfix f8674d9 [teamone/server-fix-good: ahead 3, behind 1] this should do it
+  testing   5ea463a trying something new
+```
+
+这里可以看到 `iss53` 分支正在跟踪 `origin/iss53` 并且 “ahead” 是 2，意味着本地有两个提交还没有推送到服务器上。 也能看到 `master` 分支正在跟踪 `origin/master` 分支并且是最新的。 接下来可以看到 `serverfix` 分支正在跟踪 `teamone` 服务器上的 `server-fix-good` 分支并且领先 3 落后 1，意味着服务器上有一次提交还没有合并入同时本地有三次提交还没有推送。 最后看到 `testing` 分支并没有跟踪任何远程分支
+
+**需要重点注意的一点是这些数字的值来自于我们从每个服务器上最后一次抓取的数据**。 *这个命令并没有连接服务器*，**它只会告诉我们关于本地缓存的服务器数据**。 如果想要统计最新的领先与落后数字，需要在运行此命令前抓取所有的远程仓库。 可以像这样做：`$ git fetch --all; git branch -vv`
+
+###### 拉取
+
+*当 `git fetch` 命令从服务器上抓取本地没有的数据时，它并不会修改工作目录中的内容。 它只会获取数据然后让你自己合并*。 **而有一个命令叫作 `git pull` 在大多数情况下它的含义是一个 `git fetch` 紧接着一个 `git merge` 命令**。 由于 `git pull` 的魔法经常令人困惑所以通常单独显式地使用 `fetch` 与 `merge` 命令会更好一些。就是说，`git pull`=`git fetch`+`git merge`，但是，通常情况下，我们还是最好使用`git fetch`
+
+###### 删除远程分支
+
+假设我们已经通过远程分支做完所有的工作了，也就是说我们和协作者已经完成了一个特性并且将其合并到了远程仓库的 `master` 分支（或任何其他稳定代码分支）。 可以运行带有 `--delete` 选项的 `git push` 命令来删除一个远程分支。 如果想要从服务器上删除 `serverfix` 分支，运行下面的命令
+
+```shell
+$ git push origin --delete serverfix
+To https://github.com/schacon/simplegit
+ - [deleted]         serverfix
+```
+
+基本上这个命令做的只是从服务器上移除这个指针。 Git 服务器通常会保留数据一段时间直到垃圾回收运行，所以如果不小心删除掉了，通常是很容易恢复的
 
 
 
 ref:
 
-1.[1.3 起步 - Git 基础](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-Git-%E5%9F%BA%E7%A1%80),   2.[1.6 起步 - 初次运行 Git 前的配置](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%88%9D%E6%AC%A1%E8%BF%90%E8%A1%8C-Git-%E5%89%8D%E7%9A%84%E9%85%8D%E7%BD%AE#_first_time),   3.[1.7 起步 - 获取帮助](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E8%8E%B7%E5%8F%96%E5%B8%AE%E5%8A%A9),   4.[2.1 Git 基础 - 获取 Git 仓库](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%8E%B7%E5%8F%96-Git-%E4%BB%93%E5%BA%93),   5.[2.2 Git 基础 - 记录每次更新到仓库](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%AE%B0%E5%BD%95%E6%AF%8F%E6%AC%A1%E6%9B%B4%E6%96%B0%E5%88%B0%E4%BB%93%E5%BA%93)   6.[2.3 Git 基础 - 查看提交历史](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2),   7.[2.4 Git 基础 - 撤消操作](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%92%A4%E6%B6%88%E6%93%8D%E4%BD%9C),   8.[2.5 Git 基础 - 远程仓库的使用](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8),   9.[2.6 Git 基础 - 打标签](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%89%93%E6%A0%87%E7%AD%BE),   10.[3.1 Git 分支 - 分支简介](https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%AE%80%E4%BB%8B),   11.[3.2 Git 分支 - 分支的新建与合并](https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%9A%84%E6%96%B0%E5%BB%BA%E4%B8%8E%E5%90%88%E5%B9%B6),   12.[git merge 合并分支](http://blog.csdn.net/wangjia55/article/details/8791195),   13.[3.3 Git 分支 - 分支管理](https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86),   14.[git flow](http://danielkummer.github.io/git-flow-cheatsheet/index.zh_CN.html),   15.[3.4 Git 分支 - 分支开发工作流](https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E5%BC%80%E5%8F%91%E5%B7%A5%E4%BD%9C%E6%B5%81)
+1.[1.3 起步 - Git 基础](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-Git-%E5%9F%BA%E7%A1%80),   2.[1.6 起步 - 初次运行 Git 前的配置](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E5%88%9D%E6%AC%A1%E8%BF%90%E8%A1%8C-Git-%E5%89%8D%E7%9A%84%E9%85%8D%E7%BD%AE#_first_time),   3.[1.7 起步 - 获取帮助](https://git-scm.com/book/zh/v2/%E8%B5%B7%E6%AD%A5-%E8%8E%B7%E5%8F%96%E5%B8%AE%E5%8A%A9),   4.[2.1 Git 基础 - 获取 Git 仓库](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%8E%B7%E5%8F%96-Git-%E4%BB%93%E5%BA%93),   5.[2.2 Git 基础 - 记录每次更新到仓库](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%AE%B0%E5%BD%95%E6%AF%8F%E6%AC%A1%E6%9B%B4%E6%96%B0%E5%88%B0%E4%BB%93%E5%BA%93)   6.[2.3 Git 基础 - 查看提交历史](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%9F%A5%E7%9C%8B%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2),   7.[2.4 Git 基础 - 撤消操作](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%92%A4%E6%B6%88%E6%93%8D%E4%BD%9C),   8.[2.5 Git 基础 - 远程仓库的使用](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E7%9A%84%E4%BD%BF%E7%94%A8),   9.[2.6 Git 基础 - 打标签](https://git-scm.com/book/zh/v2/Git-%E5%9F%BA%E7%A1%80-%E6%89%93%E6%A0%87%E7%AD%BE),   10.[3.1 Git 分支 - 分支简介](https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%AE%80%E4%BB%8B),   11.[3.2 Git 分支 - 分支的新建与合并](https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%9A%84%E6%96%B0%E5%BB%BA%E4%B8%8E%E5%90%88%E5%B9%B6),   12.[git merge 合并分支](http://blog.csdn.net/wangjia55/article/details/8791195),   13.[3.3 Git 分支 - 分支管理](https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%AE%A1%E7%90%86),   14.[git flow](http://danielkummer.github.io/git-flow-cheatsheet/index.zh_CN.html),   15.[3.4 Git 分支 - 分支开发工作流](https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E5%BC%80%E5%8F%91%E5%B7%A5%E4%BD%9C%E6%B5%81),   16.[3.5 Git 分支 - 远程分支](https://git-scm.com/book/zh/v2/Git-%E5%88%86%E6%94%AF-%E8%BF%9C%E7%A8%8B%E5%88%86%E6%94%AF)
