@@ -1469,7 +1469,7 @@ $ git branch -vv
 
 ###### 拉取
 
-*当 `git fetch` 命令从服务器上抓取本地没有的数据时，它并不会修改工作目录中的内容。 它只会获取数据然后让你自己合并*。 **而有一个命令叫作 `git pull` 在大多数情况下它的含义是一个 `git fetch` 紧接着一个 `git merge` 命令**。 由于 `git pull` 的魔法经常令人困惑所以通常单独显式地使用 `fetch` 与 `merge` 命令会更好一些。就是说，`git pull`=`git fetch`+`git merge`，但是，通常情况下，我们还是最好使用`git fetch`
+*当 `git fetch` 命令从服务器上抓取本地没有的数据时，它并不会修改工作目录中的内容。 它只会获取数据然后让你自己合并*。 **而有一个命令叫作 `git pull` 在大多数情况下它的含义是一个 `git fetch` 紧接着一个 `git merge` 命令**。 **由于 `git pull` 的魔法经常令人困惑所以通常单独显式地使用 `fetch` 与 `merge` 命令会更好一些**。就是说，`git pull`=`git fetch`+`git merge`，但是，通常情况下，我们还是最好使用`git fetch`
 
 ###### 删除远程分支
 
@@ -1483,13 +1483,15 @@ To https://github.com/schacon/simplegit
 
 基本上这个命令做的只是从服务器上移除这个指针。 Git 服务器通常会保留数据一段时间直到垃圾回收运行，所以如果不小心删除掉了，通常是很容易恢复的
 
+
+
 ##### 变基
 
 **在 Git 中整合来自不同分支的修改主要有两种方法：`merge` 以及 `rebase`**
 
 ###### 变基的基本操作
 
-可以考虑之前的例子，假若之前的开发任务分叉到两个不同分支，又各自提交了更新
+**在当前的git版本中，路径之中出现中文，变基会产生问题**！可以考虑之前的例子，假若之前的开发任务分叉到两个不同分支，又各自提交了更新
 
 ![分叉的提交历史。](https://git-scm.com/book/en/v2/images/basic-rebase-1.png)
 
@@ -1497,9 +1499,7 @@ To https://github.com/schacon/simplegit
 
 ![通过合并操作来整合分叉了的历史。](https://git-scm.com/book/en/v2/images/basic-rebase-2.png)
 
-其实，还有一种方法：**可以提取在 `C4` 中引入的补丁和修改，然后在 `C3` 的基础上应用一次**。 在 Git 中，这种操作就叫做***变基* **。可以使用 `rebase` 命令将提交到某一分支上的所有修改都移至另一分支上，就好像“重新播放”一样
-
-在上面这个例子中，运行：
+其实，还有一种方法：**可以提取在 `C4` 中引入的补丁和修改，然后在 `C3` 的基础上应用一次**。 在 Git 中，这种操作就叫做***变基* **。可以使用 `rebase` 命令将提交到某一分支上的所有修改都移至另一分支上，就好像“重新播放”一样。在上面这个例子中，运行
 
 ```shell
 $ git checkout experiment
@@ -1527,11 +1527,273 @@ $ git merge experiment
 
 需要注意的是，*无论是通过变基，还是通过三方合并，整合的最终结果所指向的快照始终是一样的，只不过提交历史不同罢了*。 **变基是将一系列提交按照原有次序依次应用到另一分支上，而合并是把最终结果合在一起**
 
+
+
 ###### 合并和变基的操作方向
 
-合并需要现将某一个分支A检出（或者是当前分支A已经是检出状态），然后使用`git merge B`将B分支合并到A分支上
+**合并需要现将某一个分支A检出（或者是当前分支A已经是检出状态），然后使用`git merge B`将B分支合并到A分支上**
 
-变基是使用某一分支A为基底，将当前的分支B（或者是当前分支B已经是检出状态），使用`git rebase A` ，变基到A分支上
+**变基是使用某一分支A为基底，将当前的分支B（或者是当前分支B已经是检出状态），使用`git rebase A` ，变基到A分支上**。
+
+
+
+###### 变基有冲突和无冲突的两种情况
+
+第一种是`rebase`无冲突的情况
+
+```shell
+# 当前分支是v-rebase
+hello@HELLO MINGW64 /f/gittest (v-rebase)
+$ git rebase master  # 将v-rebase变基到master上
+First, rewinding head to replay your work on top of it...
+Applying: v-rebase operate
+Using index info to reconstruct a base tree...
+A       222.txt
+Falling back to patching base and 3-way merge...
+Applying: second time operate
+
+# 查看当前分支状态
+hello@HELLO MINGW64 /f/gittest (v-rebase)
+$ git status
+On branch v-rebase
+nothing to commit, working tree clean
+
+hello@HELLO MINGW64 /f/gittest (v-rebase)
+$ 
+```
+
+第二种是`rebase`有冲突的情况。当`rebase`遇到了冲突时，需要**手动解决冲突**。手动解决了冲突之后，然后存储到stash缓存区域，再次继续变基`git rebase --continue`，就可以完成变基。当然此时也可以终止操作`git rebase --abort`，此操作会返回到变基前的状态
+
+对于**`rebase`产生冲突的情况和`merge`产生冲突的情况场景是一致的，都是如果对于同一个文件在两个分支上，产生了各自的操作，或者有了各自的增删情况，导致变基的时候，会产生冲突**
+
+```shell
+hello@HELLO MINGW64 /f/gittest (v-33)  # v-33是当前分支
+$ git status
+On branch v-33
+nothing to commit, working tree clean
+
+hello@HELLO MINGW64 /f/gittest (v-33)  # 将v-33分支变基到v-rebase分支上
+$ git rebase v-rebase
+First, rewinding head to replay your work on top of it...
+Applying: v-33 opt
+error: Failed to merge in the changes.   #变基遇到了冲突
+Using index info to reconstruct a base tree...
+A       v1.txt
+M       v1v1.txt
+Falling back to patching base and 3-way merge...
+CONFLICT (modify/delete): v1v1.txt deleted in v-33 opt and modified in HEAD. Version HEAD of v1v1.txt left in tree.
+CONFLICT (modify/delete): v1.txt deleted in HEAD and modified in v-33 opt. Version v-33 opt of v1.txt left in tree.
+Removing m1.txt
+Patch failed at 0001 v-33 opt
+The copy of the patch that failed is found in: .git/rebase-apply/patch
+
+Resolve all conflicts manually, mark them as resolved with  # 需要手动解决冲突
+"git add/rm <conflicted_files>", then run "git rebase --continue".
+You can instead skip this commit: run "git rebase --skip".
+To abort and get back to the state before "git rebase", run "git rebase --abort".
+
+
+hello@HELLO MINGW64 /f/gittest (v-33|REBASE 1/2)  # 存储到stash区域
+$ git add rh.txt
+
+hello@HELLO MINGW64 /f/gittest (v-33|REBASE 1/2)  # 删除冲突的文件
+$ git rm v1v1.txt
+v1v1.txt: needs merge           # 提示需要合并，也就意味着，首先得存到缓存区域
+rm 'v1v1.txt'
+
+hello@HELLO MINGW64 /f/gittest (v-33|REBASE 1/2)  # 查看状态
+$ git status
+rebase in progress; onto 9a45c03
+You are currently rebasing branch 'v-33' on '9a45c03'.
+  (fix conflicts and then run "git rebase --continue")
+  (use "git rebase --skip" to skip this patch)
+  (use "git rebase --abort" to check out the original branch)
+
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        deleted:    m1.txt
+        new file:   rh.txt
+        deleted:    v1v1.txt
+
+Unmerged paths:
+  (use "git reset HEAD <file>..." to unstage)
+  (use "git add/rm <file>..." as appropriate to mark resolution)
+
+        deleted by us:   v1.txt
+
+
+hello@HELLO MINGW64 /f/gittest (v-33|REBASE 1/2)  # 添加到缓存区域
+$ git add .
+
+hello@HELLO MINGW64 /f/gittest (v-33|REBASE 1/2)
+$ git status
+rebase in progress; onto 9a45c03
+You are currently rebasing branch 'v-33' on '9a45c03'.
+  (all conflicts fixed: run "git rebase --continue")
+
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+        deleted:    m1.txt
+        new file:   rh.txt
+        new file:   v1.txt
+        deleted:    v1v1.txt
+
+hello@HELLO MINGW64 /f/gittest (v-33|REBASE 1/2)  #  解决了冲突，继续变基
+$ git rebase --continue
+Applying: v-33 opt
+Applying: new opt for v-33 include delete and modify  #  此时，变基已经完成
+
+hello@HELLO MINGW64 /f/gittest (v-33)  #  查看最近两次的操作日志
+$ git log -p -2
+commit 504de3cb8c27d08b27de6fc1398728d45b67d6bf (HEAD -> v-33)  # last 1
+Author: zhello <224hello@qq.com>
+Date:   Thu Jan 4 13:00:40 2018 +0800
+
+    new opt for v-33 include delete and modify
+
+diff --git a/ganggang.txt b/ganggang.txt
+deleted file mode 100644
+index 81581d3..0000000
+--- a/ganggang.txt
++++ /dev/null
+@@ -1 +0,0 @@
+-ganggangjiade
+\ No newline at end of file
+diff --git a/rh.txt b/rh.txt
+index ae81893..f6de5fd 100644
+--- a/rh.txt
++++ b/rh.txt
+@@ -1 +1,7 @@
+-sfdafafafd
+\ No newline at end of file
++sfdafafafd
++
++131231231
++
++
++
++3123123
+\ No newline at end of file
+diff --git a/tt1.txt b/tt1.txt
+index b322b68..7259b92 100644
+--- a/tt1.txt
++++ b/tt1.txt
+@@ -1 +1,4 @@
+-321312
+\ No newline at end of file
++321312
++
++fdsgdsgfsggs
++gdfsg
+\ No newline at end of file
+
+commit 4a8afa139dd8291f8d5eef987dff08920c82d85a  # last 2
+Author: zhello <224hello@qq.com>
+Date:   Thu Jan 4 12:59:05 2018 +0800
+
+    v-33 opt
+
+diff --git a/m1.txt b/m1.txt
+deleted file mode 100644
+index 03079c2..0000000
+--- a/m1.txt
++++ /dev/null
+@@ -1,6 +0,0 @@
+-fsadfasdfda
+-
+-
+-f
+-sa
+-11
+diff --git a/rh.txt b/rh.txt
+new file mode 100644
+index 0000000..ae81893
+--- /dev/null
++++ b/rh.txt
+@@ -0,0 +1 @@
++sfdafafafd
+\ No newline at end of file
+diff --git a/v1.txt b/v1.txt
+new file mode 100644
+index 0000000..48b2e3e
+--- /dev/null
++++ b/v1.txt
+@@ -0,0 +1,9 @@
++<D5><E2><CA><C7>v1
++
++V1
++V1  V2
++sdfafs
++fsadsaf
++fsdasfda
++fsdaaffaf
++fdsaf
+\ No newline at end of file
+diff --git a/v1v1.txt b/v1v1.txt
+deleted file mode 100644
+index bb4855f..0000000
+--- a/v1v1.txt
++++ /dev/null
+@@ -1,2 +0,0 @@
+-v1v1123
+-v1v1123123213123
+\ No newline at end of file
+
+hello@HELLO MINGW64 /f/gittest (v-33) 
+$
+```
+
+![beforerebase](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_beforerebase.jpg)
+
+![rebaseconflict](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_rebaseconflict.jpg)
+
+![afterrebase](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_afterrebase.jpg)
+
+
+
+###### 变基完成后
+
+当完成了变基之后，虽然看上面的第3张分支图，好像是两个分支合二为一了，但是其实还是可以切换的，如果有新的添加或者操作，则两个分叉又会增长，这其实和`rebase`的含义是一致的，也就是，**首先找到这两个分支（即当前分支 `v-33`、变基操作的目标基底分支 `v-rebase`）的最近共同祖先 ，然后对比当前分支相对于该祖先的历次提交，提取`v-33`和`v-rebase`中从共同祖先之后的修改，并存为临时文件，然后将当前分支`v-33`指向一个新的目标基地, 最后以此将之前另存为临时文件的修改依序应用到 `v-33`**，~~而我们的`v-rebase`分支还是没有在此过程之中受影响~~
+
+```shell
+hello@HELLO MINGW64 /f/gittest (v-33)
+$ git checkout v-rebase
+Switched to branch 'v-rebase'
+
+hello@HELLO MINGW64 /f/gittest (v-rebase)
+$
+```
+
+![checkoutvrebase](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_checkoutvrebase.jpg)
+
+```shell
+hello@HELLO MINGW64 /f/gittest (v-rebase)
+$ git status
+On branch v-rebase
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git checkout -- <file>..." to discard changes in working directory)
+
+        modified:   tt1.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+hello@HELLO MINGW64 /f/gittest (v-rebase)
+$ git add .
+g
+hello@HELLO MINGW64 /f/gittest (v-rebase)
+$ git commit -m 'modify tt1.txt'
+[v-rebase 89d71c0] modify tt1.txt
+ 1 file changed, 2 insertions(+), 1 deletion(-)
+
+hello@HELLO MINGW64 /f/gittest (v-rebase)
+$ 
+
+```
+
+![afterrebase222](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_afterrebase222.jpg)
 
 
 
