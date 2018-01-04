@@ -16,15 +16,22 @@ Git之中的文件有三种状态，文件可能处于其中之一：**已提交
 
 ![工作目录、暂存区域以及 Git 仓库](https://git-scm.com/book/en/v2/images/areas.png)
 
+
+
 ##### 基本的 Git 工作流
 
 - 在工作目录中修改文件
 - 暂存文件，将文件的快照放入暂存区域
 - 提交更新，找到暂存区域的文件，将快照永久性存储到 Git 仓库目录
 
+
+
+
 ##### 初次运行 Git 前的配置
 
 成功安装git后，会有一个 `git config` 的文件控制 Git 外观和行为的配置变量
+
+
 
 ##### 用户信息
 
@@ -37,6 +44,8 @@ $ git config --global user.email 123456789@qq.com
 
 如果使用了 `--global` 选项，那么该命令只需要运行一次，这样是一种全局配置，如果要针对特定项目使用不同的用户名称与邮件地址时，可以在那个项目目录下运行没有 `--global` 选项的命令来配置
 
+
+
 ##### 文本编辑器
 
 Git 会使用操作系统默认的文本编辑器，通常是 Vim。 如果你想使用不同的文本编辑器，例如 Emacs，可以使用如下配置：
@@ -44,6 +53,8 @@ Git 会使用操作系统默认的文本编辑器，通常是 Vim。 如果你�
 ```shell
 $ git config --global core.editor emacs
 ```
+
+
 
 ##### 检查配置信息
 
@@ -67,6 +78,8 @@ $ git config user.name
 hello
 ```
 
+
+
 ##### 获取帮助
 
 若使用 Git 时需要获取帮助，有三种方法可以找到 Git 命令的使用手册：
@@ -85,11 +98,17 @@ $ git help config
 
 
 
+
+
+
+
 ### Git 基础
 
 ##### 获取 Git 仓库
 
 有两种取得 Git 项目仓库的方法。 第一种是在现有项目或目录下导入所有文件到 Git 中； 第二种是从一个服务器克隆一个现有的 Git 仓库。
+
+
 
 ###### 在现有目录中初始化仓库
 
@@ -107,6 +126,8 @@ $ git add LICENSE
 $ git commit -m 'initial project version'
 ```
 
+
+
 ###### 克隆现有的仓库
 
 如果想获得一份已经存在了的 Git 仓库的拷贝，比如说github上面的某一个项目，这时就要用到 `git clone` 命令。 **Git 克隆的是该 Git 仓库服务器上的几乎所有数据，而不是仅仅复制完成你的工作所需要文件**。 *当执行 `git clone` 命令的时候，默认配置下远程 Git 仓库中的每一个文件的每一个版本都将被拉取下来*。 克隆仓库的命令格式是 `git clone [url]` 。 比如，要克隆 Git 的可链接库 libgit2，可以用下面的命令
@@ -122,6 +143,8 @@ $ git clone https://github.com/libgit2/libgit2 mylibgit
 ```
 
 这将执行与上一个命令相同的操作，不过在本地创建的仓库名字变为 `mylibgit`。
+
+
 
 ##### 文件状态
 
@@ -157,6 +180,8 @@ nothing added to commit but untracked files present (use "git add" to track)
 
 **通常，我们使用`git status`得到的文件状态比较复杂，我们可以使用`git status -s`来获取简略的信息，通常有`A`和`M`两种，`A`表示新添加的文件，`M`表示修改过的文件**
 
+
+
 ##### 跟踪/暂存新文件
 
 使用命令 `git add` 开始跟踪一个文件。 所以，要跟踪 README 文件，可以运行如下命令行
@@ -178,6 +203,8 @@ Changes to be committed:
 
 **只要在 `Changes to be committed` 这行下面的，就说明是已暂存状态**。 如果此时提交，那么该文件此时此刻的版本将被留存在历史记录中。**`git add`后文件存放在暂存区**， `git add`是个多功能命令：*可以用它开始跟踪新文件，或者把已跟踪的文件放到暂存区，还能用于合并时把有冲突的文件标记为已解决状态等*。**这个命令可以理解为“添加内容到下一次提交中”**。
 
+
+
 ##### 查看已暂存/未暂存已修改的文件
 
 现在我们来修改一个已被跟踪的文件。 如果**修改**了一个名为 `CONTRIBUTING.md` 的**已被跟踪的文件**，然后运行 `git status` 命令，就可实现对已经暂存的文件的状态查看
@@ -198,6 +225,8 @@ Changes not staged for commit:
 ```
 
 文件 `CONTRIBUTING.md` 出现在 `Changes not staged for commit` 这行下面，说明已跟踪文件的内容发生了变化，但还没有放到暂存区。 要暂存这次更新，需要运行 `git add` 命令
+
+
 
 ###### 查看已暂存
 
@@ -246,6 +275,8 @@ Changes to be committed:
     modified:   CONTRIBUTING.md
 ```
 
+
+
 ###### 查看已暂存和未暂存的修改
 
 虽然，现在我们可以使用`git status`来查看文档的状态，但是这只是针对与文档的，也就是说，我们可以看见那些文档是新增的，那些是修改的，但是具体文档之中修改了什么，新增了什么，我们无法知道，这种情况下，我们需要使用`git diff`命令来完成查看，**尽管 `git status` 已经通过在相应栏下列出文件名的方式回答了这个问题，`git diff` 将通过文件补丁的格式显示具体哪些行发生了改变**
@@ -271,6 +302,8 @@ Changes not staged for commit:
 
     modified:   CONTRIBUTING.md
 ```
+
+
 
 ###### 查看未暂存的修改
 
@@ -310,6 +343,8 @@ index 0000000..03902a1
 ```
 
 请注意，**git diff 本身只显示尚未暂存的改动，而不是自上次提交以来所做的所有改动**。 所以有时候一下子暂存了所有更新过的文件后，运行 `git diff` 后却什么也没有，就是这个原因
+
+
 
 ###### 查看已暂存的修改
 
@@ -372,6 +407,8 @@ index 0000000..6dad95f
 
 ```
 
+
+
 ##### 提交更新
 
 当暂存区域已经准备妥当可以提交了。*在此之前，请一定要确认还有什么修改过的或新建的文件还没有 `git add` 过，否则提交的时候不会记录这些还没暂存起来的变化*。 **这些修改过的文件只保留在本地磁盘。 所以，每次准备提交前，先用 `git status` 看下，是不是都已暂存起来了**， 然后再运行提交命令 `git commit`
@@ -394,6 +431,8 @@ $ git commit -m "Story 182: Fix benchmarks for speed"
 可以看到，提交后它会告诉你，当前是在哪个分支（`master`）提交的，本次提交的完整 SHA-1 校验和是什么（`463dc4f`），以及在本次提交中，有多少文件修订过，多少行添加和删改过。
 
 **提交时记录的是放在暂存区域的快照**。*任何已经修改，但还未暂存(放到快照区(使用git add提交))的文件，在本次提交之中其所作的修改不会保存其中，而在下次添加到缓存区之后，才可以纳入版本管理*。 每一次运行提交操作，都是对项目作一次快照，以后可以回到这个状态，或者进行比较
+
+
 
 ##### 跳过使用暂存区域
 
@@ -441,6 +480,8 @@ Date:   Thu Dec 28 14:38:07 2017 +0800
 
 ```
 
+
+
 ##### 移除文件
 
 **要从 Git 仓库中移除某个文件，就必须要从已跟踪文件清单中移除（确切地说，是从暂存区域移除），然后提交**。 可以用 `git rm` 命令完成此项工作，并连带从工作目录中删除指定的文件，**在下一次提交之后，删除的文档就不会出现在跟踪文件清单中，但是当删除文件未提交时，仍然受跟踪，并且是`deleted`状态**。注意的一点是，**当使用了`git rm` 命令删除了某一文件之后，其会立即进入已追踪等待提交的状态，经过实验有无`git add .`都是可以的，『.』表示当前目录的所有文件**，。如下例子中，删除了`123.txt`文件，并且提交之后显示此分支是clean的
@@ -466,6 +507,8 @@ On branch master
 nothing to commit, working tree clean
 
 ```
+
+
 
 ##### 移动文件
 
@@ -521,6 +564,8 @@ $ git commit -m'mv rename'
  rename tt.txt => tt1.txt (100%)
 
 ```
+
+
 
 ##### 查看提交历史
 
@@ -596,6 +641,8 @@ git log 的常用选项
 | --relative-date |      使用较短的相对时间显示（比如，“2 weeks ago”）。      |
 | --graph         |          显示 ASCII 图形表示的分支合并历史。           |
 | --pretty        | 使用其他格式显示历史提交信息。可用的选项包括 oneline，short，full，fuller 和 format（后跟指定格式）。 |
+
+
 
 ##### 撤消操作
 
@@ -888,6 +935,10 @@ Date:   Mon Mar 17 21:52:11 2008 -0700
 
 
 
+
+
+
+
 ### Git 分支
 
 ##### 分支简介
@@ -910,6 +961,8 @@ $ git commit -m 'The initial commit of my project'
 **Git 的分支，其实本质上仅仅是指向提交对象的可变指针**。 Git 的默认分支名字是 `master`。 在多次提交操作之后，*其实已经有一个指向最后那个提交对象的 `master` 分支*。 它会在每次的提交操作中自动向前移动
 
 ![分支及其提交历史。](https://git-scm.com/book/en/v2/images/branch-and-history.png)
+
+
 
 ##### 分支创建
 
@@ -960,6 +1013,8 @@ $ git commit -a -m 'made other changes'
 
 ![项目分叉历史。](https://git-scm.com/book/en/v2/images/advance-master.png)
 
+
+
 ###### 项目分叉历史
 
 可以简单地使用 `git log` 命令查看分叉历史。 运行 `git log --oneline --decorate --graph --all` ，它会输出提交历史、各个分支的指向以及项目的分支分叉情况
@@ -975,6 +1030,8 @@ $ git log --oneline --decorate --graph --all
 ```
 
 **由于 Git 的分支实质上仅是包含所指对象校验和（长度为 40 的 SHA-1 值字符串）的文件，所以它的创建和销毁都异常高效。 创建一个新分支就相当于往一个文件中写入 41 个字节（40 个字符和 1 个换行符）** ，这与过去大多数版本控制系统形成了鲜明的对比，它们在创建分支时，将所有的项目文件都复制一遍，并保存到一个特定的目录。 完成这样繁琐的过程通常需要好几秒钟，有时甚至需要好几分钟。所需时间的长短，完全取决于项目的规模。而在 Git 中，任何规模的项目都能在瞬间创建新分支。 同时，由于每次提交都会记录父对象，所以寻找恰当的合并基础（即**共同祖先**）也是同样的简单和高效。 这些高效的特性使得 Git 鼓励开发人员频繁地创建和使用分支
+
+
 
 ##### 分支的新建与合并
 
@@ -1010,6 +1067,8 @@ $ git commit -a -m 'fixed the broken email address'
 
 ![基于 `master` 分支的紧急问题分支（hotfix branch）。](https://git-scm.com/book/en/v2/images/basic-branching-4.png)
 
+
+
 ###### 快进合并
 
 当问题处理好了之后，可以将其合并到master 分支上，使用`git merge`就可以完成操作。**合并分为快进合并，普通合并和有冲突的合并三种**。*快进合并最为简单*，**由于`master` 分支所指向的提交是当前提交（有关 hotfix 的提交）的直接上游，所以 Git 只是简单的将指针向前移动**，这种就是快进合并。换句话说，当试图合并两个分支时，*如果顺着一个分支走下去能够到达另一个分支，那么 Git 在合并两者的时候，只会简单的将指针向前推进（指针右移），因为这种情况下的合并操作没有需要解决的分歧——这就叫做 “快进（fast-forward）”*。**当前分支为`A`，`git merge B`，此操作将`B`分支合并到`A`分支**，这是分支合并的方向
@@ -1025,6 +1084,8 @@ Fast-forward
 
 ![`master` 被快进到 `hotfix`。](https://git-scm.com/book/en/v2/images/basic-branching-5.png)
 
+
+
 ###### 删除分支
 
 如果要删除某一个分支，则可以使用`$ git branch -d [branch name]`语句，运行过后，提交的情况如下图
@@ -1037,6 +1098,8 @@ Deleted branch hotfix (3a0874c).
 ![继续在 `iss53` 分支上的工作。](https://git-scm.com/book/en/v2/images/basic-branching-6.png)
 
 `hotfix`分支已经删除，在 `hotfix` 分支上所做的工作并没有包含到 `iss53` 分支中。 如果需要拉取 `hotfix` 所做的修改，可以使用 `git merge master` 命令将 `master` 分支合并入 `iss53` 分支，或者也可以等到 `iss53` 分支完成其使命，再将其合并回 `master` 分支。
+
+
 
 ###### 普通合并
 
@@ -1120,7 +1183,7 @@ fsdafsaf.txt  m1.txt           pt.txt      tt1.txt  我是一个新建的文档.
 
 ###### 遇到冲突时的分支合并
 
-有时候合并操作不会如此顺利。 **如果在两个不同的分支中，对同一个文件的同一个部分进行了不同的修改，Git 就没法干净的合并它们**。 
+有时候合并操作不会如此顺利。 **如果在两个不同的分支中，对同一个文件的同一个部分进行了不同的修改，Git 就没法干净的合并它们**
 
 ```shell
 # master分支上面添加了mtk.txt
@@ -1337,6 +1400,8 @@ If you are sure you want to delete it, run 'git branch -D testing'.
 
 如果真的想要删除分支并丢掉那些工作，如同帮助信息里所指出的，可以使用 `-D` 选项强制删除它
 
+
+
 ##### 分支开发工作流
 
 使用分支开发工作流，可以减少开发中因为代码版混乱而带来的问题，同时可以发挥git强大的分支管理功能，对于开发十分有帮助，此处介绍的是git 原始的分支开发工作流，更专业的还有[git flow](http://danielkummer.github.io/git-flow-cheatsheet/index.zh_CN.html)，可以完成对于主版本，发布版本，开发版本，修复版本等的区分，简化了开发的代码管理问题
@@ -1353,6 +1418,8 @@ If you are sure you want to delete it, run 'git branch -D testing'.
 
 使用多个长期分支的方法并非必要，但是这么做通常很有帮助，尤其是当你在一个非常庞大或者复杂的项目中工作时，因此而言，使用`git flow`将会是一个有益的尝试
 
+
+
 ###### 特性分支
 
 特性分支对任何规模的项目都适用。 **特性分支是一种短期分支，它被用来实现单一特性或其相关工作**。*通常我们在一个特性分支上完成相关的功能，经过测试达到比较稳定的状态之后，会将他们合并到主干分支，然后删除删除了它们*。这在做代码审查之类的工作的时候能更加容易地看出做了哪些改动。当然特性分支也可以保留，等它们成熟之后再合并，而不用在乎它们建立的顺序或工作进度
@@ -1366,6 +1433,8 @@ If you are sure you want to delete it, run 'git branch -D testing'.
 ![合并了 `dumbidea` 和 `iss91v2` 分支之后的提交历史。](https://git-scm.com/book/en/v2/images/topic-branches-2.png)
 
 以上的所有这一切都只发生在本地的 Git 版本库中，暂时没有和服务器发生交互
+
+
 
 ##### 远程分支
 
@@ -1384,6 +1453,8 @@ If you are sure you want to delete it, run 'git branch -D testing'.
 如果在本地的 `master` 分支做了一些工作，然而在同一时间，其他人推送提交到 `git.ourcompany.com`并更新了它的 `master` 分支，那么我们的提交历史将向不同的方向前进。 但是，**只要不与origin 服务器连接 `origin/master` 指针就不会移动， `origin/master` 是远程仓库在本地的分支，`master`是本地仓库的分支**
 
 ![本地与远程的工作可以分叉。](https://git-scm.com/book/en/v2/images/remote-branches-2.png)
+
+
 
 ###### 获取数据
 
@@ -1413,6 +1484,8 @@ If you are sure you want to delete it, run 'git branch -D testing'.
 
 ![远程跟踪分支 `teamone/master`。](https://git-scm.com/book/en/v2/images/remote-branches-5.png)
 
+
+
 ###### 推送
 
 运行 `git push (remote) (branch)`，可以将本地的修改，推送到远程仓库之中。实验得知，如果远程仓库不存在某个分支，然后去推送，会报错，也就是说，**推送的时候，分支需要存在，即先要创建分支**
@@ -1423,6 +1496,8 @@ $ git push origin testpush
 error: src refspec testpush does not match any.
 error: failed to push some refs to 'https://github.com/prayjourney/SummaryOfProgramming.git'
 ```
+
+
 
 ###### 跟踪分支
 
@@ -1467,9 +1542,13 @@ $ git branch -vv
 
 **需要重点注意的一点是这些数字的值来自于我们从每个服务器上最后一次抓取的数据**。 *这个命令并没有连接服务器*，**它只会告诉我们关于本地缓存的服务器数据**。 如果想要统计最新的领先与落后数字，需要在运行此命令前抓取所有的远程仓库。 可以像这样做：`$ git fetch --all; git branch -vv`
 
+
+
 ###### 拉取
 
 *当 `git fetch` 命令从服务器上抓取本地没有的数据时，它并不会修改工作目录中的内容。 它只会获取数据然后让你自己合并*。 **而有一个命令叫作 `git pull` 在大多数情况下它的含义是一个 `git fetch` 紧接着一个 `git merge` 命令**。 **由于 `git pull` 的魔法经常令人困惑所以通常单独显式地使用 `fetch` 与 `merge` 命令会更好一些**。就是说，`git pull`=`git fetch`+`git merge`，但是，通常情况下，我们还是最好使用`git fetch`
+
+
 
 ###### 删除远程分支
 
@@ -1539,7 +1618,7 @@ $ git merge experiment
 
 ###### 变基有冲突和无冲突的两种情况
 
-第一种是`rebase`无冲突的情况
+第一种: 是`rebase`无冲突的情况
 
 ```shell
 # 当前分支是v-rebase
@@ -1562,7 +1641,7 @@ hello@HELLO MINGW64 /f/gittest (v-rebase)
 $ 
 ```
 
-第二种是`rebase`有冲突的情况。当`rebase`遇到了冲突时，需要**手动解决冲突**。手动解决了冲突之后，然后存储到stash缓存区域，再次继续变基`git rebase --continue`，就可以完成变基。当然此时也可以终止操作`git rebase --abort`，此操作会返回到变基前的状态
+第二种: 是`rebase`有冲突的情况。当`rebase`遇到了冲突时，需要**手动解决冲突**。手动解决了冲突之后，然后存储到stash缓存区域，再次继续变基`git rebase --continue`，就可以完成变基。当然此时也可以终止操作`git rebase --abort`，此操作会返回到变基前的状态
 
 对于**`rebase`产生冲突的情况和`merge`产生冲突的情况场景是一致的，都是如果对于同一个文件在两个分支上，产生了各自的操作，或者有了各自的增删情况，导致变基的时候，会产生冲突**
 
@@ -1794,6 +1873,81 @@ $
 ```
 
 ![afterrebase222](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_afterrebase222.jpg)
+
+
+
+###### 更有趣的变基例子
+
+在对两个分支进行变基时，所生成的“重放”并不一定要在目标分支上应用，**也可以指定另外的一个分支进行应用**。 就像**从一个特性分支里再分出一个特性分支的提交历史中**的例子那样。 我们创建了一个特性分支 `server`，为服务端添加了一些功能，提交了 `C3` 和 `C4`。 然后从 `C3` 上创建了特性分支 `client`，为客户端添加了一些功能，提交了 `C8` 和 `C9`。 最后，回到 `server` 分支，又提交了 `C10`。
+
+![从一个特性分支里再分出一个特性分支的提交历史。](https://git-scm.com/book/en/v2/images/interesting-rebase-1.png)
+
+假设我们希望将 `client` 中的修改合并到主分支并发布，但暂时并不想合并 `server` 中的修改，因为它们还需要经过更全面的测试。 这时，就可以使用 `git rebase` 命令的 `--onto` 选项，选中在 `client` 分支里但不在 `server` 分支里的修改（即 `C8` 和 `C9`），将它们在 `master` 分支上重放
+
+```shell
+$ git rebase --onto master server client
+```
+
+以上命令的意思是：“取出 `client` 分支，找出处于 `client` 分支和 `server` 分支的共同祖先之后的修改，然后把它们在 `master` 分支上重放一遍”。 这理解起来有一点复杂，不过效果非常酷
+
+![截取特性分支上的另一个特性分支，然后变基到其他分支。](https://git-scm.com/book/en/v2/images/interesting-rebase-2.png)
+
+现在可以快进合并 `master` 分支了。（如下图：快进合并 master 分支，使之包含来自 client 分支的修改）
+
+```shell
+$ git checkout master
+$ git merge client
+```
+
+![快进合并 master 分支，使之包含来自 client 分支的修改。](https://git-scm.com/book/en/v2/images/interesting-rebase-3.png)
+
+接下来我们决定将 `server` 分支中的修改也整合进来。 使用 `git rebase [basebranch] [topicbranch]` 命令可以直接将特性分支（即本例中的 `server`）变基到目标分支（即 `master`）上。这样做能省去你先切换到 `server`分支，再对其执行变基命令的多个步骤。
+
+```shell
+$ git rebase master server
+```
+
+如下图(将 server 中的修改变基到 master)上所示，`server` 中的代码被“续”到了 `master` 后面。
+
+![将 server 中的修改变基到 master 上。](https://git-scm.com/book/en/v2/images/interesting-rebase-4.png)
+
+然后就可以快进合并主分支 master 了
+
+```shell
+$ git checkout master
+$ git merge server
+```
+
+至此，`client` 和 `server` 分支中的修改都已经整合到主分支里了，我们就可以删除这两个分支，最终提交历史会变成下图中的样子
+
+```shell
+$ git branch -d client
+$ git branch -d server
+```
+
+![最终的提交历史。](https://git-scm.com/book/en/v2/images/interesting-rebase-5.png)
+
+
+
+###### 变基的风险
+
+变基也并非完美无缺，要用它得遵守一条准则：**不要对在仓库外有副本的分支执行变基**!这一点很重要
+
+**变基操作的实质是丢弃一些现有的提交，然后相应地新建一些内容一样但实际上不同的提交**。 如果已经将提交推送至某个仓库，而其他人也已经从该仓库拉取提交并进行了后续工作，此时，如果用 `git rebase`命令重新整理了提交并再次推送，我们的同伴因此将不得不再次将他们手头的工作与我们刚才的提交进行整合，如果接下来你还要拉取并整合他们修改过的提交，事情就会变得一团糟，慎用变基
+
+
+
+###### 变基 vs. 合并
+
+至此，我们已在实战中学习了变基和合并的用法，一定会想问，到底哪种方式更好。 在回答这个问题之前，让我们退后一步，讨论一下提交历史到底意味着什么
+
+有一种观点认为，仓库的提交历史即是 **记录实际发生过什么**。 它是针对历史的文档，本身就有价值，不能乱改。 从这个角度看来，改变提交历史是一种亵渎，你使用_谎言_掩盖了实际发生过的事情。 如果由合并产生的提交历史是一团糟怎么办？ 既然事实就是如此，那么这些痕迹就应该被保留下来，让后人能够查阅
+
+另一种观点则正好相反，他们认为提交历史是 **项目过程中发生的事**。 没人会出版一本书的第一版草稿，软件维护手册也是需要反复修订才能方便使用。 持这一观点的人会使用 `rebase` 及` filter-branch `等工具来编写故事，怎么方便后来的读者就怎么写
+
+现在，让我们回到之前的问题上来，到底合并还是变基好？希望我们可以明白，这并没有一个简单的答案。 Git 是一个非常强大的工具，它允许我们对提交历史做许多事情，但每个团队、每个项目对此的需求并不相同。 既然我们已经分别学习了两者的用法，相信你能够根据实际情况作出明智的选择
+
+总的原则是，**只对尚未推送或分享给别人的本地修改执行变基操作清理历史，从不对已推送至别处的提交执行变基操作，这样，我们才能享受到两种方式带来的便利**，也就是说,**本地变基，远程合并**
 
 
 
