@@ -86,4 +86,4 @@
 
 ref：
 
-1.[用Eclipse将写好的项目打包成jar包，后续再打成exe程序](http://blog.csdn.net/qq_37932863/article/details/73558497),   2.[如何用Eclipse打jar包](http://www.cnblogs.com/chenxqNo01/p/6372555.html),   3.[Eclipse将引用了第三方jar包的Java项目打包成jar文件的两种方法](http://www.cnblogs.com/lanxuezaipiao/p/3291641.html)
+1.[用Eclipse将写好的项目打包成jar包，后续再打成exe程序](http://blog.csdn.net/qq_37932863/article/details/73558497),   2.[如何用Eclipse打jar包](http://www.cnblogs.com/chenxqNo01/p/6372555.html),   3.[Eclipse将引用了第三方jar包的Java项目打包成jar文件的两种方法](http://www.cnblogs.com/lanxuezaipiao/p/3291641.html),   4.[手把手教你如何把java代码，打包成jar文件以及转换为exe可执行文件](http://blog.csdn.net/sunkun2013/article/details/13167099)
