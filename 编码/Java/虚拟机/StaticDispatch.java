@@ -1,7 +1,6 @@
 /**
- * ²âÊÔ¾²Ì¬·ÖÅÉ
- * @author renjiaxin
- *
+ * æµ‹è¯•é™æ€åˆ†æ´¾
+ * @author zgy
  */
 public class StaticDispatch {
     static class Human {

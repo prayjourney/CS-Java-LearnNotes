@@ -1,17 +1,16 @@
 /**
- * 测试静态方法的调用
- * @author renjiaxin
- *
+ * 娴嬭瘯闈欐�佹柟娉曠殑璋冪敤
+ * @author zgy
  */
 public class StaticMethod {
-	public static void sayHello()
-	{
-		System.out.println("Hello!");
-	}
+    public static void sayHello()
+    {
+        System.out.println("Hello!");
+    }
 
-	public static void main(String[] args) {
-		StaticMethod.sayHello();
+    public static void main(String[] args) {
+        StaticMethod.sayHello();
 
-	}
+    }
 
 }
