@@ -1,8 +1,8 @@
-### Java虚拟机参数设置帮助
+### Java虚拟机参数设置帮�
 
 ---
 
-1.[Java虚拟机详解----常用JVM配置参数](http://blog.csdn.net/mr__fang/article/details/47723767)
+1.[Java虚拟机详�---常用JVM配置参数](http://blog.csdn.net/mr__fang/article/details/47723767)
 
 2.[如何设置jvm内存](https://jingyan.baidu.com/article/0eb457e5083dd303f1a905fb.html)
 
@@ -18,6 +18,6 @@
 
 8.[JVM调优总结 -Xms -Xmx -Xmn -Xss](http://unixboy.iteye.com/blog/174173)
 
-9.[Java虚拟机-JVM各种参数配置大全详细](http://blog.csdn.net/chenleixing/article/details/43230527)
+9.[Java虚拟�JVM各种参数配置大全详细](http://blog.csdn.net/chenleixing/article/details/43230527)
 
 10.[jdk8 jvm Options](http://www.cnblogs.com/benwu/articles/6921047.html)
