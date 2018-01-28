@@ -16,9 +16,15 @@
 
 `- XX: NewRatio=n`  设置老年代与新生代的比例，即老年代/新生代
 
+![GC2](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_GC2.png)
+
 `- XX: SurvivorRatio=n`  设置新生代中eden区和survivor区的比例，即 `-XX:SurvivorRatio` = eden/s0 = eden/s1，注意Survivor区有两个，如n=3，表示Eden：Survivor=3：2，一个Survivor区占整个年轻代的1/5。s0和s1空间又分别称为from空间和to空间，它们的大小是相同的，职能也是一样，并在Minor GC后，会互换角色
 
+![GC3](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_GC3.png)
+
 `- XX: PermSize=n` 设置Java堆之中永久区的大小
+
+![GC1](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_GC1.png)
 
 `- XX: MaxPermSize=n`  设置Java堆之中永久区的最大值
 
