@@ -110,7 +110,7 @@ WSGI将 web 组件分为三类： web服务器，web中间件,web应用程序，
 
 [![wsgi](http://www.biaodianfu.com/wp-content/uploads/2014/08/wsgi.png)](http://www.biaodianfu.com/wp-content/uploads/2014/08/wsgi.png)
 
-1、WSGI Server/gateway
+1.WSGI Server/gateway
 
 wsgi server可以理解为一个符合wsgi规范的web server，接收request请求，封装一系列环境变量，按照wsgi规范调用注册的wsgi app，最后将response返回给客户端。文字很难解释清楚wsgi server到底是什么东西，以及做些什么事情，最直观的方式还是看wsgi server的实现代码。以python自带的wsgiref为例，wsgiref是按照wsgi规范实现的一个简单wsgi server。它的代码也不复杂。
 
@@ -124,11 +124,11 @@ wsgi server可以理解为一个符合wsgi规范的web server，接收request请
 6. wsgi app 将reponse header/status/body 回传给wsgi handler
 7. 最终handler还是通过socket将response信息塞回给客户端。
 
-2、WSGI Application
+2.WSGI Application
 
 wsgi application就是一个普通的callable对象，当有请求到来时，wsgi server会调用这个wsgi app。这个对象接收两个参数，通常为environ,start_response。environ就像前面介绍的，可以理解为环境变量，跟一次请求相关的所有信息都保存在了这个环境变量中，包括服务器信息，客户端信息，请求信息。start_response是一个callback函数，wsgi application通过调用start_response，将response headers/status 返回给wsgi server。此外这个wsgi app会return 一个iterator对象 ，这个iterator就是response body。这么空讲感觉很虚，对着下面这个简单的例子看就明白很多了。
 
-3、WSGI MiddleWare
+3.WSGI MiddleWare
 
 有些功能可能介于服务器程序和应用程序之间，例如，服务器拿到了客户端请求的URL, 不同的URL需要交由不同的函数处理，这个功能叫做 URL Routing，这个功能就可以放在二者中间实现，这个中间层就是 middleware。middleware对服务器程序和应用是透明的，也就是说，服务器程序以为它就是应用程序，而应用程序以为它就是服务器。这就告诉我们，middleware需要把自己伪装成一个服务器，接受应用程序，调用它，同时middleware还需要把自己伪装成一个应用程序，传给服务器程序。
 
