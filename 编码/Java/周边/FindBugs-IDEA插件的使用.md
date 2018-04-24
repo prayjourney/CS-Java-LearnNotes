@@ -114,4 +114,4 @@ An apparent infinite recursive loop 明显的无限迭代循环,将导致堆栈�
 
 ref:
 
-1.[FindBugs-IDEA插件的使用](https://blog.csdn.net/feibendexiaoma/article/details/72821781),   2.[使用FindBugs-IDEA插件找到代码中潜在的问题](https://blog.csdn.net/fancy_xty/article/details/51718687)
+1.[FindBugs-IDEA插件的使用](https://blog.csdn.net/feibendexiaoma/article/details/72821781),   2.[使用FindBugs-IDEA插件找到代码中潜在的问题](https://blog.csdn.net/fancy_xty/article/details/51718687),   3.[FindBugs规则整理](https://blog.csdn.net/jdsjlzx/article/details/21472253),   4.[Findbugs 使用备忘录](https://my.oschina.net/hoodlake/blog/126735)
