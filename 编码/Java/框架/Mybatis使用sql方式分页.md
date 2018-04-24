@@ -47,8 +47,7 @@ JsonResult getMarkList(Long userId, Integer pageSize,Integer pageStart)
 }
 ```
 
-
-主要的问题其实是在sql语句之中，加入了控制的参数limit和offset，分别在上述对应的是pageSize和pageStart，也就是说，**每页的数据量和数据的开始的位置**。
+主要的问题其实是在sql语句之中，加入了控制的参数limit和offset，分别在上述对应的是pageSize和pageStart，也就是说，**每页的数据量和数据的开始的位置**。**limit和offset的位置是定好了的**，如果不使用Map来将key和value对应起来，而是用`(int limit, int offset)`这种方式的时候，只能直接按照`offset, limit`的顺序来，也就是先定义每页的初始位置，然后在定义每页的数量，参数的位置是`(int offset， int limit)`，这样定义的offset和limit也没用，只能是`(0,1)`。
 
 ref:
 
