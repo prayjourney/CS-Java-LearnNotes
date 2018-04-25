@@ -293,6 +293,47 @@ Ctrl+Alt+N，内联
 
 
 
+##### IDEA调试快捷键
+
+| 键                | 模式           | 作用                                 |
+| ----------------- | -------------- | ------------------------------------ |
+| **F7**            | Debug          | **进入断点方法之中**                 |
+| **F8**            | Debug          | **不进入断点，越过断点直接给出结果** |
+| **F9**            | Debug          | **恢复程序运行**                     |
+| **Alt + F8**      | Debug          | **弹出可输入表达式的计算框**         |
+| Ctrl + F8         | Debug / Common | 设置/清除断点                        |
+| Shift + F7        | Debug          | 智能步入，会让你选择一个进入的方法   |
+| Shift + F8        | Debug          | 跳出，恢复程序运行，=F9              |
+| Ctrl + Shift + F8 | Debug          | 设置断点的进入条件                   |
+| Alt + Shift + F7  | Debug          | 进入嵌套的方法之中                   |
+
+##### IDEA的Debug使用
+
+① 如下图 Gif 所示，查看所选对象的方法常用有三种方式：
+  - 选中对象后，使用快捷键 `Alt + F8`。
+  - 选中对象后，拖动对象到 `Watches`。
+  - 选中对象后，鼠标悬停在对象上 2 秒左右
+
+![img1](https://raw.githubusercontent.com/prayjourney/_mypictures/master/dev/bebug1.gif)
+
+② 如下图 Gif 所示，在弹出表达式输入框中 IntelliJ IDEA 也是能帮我们智能提示。
+![img2](https://raw.githubusercontent.com/prayjourney/_mypictures/master/dev/bebug2.gif)
+
+③ 如下图 Gif 所示，当我们需要过掉后面的所有断点的时候，我们不需要去掉这些断点，只需要点击左下角那个小圆点，点击小圆点之后，所有断点变成灰色，然后我们再在按快捷键 F9 即可过掉当前和后面所有的断点。
+![img3](https://raw.githubusercontent.com/prayjourney/_mypictures/master/dev/bebug3.gif)
+
+④ 如下图 Gif 所示，我们可以给断点设置进入的条件，因为变量 temp3 不等于 200 所以该断点没有被进入直接跳过。
+![img4](https://raw.githubusercontent.com/prayjourney/_mypictures/master/dev/bebug4.gif)
+
+⑤ 如 下图Gif 演示，有时候当我们步入方法体之后，还想回退到方法体外，断点进入 addNum 方法后，点击 Drop Frame 按钮之后，断点重新回到方法体之外。
+![img5](https://raw.githubusercontent.com/prayjourney/_mypictures/master/dev/bebug5.gif)
+
+
+
+
+
+
+
 ref:
 
-1.[IntelliJ Idea 常用快捷键 列表](http://www.cnblogs.com/tq03/p/5218754.html),   2.[Intellij IDEA常用快捷键介绍 Intellij IDEA快捷键大全汇总](http://www.jb51.net/softjc/261714.html),   3.[IDEA快捷键图](http://files.jb51.net/file_images/article/201412/2014121711113294_jb51.png),   4.[IntelliJ IDEA 快捷键说明大全（中英对照、带图示详解）](http://blog.csdn.net/deniro_li/article/details/72902621)
+1.[IntelliJ Idea 常用快捷键 列表](http://www.cnblogs.com/tq03/p/5218754.html),   2.[Intellij IDEA常用快捷键介绍 Intellij IDEA快捷键大全汇总](http://www.jb51.net/softjc/261714.html),   3.[IDEA快捷键图](http://files.jb51.net/file_images/article/201412/2014121711113294_jb51.png),   4.[IntelliJ IDEA 快捷键说明大全（中英对照、带图示详解）](http://blog.csdn.net/deniro_li/article/details/72902621),   5.[IDEA 图标介绍。 缓存和索引介绍、清理方法和Debug使用](http://www.cnblogs.com/wangmingshun/p/6416397.html)
