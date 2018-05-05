@@ -68,6 +68,12 @@ git push -u origin master1
 
 
 
+**查看本地分支对应哪个远程分支**
+
+使用`git branch -vv`
+
+
+
 ##### Github已经存在的仓库上添加LICENSE 文件
 
 在仓库之中，新建一个File，输入license，会自动跳出来各种license 让我们选择选择一个即可，如MIT, BSD, Apache2.0等
