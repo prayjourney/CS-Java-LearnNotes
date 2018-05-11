@@ -1,4 +1,4 @@
-### [转]浅谈@RequestMapping @ResponseBody 和 @RequestBody 注解的用法与区别
+### 浅谈@RequestMapping @ResponseBody 和 @RequestBody 注解的用法与区别
 
 ***
 
