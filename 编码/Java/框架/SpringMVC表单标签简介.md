@@ -882,7 +882,7 @@ Select phone:
 
 ![img](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/roles11.jpg)
 
-以上的例子说明了path，commandName(modelAttribute)的来源，path就是我需要的一个值的对应的**Domain(Model,POJO)类之中的相应的字段**，commandName(modelAttribute)就是在**Controller之中定义的Model(ModelMap, ModelAndView)对应的Model的key**。此处需要理清楚数据绑定的对象，数据绑定的方向。
+以上的例子说明了path，commandName(modelAttribute)的来源，path就是我需要的一个值的对应的**Domain(Model,POJO)类之中的相应的字段**，commandName(modelAttribute)就是在**Controller之中定义的Model(ModelMap, ModelAndView)对应的Model的key**。此处需要理清楚数据绑定的对象，数据绑定的方向。**path是POJOl类之中的字段，commandName和modelAttribute其实是相同的，都是modelXXX的key，最重要的是commandName=modelAttribute**。只不过其差别在于在form之中定义的时候，一个写的是commandName=key，一个写的是modelAttribute=key。form之中绑定了commandName和modelAttribute是为了方便绑定数据，但是，如果此处不需要明显绑定数据，或者说此时主要作用是**提交信息**，提交表单，那么此处可以不绑定commandName和modelAttribute，但是，也有绑定了commandName和modelAttribute的情况，有两种情况，一种是虽然绑定了，但是没有使用；另一种情况是，绑定commandName和modelAttribute，方便了数据的获取，本质没有改变，都是为了提交数据，但是此时，可以不用在此处再次手动输入，而是进入该页面后，已经直接有了其他页面传来的数据值，则可以直接提交，省去输入的时间，即**不是明显需要绑定commandName和modelAttribute的地方，绑定了commandName和modelAttribute，主要可以从其他地方获取数据，省去输入信息的步骤，但是其本质没有变，都是为了提交信息，将信息提交到需要处理的action**。
 
 
 
