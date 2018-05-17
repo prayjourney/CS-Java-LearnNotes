@@ -6,9 +6,11 @@
 <%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %> 
 ```
 
+####1. Spring JSP标签
 
+标签库是为JSP添加功能的强大方式，*能够避免在脚本块中直接编写Java代码*。**Spring提供了两个JSP标签库**，用来帮助定义SpringMVC Web的视图。**其中一个标签库会用来渲染HTML表单标签，是from标签，这些标签可以绑定model中的某个属性**。另外一个标签库包含了一些**工具类标签，我们随时都可以非常便利地使用它们**。在这两个标签库汇中，表单绑定的标签库更加有用。我们更多使用的是表单标签，表单标签所在的位置为如下`<%@taglib uri="http://www.springframework.org/tags/form" prefix="form" %> `，而工具类标签为`<%@taglib uri="http://www.springframework.org/tags" prefix="sf" %> `
 
-#### 1.1   form标签
+#### 1. 1 form标签
 
 使用Spring的form标签主要有两个作用，第一是它会**自动的绑定来自Model中的一个属性值到当前form对应的实体对象**，默认是command属性，这样我们就可以在form表单体里面方便的使用该对象的属性了；第二是它支持我们**在提交表单的时候使用除GET和POST之外的其他方法进行提交，包括DELETE和PUT等**。
 
@@ -807,7 +809,7 @@ SpringMVC errors标签是对应于SpringMVC的Errors对象的。它的作用就�
 
 
 
-#### 2.0 form标签中commandName, path属性的来源
+#### 2. form标签中commandName, path属性的来源
 
 Smartphone(Domain model(模型)):
 
@@ -886,6 +888,31 @@ Select phone:
 
 
 
+#### 3. 相关的问题
+
+1: spring form之中的标签，可以卸载spring:form之外吗？也就是说，能在form之外单独应用吗？
+
+A: 是不能的，spring jsp的表单form标签之中的子元素，如`<form:input>`,`<form:checkouboxs>`等，都是需要在form标签之下才能起作用的，所以**spring jsp的表单form标签之中的子元素必须要包含在form打的标签之中，在标签之外就会报错**。
+
+2: spring的jsp类库有哪些？
+
+ref:如开头说的一样，**Spring提供了两个JSP标签库**，用来帮助定义SpringMVC Web的视图。**其中一个标签库会用来渲染HTML表单标签，是from标签，这些标签可以绑定model中的某个属性**。另外一个标签库包含了一些**工具类标签，我们随时都可以非常便利地使用它们**。在这两个标签库汇中，表单绑定的标签库更加有用。我们更多使用的是表单标签，表单标签所在的位置为：
+`<%@taglib uri="http://www.springframework.org/tags/form" prefix="form"%> `，而工具类标签为
+`<%@taglib uri="http://www.springframework.org/tags" prefix="sf"%>`。
+
+3.Spring MVC的默认视图解析器是什么？
+
+当视图为jsp的时候，默认的视图解析器为**InternalResourceViewResolver**，默认的viewClass为**JstlView**，一般的配置为：
+```jsp
+<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver" >
+    <property name="prefix" value="/WEB-INF/views/" />
+    <property name="suffix" value=".jsp" />
+    <property name="viewClass" value="org.springframework.web.servlet.view.JstlView />
+</bean>
+```
+
+
+
 ref:
 
-1.[SpringMVC表单标签简介](http://elim.iteye.com/blog/1807330),   2.[ Spring MVC: form handling vol. 5 – select, option, options tags ](http://fruzenshtein.com/spring-mvc-form-select-tag/)
+1.[SpringMVC表单标签简介](http://elim.iteye.com/blog/1807330),   2.[ Spring MVC: form handling vol. 5 – select, option, options tags ](http://fruzenshtein.com/spring-mvc-form-select-tag/),   3.[SpringMVC入门之七：使用JSP作为视图](https://blog.csdn.net/zhoucheng05_13/article/details/56669118),   4.[Spring MVC 页面渲染( render view )](https://blog.csdn.net/suifeng3051/article/details/51648360),   5.[SpringMVC入门之五：渲染Web视图概述](https://blog.csdn.net/zhoucheng05_13/article/details/56012033)

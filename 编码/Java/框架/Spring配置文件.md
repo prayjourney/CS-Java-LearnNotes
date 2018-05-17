@@ -1,6 +1,9 @@
 ### Spring配置文件
 
+***
+
 在*Spring*之中配置文件用来对例如对象Bean的配置，数据源的加载，aop功能的开启，事务的开启，缓存配置，Hibernate集成，MyBatis的整合等有着重要的管理，此处用一个配置的说明案例来介绍。
+
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
