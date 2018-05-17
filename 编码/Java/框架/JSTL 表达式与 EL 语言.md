@@ -1324,6 +1324,185 @@ III、scope指定var存储的JSP属性范围。
 - name指定参数的名称。
 - value指定参数值。
 
+#### 10.实践
+
+新建servlet名jstlCoreServlet.java，存入几个对象： 
+
+```java
+//users  
+Group group = new Group();  
+group.setName("星星team");  
+List<User> users = new ArrayList<User>();  
+for (int i = 0; i < 10; i++) {  
+    User user1 = new User();  
+    user1.setUsername("星星" + i + "号");  
+    user1.setAge(22 + i);  
+    user1.setGroup(group);  
+    users.add(user1);             
+}  
+request.setAttribute("users", users);  
+//map  
+Map map = new HashMap();  
+map.put("k1", "v1");  
+map.put("k2", "v2");  
+map.put("k3", "v3");  
+map.put("k4", "v4");  
+request.setAttribute("map", map);  
+//日期  
+request.setAttribute("today", new Date());  
+//数字  
+request.setAttribute("n", 12345678.123);              
+//forTokens  
+request.setAttribute("strtokens", "1#2#3#4#5");  
+//hello  
+request.setAttribute("hello", "HelloWord");  
+```
+
+新建jsp名jstl_core.jsp，取出Servlet中的对象： 
+
+```jsp
+<li>循环控制标签forEach循环——采用标签库显示</li>  
+<br>     
+<table border="1">  
+    <tr>  
+        <td>姓名</td>  
+        <td>年龄</td>  
+        <td>所属组</td>  
+    </tr>  
+    <c:choose>  
+        <c:when test="${empty users }">  
+            <tr cosplan="3">没有请求到数据  
+            </tr>  
+        </c:when>  
+        <c:otherwise>  
+            <c:forEach items="${users }" var="user">  
+                <tr>  
+                    <td>${user.username}</td>  
+                    <td>${user.age}</td>  
+                    <td>${user.group.name}</td>  
+                </tr>  
+            </c:forEach>  
+        </c:otherwise>  
+    </c:choose>  
+</table>  
+<li>forEach循环，varStatus</li><br>  
+<table border="1">  
+    <tr>  
+        <td>姓名</td>  
+        <td>年龄</td>  
+        <td>所属组</td>  
+    </tr>  
+    <c:choose>  
+        <c:when test="${empty users }">  
+            <tr>  
+                <td colspan="3">没有找到数据</td>  
+            </tr>  
+        </c:when>  
+        <c:otherwise>  
+            <c:forEach items="${users}" var="user" varStatus="vs">  
+                <c:choose>  
+                    <c:when test="${vs.count mod 2 == 0}">  
+                        <tr bgcolor="red">  
+                    </c:when>  
+                    <c:otherwise>  
+                        <tr>  
+                    </c:otherwise>  
+                </c:choose>  
+                            <td>${user.username }</td>  
+                            <td>${user.age }</td>  
+                            <td>${user.group.name }</td>  
+                </tr>  
+            </c:forEach>  
+        </c:otherwise>  
+    </c:choose>  
+</table>  
+lt;li>forEach循环——begin,end,step</li>  
+<br>     
+<table border="1">  
+    <tr>  
+        <td>姓名</td>  
+        <td>年龄</td>  
+        <td>所属组</td>  
+    </tr>  
+    <c:choose>  
+        <c:when test="${empty users }">  
+            <tr cosplan="3">没有请求到数据  
+            </tr>  
+        </c:when>  
+        <c:otherwise>  
+            <c:forEach items="${users }" var="user" begin="2" end="8" step="2">  
+                <tr>  
+                    <td>${user.username}</td>  
+                    <td>${user.age}</td>  
+                    <td>${user.group.name}</td>  
+                </tr>  
+            </c:forEach>  
+        </c:otherwise>  
+    </c:choose>  
+</table>    
+<li>forEach循环输出map</li><br>  
+<c:forEach items="${map }" var="entry">  
+    ${entry.key },${entry.value }<br>  
+</c:forEach>   
+  
+<li>测试格式化日期</li> today(default):  
+<fmt:formatDate value="${today }" />  
+<br> today(date):  
+<fmt:formatDate value="${today }" type="date" />  
+<br> today(time):  
+<fmt:formatDate value="${today }" type="time" />  
+<br> today(both):  
+<fmt:formatDate value="${today }" type="both" />  
+<br>  
+<p>  
+<hr>  
+today(dateStyle="short"):  
+<fmt:formatDate value="${today }" dateStyle="short" />  
+<br> today(dateStyle="medium"):  
+<fmt:formatDate value="${today }" dateStyle="medium" />  
+<br> today(dateStyle="long"):  
+<fmt:formatDate value="${today }" dateStyle="long" />  
+<br> today(dateStyle="full"):  
+<fmt:formatDate value="${today }" dateStyle="full" />  
+<br>  
+<hr>  
+today(pattern="yyyy/MM/dd HH:mm:ss"):  
+<fmt:formatDate value="${today }" pattern="yyyy/MM/dd HH:mm:ss"  
+    var="currentDate" />  
+<br> ${currentDate }  
+<br>  
+<p>  
+<li>测试格式化数字标签</li>  
+<br> number(default):  
+<fmt:formatNumber value="${n }"></fmt:formatNumber>  
+<br> n(pattern="###,###,###.####"):  
+<fmt:formatNumber value="${n}" pattern="###,###,###.####" />  
+<br> n(pattern="###,###,###.0000"):  
+<fmt:formatNumber value="${n}" pattern="###,###,###.0000" />  
+<br> n(groupingUsed="false"):  
+<fmt:formatNumber value="${n}" groupingUsed="false" />  
+<br>n(maxIntegerDigits="12" minIntegerDigits="10"):  
+<fmt:formatNumber value="${n}" maxIntegerDigits="12"  
+    minIntegerDigits="10" />  
+<br> n(minFractionDigits="4" maxFractionDigits="6"):  
+<fmt:formatNumber value="${n}" minFractionDigits="4"  
+    maxFractionDigits="6" />  
+<br>n(type="currency"):  
+<fmt:formatNumber value="${n}" type="currency" />  
+<br> n(type="currency" currencySymbol="$"):  
+<fmt:formatNumber value="${n}" type="currency" currencySymbol="$" />  
+<br>n(type="percent"):  
+<fmt:formatNumber value="${p}" type="percent" minFractionDigits="2"  
+    maxFractionDigits="2" />  
+<br>  
+<li>循环控制标签forTokens</li><br>  
+<c:forTokens items="${strtokens }" delims="#" var="v">  
+    ${v }<br>  
+</c:forTokens>  
+```
+
+使用jstl+el表达式，确实能让jsp页面思路清晰，便于维护。至于效率问题，从来都是实际问题分析。jstl常用的几个标记熟练就好，\<c:out>、\<c:if>、\<c:choose>、\<c:when>和\<c:otherwise>、\<c:forEach>、\<fmt:formatNumber>、\<fmt:formatDate>等。也有自定义函数，但是自定义函数中，方法必须为静态全局的。 
+
 
 
 ref:
