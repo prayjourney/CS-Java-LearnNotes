@@ -1464,7 +1464,7 @@ D 、 上传方法
 ![Spring MVC](http://of2m1l60v.bkt.clouddn.com/2017.05.30/124.png)
 
 A 、 Bean 名称固定
-在 SpringMVC 的配置文件中注册 MultipartFile 接口的实现类 CommonsMultipartResolver的 Bean。要求该 Bean 的 id 必须为 multipartResolver。
+在 SpringMVC 的配置文件中注册 MultipartFile 接口的实现类 CommonsMultipartResolver的 Bean。**要求该 Bean 的 id 必须为 multipartResolver**。
 
 是否进行文件上传，实际上是在中央调度器 DispatcherServlet 执行处理器映射器RequestMapping 之前先进行判断的。
 
@@ -1474,7 +1474,7 @@ A 、 Bean 名称固定
 
 ![Spring MVC](http://of2m1l60v.bkt.clouddn.com/2017.05.30/126.png)
 
-如果容器中定义了名称为 multipartResolver 的 Bean，且请求也为 multipart 类型（即enctype 属性值为 multipart/form-data），则返回 MultipartHttpServletRequest 请求类型，完成文件上传功能。否则，返回普通的 HttpServletRequest 请求类型。
+如果容器中定义了名称为 multipartResolver 的 Bean，且请求也为 multipart 类型（**即enctype 属性值为 multipart/form-data**， **enctype 属性规定在将表单数据发送到服务器之前如何对其进行编码**。**注意：**只有 *method="post" 时才使用 enctype 属性*。），则返回 MultipartHttpServletRequest 请求类型，完成文件上传功能。否则，返回普通的 HttpServletRequest 请求类型。
 
 ![Spring MVC](http://of2m1l60v.bkt.clouddn.com/2017.05.30/127.png)
 
@@ -1528,14 +1528,14 @@ A 、 处理器方法的形参
 
 用于接收表单元素所提交参数的处理器方法的形参类型为 MultipartFile 数组，且必须使用注解@RequestParam 修饰。
 
-为什么上传单个文件时 MultipartFile 参数不用使用@RequestParam 修饰，而上传多个文件时 MultipartFile[]就需要@RequestParam 修饰呢？
+为什么上传单个文件时 MultipartFile 参数不用使用@RequestParam 修饰，而**上传多个文件时 MultipartFile[]就需要@RequestParam 修饰**呢？
 
 因为在上传多个文件时，每个表单中的文件对象框架均会将其转换为MultipartFile类型，这是与上传单个文件是相同的，不需要@RequestParam 修饰。但上传多个文件时，处理器方法需要的不是 MultipartFile 类型参数，而是 MultipartFile[]数组类型。默认情况下框架只会将一个一个的表单元素转换为一个一个的对象，但并不会将这多个对象创建为一个数组对象。
 
 此时，需要使用@RequestParam 来修饰这个数组参数，向框架表明，表单传来的参数与处理器方法接收的参数名称与类型相同，需要框架调用相应的转换器将请求参数转换为方法参数类型。所以，对于上传多个文件，处理器方法的 MultipartFile[]数组参数必须使用注解@RequestParam 修饰。
 
 B 、 未选择上传文件
-即使没有选择任何要上传的文件，MultipartFile 数组也不为 null。不仅不为 null，其 length值也大于 0。因为系统会为每个 file 表单元素创建一个 File 对象，只不过没有选择上传文件的这个 File 将不会被赋予真正的文件，只是一个为 empty 的 File。所以对于没有选择任何要
+**即使没有选择任何要上传的文件，MultipartFile 数组也不为 null**。不仅不为 null，其 length值也大于 0。因为系统会为每个 file 表单元素创建一个 File 对象，只不过没有选择上传文件的这个 File 将不会被赋予真正的文件，只是一个为 empty 的 File。所以对于没有选择任何要
 
 上传的文件的情况的处理，只能逐个文件表单元素进行判断，判断文件是否为 empty。
 
