@@ -377,7 +377,7 @@ KaTeX 渲染 LaTeX 公式的速度比 MathJax 快上百倍，读者可以在 [Ka
 
 #### 7. 创建迁移和同步
 ##### 7.1 新电脑中的环境搭建
-这部分应该要简单一点，如果你已经搭建过一个hexo博客的话。这种情况是我们已经在其他电脑上有了一个博客环境，在github上面有发布的文章，此时，我们在另外的电脑上搭建我们的hexo环境，步骤如下：
+这部分应该要简单一点，如果你已经搭建过一个hexo博客的话。这种情况是我们已经在其他电脑上有了一个博客环境，在github上面有发布的文章，此时，我们在另外的电脑上搭建我们的hexo环境，**所有的操作都在hexo博客的目录下，不是在根目录，比如在E盘创建了blog文件夹，那么就要在E://blog下面进行安装和clone等一系列操作，而不是在其他地方**，步骤如下：
 
 1.新电脑上安装node.js和git
 2.安装
@@ -414,4 +414,4 @@ git pull从远程hexo分支拉取最新的环境文件到本地，可以理解�
 
 ref:
 
-1.[在win7中一步一步安装Hexo搭建个人博客](http://www.lzblog.cn/2016/04/06/%E5%9C%A8win7%E4%B8%AD%E4%B8%80%E6%AD%A5%E4%B8%80%E6%AD%A5%E5%AE%89%E8%A3%85Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/),   2.[知行合一 | 用 Hexo 搭建博客](http://lowrank.science/Hexo-Github/),   3.[hexo博客同步管理及迁移](https://www.jianshu.com/p/fceaf373d797),   4.[windows下如何安装hexo？](https://www.zhihu.com/question/29994270),   5.[使用hexo，如果换了电脑怎么更新博客？](使用hexo，如果换了电脑怎么更新博客？)
+1.[在win7中一步一步安装Hexo搭建个人博客](http://www.lzblog.cn/2016/04/06/%E5%9C%A8win7%E4%B8%AD%E4%B8%80%E6%AD%A5%E4%B8%80%E6%AD%A5%E5%AE%89%E8%A3%85Hexo%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/),   2.[知行合一 | 用 Hexo 搭建博客](http://lowrank.science/Hexo-Github/),   3.[hexo博客同步管理及迁移](https://www.jianshu.com/p/fceaf373d797),   4.[windows下如何安装hexo？](https://www.zhihu.com/question/29994270),   5.[使用hexo，如果换了电脑怎么更新博客？](使用hexo，如果换了电脑怎么更新博客？),   6.[Hexo Noise 主题的使用和优化](http://lowrank.science/Hexo-Noise/),   7.[搭建Hexo博客进阶篇---主题自定义（三）](https://segmentfault.com/a/1190000009478526),   8.[从零开始定制hexo主题](https://www.maintao.com/2014/hexo-theme-from-scratch/),   9.[Hexo小书](https://pengloo53.gitbooks.io/hexo/content/)
