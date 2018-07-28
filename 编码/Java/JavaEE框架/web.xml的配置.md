@@ -8,7 +8,7 @@
 
 摘录某个工程的 web.xml 文件片段
 
-![img](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_servlet123.png)
+![img](../../../images/servlet123.png)
 
 访问顺序为1—>2—>3—>4，其中2和3的值必须相同。
 
