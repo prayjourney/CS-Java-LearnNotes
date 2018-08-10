@@ -4,7 +4,7 @@
     <property name="created">2018-06-07T14:59:23</property>
     <property name="ide">idea</property>
     <property name="ideVersion">2017.1.5.0.0</property>
-    <property name="modified">2018-06-07T14:59:43</property>
+    <property name="modified">2018-08-10T16:01:47</property>
     <property name="originalScheme">Zuiguangyin</property>
   </metaInfo>
   <option name="EDITOR_FONT_SIZE" value="16" />
@@ -231,6 +231,11 @@
         <option name="FOREGROUND" value="71fa77" />
       </value>
     </option>
+    <option name="DOC_COMMENT_TAG_VALUE">
+      <value>
+        <option name="FOREGROUND" value="fdba64" />
+      </value>
+    </option>
     <option name="FOLDED_TEXT_ATTRIBUTES">
       <value>
         <option name="FOREGROUND" value="263238" />
@@ -255,6 +260,11 @@
         <option name="FONT_TYPE" value="2" />
       </value>
     </option>
+    <option name="JAVA_BLOCK_COMMENT">
+      <value>
+        <option name="FOREGROUND" value="ab99ea" />
+      </value>
+    </option>
     <option name="JAVA_BRACES">
       <value>
         <option name="FOREGROUND" value="14e6ff" />
@@ -271,6 +281,11 @@
         <option name="FONT_TYPE" value="2" />
       </value>
     </option>
+    <option name="JAVA_DOC_MARKUP">
+      <value>
+        <option name="FOREGROUND" value="c5fceb" />
+      </value>
+    </option>
     <option name="JAVA_DOT">
       <value>
         <option name="FOREGROUND" value="ff3f70" />
@@ -283,7 +298,7 @@
     </option>
     <option name="JAVA_LINE_COMMENT">
       <value>
-        <option name="FOREGROUND" value="acf2fd" />
+        <option name="FOREGROUND" value="85ccea" />
       </value>
     </option>
     <option name="JAVA_SEMICOLON">
