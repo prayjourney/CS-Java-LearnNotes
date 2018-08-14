@@ -52,7 +52,7 @@ public void test(){
     //json对象转字符串
     String jsonString = jsonObject.toJSONString();
     System.out.println("json字符串是：" + jsonString);
-}12345678
+}
 ```
 
 运行结果：
@@ -70,7 +70,7 @@ public void test(){
     System.out.println("map对象是：" + map);
     Object object = map.get("age");
     System.out.println("age的值是"+object);
-}12345678910
+}
 ```
 
 运行结果：
@@ -87,7 +87,7 @@ public void test(){
     map.put("name", "cool_summer_moon");
     String jsonString = JSON.toJSONString(map);
     System.out.println("json字符串是："+jsonString);
-}12345678
+}
 ```
 
 运行结果：
@@ -103,7 +103,7 @@ public void test(){
     map.put("name", "cool_summer_moon");
     JSONObject json = new JSONObject(map);
     System.out.println("Json对象是：" + json);
-}12345678
+}
 ```
 
 运行结果：
