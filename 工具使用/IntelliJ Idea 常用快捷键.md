@@ -330,7 +330,15 @@ Ctrl+Alt+N，内联
 
 
 
+##### IDEA设置多个窗口
 
+设置多窗口没有快捷键, 需要自己设置, 我设置的水平分割是SHIFT+H, 垂直分割是SHIFT+V, 设置如下
+
+![](../images/settingshfs.png)
+
+显示效果如下
+
+![](../images/settingsplitshow.png)
 
 
 
