@@ -342,6 +342,12 @@ Ctrl+Alt+N，内联
 
 
 
+##### IDEA设置项目列表之中文件和文件夹的排序
+
+在Project窗口设置如下*Setting*--->*sort by type*--->*folders always on top*
+
+![](../images/filesorted.png)
+
 ref:
 
 1.[IntelliJ Idea 常用快捷键 列表](http://www.cnblogs.com/tq03/p/5218754.html),   2.[Intellij IDEA常用快捷键介绍 Intellij IDEA快捷键大全汇总](http://www.jb51.net/softjc/261714.html),   3.[IDEA快捷键图](http://files.jb51.net/file_images/article/201412/2014121711113294_jb51.png),   4.[IntelliJ IDEA 快捷键说明大全（中英对照、带图示详解）](http://blog.csdn.net/deniro_li/article/details/72902621),   5.[IDEA 图标介绍。 缓存和索引介绍、清理方法和Debug使用](http://www.cnblogs.com/wangmingshun/p/6416397.html)
