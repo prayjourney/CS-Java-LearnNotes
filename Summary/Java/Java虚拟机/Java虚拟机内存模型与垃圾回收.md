@@ -109,4 +109,4 @@ Java虚拟机规范中定义方法区是堆的一个逻辑部分
 
 
 ref:
-1.[JAVA本地方法详解，什么是JAVA本地方法？](https://www.cnblogs.com/chen-jack/p/7904510.html),   2.[深入理解JVM(一)——JVM内存模型](https://blog.csdn.net/qq_34173549/article/details/79612540),  3. [JVM内存模型详解](https://blog.csdn.net/genius_ge/article/details/76151179)
+1.[JAVA本地方法详解，什么是JAVA本地方法？](https://www.cnblogs.com/chen-jack/p/7904510.html),   2.[深入理解JVM(一)——JVM内存模型](https://blog.csdn.net/qq_34173549/article/details/79612540),  3. [JVM内存模型详解](https://blog.csdn.net/genius_ge/article/details/76151179),   4.[JVM的内存区域划分](https://www.cnblogs.com/dolphin0520/p/3613043.html)
