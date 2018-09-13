@@ -1,4 +1,4 @@
-### JVM参数介绍
+### JVM参数配置方法和案例
 
 ***
 
@@ -43,9 +43,18 @@ JVM内存的最大值跟操作系统有很大的关系。简单的说就32位处
 
 
 
-#####JVM典型参数配置
-*配置1*
+#####JVM参数配置方式
+设置的地方, 以IDEA为例子, 有2处可以设置:
+1.是IDEA的`idea64.exe.vmoptions`之中设置系统的VM参数, 如下图
+![vmset1](../../../images/vmset1.png)
+2.是在运行处设置
+![vmset2](../../../images/vmset2.png)
+![vmset3](../../../images/vmset3.png)
 
+
+
+#####JVM典型参数设置
+*配置1*
 **-Xmx3550m  -Xms3550m -Xmn2g** **-Xss128k**
 **-Xmx3550m**:  设置JVM最大可用内存为3550M
 **-Xms3550m**:  设置JVM促使内存为3550m。此值可以设置与-Xmx相同，以避免每次垃圾回收完成后JVM重新分配内存。
@@ -53,7 +62,6 @@ JVM内存的最大值跟操作系统有很大的关系。简单的说就32位处
 **-Xss128k**：设置每个线程的堆栈大小。JDK5.0以后每个线程堆栈大小为1M，以前每个线程堆栈大小为256K。根据应用的线程所需内存大小进行调整。在相同物理内存下，减小这个值能生成更多的线程。但是操作系统对一个进程内的线程数还是有限制的，不能无限生成，经验值在3000~5000左右。
 
 *配置2*
-
 **-Xmx3550m -Xms3550m -Xss128k -XX:NewRatio=4 -XX:SurvivorRatio=4 -XX:MaxPermSize=16m -XX:MaxTenuringThreshold=0**
 **-XX:NewRatio=4**:设置年轻代（包括Eden和两个Survivor区）与年老代的比值（除去持久代）。设置为4，则年轻代与年老代所占比值为1：4，年轻代占整个堆栈的1/5
 **-XX:SurvivorRatio=4**：设置年轻代中Eden区与Survivor区的大小比值。设置为4，则两个Survivor区与一个Eden区的比值为2:4，一个Survivor区占整个年轻代的1/6
@@ -132,5 +140,4 @@ JVM提供了大量命令行参数，打印信息，供调试使用。主要有�
 
 
 ref:
-
-1.[Xms Xmx PermSize MaxPermSize 区别](http://www.cnblogs.com/mingforyou/archive/2012/03/03/2378143.html),  2.[JVM系列一：JVM内存组成及分配](http://www.cnblogs.com/redcreen/archive/2011/05/04/2036387.html),  3.[HotSpot VM GC 的种类](http://www.cnblogs.com/redcreen/archive/2011/05/04/2037029.html),  4.[Xmx -Xmn -Xss](http://unixboy.iteye.com/blog/174173)
+1.[Xms Xmx PermSize MaxPermSize 区别](http://www.cnblogs.com/mingforyou/archive/2012/03/03/2378143.html),  2.[JVM系列一：JVM内存组成及分配](http://www.cnblogs.com/redcreen/archive/2011/05/04/2036387.html),  3.[HotSpot VM GC 的种类](http://www.cnblogs.com/redcreen/archive/2011/05/04/2037029.html),  4.[Xmx -Xmn -Xss](http://unixboy.iteye.com/blog/174173), 5.[Java虚拟机详解----常用JVM配置参数](http://blog.csdn.net/mr__fang/article/details/47723767),   6.[如何设置jvm内存](https://jingyan.baidu.com/article/0eb457e5083dd303f1a905fb.html),   7.[JVM调优－java虚拟机内存模型及参数设置](http://www.cnblogs.com/csuwater/p/5428404.html),   8.[jdk8内存参数解析与修改（新的参数）](http://blog.csdn.net/lk7688535/article/details/51767333),   9.[设置JVM参数，查看堆大小](http://www.cnblogs.com/csniper/p/5486828.html),   10.[深入JVM-常用Java虚拟机参数](http://www.cnblogs.com/f-zhao/p/6159709.html),   11.[JVM调优总结 -Xms -Xmx -Xmn -Xss](http://blog.csdn.net/rickyit/article/details/53895060),   12.[JVM调优总结 -Xms -Xmx -Xmn -Xss](http://unixboy.iteye.com/blog/174173),   13.[Java虚拟机-JVM各种参数配置大全详细](http://blog.csdn.net/chenleixing/article/details/43230527),   14.[jdk8 jvm Options](http://www.cnblogs.com/benwu/articles/6921047.html)
