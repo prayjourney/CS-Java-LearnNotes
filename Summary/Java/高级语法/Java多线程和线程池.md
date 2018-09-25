@@ -338,12 +338,16 @@ JDK5往后, 任务分两类: 一类是实现了Runnable接口的类, 一类是�
 
 
 #### 线程池进阶
-
+由于实现了`Runnable`接口的线程任务, 其run方法的返回值是`void`, 所以其没有返回值, 而如果我们需要返回值的话, 那就需要使用`Callable`接口, `Future`接口, `FutureTask`接口等, 来实现获取返回结果的线程池.
 ##### Callable
 
 
 
 ##### Future
+
+
+
+##### FutureTask
 
 
 
@@ -358,4 +362,4 @@ JDK5往后, 任务分两类: 一类是实现了Runnable接口的类, 一类是�
 
 
 ref:
-1.[java 线程池——异步任务](https://www.cnblogs.com/0201zcr/p/6060068.html),   2.[Executor框架的使用简介](https://blog.csdn.net/qq_16811963/article/details/52161713),   3.[Java并发编程系列之十五：Executor框架](https://blog.csdn.net/u011116672/article/details/51057585),   4.[Java并发编程-Executor框架](https://blog.csdn.net/chenchaofuck1/article/details/51606224),   5.[Java 线程池学习](https://www.cnblogs.com/jersey/archive/2011/03/30/2000231.html)
+1.[java 线程池——异步任务](https://www.cnblogs.com/0201zcr/p/6060068.html),   2.[Executor框架的使用简介](https://blog.csdn.net/qq_16811963/article/details/52161713),   3.[Java并发编程系列之十五：Executor框架](https://blog.csdn.net/u011116672/article/details/51057585),   4.[Java并发编程-Executor框架](https://blog.csdn.net/chenchaofuck1/article/details/51606224),   5.[Java 线程池学习](https://www.cnblogs.com/jersey/archive/2011/03/30/2000231.html),   6.[JAVA多线程高并发学习笔记(三)——Callable、Future和FutureTask](https://www.cnblogs.com/superfj/p/7526855.html),   7.[Java多线程：Callable,Future,FutureTask](https://www.cnblogs.com/ITtangtang/p/3966484.html),   8.[Java多线程编程：Callable、Future和FutureTask浅析](https://www.cnblogs.com/lcngu/p/6863529.html),   9.[java并发编程--Runnable Callable及Future](https://www.cnblogs.com/MOBIN/p/6185387.html),   10.[Java多线程编程：Callable、Future和FutureTask浅析（多线程编程之四）](https://blog.csdn.net/javazejian/article/details/50896505)
