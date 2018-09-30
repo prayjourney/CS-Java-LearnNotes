@@ -1,7 +1,7 @@
-###Java序列化和反序列化
+### Java序列化和反序列化
 ***
 
-#####序列化和反序列化的概念
+##### 序列化和反序列化的概念
 序列化：**把对象转换为字节序列的过程称为对象的序列化**。
 反序列化：**把字节序列恢复为对象的过程称为对象的反序列化**。
 对象的序列化主要有两种用途：
@@ -9,7 +9,7 @@
 2.**在网络上传送对象的字节序列**
 在很多应用中，需要对某些对象进行序列化，让它们离开内存空间，入住物理硬盘，以便长期保存。比如最常见的是Web服务器中的Session对象，当有 10万用户并发访问，就有可能出现10万个Session对象，内存可能吃不消，于是Web容器就会把一些seesion先序列化到硬盘中，等要用了，再把保存在硬盘中的对象还原到内存中。当两个进程在进行远程通信时，彼此可以发送各种类型的数据。无论是何种类型的数据，都会以二进制序列的形式在网络上传送。发送方需要把这个Java对象转换为字节序列，才能在网络上传送；接收方则需要把字节序列再恢复为Java对象。
 
-#####JDK类库中的序列化API
+##### JDK类库中的序列化API
 **序列化API**
 `java.io.ObjectOutputStream`代表对象输出流，它的writeObject(Object obj)方法可对参数指定的obj对象进行序列化，把得到的字节序列写到一个目标输出流中。
 `java.io.ObjectInputStream`代表对象输入流，它的readObject()方法从一个源输入流中读取字节序列，再把它们反序列化为一个对象，并将其返回。
@@ -142,13 +142,12 @@ public class TestObjSerializeAndDeserialize {
 ![data1](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_data1.jpg)
 序列化Person成功后在E盘生成了一个Person.txt文件，而反序列化Person是读取E盘的Person.txt后生成了一个Person对象
 
-#####serialVersionUID的作用
-
+##### serialVersionUID的作用
 **serialVersionUID**: 字面意思上是序列化的版本号，凡是实现Serializable接口的类都有一个表示序列化版本标识符的静态变量
-
 `private static final long serialVersionUID`，实现Serializable接口的类如果类中没有添加serialVersionUID，那么就会出现如下的警告提示
 ![data2](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_data2.jpg)
 **serialVersionUID有两种生成方式**
+
 - 默认生成
 ```java
 private static final long serialVersionUID = 1L;
@@ -381,7 +380,6 @@ class Customer implements Serializable {
 
 
 #####serialVersionUID的取值
-
 serialVersionUID的取值是Java运行时环境根据类的内部细节自动生成的。如果对类的源代码作了修改，再重新编译，新生成的类文件的serialVersionUID的取值有可能也会发生变化。
 类的serialVersionUID的默认值完全依赖于Java编译器的实现，对于同一个类，用不同的Java编译器编译，有可能会导致不同的 serialVersionUID，也有可能相同。**为了提高serialVersionUID的独立性和确定性，强烈建议在一个可序列化类中显示的定义serialVersionUID，为它赋予明确的值**。
 

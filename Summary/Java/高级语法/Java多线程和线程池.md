@@ -376,7 +376,9 @@ public interface Future<V> {
 - **boolean isDone()** : 如果任务执行结束, 无论是正常结束或是中途取消还是发生异常, 都返回true. 
 - **boolean isCanceller()**: 如果任务完成前被取消, 则返回true. 
 - **boolean cancel(boolean mayInterruptRunning)**: 如果任务还没开始, 执行cancel(...)方法将返回false; 如果任务已经启动, 执行cancel(true)方法将以中断执行此任务线程的方式来试图停止任务, 如果停止成功, 返回true; 当任务已经启动, 执行cancel(false)方法将不会对正在执行的任务线程产生影响(让线程正常执行到完成), 此时返回false; 当任务已经完成, 执行cancel(...)方法将返回false. mayInterruptRunning参数表示是否中断执行中的线程. 
-**Future提供了三种功能**:
+
+**Future提供的三种功能**:
+
 - 能够中断执行中的任务;
 - 判断任务是否执行完成;
 - 获取任务执行完成后额结果;
