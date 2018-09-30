@@ -361,6 +361,7 @@ Future<?> submit(Runnable task);
 2.一般情况下我们使用第一个submit方法和第三个submit方法, 第二个submit方法很少使用.
 3.Future就是对于具体的Runnable或者Callable任务的执行结果进行取消, 查询是否完成, 获取结果. 必要时可以通过get方法获取执行结果, 该方法会阻塞直到任务返回结果.
 Future接口也位于`java.util.concurrent`包, 其接口定义如下:
+
 ```java
 public interface Future<V> {    
     boolean cancel(boolean mayInterruptIfRunning);    
@@ -420,13 +421,80 @@ public FutureTask(Runnable runnable, V result) {
 
 
 
-##### 返回执行结果
+##### 使用Callable接口返回结果的例子
+使用Callable+Future的例子
+```java
+public class CallableFuture {
+    public static void main(String args[]) throws Exception {
+        /*任务*/
+        ServiceTask task = new ServiceTask();
+        ExecutorService executor = Executors.newCachedThreadPool();
+        /*使用Future来完成任务提交到线程池*/
+        Future<Integer> result = executor.submit(task);
+        executor.shutdown();
+        System.out.println("正在执行任务");
+        Thread.sleep(1000);
+        System.out.println("task运行结果为:" + result.get());
+    }
+}
 
+/*ServiceTask实现了Callable接口*/
+class ServiceTask implements Callable<Integer> {
+    @Override
+    public Integer call() throws Exception {
+        Thread.sleep(2000);
+        int result = 0;
+        // 假设一个很庞大的计算
+        for (int i = 1; i < 100; i++) {
+            for (int j = 0; j < i; j++) {
+                result += j;
+            }
+        }
+        return result;
+    }
+}
+```
 
+使用Callable+FutureTask的例子
+```java
+public class CallableFutureTask {
+    public static void main(String[] args) throws ExecutionException, InterruptedException {
+        ExecutorService service1 = Executors.newCachedThreadPool();
+        ExecutorService service2 = Executors.newCachedThreadPool();
+        MyFuture mf1 = new MyFuture();
+        MyFuture mf2 = new MyFuture();
+        MyFuture mf3 = new MyFuture();
+        /*使用Future*/
+        Future<Integer> resultFuture = service1.submit(mf1);
+        service1.shutdown();
+        System.out.println("正在执行service1");
+        System.out.println("callable的返回值为: " + resultFuture.get());//此处是获取线程任务的值, 结果
+        /*使用FutureTask*/
+        /*可以看出,FutureTask是一个实现了的类, 可以创建其对象, 可以自己去提交任务,
+         *而不像Future, 只能在创建一个对象的同时, 将任务提交给线程池,
+         *FutureTask, 先创建对象, 然后提交到线程池, 执行任务
+         **/
+        FutureTask<Integer> resFutureTask = new FutureTask<Integer>(mf2);
+        service2.submit(resFutureTask);
+        service2.shutdown();
+        System.out.println("正在执行service2");
+        System.out.println("callable的返回值为: " + resFutureTask.get());//此处是获取线程任务的值, 结果
 
+    }
+}
 
+class MyFuture implements Callable<Integer> {
 
-
+    @Override
+    public Integer call() throws Exception {
+        int result = 0;
+        for (int i = 0; i < 1000000; i++) {
+            result += i;
+        }
+        return result;
+    }
+}
+```
 
 
 
