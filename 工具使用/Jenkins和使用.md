@@ -2,7 +2,7 @@
 ###Jenkins和其使用
 ***
 
-####  Jenkins是什么？
+####  Jenkins是什么
 
 ##### Jenkins简介
 Jenkins是一个可扩展的持续集成引擎。主要作用：
@@ -70,6 +70,122 @@ CI系统在整个开发过程中的主要作用是控制：当系统在代码存
 
 
 
+### 安装Jenkins
+在最简单的情况下，Jenkins 只需要两个步骤：
+1. 下载最新的版本(一个 WAR 文件)。Jenkins官方网址: [http://Jenkins-ci.org/](http://jenkins-ci.org/)
+2. 命运行运行 `java -jar jenkins.war` (默认情况下端口是8080，如果要使用其他端口启动，可以通过命令行`java –jar Jenkins.war --httpPort=80`的方式修改）
+注意：Jenkins 需要运行 Java 5以及以上的版本。
+还有一种安装方式就是将下载的war包文件部署到 servlet 容器，然后启动容器，在浏览器的URL地址栏中输入类似[http://localhost:8080/jenkins/](http://localhost:8088/hudson/)这样的地址即可。下图是安装成功后的界面（使用的是Linux+Tomcat6+Java6环境）：
+
+![jenkinstart](../images/jenkinstart.jpg)
+
+
+
+#### Jenkins配置
+在配置前的一些话：Jenkins的配置不可能全部都说到的，大部分配置是有英文说明的，点击输入框后面的问号就可以看见了。英文不会用翻译工具，多测试几次就懂了。
+
+##### 系统管理
+在已运行的Jenkins主页中，点击左侧的系统管理进入如下界面：
+![jenkinadmin](../images/jenkinadmin.png)
+
+###### 提示信息
+ps:版本不同提示的消息有可能不同
+
+###### UTF-8编码
+Your container doesn't use UTF-8 to decode URLs. If you use non-ASCII characters as a job name etc, this will cause problems. See [Containers](http://wiki.jenkins-ci.org/display/JENKINS/Containers) and [Tomcat i18n](http://wiki.jenkins-ci.org/display/JENKINS/Tomcat#Tomcat-i18n) for more details.
+Jenkins建议在tomcat中使用utf-8编码，配置tomcat下conf目录的server.xml文件
+![jenkinsutf8](../images/jenkinsutf8.png)
+
+ps：如果Job的控制台中文输出乱码，请将URIEncoding=”utf-8”更改为useBodyEncodingForURI="true"
+
+###### 新的版本
+New version of Jenkins (1.518.JENKINS-14362-jzlib) is available for download (changelog).
+提示有新的版本可以下载了,喜欢更新的点击download去下载吧！
+
+###### 安全设置
+![jenkinssecurity](../images/jenkinssecurity.png)
+Jenkins允许网络上的任何人代表您启动进程。考虑至少启用身份验证来阻止滥用。点击Dismiss忽略该消息,点击Setup Security进入设置界面.详细设置请参考 Configure Global Security(安全设置) 章节
+
+##### 系统设置
+在已运行的Jenkins主页中，点击左侧的系统管理—>系统设置进入如下界面：
+![jenkinssetting](../images/jenkinssetting.jpg)
+ps：jenkins的根目录，默认地在C:\Documents and Settings\AAA\.hudson。
+
+
+
+##### JDK、Maven、Ant配置(图为Windows环境)
+配置一个JDK、Ant、Maven实例，请在每一节下面单击Add(新增) 按钮，这里将添加实例的名称和绝对地址。下图描述了这两个部分。
+![jenkinsinstallother](../images/jenkinsinstallother.jpg)
+点击“安装”，添加相应的设置，如下图：
+![jenkinsinstallotherdetail](../images/jenkinsinstallotherdetail.jpg)
+JDK别名：给你看的，随便你自己
+JAVA_HOME：这个是本机JDK的安装路径（错误的路径会有红字提示你的）
+注：Ant, Maven的配置是一样的(JDK去oracle官网下载，Ant与Maven去apache官网下载),**自动安装不推荐这个选项**
+Ps：每个文本框后面都有个问号，点击问号就会出现帮助信息
+
+
+##### 邮件通知配置(默认)
+###### 配置发件人地址
+![jenkinsemail](../images/jenkinsemail.jpg)系统管理员邮件地址（System Admin e-mail address）：Jenkins邮件发送地址，切记，必须设置。
+
+###### 配置邮件通知
+![jenkinsemailsetting](../images/jenkinsemailsetting.jpg)
+设置：SMTP服务器，勾选"使用SMTP认证"，输入用户名与密码
+ps：小技巧：用户默认邮件后缀配置了后，以后你填写邮件地址只需要@之前的就行了
+
+
+##### Subversion配置
+![jenkinssubversion](../images/jenkinssubversion.jpg)
+Subversion Workspace Version：Subversion 的版本号，选择你对应的版本号就行了
+
+
+##### Configure Global Security(安全设置)
+在已运行的Jenkins主页中，点击左侧的系统管理—>Configure Global Security进入如下界面：
+![jenkinsglobalconfig](../images/jenkinsglobalconfig.jpg)
+设置如上图，保存后系统管理中就出现管理用户的选项。页面右上角也会出现登录/注册的选项。
+此设置：只有登录用户可以做任何事
+
+
+##### 管理用户设置
+在右上角点击注册
+![jenkinsuser](../images/jenkinsuser.png)
+点击sign up按钮，提示你现在已经登录.返回首页.
+登录后和匿名账号看到的首页有几点不同，如下图红框所示：
+![jenkinsanno](../images/jenkinsanno.jpg)
+
+
+##### 管理插件设置
+建议先阅读[Jenkins插件](http://www.cnblogs.com/zz0412/p/jenkins02.html#_Jenkins%E6%8F%92%E4%BB%B6)章节，在回来安装如下所示的插件。
+需求：这个插件将生成的构件（war或者ear）部署到主流的服务器上。
+插件名称：[Deploy Plugin](https://wiki.jenkins-ci.org/display/JENKINS/Deploy+Plugin)
+插件介绍：This plugin takes a war/ear file and deploys that to a running remote application server at the end of a build
+
+
+
+#### 项目构建设置
+##### 构建自由风格的Job
+###### 新建自由风格构建任务
+在已运行的Jenkins主页中，点击左侧的新建Job进入如下界面：
+![jenkinscreate](../images/jenkinscreate.png)
+这时，需要为新的构建任务指定一个名称。（这里输入的任务名称为：Ant_test）这里有几种的任务类型可供选择，鉴于初步介绍，先选择构建一个自由风格的软件项目。对于其他的类型,经常使用的是拷贝已存在任务;这主要为了能在现有的任务基础上新建任务。点击OK按钮.
+**需要注意的是**：
+1.Job名称千万不要用中文名称（不作死就不会死）。
+2.创建Job名称时最好有个规划，因为我们最后会通过正则匹配自动将Job归类，比如我喜欢 “项目前缀_一些说明-Job类型”这种方式。
+
+##### 构建任务配置
+###### 源码管理配置 
+演示是使用Subversion的链接，在Repository URL中输入你的项目链接，如果没有权限则会提示如下图：
+![jenkinsrepo](../images/jenkinsrepo.jpg)
+设置成功后，就直接从SVN此目录获取文件到本地。Ps:要先添加Credentials。添加的方法如下操作：
+点击Jenkins首页左侧Credentials，进入页面
+![jenkinscre1](../images/jenkinscre1.jpg)
+![jenkinscre2](../images/jenkinscre2.jpg)
+下一步：一般都是使用的用户名和密码登陆的
+![jenkinscre3](../images/jenkinscre3.jpg)
+Ps：svn的用户名和密码设置了是没有办法在web界面修改的。如果要修改则先去Jenkins目录删除hudson.scm.SubversionSCM.xml文件
+
+
+
 ref:
-1.[Jenkins学习一：Jenkins是什么？](https://www.cnblogs.com/yangxia-test/p/4354213.html)
+1.[Jenkins学习一：Jenkins是什么？](https://www.cnblogs.com/yangxia-test/p/4354213.html),   2.[Jenkins学习二：Jenkins安装与配置](https://www.cnblogs.com/yangxia-test/p/4354328.html)
 
