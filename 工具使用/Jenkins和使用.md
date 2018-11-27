@@ -293,6 +293,8 @@ Deploy on failure：构建失败依然部署，一般不选择。
 如果你想通过视图输出界面来监控当前任务的进展情况。你可以单击Console Output（控制台输出）。如果工作已完成，这将显示构建脚本产生的静态输出；如果作业仍然在运行中，Jenkins将不断刷新网页的内容，以便您可以看到它运行时的输出。如下图：
 ![jenkinsconsole](../images/jenkinsconsole.jpg)
 
+上述是Jenkins的状态和说明, 我们在比较传统的项目之中, 需要打包之后自己安装, 然后运行, 这时候, 我们需要进入主面板, 然后选择则Daily构建, 选择好我们构建的版本比如XXX_V30_SP1, 点击进入, 然后选择Build With Parameters, 然后选择好要构建的Branch, 点击开始构建即可. 经过一定的时间, 就会有构建结果, 然后在面板上可以找到构建的状态和历史, 返回最初的主页面板, 选择需要使用的平台, 然后点进去, 按照构建的版本号, 就可以下载我们打包的文件了. 然后就可以开始安装和调试. 如果失败的话, 我们就可以在日志之中查看失败的原因。
+
 
 
 #### Jenkins插件
@@ -320,5 +322,5 @@ Jenkins运行自动部署war包到servlet容器内，要实现这个功能必须
 
 
 ref:
-1.[Jenkins学习一：Jenkins是什么？](https://www.cnblogs.com/yangxia-test/p/4354213.html),   2.[Jenkins学习二：Jenkins安装与配置](https://www.cnblogs.com/yangxia-test/p/4354328.html)
+1.[Jenkins学习一：Jenkins是什么？](https://www.cnblogs.com/yangxia-test/p/4354213.html),   2.[Jenkins学习二：Jenkins安装与配置](https://www.cnblogs.com/yangxia-test/p/4354328.html),   3.[使用Jenkins实现自动化打包](https://blog.csdn.net/charon_chui/article/details/80510701)
 
