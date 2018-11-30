@@ -63,38 +63,35 @@
 
 
 #### 数据库与表的创建
-![img](https://img-blog.csdn.net/20131224093319859?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvamlhbmdoZW5nMDUzNQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
+![postcreatetable](../images/postcreatetable.jpeg)
 
 1.数据库的创建。选中数据库=>右键=>新建数据库
-![img](https://img-blog.csdn.net/20131224093350156?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvamlhbmdoZW5nMDUzNQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
-
+![postcreatetb](../images/postcreatetb.jpeg)
 一般都选择默认就可以。在结构树中目录中存放的是系统的对象和系统表等。系统默认模式为public可以建其他模式。只有相应的权限才能看见模式下的内容。
 
-２表的创建。选中数据表=>右键=>新建数据库表（特别注意新建表时表名与字段名要小写，因为它会区分大小写。大写或者大小写混的会加上双引号）。
-![img](https://img-blog.csdn.net/20131224093412765?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvamlhbmdoZW5nMDUzNQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
+2.表的创建。选中数据表=>右键=>新建数据库表（特别注意新建表时表名与字段名要小写，因为它会区分大小写。大写或者大小写混的会加上双引号）。
+![postcreatebdtable](../images/postcreatebdtable.jpeg)
 
-３.表的修改
+3.表的修改
 右键选中所要操作的表选择新建对象可以对表做相应的错做。例如：新增字段等。
-![img](https://img-blog.csdn.net/20131224093446734?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvamlhbmdoZW5nMDUzNQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
+![postuptable](../images/postuptable.jpeg)
 
 右键选中所要操作的表查看数据所有行，可以查看该表的数据，并可以做相应的修改。（注意：想要一表格形式修改此表，该表必须有主键）。
-![img](https://img-blog.csdn.net/20131224093555718?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvamlhbmdoZW5nMDUzNQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
+![postchakan](../images/postchakan.jpeg)
 
 在表格中右键选中字段可以过滤与排序等。使操作更加快捷方便。
-![img](https://img-blog.csdn.net/20131224093711265?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvamlhbmdoZW5nMDUzNQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
+![postrightxiugai](../images/postrightxiugai.jpeg)
 
 在修改表的时候允许编辑SQL标签，例如：当追加一个带有缺省值和非空制约的新字段时， pgAdmin无法在一个动作中完成，因为需要先新增字段，然后修改所有已存在记录的值，最后再设置非空制约。而现在，可以使用UI一次完成。你可以使用这样的语句：
+![postnewclumn](../images/postnewclumn.jpeg)
 
-![img](https://img-blog.csdn.net/20131224093751984?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvamlhbmdoZW5nMDUzNQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center) 
 接下来，点击“只读”检查框进入直接编辑模式，更新语句并执行。
-
-![img](https://img-blog.csdn.net/20131224093819937?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvamlhbmdoZW5nMDUzNQ==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
-
+![postnewcloumnup](../images/postnewcloumnup.jpeg)
 
 
 #### 数据库的备份与恢复
 右键选择要备份的数据库。用pgadmin可以把postgres备份成三种格式，compress，tar，plain。compress最小，是压缩过的，但是里面乱码。文件以.backup结尾tar比较大，上面有几行是乱码，下部分都是数据，格式看上去不太整齐。文件以.backup结尾。plain也很大，但不是乱码，里面的内容很整齐，分为两部分，上部分是相关的属性和数据表的信息。下部分全是数据。字段用一个Tab分隔。然而恢复时只有compress和tar的文件能够恢复。也就是以.backup结尾的！还有这样恢复时，最好把库删了！然后新建空库从新恢复！不要在原来库的基础上恢复！会有数据丢失！新表会加上，但旧表里的新数据不会加上。如图所示：
-![postback](../../../images/postback.jpeg)
+![postbackup](../images/postbackup.jpeg)
 
 
 
