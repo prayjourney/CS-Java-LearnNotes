@@ -1,11 +1,16 @@
 ### Mock和Stub的区别
 
 ***
+#### Mock和Stub异同总结
+
+**二者都是为同一个目标而出现的，代替依赖部分。mock使用jar包，也就是mock框架，在程序代码中注入“依赖部分”，通过代码可编程的方式模拟函数调用返回的结果。stub是自己写代码代替“依赖部分”一个简化实现，所以总体而言，stub的逻辑和代码量更加复杂**。
+
+Mock和Stub都是虚拟对象，更准确地说，mock对象可以使用最少的方法来模拟真实的对象。而stub方式创建测试的情形需要我们更多的关注细节。**Stub对象以及返回的结果和验证的逻辑大多数是由我们程序员自己创建的**。Stub还可以验证方法的内部状态。而**Mock对象一般是由框架来帮我们创建的**。*Mock对象可以验证方法之间的交互是否符合自己期望的*。**最主要的区别就是：Stub是基于状态的对象，而Mock是基于交互的对象**。更为详细的区别请参考：[Mocks Aren't Stubs](http://martinfowler.com/articles/mocksArentStubs.html)。
+
+
 
 #### Mock和stub整体上的异同点
-
 ##### 相同点
-
 先看看两者的相同点吧，非常明确的是，mock和stub都可以用来对系统(或者将粒度放小为模块，单元)进行隔离。
 在测试，尤其是单元测试中，我们通常关注的是主要测试对象的功能和行为，对于主要测试对象涉及到的次要对象尤其是一些依赖，我们仅仅关注主要测试对象和次要测试对象的交互，比如是否调用，何时调用，调用的参数，调用的次数和顺序等，以及返回的结果或发生的异常。但次要对象是如何执行这次调用的具体细节，我们并不关注，因此常见的技巧就是用mock对象或者stub对象来替代真实的次要对象，模拟真实场景来进行对主要测试对象的测试工作。
 因此**从实现上看，mock和stub都是通过创建自己的对象来替代次要测试对象，然后按照测试的需要控制这个对象的行为**。
@@ -117,8 +122,7 @@ stub则通常比较方便复用，尤其是一些通用的stub，比如jdbc连�
  在测试过程中产生的调用提供预备好的应答，通常不应答计划之外的任何事。stubs可能记录关于调用的信息，比如 邮件网关的stub 会记录它发送的消息，或者可能仅仅是发送了多少信息。
 - Mocks 
  如我们在这里说的那样：预先计划好的对象，带有各种期待，他们组成了一个关于他们期待接受的调用的详细说明。
-
-###### 退化和转化
+- 退化和转化
 在实际的开发测试过程中，我们会发现其实mock和stub的界限有时候很模糊，并没有严格的划分方式，从而造成我们理解上的含糊和困惑。
 主要的原因在于现实使用中，我们经常将mock做不同程度的退化，从而使得mock对象在某些程度上如stub一样工作。以easymock为例，我们可以通过anyObject(), isA(Class)等方式放宽对参数的检测，以atLeatOnce(),anytimes()来放松对调用次数的检测，我们可以使用Easymock.createControl()而不是Easymock.createStrictControl()来放宽对调用顺序的检测(或者调用checkOrder(false))，我们甚至可以通过createNiceControl(), createNiceMock()来创建完全不限制调用方式而且自动返回简单值的mock，这和stub就几乎没有本质区别了。
 目前大多数的mock工具都提供mock退化为stub的支持，比如easyock中，除了上面列出的any\*\*\*,NiceMock之外，还提供诸如andStubAnswer() ,andStubDelegateTo() ,andStubReturn() ,andStubThrow() 和asStub()。
@@ -127,4 +131,4 @@ stub则通常比较方便复用，尤其是一些通用的stub，比如jdbc连�
 
 
 ref:
-1.[浅谈mock和stub](http://www.blogjava.net/aoxj/archive/2010/08/26/329975.html)
+1.[浅谈mock和stub](http://www.blogjava.net/aoxj/archive/2010/08/26/329975.html),   2.[[Junit]stub和mock的区别](https://blog.csdn.net/londy_2000/article/details/79485769),   3.[Mock和Stub的初步理解](https://blog.csdn.net/CHS007chs/article/details/54345543)
