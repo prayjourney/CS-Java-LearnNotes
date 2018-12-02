@@ -245,10 +245,30 @@ JUnit是单元测试框架，**可以轻松的完成关联依赖关系少或者�
 
 
 
+#### Junit的优缺点
+###### 优点
+比在代码中写main 方法测试的好处有如下:
+1. 可以书写一系列的 测试方法，对项目所有的 接口或者方法进行单元测试。 
+2. 启动后，自动化测试，并判断执行结果, 不需要人为的干预。 
+3. 只需要查看最后结果，就知道整个项目的方法接口是否通畅。
+4. 每个单元测试用例相对独立， 由Junit 启动，自动调用。 不需要添加额外的调用语句。
+5. 添加，删除，屏蔽测试方法，不影响其他的测试方法。 开源框架都对JUnit 有相应的支持。
+
+###### 缺点
+1. 参数化测试是类级别的
+2. 不能依赖测试
+3. 配置控制欠佳（安装/拆卸）
+4. 侵入性（强制扩展类，并以某种方式命名方法）
+5. 静态编程模型（不必要的重新编译）
+6. 不同的适合管理复杂项目中的测试可以是非常棘手
+
+
+
+#### Junit配合Mock使用的例子
+
+
 
 ref:
-1.[Unit4 与 JUnit 5 常用注解对比](https://blog.csdn.net/winteroak/article/details/80591598),   2.[JUnit学习笔记](https://www.cnblogs.com/Peiyuan/articles/511494.html),   3.[Java单元测试初体验(JUnit4)](https://www.cnblogs.com/ysw-go/p/5447056.html),   4.[Junit4单元测试的基本用法](https://www.cnblogs.com/qiyexue/p/6822791.html),   5.[Junit 4 Tutorials(Junit 4 教程) 五、测试套件](https://blog.csdn.net/luanlouis/article/details/37564355),   6.[Junit 4 Tutorials(Junit 4 教程) 四、Junit4 参数化测试](https://blog.csdn.net/luanlouis/article/details/37563265),   7.[Junit 4 Tutorials(Junit 4 教程) 六、忽略测试](https://blog.csdn.net/luanlouis/article/details/37565017),   8.[Junit的基本使用（详解）](https://blog.csdn.net/fulishafulisha/article/details/80158392),   9.[浅谈mock和stub](http://www.blogjava.net/aoxj/archive/2010/08/26/329975.html),   10.[软件测试中Mock和Stub](https://blog.csdn.net/yi412/article/details/80884106),   12.[Mock 和Stub之间的区别](https://blog.csdn.net/carolzhang8406/article/details/54693203),   13.[[Junit]stub和mock的区别](https://blog.csdn.net/londy_2000/article/details/79485769),   14.[Mock和Stub的初步理解](https://blog.csdn.net/CHS007chs/article/details/54345543),   15.[stub与mock的理解](https://blog.csdn.net/duanyu117/article/details/80258429),   16.[mock大法好](https://segmentfault.com/a/1190000010211622),   17.[Mock的应用场景、原则和工具总结](https://baijiahao.baidu.com/s?id=1572237477611353&wfr=spider&for=pc),   18.[testng和junit有什么优缺点，该如何选择？](https://www.zhihu.com/question/26026007),   19.[testng 与 junit 4对比](https://blog.csdn.net/huazhongkejidaxuezpp/article/details/48650793),   20.
-
-
+1.[Unit4 与 JUnit 5 常用注解对比](https://blog.csdn.net/winteroak/article/details/80591598),   2.[JUnit学习笔记](https://www.cnblogs.com/Peiyuan/articles/511494.html),   3.[Java单元测试初体验(JUnit4)](https://www.cnblogs.com/ysw-go/p/5447056.html),   4.[Junit4单元测试的基本用法](https://www.cnblogs.com/qiyexue/p/6822791.html),   5.[Junit 4 Tutorials(Junit 4 教程) 五、测试套件](https://blog.csdn.net/luanlouis/article/details/37564355),   6.[Junit 4 Tutorials(Junit 4 教程) 四、Junit4 参数化测试](https://blog.csdn.net/luanlouis/article/details/37563265),   7.[Junit 4 Tutorials(Junit 4 教程) 六、忽略测试](https://blog.csdn.net/luanlouis/article/details/37565017),   8.[Junit的基本使用（详解）](https://blog.csdn.net/fulishafulisha/article/details/80158392),   9.[浅谈mock和stub](http://www.blogjava.net/aoxj/archive/2010/08/26/329975.html),   10.[软件测试中Mock和Stub](https://blog.csdn.net/yi412/article/details/80884106),   12.[Mock 和Stub之间的区别](https://blog.csdn.net/carolzhang8406/article/details/54693203),   13.[[Junit]stub和mock的区别](https://blog.csdn.net/londy_2000/article/details/79485769),   14.[Mock和Stub的初步理解](https://blog.csdn.net/CHS007chs/article/details/54345543),   15.[stub与mock的理解](https://blog.csdn.net/duanyu117/article/details/80258429),   16.[mock大法好](https://segmentfault.com/a/1190000010211622),   17.[Mock的应用场景、原则和工具总结](https://baijiahao.baidu.com/s?id=1572237477611353&wfr=spider&for=pc),   18.[testng和junit有什么优缺点，该如何选择？](https://www.zhihu.com/question/26026007),   19.[testng 与 junit 4对比](https://blog.csdn.net/huazhongkejidaxuezpp/article/details/48650793),   20.[Java测试框架比较：TestNG VS JUnit 4](https://blog.csdn.net/jmyue/article/details/9041357),   21.[原！！关于java 单元测试Junit4和Mock的一些总结](https://www.cnblogs.com/wuyun-blog/p/7081548.html),   22.[JUnit的好处](https://blog.csdn.net/xuchuangqi/article/details/49669109),   23.[Junit测试工具](https://blog.csdn.net/sun_wangdong/article/details/51907305),   24.
 
 
