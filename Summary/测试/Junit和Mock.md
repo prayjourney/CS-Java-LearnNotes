@@ -228,8 +228,26 @@ Mock和Stub都是虚拟对象，更准确地说，mock对象可以使用最少�
 
 
 
+##### Mock的流程
+stub是基于状态，mock是基于行为。 mock通常通过一些成熟的框架对类或方法进行模拟。通常的流程是：
+>创建指定类的mock，指定输入返回对应的响应内容。 
+>当被测函数调用到该mock时针对输入进行预期返回。 
+>最后验证该mock是否被调用。
+
+而使用stub时针对每个状态，返回指定的响应。
+
+
+
+#### Junit和Mock的区别以及关系
+在做单元测试的时候，我们会发现我们要测试的方法会引用很多外部依赖的对象，比如：（发送邮件，网络通讯，记录Log, 文件系统 之类的）。 而我们没法控制这些外部依赖的对象。  为了解决这个问题，我们**需要用到Stub和Mock来模拟这些外部依赖的对象，从而控制它们**。
+JUnit是单元测试框架，**可以轻松的完成关联依赖关系少或者比较简单的类的单元测试**，但是对于关联到其它比较复杂的类或对运行环境有要求的类的单元测试，模拟环境或者配置环境会非常耗时，实施单元测试比较困难。而这些**mock框架**（如**Mockito 、jmock 、 powermock、EasyMock**），可以通过mock框架模拟一个对象的行为，从而隔离开我们不关心的其他对象，使得测试变得简单。（例如service调用dao，即service依赖dao，我们可以通过mock dao来模拟真实的dao调用，从而能达到测试service的目的。）模拟对象（Mock Object）可以取代真实对象的位置，用于测试一些与真实对象进行交互或依赖于真实对象的功能，模拟对象的背后目的就是创建一个轻量级的、可控制的对象来代替测试中需要的真实对象，模拟真实对象的行为和功能。 由以上的介绍, 简而言之有:
+> Junit和Mock 是相互协作的关系, 而不是取代的关系, 我们使用单元测试的时候, 还是需要使用Junit或者TestNg等框架, 但是, 由于单元测试需要使用带外部的依赖对象, 而这些对象是我们无法直接或者无法控制的, 所以,我们需要有其他的方式方法, 来帮我们构造这些对象, **Mock的目的就是为了构造对象!!!然后让对象在Junit框架或者其他框架之中发挥作用!!!**  由此就诞生了Mock和Stub来模拟我们需要的对象的方式。这就是Junit和Mock之间的关系。
+
+
+
+
 ref:
-1.[Unit4 与 JUnit 5 常用注解对比](https://blog.csdn.net/winteroak/article/details/80591598),   2.[JUnit学习笔记](https://www.cnblogs.com/Peiyuan/articles/511494.html),   3.[Java单元测试初体验(JUnit4)](https://www.cnblogs.com/ysw-go/p/5447056.html),   4.[Junit4单元测试的基本用法](https://www.cnblogs.com/qiyexue/p/6822791.html),   5.[Junit 4 Tutorials(Junit 4 教程) 五、测试套件](https://blog.csdn.net/luanlouis/article/details/37564355),   6.[Junit 4 Tutorials(Junit 4 教程) 四、Junit4 参数化测试](https://blog.csdn.net/luanlouis/article/details/37563265),   7.[Junit 4 Tutorials(Junit 4 教程) 六、忽略测试](https://blog.csdn.net/luanlouis/article/details/37565017),   8.[Junit的基本使用（详解）](https://blog.csdn.net/fulishafulisha/article/details/80158392),   9.[浅谈mock和stub](http://www.blogjava.net/aoxj/archive/2010/08/26/329975.html),   10.[软件测试中Mock和Stub](https://blog.csdn.net/yi412/article/details/80884106),   12.[Mock 和Stub之间的区别](https://blog.csdn.net/carolzhang8406/article/details/54693203),   13.[[Junit]stub和mock的区别](https://blog.csdn.net/londy_2000/article/details/79485769),   14.[Mock和Stub的初步理解](https://blog.csdn.net/CHS007chs/article/details/54345543),   15.
+1.[Unit4 与 JUnit 5 常用注解对比](https://blog.csdn.net/winteroak/article/details/80591598),   2.[JUnit学习笔记](https://www.cnblogs.com/Peiyuan/articles/511494.html),   3.[Java单元测试初体验(JUnit4)](https://www.cnblogs.com/ysw-go/p/5447056.html),   4.[Junit4单元测试的基本用法](https://www.cnblogs.com/qiyexue/p/6822791.html),   5.[Junit 4 Tutorials(Junit 4 教程) 五、测试套件](https://blog.csdn.net/luanlouis/article/details/37564355),   6.[Junit 4 Tutorials(Junit 4 教程) 四、Junit4 参数化测试](https://blog.csdn.net/luanlouis/article/details/37563265),   7.[Junit 4 Tutorials(Junit 4 教程) 六、忽略测试](https://blog.csdn.net/luanlouis/article/details/37565017),   8.[Junit的基本使用（详解）](https://blog.csdn.net/fulishafulisha/article/details/80158392),   9.[浅谈mock和stub](http://www.blogjava.net/aoxj/archive/2010/08/26/329975.html),   10.[软件测试中Mock和Stub](https://blog.csdn.net/yi412/article/details/80884106),   12.[Mock 和Stub之间的区别](https://blog.csdn.net/carolzhang8406/article/details/54693203),   13.[[Junit]stub和mock的区别](https://blog.csdn.net/londy_2000/article/details/79485769),   14.[Mock和Stub的初步理解](https://blog.csdn.net/CHS007chs/article/details/54345543),   15.[stub与mock的理解](https://blog.csdn.net/duanyu117/article/details/80258429),   16.[mock大法好](https://segmentfault.com/a/1190000010211622),   17.[Mock的应用场景、原则和工具总结](https://baijiahao.baidu.com/s?id=1572237477611353&wfr=spider&for=pc),   18.[testng和junit有什么优缺点，该如何选择？](https://www.zhihu.com/question/26026007),   19.[testng 与 junit 4对比](https://blog.csdn.net/huazhongkejidaxuezpp/article/details/48650793),   20.
 
 
 
