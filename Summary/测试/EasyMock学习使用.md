@@ -165,10 +165,85 @@ EasyMock.replay(marketMock);
 
 
 
+##### EasyMock的工作流程
+record-replay-verify 模型容许记录mock对象上的操作然后重演并验证这些操作。这是目前mock框架领域最常见的模型，几乎所有的mock框架都是用这个模型，有些是现实使用如easymock，有些是隐式使用如jmockit。以easymock为例，典型的easymock使用案例一般如下, 援引上一章中的例子：
+```java
+public class UserServiceImplTest {
+    /**
+     * this is a classic test case to use EasyMock.
+     */
+    @Test
+    public void testQuery() {
+        User expectedUser = new User();
+        expectedUser.setId("1001");
+        expectedUser.setAge(30);
+        expectedUser.setName("user-1001");
+        UserDao userDao  = EasyMock.createMock(UserDao.class);
+        EasyMock.expect(userDao.getById("1001")).andReturn(expectedUser);
+        EasyMock.replay(userDao);
+
+        UserServiceImpl  service = new UserServiceImpl();
+        service.setUserDao(userDao);
+        User user = service.query("1001");
+        assertNotNull(user);
+        assertEquals("1001", user.getId()); 
+        assertEquals(30, user.getAge()); 
+        assertEquals("user-1001", user.getName()); 
+
+        EasyMock.verify(userDao);
+    }
+}
+```
+在这里有两句非常明显的调用语句: Easymock.replay(...)和Easymock.verify(...)。这两个语句将上述代码分成三个部分，分别对应record-replay-verify 3个阶段，其实，如果分的更详细，可以把record部分分成2个部分，在后面可以介绍。
+1. record阶段
+```java
+    User expectedUser = new User();
+    expectedUser.setId("1001");
+    expectedUser.setAge(30);
+    expectedUser.setName("user-1001");
+    UserDao userDao  = EasyMock.createMock(UserDao.class);
+    EasyMock.expect(userDao.getById("1001")).andReturn(expectedUser);
+```
+这里我们开始创建mock对象，并期望这个mock对象的方法被调用，同时给出我们希望这个方法返回的结果(可以分为两个部分,创建mock对象+给mock对象赋值)。这就是所谓的"记录mock对象上的操作", 同时我们也会看到"expect"这个关键字。
+总结说，**在record阶段，我们需要给出的是我们对mock对象的一系列期望：若干个mock对象被调用，依从我们给定的参数，顺序，次数等，并返回预设好的结果(返回值或者异常)**.
+2. replay阶段
+```java
+    UserServiceImpl  service = new UserServiceImpl();
+    service.setUserDao(userDao);
+    User user = service.query("1001");
+```
+在replay阶段，我们关注的主要测试对象将被创建，之前在record阶段创建的相关依赖被关联到主要测试对象，然后执行被测试的方法，以模拟真实运行环境下主要测试对象的行为。
+在测试方法执行过程中，主要测试对象的内部代码被执行，同时和相关的依赖进行交互：以一定的参数调用依赖的方法，获取并处理返回。**我们期待这个过程如我们在record阶段设想的交互场景一致，即我们期望在replay阶段所有在record阶段记录的行为都将被完整而准确的重新演绎一遍，从而到达验证主要测试对象行为的目的**。
+3. verify阶段
+```java
+    assertNotNull(user);
+    assertEquals("1001", user.getId()); 
+    assertEquals(30, user.getAge()); 
+    assertEquals("user-1001", user.getName()); 
+    EasyMock.verify(userDao);
+```
+在verify阶段，我们将验证测试的结果和交互行为。通常验证分为两部分，如上所示： 一部分是验证结果，即主要测试对象的测试方法返回的结果(对于异常测试场景则是抛出的异常)是否如预期，通常这个验证过程需要我们自行编码实现。另一部分是验证交互行为，典型如依赖是否被调用，调用的参数，顺序和次数，这部分的验证过程通常是由mock框架来自动完成，我们只需要简单调用即可。在easymock的实现中，verify的部分交互行为验证工作，会提前在replay阶段进行：比如未记录的调用，调用的参数等。如果验证失败，则直接结束replay以致整个测试案例。也可以按照如下的方式来划分, 以一个小例子为例:
+
+```java
+@Test
+public void test(){
+    Calculator calculator = EasyMock.createMock(Calculator.class);
+    EasyMock.expect(calculator.add(2,4)).andReturn(5);
+    EasyMock.replay(calculator);
+    Assert.assertEquals(calculator.add(2,4),5);
+}
+```
+上面的代码刚好反应了easymock的工作流程, 如下: 
+1. **创建一个类的mock对象 **
+2. **记录mock对象期望的行为**
+3. **记录完成，开始重放测试样例, replay.**
+4. **mock对象执行验证**
+###### easymock运行流程总结
+record-replay-verify 模型非常好的满足了大多数测试场景的需要：先指定测试的期望，然后执行测试，再验证期望是否被满足。这个模型简单直接，易于实现，也容易被开发人员理解和接受，因此被各个mock框架广泛使用
+
 
 
 ##### EasyMock API
-
 // 主要是EasyMock的API的介绍
 
 
@@ -176,5 +251,4 @@ EasyMock.replay(marketMock);
 
 
 ref :
-1.[EasyMock教程--入门指南](https://www.oschina.net/question/89964_62360),   2.[easymock例子](https://github.com/vraa/SimplePortfolio)
-
+1.[EasyMock教程--入门指南](https://www.oschina.net/question/89964_62360),   2.[easymock例子](https://github.com/vraa/SimplePortfolio),   3.[初识stub和mock--junit的两种测试策略](https://blog.csdn.net/yingxySuc/article/details/39677625),   4.[dbunit测试](https://github.com/YoYing/csdn),   5.[使用 EasyMock 更轻松地进行测试](https://www.ibm.com/developerworks/cn/java/j-easymock.html),   6.[EasyMock 使用方法与原理剖析](https://www.ibm.com/developerworks/cn/opensource/os-cn-easymock/),   7.[Mock的应用场景、原则和工具总结](https://baijiahao.baidu.com/s?id=1572237477611353&wfr=spider&for=pc),   8.[原！！关于java 单元测试Junit4和Mock的一些总结](https://www.cnblogs.com/wuyun-blog/p/7081548.html),   9.[JUnit4 与 JMock 之双剑合璧](https://www.cnblogs.com/wangtj-19/p/5822211.html),   10.[easymock教程-record-replay-verify模型](http://skydream.iteye.com/blog/829338),   11.[easymock教程-easymock的典型使用](https://blog.csdn.net/hikvision_java_gyh/article/details/11745767)
