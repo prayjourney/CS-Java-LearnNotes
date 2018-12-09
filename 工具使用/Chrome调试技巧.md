@@ -72,8 +72,12 @@ Content scripts 是 Chrome 的一种扩展程序，它是按照扩展的ID来组
 打开一个Ajax异步请求，可以看到它的请求头信息，是一个POST请求，参数有哪些，还可以预览它的返回的结果数据，这些数据的使用和查看有利于我们很好的和后端工程师们联调数据，也方便我们前端更直观的分析数据
 ![chromexhr](../images/chromexhr.png)
 
-- 预览请求的数
+- 预览请求的数据
 ![chromepreview](../images/chromepreview.png)
+
+- 查看资源HTTP的Response信息
+在Response标签里面可根据选择的资源类型（JSON、图片、文本、JS、CSS）显示相应资源的Response响应内容。下图显示的是当选择的资源是CSS格式时的响应内容。
+![chromeresponedata](../images/chromeresponedata.png)
 
 **7.Timeline**标签
 可以显示JS执行时间、页面元素渲染时间，这个Timeline的标签页不是指网络请求的时间响应情况哦（这个在Network标签页里查看），这个Timeline指的JS执行时间、页面元素渲染时间，此处查看应该选项是JS，但是实际显示的效果和圈出来的效果是一样的。
@@ -151,10 +155,113 @@ Content scripts 是 Chrome 的一种扩展程序，它是按照扩展的ID来组
 
 
 
-#### 详细的调试
-//todo
+#### 详细调试的方法
+#####  JavaScript脚本断点调试
+1.打开开发者工具，按F12或者在浏览器页面上右键选择检查
+![chromeopentools](../images/chromeopentools.png)
+
+2.在Source面板中找到需要调试的文件
+![chromefindsrc](../images/chromefindsrc.png)
+
+3.设置断点
+![chromesettingbreaks](../images/chromesettingbreaks.png)
+
+4.触发调试部分程序的运行，开始调试
+![chromestartdebug](../images/chromestartdebug.png)
+
+调试过程中常用的按钮及快捷键：
+
+**跳到下一个断点**：点击Sources面板右侧的“三角按钮”，快捷键：F8  , Ctrl+\ 
+![chromenextbreakpoint](../images/chromenextbreakpoint.png)
+
+**跳到下一步（逐步跨方法）**：点击Sources面板右侧的第二个按钮，快捷键：F10 ，Ctrl+’ 
+![chromenextstep](../images/chromenextstep.png)
+
+**跳进断点处的方法中**：点击Sources面板右侧第三个按钮，快捷键：F11 ，Ctrl+; 
+![chromenextstep](../images/chromeintomethod.png)
+
+**跳出正在执行的方法**：点击Sources面板右侧第四个按钮，快捷键：Shift+F11 ，Ctrl+Shift+;
+![chromeoutmethod](../images/chromeoutmethod.png)
+
+**禁用断点**：点击Sources面板右侧的第五个按钮
+![chromestopbreakpoint](../images/chromestopbreakpoint.png)
+
+**暂停在捕获到的异常处**：点击Sources面板右侧的第六个按钮，然后勾选Pause On Caught Exception
+![chromegetexception](../images/chromegetexception.png)
+
+**暂停在未捕获的异常处**：点击Sources右侧的第六个按钮，不勾选Pause On Caught Exception
+![chromenotcatch](../images/chromenotcatch.png)
+
+**Sources面板调试过程中快捷键预览**： 
+![chromesourcekey](../images/chromesourcekey.png)
+
+**查看断点处，获取的数据的值**： 
+将鼠标光标停留在变量上面即可，也可以将变量赋值到Console的控制台上打印出来。
+![chromegetkeypre](../images/chromegetkeypre.png)
+
+![chromegetkey2](../images/chromegetkey2.png)
+**清除断点**： 
+在Source面板最右侧面板中，找到Breakpoints打开，可以看到你打的断点。在断点列表出右键选择Remove all breakpoints可以一次性删除所有断点。
+![chromeremovebreakpoint](../images/chromeremovebreakpoint.png)
+
+
+
+##### XHR断点调试
+右侧调试区有一个 XHR Breakpoints，点击+ 并输入 URL 包含的字符串即可监听该 URL 的 Ajax 请求，输入内容就相当于 URL 的过滤器。如果什么都不填，那么就监听所有 XHR 请求。一旦 XHR 调用触发时就会在 request.send() 的地方中断。XHR是Ajax异步请求。
+
+
+
+##### 事件监听断点
+事件监听是对我们选定的是事件类型进行监听，当这个事件触发的时候，程序就会在这个事件处停止。有助于我们快速找到某一个元素上绑定的事件。 
+**应用场景**：我们刚接手一个项目时，对业务不熟。想找到提交登录事件对应的方法，但是发现页面上登录按钮绑定事件写的不是很明确，而且处理登录业务的JavaScript脚本文件有几百行，想找到这个按钮很不容易。此时，我们就可以选定鼠标的点击事件进行监听，当我们点击登录按钮的时候控制台Sources面板会自动将我们带到登录方法处。 
+**事件监听断点使用步骤（以查找天猫首页登录方法为例）**：
+1.首先打开京东登录页面找到登录按钮； 
+![chromeloginapp](../images/chromeloginapp.png)
+
+2.在登录按钮上右键属性==》检查 打开开发者工具，然后打开Sources面板 
+![chromeloginappproperity](../images/chromeloginappproperity.png)
+
+![chromeloginappproperity2](../images/chromeloginappproperity2.png)
+
+3.打开Sources面板右侧的Event Listener Breakpoints 找到Mouse及鼠标事件下边的click然后勾选上。
+![chromecckeckclick](../images/chromecckeckclick.png)
+
+4.点击登录按钮，触发鼠标的点击事件，发现程序中断在JavaScript文件中，点击面板下方的 “{}” 将代码格式化一下，此时就找到了登录按钮触发的点击事件了。此时就可以一步一步的像下跟，知道跟到天猫的登录方法了。
+![chromelogintmall](../images/chromelogintmall.png)
+
+
+
+##### 其他设置
+1.**清除浏览器缓存的方法**：
+浏览器缓存（Browser Caching）是为了节约网络的资源加速浏览，浏览器在用户磁盘上对最近请求过的文档进行存储，当访问者再次请求这个页面时，浏览器就可以从本地磁盘显示文档，这样就可以加速页面的阅览。但是，对开发人员来说，我们修改了JavaScript脚本之后需要立即看到修改的效果，所以需要清除缓存，清除缓存常用的方法有：
+- Ctrl + F5
+F5通常只是刷新本地缓存；Ctrl+F5可以把INTERNET临时文件夹的文件删除再重新从服务器下载，也就是彻底刷新页面了。
+
+- 开发者工具打开之后，快速清除缓存的方法
+开发者工具打开之后，浏览器刷新图标上右键会出现清空缓存并硬性重新加载。这一方法能够在开发者工具打开时快速清理缓存。
+![chromerefreshcookie](../images/chromerefreshcookie.png)
+
+- Ctrl + Shift + Del 快捷键清除缓存
+选中地址栏中的URL，按快捷键：Ctrl + Shit + Del 会弹出一个清除浏览数据的弹窗，选择要清理的数据项之后，点击清除浏览数据即可。
+![chromerefreshcookie](../images/chromerefreshcookie2.png)
+![chromerefreshcookie](../images/chromerefreshcookie3.png)
+
+2.**禁用页面的JavaScript脚本** 
+应用场景：在开发互联网电商项目时，需要一些商品图片，于是就去京东找到一个商品打开商品图片之后，想复制或者将这个图片另存为，此时，发现右键后什么都没有。 
+![chromerefreshcookie](../images/chromerightmousekey.png)
+
+原因是，京东在图片上通过JavaScript脚本禁用了鼠标右键点击事件。此时，我们可以通过禁用当前页面的JavaScript事件，通过鼠标右键保存图片。
+![chromerefreshcookie](../images/chromerightmousekey2.png)
+
+
+3.**禁用网页JavaScript事件的方法**
+- 开发者工具==》Settings
+![chromerefreshcookie](../images/chromestopdebug.png)
+
+- 勾选Debugger下的Disable JavaScript 复选框。
+![chromerefreshcookie](../images/chromestopjsdebug.png)
 
 
 
 ref:
-1.[超完整的 Chrome 浏览器客户端调试大全](http://web.jobbole.com/89344/),   2.[Chrome格式化JavaScript](https://www.cnblogs.com/chucklu/p/9101066.html),   3.[前端开发神一样的工具chrome调试技巧](https://blog.csdn.net/nanjingshida/article/details/72775687),   4.[谷歌浏览器怎么调试js](https://www.cnblogs.com/hongmaju/p/5115801.html),  5. [Google Chrome 调试JS简单教程(更新)](https://www.cnblogs.com/mq0036/p/3850035.html),   6.[谷歌Chrome浏览器开发者工具教程—JS调试篇](https://blog.csdn.net/cyyax/article/details/51242720),   7.[Chrome（谷歌）浏览器调试教程珍藏版](https://blog.csdn.net/milogenius/article/details/78897745),   8.[聊聊 Chrome DevTools 中你可能不知道的调试技巧](http://web.jobbole.com/95089/),   9.[Chrome 调试技巧](http://web.jobbole.com/95178/),   10.[chrome调试技巧--持续更新](https://www.cnblogs.com/freeyiyi1993/p/3620670.html),   11.
+1.[超完整的 Chrome 浏览器客户端调试大全](http://web.jobbole.com/89344/),   2.[Chrome格式化JavaScript](https://www.cnblogs.com/chucklu/p/9101066.html),   3.[前端开发神一样的工具chrome调试技巧](https://blog.csdn.net/nanjingshida/article/details/72775687),   4.[谷歌浏览器怎么调试js](https://www.cnblogs.com/hongmaju/p/5115801.html),  5. [Google Chrome 调试JS简单教程(更新)](https://www.cnblogs.com/mq0036/p/3850035.html),   6.[谷歌Chrome浏览器开发者工具教程—JS调试篇](https://blog.csdn.net/cyyax/article/details/51242720),   7.[Chrome（谷歌）浏览器调试教程珍藏版](https://blog.csdn.net/milogenius/article/details/78897745),   8.[聊聊 Chrome DevTools 中你可能不知道的调试技巧](http://web.jobbole.com/95089/),   9.[Chrome 调试技巧](http://web.jobbole.com/95178/),   10.[chrome调试技巧--持续更新](https://www.cnblogs.com/freeyiyi1993/p/3620670.html)
