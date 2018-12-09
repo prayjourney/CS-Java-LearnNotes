@@ -53,8 +53,12 @@
 ![chromewritejs](../images/chromewritejs.png)
 
 - 自己书写的片段
-Content scripts 是 Chrome 的一种扩展程序，它是按照扩展的ID来组织的，这些文件也是嵌入在页面中的资源，这类文件可以读写和操作我们的资源，需要调试这些扩展文件，则可以在这个目录下打开相关文件调试，但是几乎我们的项目还没有相关的扩展文件，所以啥也看不到，平时也不需要关心这块ccc 
+Content scripts 是 Chrome 的一种扩展程序，它是按照扩展的ID来组织的，这些文件也是嵌入在页面中的资源，这类文件可以读写和操作我们的资源，需要调试这些扩展文件，则可以在这个目录下打开相关文件调试，但是几乎我们的项目还没有相关的扩展文件，所以啥也看不到，平时也不需要关心这块。
 ![chromeselfjs](../images/chromeselfjs.png)
+
+- Sinppets
+在Sinppets中,我们也 可以编辑(重写)js代码片段。这些片段实际上就相当于你的js文件一样,不同的是本地的js文件在编辑器里面编辑的,而此处,你是在浏览器中编写的。这些代码片段在浏览器刷新的时候既不会消失,也不会执行,除非是你手动执行它。它可以存在你的本地浏览器中,即使关闭浏览器,再次打开时它依然还在那里。它的主要作用可以使得我们编写一些项目的测试代码时提供便捷,你知道,如果你在编辑器上编写这些代码,在发布时你必须为它们添加注释符号或者手动删除它们,而在浏览器上编写就不需要这样繁琐了。在Snippets选项的空白处右键后选择弹出的new选项,建立一个你自己的新的文件,然后在区域2之中编辑它。
+![chromesnippets](../images/chromesnippets.jpg)
 
 
 **6.Network** 网络请求标签页(**与前端交互调试，发送请求和接收数据的重点**)
@@ -71,17 +75,17 @@ Content scripts 是 Chrome 的一种扩展程序，它是按照扩展的ID来组
 - 预览请求的数
 ![chromepreview](../images/chromepreview.png)
 
-
 **7.Timeline**标签
-可以显示JS执行时间、页面元素渲染时间，不做过多介绍
-
+可以显示JS执行时间、页面元素渲染时间，这个Timeline的标签页不是指网络请求的时间响应情况哦（这个在Network标签页里查看），这个Timeline指的JS执行时间、页面元素渲染时间，此处查看应该选项是JS，但是实际显示的效果和圈出来的效果是一样的。
+![chrometimeline](../images/chrometimeline.jpg)
 
 **8.Profiles**标签
 可以**查看**CPU执行时间与内存占用，不做过多介绍
 
 
 **9.Resources**标签
-会列出所有的资源，以及HTML5的Database和LocalStore等，你可以对存储的内容编辑和删除 不做过多介绍
+会列出所有的资源，以及HTML5的Database和LocalStore等，你可以对存储的内容编辑和删除，现在改名为Application了，集成的内容更多，也更详细，显示如下
+![chromecacheinfo](../images/chromecacheinfo.jpg)
 
 
 **10.Security**标签
