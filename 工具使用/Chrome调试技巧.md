@@ -82,7 +82,6 @@ Content scripts 是 Chrome 的一种扩展程序，它是按照扩展的ID来组
 **8.Profiles**标签
 可以**查看**CPU执行时间与内存占用，不做过多介绍
 
-
 **9.Resources**标签
 会列出所有的资源，以及HTML5的Database和LocalStore等，你可以对存储的内容编辑和删除，现在改名为Application了，集成的内容更多，也更详细，显示如下
 ![chromecacheinfo](../images/chromecacheinfo.jpg)
@@ -148,6 +147,7 @@ Content scripts 是 Chrome 的一种扩展程序，它是按照扩展的ID来组
 
 **9.Event listener Breakpoints** 
 最后Event Listener 列表，这里列出了各种可能的事件类型。勾选对应的事件类型，当触发了该类型的事件的 JavaScript 代码时就会自动中断
+![chromeevent](../images/chromeevent.jpg)
 
 
 
