@@ -6,6 +6,27 @@
 
 
 
+##### 设定 Mock 对象的预期行为和输出
+在一个完整的测试过程中，一个 Mock 对象将会经历两个状态：Record 状态和 Replay 状态。Mock 对象一经创建，它的状态就被置为 Record。**在 Record 状态，用户可以设定 Mock 对象的预期行为和输出，这些对象行为被录制下来，保存在 Mock 对象中**。添加 Mock 对象行为的过程通常可以分为以下3步：
+- 对 Mock 对象的特定方法作出调用；
+- 通过 `org.easymock.EasyMock` 提供的静态方法 `expectLastCall` 获取上一次方法调用所对应的 IExpectationSetters 实例；
+- 通过 `IExpectationSetters` 实例设定 Mock 对象的预期输出。
+
+
+
+##### 将Mock对象切换到Replay状态
+在生成 Mock 对象和设定 Mock 对象行为两个阶段，Mock 对象的状态都是 Record 。在这个阶段，Mock 对象会记录用户对预期行为和输出的设定。**在使用 Mock 对象进行实际的测试前，我们需要将 Mock 对象的状态切换为 Replay**。*在 Replay 状态，Mock 对象能够根据设定对特定的方法调用作出预期的响应*。将 Mock 对象切换成 Replay 状态有两种方式，您需要根据 Mock 对象的生成方式进行选择。如果 Mock 对象是通过 `org.easymock.EasyMock` 类提供的静态方法 createMock 生成的（第1节中介绍的第一种 Mock 对象生成方法），那么 `EasyMock`类提供了相应的 replay 方法用于将 Mock 对象切换为 Replay 状态：
+```
+replay(mockResultSet);
+```
+如果 Mock 对象是通过 `IMocksControl` 接口提供的 `createMock` 方法生成的（第1节中介绍的第二种Mock对象生成方法），那么您依旧可以通过 `IMocksControl` 接口对它所创建的所有 Mock 对象进行切换：
+```
+control.replay();
+```
+以上的语句能将在第1节中生成的 mockConnection、mockStatement 和 mockResultSet 等3个 Mock 对象都切换成 Replay 状态。当前使用的EasyMock版本为3.4，基本上都使用replay的方式来转换到replay状态。
+
+
+
 ##### 证卷应用
 我们的证券应用非常简单。有一个 **Stock** 类来存储股票名和数量，**Portfolio** 类来保存股票列表。**Portfolio** 类有一个方法用来计算证券的总价格。我们的类用 **StockMarket** 对象来检索股票价格。当测试我们的代码时，我们将使用 EasyMock 来模拟StockMarket。
 **Stock.java**
@@ -208,6 +229,7 @@ public class UserServiceImplTest {
     UserDao userDao  = EasyMock.createMock(UserDao.class);
     EasyMock.expect(userDao.getById("1001")).andReturn(expectedUser);
 ```
+
 这里我们开始创建mock对象，并期望这个mock对象的方法被调用，同时给出我们希望这个方法返回的结果(可以分为两个部分,创建mock对象+给mock对象赋值)。这就是所谓的"记录mock对象上的操作", 同时我们也会看到"expect"这个关键字。
 总结说，**在record阶段，我们需要给出的是我们对mock对象的一系列期望：若干个mock对象被调用，依从我们给定的参数，顺序，次数等，并返回预设好的结果(返回值或者异常)**.
 2. replay阶段
@@ -244,6 +266,62 @@ public void test(){
 4. **mock对象执行验证**
 ###### easymock运行流程总结
 record-replay-verify 模型非常好的满足了大多数测试场景的需要：先指定测试的期望，然后执行测试，再验证期望是否被满足。这个模型简单直接，易于实现，也容易被开发人员理解和接受，因此被各个mock框架广泛使用。
+
+
+
+##### EasyMock 的工作原理
+EasyMock 是如何为一个特定的接口动态创建 Mock 对象，并记录 Mock 对象预期行为的呢？其实，EasyMock 后台处理的主要原理是利用 `java.lang.reflect.Proxy`为指定的接口创建一个动态代理，这个动态代理，就是我们在编码中用到的 Mock 对象。EasyMock 还为这个动态代理提供了一个 `InvocationHandler` 接口的实现，这个实现类的主要功能就是将动态代理的预期行为记录在某个映射表中和在实际调用时从这个映射表中取出预期输出。下图是 EasyMock 中主要的功能类：
+![easymockclass](../../images/easymockclass.gif)
+
+和开发人员联系最紧密的是 `EasyMock` 类，这个类提供了 `createMock、replay、verify` 等方法以及所有预定义的参数匹配器。我们知道 Mock 对象有两种创建方式：一种是通过 `EasyMock` 类提供的 `createMock`方法创建，另一种是通过 `EasyMock` 类的 `createControl` 方法得到一个 `IMocksControl` 实例，再由这个 `IMocksControl` 实例创建 Mock 对象。其实，无论通过哪种方法获得 Mock 对象，EasyMock 都会生成一个 `IMocksControl` 的实例，只不过第一种方式中的 `IMocksControl` 的实例对开发人员不可见而已。这个 `IMocksControl` 的实例，其实就是 `MocksControl` 类的一个对象。`MocksControl`类提供了 `andReturn、andThrow、times、createMock` 等方法。
+
+`MocksControl` 类中包含了两个重要的成员变量，分别是接口 `IMocksBehavior` 和 `IMocksControlState` 的实例。其中，`IMocksBehavior` 的实现类 `MocksBehavior`是 EasyMock 的核心类，它保存着一个 `ExpectedInvocationAndResult` 对象的一个列表，而 `ExpectedInvocationAndResult` 对象中包含着 Mock 对象方法调用和预期结果的映射。`MocksBehavior` 类提供了 `addExpected` 和 `addActual` 方法用于添加预期行为和实际调用。
+
+`MocksControl` 类中包含的另一个成员变量是 `IMocksControlState` 实例。`IMocksControlState` 拥有两个不同的实现类：`RecordState` 和 `ReplayState`。顾名思义，`RecordState` 是 Mock 对象在 Record 状态时的支持类，它提供了 `invoke`方法在 Record 状态下的实现。此外，它还提供了 `andReturn、andThrow、times`等方法的实现。`ReplayState` 是 Mock 对象在 Replay 状态下的支持类，它提供了 `invoke` 方法在 Replay 状态下的实现。在 ReplayState 中，`andReturn、andThrow、times` 等方法的实现都是抛出IllegalStateException，因为在 Replay 阶段，开发人员不应该再调用这些方法。
+
+当我们调用 `MocksControl` 的 `createMock` 方法时，该方法首先会生成一个 `JavaProxyFactory` 类的对象。`JavaProxyFactory` 是接口 `IProxyFactory` 的实现类，它的主要功能就是通过 `java.lang.reflect.Proxy` 对指定的接口创建动态代理实例，也就是开发人员在外部看到的 Mock 对象。在创建动态代理的同时，应当提供 `InvocationHandler` 的实现类。`MockInvocationHandler` 实现了这个接口，它的 `invoke` 方法主要的功能是根据 Mock 对象状态的不同而分别调用 `RecordState` 的 `invoke` 实现或是 `ReplayState`的 `invoke` 实现。
+
+
+
+##### 创建 Mock 对象
+下图是创建 Mock 对象的时序图：
+![mockcreateobj](../../images/mockcreateobj.gif)
+
+当 `EasyMock` 类的 `createMock` 方法被调用时，它首先创建一个 `MocksControl` 对象，并调用该对象的 `createMock` 方法创建一个 `JavaProxyFactory` 对象和一个 `MockInvocationHandler` 对象。`JavaProxyFactory` 对象将 `MockInvocationHandler` 对象作为参数，通过 `java.lang.reflect.Proxy` 类的 `newProxyInstance` 静态方法创建一个动态代理。
+
+
+
+##### 记录 Mock 对象预期行为
+记录 Mock 的预期行为可以分为两个阶段：预期方法的调用和预期输出的设定。在外部程序中获得的 Mock 对象，其实就是由 `JavaProxyFactory` 创建的指定接口的动态代理，所有外部程序对接口方法的调用，都会指向 `InvocationHandler` 实现类的 `invoke` 方法。在 EasyMock 中，这个实现类是 `MockInvocationHandler`。下图是调用预期方法的时序图：
+![easymockgetexpectmethod](../../images/easymockgetexpectmethod.gif)
+
+当 `MockInvocationHandler` 的 `invoke` 方法被调用时，它首先通过 `reportLastControl` 静态方法将 Mock 对象对应的 `MocksControl` 对象报告给 `LastControl` 类，`LastControl` 类将该对象保存在一个 ThreadLocal 变量中。接着，`MockInvocationHandler` 将创建一个 Invocation 对象，这个对象将保存预期调用的 Mock 对象、方法和预期参数。
+
+在记录 Mock 对象预期行为时，Mock 对象的状态是 Record 状态，因此 `RecordState` 对象的 `invoke` 方法将被调用。这个方法首先调用 `LastControl` 的 `pullMatchers` 方法获取参数匹配器。如果您还记得自定义参数匹配器的过程，应该能想起参数匹配器被调用时会将实现类的实例报告给 EasyMock，而这个实例最终保存在 `LastControl` 中。如果没有指定参数匹配器，默认的匹配器将会返回给 `RecordState`。根据 `Invocation` 对象和参数匹配器，`RecordState` 将创建一个 `ExpectedInvocation` 对象并保存下来。在对预期方法进行调用之后，我们可以对该方法的预期输出进行设定。我们以
+
+```java
+expectLastCall().andReturn(X value).times(int times)
+```
+为例说明。如果 `times` 方法未被显式的调用，EasyMock 会默认作为 `times(1)` 处理。下图是设定预期输出的时序图：
+![easymockinfo](../../images/easymockinfo.gif)
+
+在预期方法被调用时，Mock 对象对应的 `MocksControl` 对象引用已经记录在 `LastControl` 中，`expectLastCall` 方法通过调用 `LastControl` 的 `lastControl` 方法可以获得这个引用。`MocksControl` 对象的 `andReturn` 方法在 Mock 对象 Record 状态下会调用 `RecordState` 的 `andReturn` 方法，将设定的预期输出以 `Result` 对象的形式记录下来，保存在 `RecordState` 的 lastResult 变量中。
+
+当 `MocksControl` 的 `times` 方法被调用时，它会检查 `RecordState` 的 lastResult 变量是否为空。如果不为空，则将 lastResult 和预期方法被调用时创建的 `ExpectedInvocation` 对象一起，作为参数传递给 `MocksBehavior` 的 `addExpected`方法。`MocksBehavior` 的 `addExpected` 方法将这些信息保存在数据列表中。
+
+
+
+##### 在 Replay 状态下调用 Mock 对象方法
+`EasyMock` 类的 `replay` 方法可以将 Mock 对象切换到 Replay 状态。在 Replay 状态下，Mock 对象将根据之前的设定返回预期输出。下图是 Replay 状态下 Mock 对象方法调用的时序图：
+![easymockmethod](../../images/easymockmethod.gif)
+
+在 Replay 状态下，`MockInvocationHandler` 会调用 `ReplayState` 的 `invoke` 方法。该方法会把 Mock 对象通过 `MocksBehavior` 的 `addActual` 方法添加到实际调用列表中，该列表在 `verify` 方法被调用时将被用到。同时，`addActual` 方法会根据实际方法调用与预期方法调用进行匹配，返回对应的 `Result` 对象。调用 `Result` 对象的 `answer` 方法就可以获取该方法调用的输出。
+
+
+
+##### 小结
+
+如果您需要在单元测试中构建 Mock 对象来模拟协同模块或一些复杂对象，EasyMock 是一个可以选用的优秀框架。EasyMock 提供了简便的方法创建 Mock 对象：通过定义 Mock 对象的预期行为和输出，你可以设定该 Mock 对象在实际测试中被调用方法的返回值、异常抛出和被调用次数。通过创建一个可以替代现有对象的 Mock 对象，EasyMock 使得开发人员在测试时无需编写自定义的 Mock 对象，从而避免了额外的编码工作和因此引入错误的机会。
 
 
 
