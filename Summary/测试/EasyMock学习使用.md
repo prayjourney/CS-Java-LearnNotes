@@ -338,24 +338,64 @@ expectLastCall().andReturn(X value).times(int times)
 
 ##### EasyMock API
 
-| 方法名 | 作用 | 用法 | 注意 |
-| ------ | ---- | ---- | ---- |
-|        |      |      |      |
-|        |      |      |      |
-|        |      |      |      |
-|        |      |      |      |
-|        |      |      |      |
-|        |      |      |      |
-|        |      |      |      |
-|        |      |      |      |
-|        |      |      |      |
+| 方法名                                                  | 作用                                                         | 注意 |
+| ------------------------------------------------------- | ------------------------------------------------------------ | ---- |
+| `static int and(int first, int second)`                 | Expects an int that matches both given expectations.         |      |
+| `static double anyDouble()`                             | Expects any double argument.                                 |      |
+| `static <T> T anyObject()`                              | Expects any Object argument.                                 |      |
+| `static <T> T anyObject(Class<T> clazz)`                | Expects any Object argument.                                 |      |
+| `static double captureDouble(Capture<Double> captured)` | Expect any double but captures it for later use.             |      |
+| `static String contains(String substring)`              | Expects a string that contains the given substring.          |      |
+| `static IMocksControl createControl()`                  | Creates a control, order checking is disabled by default.    |      |
+| `static <T> T  createMock(Class<?> toMock)`             | Creates a mock object that implements the given interface, order checking is disabled by default. |      |
+| `static <T> T createStrictMock(Class<?> toMock)`        | Creates a mock object that implements the given interface, order checking is enabled by default. |      |
+| `static float eq(float value)`                          | Expects a float that is equal to the given value.            |      |
+| `static <T> T createNiceMock(Class<?> toMock)`          | Creates a mock object that implements the given interface, order checking is disabled by default, and the mock object will return `0`, `null` or `false` for unexpected invocations. |      |
+| `static <T> T isA(Class<T> clazz)`                      | Expects an object implementing the given class.              |      |
+| `static <T> T isNull(Class<T> clazz)`                   | Expects null.                                                |      |
+| `static <T> T same(T value)`                            | Expects an Object that is the same as the given value.       |      |
+| `static void  verify(Object... mocks)`                  | Verifies that all expectations were met and that no unexpected call was performed on the mock objects. |      |
+| `static <T> T strictMock(Class<?> toMock)`              | Creates a mock object that implements the given interface, order checking is enabled by default. |      |
+| `static void reset(Object... mocks)`                    | Resets the given mock objects (more exactly: the controls of the mock objects). |      |
+| `static <T> T niceMock(Class<?> toMock)`                | Creates a mock object that implements the given interface, order checking is disabled by default, and the mock object will return `0`, `null` or `false` for unexpected invocations. |      |
+| `static <T> T mock(Class<?> toMock)`                    | Creates a mock object that implements the given interface, order checking is disabled by default. |      |
+| `static <T> T not(T first)`                             | Expects an Object that does not match the given expectation. |      |
+| `static void replay(Object... mocks)`                   | Switches the given mock objects (more exactly: the controls of the mock objects) to replay mode. |      |
+
+
 
 
 
 ##### 注意点
 1.verfiy的作用是:
+Verifies that all expectations were met and that no unexpected call was performed on the mock objects. Or more precisely, verifies the underlying`IMocksControl`, linked to the mock objects. This method as same effect as calling [`verifyRecording(Object...)`](http://easymock.org/api/org/easymock/EasyMock.html#verifyRecording-java.lang.Object...-) followed by [`verifyUnexpectedCalls(Object...)`](http://easymock.org/api/org/easymock/EasyMock.html#verifyUnexpectedCalls-java.lang.Object...-). 相当于验证了整个模拟是否满足期待.
+
 2.createNiceObject等区别:
+在easymock的使用过程中，当创建mock对象时，我们会遇到 strict mock和nice mock的概念。比如创建mock对象我们通常使用EasyMock.createMock()，但是我们会发现easymock同时提供了两个类似的方法：
+
+```java
+EasyMock.createNiceMock()
+EasyMock.createStrictMock()
+```
+类似的在创建MocksControl时，除了通常的EasyMock.createControl() 外，easymock也同时提供两个类似的方法：
+```java
+EasyMock.createNiceControl() 
+EasyMock.createStrictControl() 
+```
+我们来看看strict和nice有什么作用。参考easymock的javadoc，我们对比createMock()和createStrictMock()：
+```java
+EasyMock.createMock()：      
+//Creates a mock object that implements the given interface, order checking is disabled by default.
+EasyMock.createNiceMock();
+//Creates a mock object that implements the given interface, order checking is enabled by default.
+```
+**发现strict mock方式下默认是开启调用顺序检测的，而普通的mock方式则默认不开启调用顺序检测**。再看一下createNiceMock()：
+> Creates a mock object that implements the given interface, order checking is disabled by default, and the mock object will return 0, null or false for unexpected invocations.
+
+**createNiceMock()和createMock()相同的是默认不开启调用顺序检测，另外有一个非常有用的功能就是对于意料之外的调用将返回0,null 或者false**。之所以说有用，是因为在我们的实际开发过程中，有时候会有这样的需求：对于某个mock对象的调用(可以是部分，也可以是全部)，我们完全不介意调用细节，包括是否调用和调用顺序，参数，返回值，我们只要求mock对象容许程序可以继续而不是抛出异常报告说 unexpected invocations 。nice mock在这种情况下可以为我们节省大量的工作量，非常方便。
+
 3.record和replay的异同:
+record是**录制**mock对象的状态，而replay是**回放**mock对象的状态，当记录好了之后，就可以去回放了（也可以理解为调用）。
 
 
 
@@ -364,6 +404,5 @@ expectLastCall().andReturn(X value).times(int times)
 
 
 
-
 ref :
-1.[EasyMock教程--入门指南](https://www.oschina.net/question/89964_62360),   2.[easymock例子](https://github.com/vraa/SimplePortfolio),   3.[初识stub和mock--junit的两种测试策略](https://blog.csdn.net/yingxySuc/article/details/39677625),   4.[dbunit测试](https://github.com/YoYing/csdn),   5.[使用 EasyMock 更轻松地进行测试](https://www.ibm.com/developerworks/cn/java/j-easymock.html),   6.[EasyMock 使用方法与原理剖析](https://www.ibm.com/developerworks/cn/opensource/os-cn-easymock/),   7.[Mock的应用场景、原则和工具总结](https://baijiahao.baidu.com/s?id=1572237477611353&wfr=spider&for=pc),   8.[原！！关于java 单元测试Junit4和Mock的一些总结](https://www.cnblogs.com/wuyun-blog/p/7081548.html),   9.[JUnit4 与 JMock 之双剑合璧](https://www.cnblogs.com/wangtj-19/p/5822211.html),   10.[easymock教程-record-replay-verify模型](http://skydream.iteye.com/blog/829338),   11.[easymock教程-easymock的典型使用](https://blog.csdn.net/hikvision_java_gyh/article/details/11745767),   12.[写给精明Java开发者的测试技巧](http://www.importnew.com/16392.html)，   13.[如何使用EasyMock?](https://blog.csdn.net/bradmatt/article/details/80811072),   14.[mock大法好](https://segmentfault.com/a/1190000010211622),   15.[单元测试及框架简介 --junit、jmock、mockito、powermock的简单使用](https://blog.csdn.net/luvinahlc/article/details/10442743),   16.[EasyMock jUnit单元测试教程](http://outofmemory.cn/code-snippet/2693/EasyMock-jUnit-unit-test-course),   17.[JUnit + Mockito 单元测试（二）](https://blog.csdn.net/zhangxin09/article/details/42422643),   18.[比较完整的junit单元测试之-----mock模拟测试](https://blog.csdn.net/zhanganbo/article/details/52288080),   19.[Maven环境下easymock开发入门实例](https://blog.csdn.net/tianjun2012/article/details/50571848),   20.[【JUnit】EasyMock用法总结](https://blog.csdn.net/vking_wang/article/details/9170979),   21.[EasyMock经验](https://www.cnblogs.com/alipayhutu/archive/2012/05/21/2512363.html)，   22.
+1.[EasyMock教程--入门指南](https://www.oschina.net/question/89964_62360),   2.[easymock例子](https://github.com/vraa/SimplePortfolio),   3.[初识stub和mock--junit的两种测试策略](https://blog.csdn.net/yingxySuc/article/details/39677625),   4.[dbunit测试](https://github.com/YoYing/csdn),   5.[使用 EasyMock 更轻松地进行测试](https://www.ibm.com/developerworks/cn/java/j-easymock.html),   6.[EasyMock 使用方法与原理剖析](https://www.ibm.com/developerworks/cn/opensource/os-cn-easymock/),   7.[Mock的应用场景、原则和工具总结](https://baijiahao.baidu.com/s?id=1572237477611353&wfr=spider&for=pc),   8.[原！！关于java 单元测试Junit4和Mock的一些总结](https://www.cnblogs.com/wuyun-blog/p/7081548.html),   9.[JUnit4 与 JMock 之双剑合璧](https://www.cnblogs.com/wangtj-19/p/5822211.html),   10.[easymock教程-record-replay-verify模型](http://skydream.iteye.com/blog/829338),   11.[easymock教程-easymock的典型使用](https://blog.csdn.net/hikvision_java_gyh/article/details/11745767),   12.[写给精明Java开发者的测试技巧](http://www.importnew.com/16392.html)，   13.[如何使用EasyMock?](https://blog.csdn.net/bradmatt/article/details/80811072),   14.[mock大法好](https://segmentfault.com/a/1190000010211622),   15.[单元测试及框架简介 --junit、jmock、mockito、powermock的简单使用](https://blog.csdn.net/luvinahlc/article/details/10442743),   16.[EasyMock jUnit单元测试教程](http://outofmemory.cn/code-snippet/2693/EasyMock-jUnit-unit-test-course),   17.[JUnit + Mockito 单元测试（二）](https://blog.csdn.net/zhangxin09/article/details/42422643),   18.[比较完整的junit单元测试之-----mock模拟测试](https://blog.csdn.net/zhanganbo/article/details/52288080),   19.[Maven环境下easymock开发入门实例](https://blog.csdn.net/tianjun2012/article/details/50571848),   20.[【JUnit】EasyMock用法总结](https://blog.csdn.net/vking_wang/article/details/9170979),   21.[EasyMock经验](https://www.cnblogs.com/alipayhutu/archive/2012/05/21/2512363.html)，   22.[easymock-api](http://easymock.org/api/),   23.[EasyMock calcService.serviceUsed（）调用两次示例](https://www.yiibai.com/easymock/easymock_times_call_twice.html),   24.[EasyMock 的简单使用](https://blog.csdn.net/xrymibz/article/details/70196999),   25.[EasyMock jUnit单元测试教程](http://outofmemory.cn/code-snippet/2693/EasyMock-jUnit-unit-test-course),   26.[easyMock原理简述](https://blog.csdn.net/u010632868/article/details/52145823),   27.[easymock教程-strict和nice](http://skydream.iteye.com/blog/829333)
