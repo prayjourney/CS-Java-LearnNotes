@@ -404,5 +404,101 @@ record是**录制**mock对象的状态，而replay是**回放**mock对象的状�
 
 
 
+##### 使用之中注意的点
+心得体会: 我们在使用easymock的时候, 还是要把重点放在junit之上, mock只是为了模拟一些比较难构建的对象, 而对象构建出来, 就得**测试逻辑**, 这才是我们进行junit的关键, 而不是说只是为了构建mock对象, 如果仅仅是去构建一个对象, 然后调用它的功能, 这样是毫无意义的, 比如有如下的代码示例, 我们真正想做的就是去测试**ServiceInstance类之中的doWork()方法是否有效果, 是否满足了我们的要求**, 而不是像下面一样只是模拟, 这样一切都是模拟的, 就达不到测试的效果了, 而且, 我们在下面的例子之中, 实际上模拟了我们不该模拟的内容, 因为这正是我们需要测试的。
+
+```java
+ServiceInstance service = new ServiceInstance();
+ServiceInstance service2 = EasyMock.createMock(ServiceInstance.class);
+EasyMock.expect(service2.doWork()).andReturn("OKAY");//此处定义了该类方法的返回值
+EasyMock.replay(service2);
+
+service2.doWork();//此处去调用此方法, 这样是毫无意义的, 因为一切都是模拟, 没有走到逻辑之中去!
+```
+我们真正需要模拟的是构造ServiceInstance的元素， 如一个其他的类或者接口的对象， 这个对象很难构造， 此时我们需要模拟这个对象， 如下：
+```java
+// ServiceInstance(AbstractInstanceProxy proxy, String name, int id);
+// 其中的AbstractInstanceProxy是需要在正式的网络环境之中获取, 但是很难获取,所以我们可以模拟
+AbstractInstanceProxy proxy =EasyMock.createMock(AbstractInstanceProxy.class);
+EasyMock.expect(proxy.init(EasyMock.anyString)).andReturn(proxy).anyTimes();
+Service service = (proxy, "test", 123);
+EasyMock.replay(proxy);
+
+// 此处测试的是真实的逻辑, 而不是我们构造的虚假逻辑
+service.doWork();
+```
+
+
+
+```java
+@Test
+public void queryInstanceSynProgressTest1(){
+    // 返回一个LegoCheckedException异常
+    expectEx.expect(LegoCheckedException.class);
+    ServiceInstanceServiceImpl service 
+        = EasyMock.createMock(ServiceInstanceServiceImpl.class);
+    EasyMock.expect(service.queryServiceInstance(EasyMock.anyString()))
+        .andReturn(null).anyTimes();
+    SynProgressInfo info = new SynProgressInfo();
+    info.setProgress("95");
+    info.setRemainingTime(100l);
+    EasyMock.expect(service.queryInstanceSynProgress(EasyMock
+                .anyString(),EasyMock.anyString()))
+                .andThrow(new LegoCheckedException(ErrorCodeConstant.OBJECT_NOT_EXIST,
+                "instance(" + "123"+ ") is not found."));
+    EasyMock.replay(service);
+    // 在模拟好对象之后，只是将某一个方法调用一次或者多次
+    // service.queryInstanceSynProgress("projectId", "instanceId");
+    // 和上述方法相比，此种是在调用的同时，还验证结果和预期是否相同，一般用来验证测试和期望的结果是否相同， 异常不进行如此操作
+    Assert.assertEquals(new LegoCheckedException("123"), service.
+                        queryInstanceSynProgress(EasyMock.anyString(),
+                                                 EasyMock.anyString()));
+}
+
+// 可以构造异常, 测试异常
+@Test(expected = LegoCheckedException.class)
+public void queryInstanceSynProgressTest2(){
+    // @Test(expected = LegoCheckedException.class)与下列语句作用相同
+    // expectEx.expect(LegoCheckedException.class);
+    ServiceInstanceServiceImpl 
+        service = EasyMock.createMock(ServiceInstanceServiceImpl.class);
+    // PowerMock可以模拟static的
+    PowerMock.mockStatic(ServiceLocator.class);
+    ServiceLocator locator = PowerMock.createMock(ServiceLocator.class);
+    ServiceInstance instance = new ServiceInstance();
+    instance.setProjectId("project1");
+    EasyMock.expect(ServiceLocator.getInstance()).andReturn(locator).anyTimes();
+
+    IProtectGroupService iProtectGroupService = EasyMock.
+                  createMock(IProtectGroupService.class);
+    EasyMock.expect(iProtectGroupService.getProtectGroupBasicInfo(EasyMock.anyString(),
+    EasyMock.anyBoolean())).andReturn(null).anyTimes();
+    EasyMock.expect(service.queryInstanceSynProgress(EasyMock
+                .anyString(),EasyMock.anyString()))
+                .andThrow(new LegoCheckedException("protect group is null, 
+                +" the projectId: project1"));
+    // record all object
+    EasyMock.replay(service, locator, iProtectGroupService);
+    // pg为空，抛出一个异常，和expected匹配，则通过Test
+    service.queryInstanceSynProgress(EasyMock.anyString(), EasyMock.anyString());
+    // 验证是否满足所有期望，并且未对模拟对象执行任何意外调用
+    EasyMock.verify(service, locator, iProtectGroupService);
+}
+```
+
+>https://blog.csdn.net/sunnyplain/article/details/48574927
+>https://blog.csdn.net/andywangcn/article/details/21030473
+>http://www.cnblogs.com/sequence/archive/2011/07/28/2119657.html
+>https://blog.csdn.net/sinat_26935081/article/details/49669619
+>https://www.yiibai.com/easymock/easymock_exception_handling.html
+>https://blog.csdn.net/u010860412/article/details/50676092
+
+
+
+
+
+
+
+
 ref :
 1.[EasyMock教程--入门指南](https://www.oschina.net/question/89964_62360),   2.[easymock例子](https://github.com/vraa/SimplePortfolio),   3.[初识stub和mock--junit的两种测试策略](https://blog.csdn.net/yingxySuc/article/details/39677625),   4.[dbunit测试](https://github.com/YoYing/csdn),   5.[使用 EasyMock 更轻松地进行测试](https://www.ibm.com/developerworks/cn/java/j-easymock.html),   6.[EasyMock 使用方法与原理剖析](https://www.ibm.com/developerworks/cn/opensource/os-cn-easymock/),   7.[Mock的应用场景、原则和工具总结](https://baijiahao.baidu.com/s?id=1572237477611353&wfr=spider&for=pc),   8.[原！！关于java 单元测试Junit4和Mock的一些总结](https://www.cnblogs.com/wuyun-blog/p/7081548.html),   9.[JUnit4 与 JMock 之双剑合璧](https://www.cnblogs.com/wangtj-19/p/5822211.html),   10.[easymock教程-record-replay-verify模型](http://skydream.iteye.com/blog/829338),   11.[easymock教程-easymock的典型使用](https://blog.csdn.net/hikvision_java_gyh/article/details/11745767),   12.[写给精明Java开发者的测试技巧](http://www.importnew.com/16392.html)，   13.[如何使用EasyMock?](https://blog.csdn.net/bradmatt/article/details/80811072),   14.[mock大法好](https://segmentfault.com/a/1190000010211622),   15.[单元测试及框架简介 --junit、jmock、mockito、powermock的简单使用](https://blog.csdn.net/luvinahlc/article/details/10442743),   16.[EasyMock jUnit单元测试教程](http://outofmemory.cn/code-snippet/2693/EasyMock-jUnit-unit-test-course),   17.[JUnit + Mockito 单元测试（二）](https://blog.csdn.net/zhangxin09/article/details/42422643),   18.[比较完整的junit单元测试之-----mock模拟测试](https://blog.csdn.net/zhanganbo/article/details/52288080),   19.[Maven环境下easymock开发入门实例](https://blog.csdn.net/tianjun2012/article/details/50571848),   20.[【JUnit】EasyMock用法总结](https://blog.csdn.net/vking_wang/article/details/9170979),   21.[EasyMock经验](https://www.cnblogs.com/alipayhutu/archive/2012/05/21/2512363.html)，   22.[easymock-api](http://easymock.org/api/),   23.[EasyMock calcService.serviceUsed（）调用两次示例](https://www.yiibai.com/easymock/easymock_times_call_twice.html),   24.[EasyMock 的简单使用](https://blog.csdn.net/xrymibz/article/details/70196999),   25.[EasyMock jUnit单元测试教程](http://outofmemory.cn/code-snippet/2693/EasyMock-jUnit-unit-test-course),   26.[easyMock原理简述](https://blog.csdn.net/u010632868/article/details/52145823),   27.[easymock教程-strict和nice](http://skydream.iteye.com/blog/829333)
