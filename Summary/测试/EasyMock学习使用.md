@@ -495,14 +495,55 @@ public void queryInstanceSynProgressTest2(){
 
 
 
-
 ##### EasyMock问题总结
 1.incompatible return value type
+
+maybe: 有部分的类或者接口没有被模拟，有一些模拟到了，但是只有部分模拟到，其他的没有被模拟到。
+
 2.unexpected method call
+
+maybe: 调用到了我们没有模拟的方法，需要找出来去模拟一下。
+
 3.no last call on a mock available
+
+maybe: 我们模拟了一大串的方法和返回值，没有被调用，可能是某些类没有被模拟到，需要去模拟一下。
+
 4.0 matchers expected, 1 recorded. 
 
+5. > java.lang.IllegalStateException: missing behavior definition for the preceding method call getBidwordSequence()  
 
+出现这样的错误请仔细检查getBidwordSequence()是void方法，还是有返回值，返回值的类型是不是写对了。
+
+6. >java.lang.IllegalStateException: 0 matchers expected, 1 recorded.  
+  >This exception usually occurs when matchers are mixed with raw values when recording a method:  
+  >foo(5, eq(6));  // wrong  
+  >You need to use no matcher at all or a matcher for every single param:  
+  >foo(eq(5), eq(6));  // right  
+  >foo(5, 6);  // also right  
+
+这个错误是要检查出错方法的前面方法是否多添加了匹配器（anyObject），尤其注意andReturn();easymock在andReturn()这个方法中入参不能是anyObject的。必须要给出方法的入参。
+
+7.  >EasyMock.expect(subwayService.auditActivityRejected((EasyMock.anyObject(List.class))).andReturn(1); 
+EasyMock.expect(subwayService.auditActivityVerified.(EasyMock.anyObject(List.class))).andReturn(1);  
+
+如果你原本希望录制脚本1，结果由于copy代码录制成了脚本2，这样你期待方法返回结果0，结果方法始终返回默认的0，而且由于你可能对于返回结果是0的抛出了自定义的异常，可怕的后果是verify就验证不了该方法，直接会显示你抛出的异常，如果不细心，这个错误还是很隐蔽的。所以录制的脚本一定要和调用的方法一致。
+
+8. >notifyFacade.addGroup( isA(List.class));  
+  >//如果addGroup是空的，  
+  >java.lang.AssertionError:   
+  >Unexpected method call addADGroup(null):  
+  >addADGroup(isA(java.util.List)): expected: 1, actual: 0  
+  >org.easymock.internal.MockInvocationHandler.invoke(MockInvocationHandler.java:45)  
+
+isA和anyObject的区别 ：如果出现了上述的错误，请看下你的方法传递参数的时候使用的isA(List.class),还是anyObject(List.class)的方法，这两个方法区别在于isA会调用instance of 方法，判断except时候的入参类型和实际是否相同，null instance of List 返回false，导致验证的失败，而使用anyObject则不会出现类似的问题。所以正确的写法如下
+  > notifyFacade.addADGroup( anyObject(List.class))  
+
+
+
+##### EasyMock进阶
+1.mock 私有方法
+2.mock 静态方法
+3.powermock的基本使用
 
 
 
