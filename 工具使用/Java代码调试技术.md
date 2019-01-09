@@ -73,6 +73,8 @@ public class HelloJDB {
 8. 设置变量值：调试开始后，在红箭头指向的区域可以给指定的变量赋值（鼠标左键选择变量，右键弹出菜单选择setValue...）。这个功能可以更加快速的检测你的条件语句和循环语句。
 ![debugjava12](../images/debugjava12.png)
 
+以下是3种调试技术的示例gif, **重新执行方法 Drop frame**, **条件断点**, **一次性断点**和在断点时, 为变量设值的方法, 条件断点设值时候使用 a=100这种方式, 而不是a==100, 这就变成了判断了., 
+![debugjavasskill](../images/debugjavasskill.gif)
 
 
 #### 回调函数调试技术
