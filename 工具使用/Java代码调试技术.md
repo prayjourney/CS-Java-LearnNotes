@@ -70,6 +70,9 @@ public class HelloJDB {
 7. **重新执行方法 Drop frame**：如果在调试的时候你进入了一个方法(如f2())，觉得方法有问题, 但是在方法之中的过程没有看的很清楚, 需要重来一次, 所以就需要重新打一次断点运行一次, 但是有了Drop Frame, 只要我们不跳出一个方法, 那么久可以永远在这个函数之中重复执行, 但是如果跳出去了这个方法, 那就无法回退和重复执行了, 因为堆栈信息已经丢失.
 ![debugjava11](../images/debugjava11.png)
 
+8. 设置变量值：调试开始后，在红箭头指向的区域可以给指定的变量赋值（鼠标左键选择变量，右键弹出菜单选择setValue...）。这个功能可以更加快速的检测你的条件语句和循环语句。
+![debugjava12](../images/debugjava12.png)
+
 
 
 #### 回调函数调试技术
@@ -122,7 +125,7 @@ tomcat已配置，启动方式为
 
 
 ref：
-1.[Intellj IDEA 简易教程](https://www.cnblogs.com/rocedu/p/6371315.html),   2.[使用JDB调试Java程序](https://www.cnblogs.com/rocedu/p/6371262.html),   3.[java 调试](https://www.cnblogs.com/moveofgod/p/3784893.html),   4.[Java 断点调试总结](https://www.cnblogs.com/menghuizuotian/p/4177076.html),    5.[Java调试](https://www.cnblogs.com/damonzh/p/5112309.html),   6.[Java调试那点事](https://www.cnblogs.com/gotodsp/p/7294487.html),   7.[Java-note-调试小技巧](https://www.cnblogs.com/lingNote/p/3324247.html),   8.[Java breakPoints 调试](https://www.cnblogs.com/yinhaiming/articles/1866334.html),   9.[JAVA错误调试基础篇错误提示：](https://www.cnblogs.com/freeze44/articles/381915.html),   10.[java调试与排错](https://www.cnblogs.com/xyzq/p/5757692.html),   11.[Java调试那点事](https://www.cnblogs.com/leoncfor/p/5069265.html),   12.[Java 10个调试技巧](https://www.cnblogs.com/ykt8465279130/archive/2012/09/17/2688321.html),   13.[JAVA远程调试](https://www.cnblogs.com/wish5714/p/7527334.html),   14.[Java应用调试利器——BTrace教程](https://www.cnblogs.com/zengkefu/p/5720854.html),   15.[Intellij IDEA Debug调试技巧](https://blog.csdn.net/Victor_Cindy1/article/details/52336983),   16.[Intellij IDEA 2017 debug断点调试技巧与总结详解篇](https://blog.csdn.net/qq_27093465/article/details/64124330),   17.[在Intellij IDEA中使用Debug](https://www.cnblogs.com/chiangchou/p/idea-debug.html),   18.[IntelliJ中使用Drop Frame 回退到上一步](https://my.oschina.net/Cubicluo/blog/1819093),   19.[Intellij IDEA调试功能使用总结](https://www.cnblogs.com/Bowu/p/4026117.html),   20.[IntelliJ IDEA(十一) :Debug的使用](https://www.cnblogs.com/jajian/p/9410844.html)
+1.[Intellj IDEA 简易教程](https://www.cnblogs.com/rocedu/p/6371315.html),   2.[使用JDB调试Java程序](https://www.cnblogs.com/rocedu/p/6371262.html),   3.[java 调试](https://www.cnblogs.com/moveofgod/p/3784893.html),   4.[Java 断点调试总结](https://www.cnblogs.com/menghuizuotian/p/4177076.html),    5.[Java调试](https://www.cnblogs.com/damonzh/p/5112309.html),   6.[Java调试那点事](https://www.cnblogs.com/gotodsp/p/7294487.html),   7.[Java-note-调试小技巧](https://www.cnblogs.com/lingNote/p/3324247.html),   8.[Java breakPoints 调试](https://www.cnblogs.com/yinhaiming/articles/1866334.html),   9.[JAVA错误调试基础篇错误提示：](https://www.cnblogs.com/freeze44/articles/381915.html),   10.[java调试与排错](https://www.cnblogs.com/xyzq/p/5757692.html),   11.[Java调试那点事](https://www.cnblogs.com/leoncfor/p/5069265.html),   12.[Java 10个调试技巧](https://www.cnblogs.com/ykt8465279130/archive/2012/09/17/2688321.html),   13.[JAVA远程调试](https://www.cnblogs.com/wish5714/p/7527334.html),   14.[Java应用调试利器——BTrace教程](https://www.cnblogs.com/zengkefu/p/5720854.html),   15.[Intellij IDEA Debug调试技巧](https://blog.csdn.net/Victor_Cindy1/article/details/52336983),   16.[Intellij IDEA 2017 debug断点调试技巧与总结详解篇](https://blog.csdn.net/qq_27093465/article/details/64124330),   17.[在Intellij IDEA中使用Debug](https://www.cnblogs.com/chiangchou/p/idea-debug.html),   18.[IntelliJ中使用Drop Frame 回退到上一步](https://my.oschina.net/Cubicluo/blog/1819093),   19.[Intellij IDEA调试功能使用总结](https://www.cnblogs.com/Bowu/p/4026117.html),   20.[IntelliJ IDEA(十一) :Debug的使用](https://www.cnblogs.com/jajian/p/9410844.html),   21.[Eclipse的Debug调试技巧大全](https://blog.csdn.net/u011781521/article/details/55000066)
 
 
 
