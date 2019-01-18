@@ -12,8 +12,10 @@
   - gg 到文档第一行
   - G 到文档最后一行
   - $ 到行尾
-  - Ctrl-f 向下移动一页
-  - Ctrl-b 向上移动一页
+  - Ctrl-f 向下移动一页(forword)
+  - Ctrl-b 向上移动一页(back)
+  - Ctrl+u  在文件之中向上移动半页(up)
+  - Ctrl+d  在文件之中向下移动半页(down)
   - :\<N\> or \<N\>gg 跳转到第 N 行
   - :+\<N\> or \<N\>j 向下跳 N 行
   - :-\<N\> or \<N\>k 向上跳 N 行
