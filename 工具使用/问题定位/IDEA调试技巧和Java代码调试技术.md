@@ -84,9 +84,11 @@ public class HelloJDB {
 11. 设置变量值
    ![debugjava29](../../images/debugjava29.png)
    调试开始后，在红箭头指向的区域可以给指定的变量赋值（鼠标左键选择变量，右键弹出菜单选择setValue...）。这个功能可以更加快速的检测你的条件语句和循环语句。
-12. Mute Breakpoints
-   **哑的断点**，选择这个后，所有断点变为灰色，断点失效，按F9则可以直接运行完程序。再次点击，断点变为红色，有效。如果只想使某一个断点失效，可以在断点上右键取消Enabled，则该行断点失效。其实就是让某些断点不取消, 但是不去检测这些断点, 而出现的功能, 很好用。
+12. Mute Breakpoints( **哑的断点**)
+   1:**让所有的断点都无效, 都变哑**. 选择这个后，所有断点变为灰色，断点失效，按F9则可以直接运行完程序。再次点击，断点变为红色，有效。如果只想使某一个断点失效，可以在断点上右键取消Enabled，则该行断点失效。其实就是让某些断点不取消, 但是不去检测这些断点, 而出现的功能, 很好用。
    ![mutebreaks](../../images/mutebreaks.jpg)
+   2:**让单个的断点变无效**. 让单个断点变哑, 只需要右键断点, 不勾选"Enabled", 就可以使得让此断点失效, 即可达到断点失效,但又不在此位置取消这个断点的效果.
+   ![javadebugmuteonebreak](/Users/renjiaxin/mycodes/mygit/CS-Java-LearnNotes/images/javadebugmuteonebreak.png)
 
 以下是3种调试技术的示例gif, **重新执行方法 Drop frame**, **条件断点**, **一次性断点**和在断点时, 为变量设值的方法, 条件断点设值时候使用 a=100这种方式, 而不是a==100, 这就变成了判断了., 
 ![debugjavasskill](../../images/debugjavasskill.gif)
