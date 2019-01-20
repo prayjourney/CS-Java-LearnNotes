@@ -88,7 +88,7 @@ public class HelloJDB {
    1:**让所有的断点都无效, 都变哑**. 选择这个后，所有断点变为灰色，断点失效，按F9则可以直接运行完程序。再次点击，断点变为红色，有效。如果只想使某一个断点失效，可以在断点上右键取消Enabled，则该行断点失效。其实就是让某些断点不取消, 但是不去检测这些断点, 而出现的功能, 很好用。
    ![mutebreaks](../../images/mutebreaks.jpg)
    2:**让单个的断点变无效**. 让单个断点变哑, 只需要右键断点, 不勾选"Enabled", 就可以使得让此断点失效, 即可达到断点失效,但又不在此位置取消这个断点的效果.
-   ![javadebugmuteonebreak](/Users/renjiaxin/mycodes/mygit/CS-Java-LearnNotes/images/javadebugmuteonebreak.png)
+   ![javadebugmuteonebreak](../../images/javadebugmuteonebreak.png)
 
 以下是3种调试技术的示例gif, **重新执行方法 Drop frame**, **条件断点**, **一次性断点**和在断点时, 为变量设值的方法, 条件断点设值时候使用 a=100这种方式, 而不是a==100, 这就变成了判断了., 
 ![debugjavasskill](../../images/debugjavasskill.gif)
@@ -105,9 +105,12 @@ public class HelloJDB {
 #### 定时任务调试技术
 3
 
-
 #### 多线程调试技术
-4
+一般情况下我们调试的时候是在一个线程中的，一步一步往下走。但有时候你会发现在Debug的时候，想发起另外一个请求都无法进行了？**那是因为IDEA在Debug时默认阻塞级别是ALL，会阻塞其它线程，只有在当前调试线程走完时才会走其它线程**。可以在View Breakpoints里选择Thread, 然后点击Make Default设置为默认选项.
+![javadebugblockallthread](../../images/javadebugblockallthread.png)
+切换线程，在图7.1中Frames的下拉列表里，可以切换当前的线程，如下我这里有两个Debug的线程，切换另外一个则进入另一个Debug的线程.
+![javadebugblockallthread](../../images/javadebugblockallthreadset.png)
+
 
 
 #### 堆栈信息使用和定位
