@@ -1,6 +1,5 @@
 ### 浅谈@RequestMapping @ResponseBody 和 @RequestBody 注解的用法与区别
-
-***
+---
 
 > **博主说**：首先，大家在使用SSM框架进行web开发的时候，经常会在Ctrl层遇到@RequestMapping、@ResponseBody以及@RequestBody这三个参数，博主就以自己在项目开发中总结的一些知识点浅谈一下三者之间微妙的关系。
 

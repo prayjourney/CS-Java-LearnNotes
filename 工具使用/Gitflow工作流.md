@@ -1,6 +1,5 @@
 ### Gitflow工作流
-
-***
+---
 
 ![Git Workflows: Gitflow Cycle](https://raw.githubusercontent.com/quickhack/translations/master/git-workflows-and-tutorials/images/git-workflows-gitflow.png)
 

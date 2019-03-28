@@ -1,11 +1,11 @@
 ### 五大开源web服务器
-***
+---
 
 统计数据显示，超过80%的web应用程序和网站都是使用的开源web服务器。在本文中，我们将介绍目前市场上最流行的5大开源web服务器，并简要回顾它们的历史，技术特性以及更多相关内容，方便你自己能够更加轻松的部署这些流行的web服务器。
 
 根据维基百科介绍，web服务器是“通过HTTP协议处理web请求的计算机系统”(a computer system that processes requests via HTTP)。这个词可以指代整个系统，也可以指代可接收和管理HTTP请求的的程序。本文中介绍的web服务器指的是为终端用户处理web请求的程序。
 
-#### **Apache HTTP Server**
+####  Apache HTTP Server
 
 ------
 
@@ -17,7 +17,7 @@ Apache httpd通常运行在Linux上，也可以部署在OS X和Windows之上，�
 
 
 
-#### **NGINX**
+####  NGINX
 
 ------
 
@@ -29,7 +29,7 @@ NGINX在类BSD（Berkeley Software Distribution）许可协议的授权下发布
 
 
 
-#### **Apache Tomcat**
+#### Apache Tomcat
 
 ------
 
@@ -41,7 +41,7 @@ Apache Tomcat是在Apache许可证 2.0 版的授权下进行发布的，通常�
 
 
 
-#### **Node.js**
+#### Node.js
 
 ------
 
@@ -53,7 +53,7 @@ Node.js是在[混合授权协议下](https://raw.githubusercontent.com/nodejs/no
 
 
 
-#### **Lighttpd**
+#### Lighttpd
 
 ------
 

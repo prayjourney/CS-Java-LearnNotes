@@ -1,6 +1,5 @@
 ### HTTP协议
-
-***
+---
 
 ###### 简介
 ![HTTP协议设计思路](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_webserver.png)

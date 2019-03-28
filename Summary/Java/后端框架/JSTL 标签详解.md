@@ -4,23 +4,18 @@
 #### 一、JSTL标签介绍
 
 ##### 1.什么是JSTL？
-
 JSTL是apache对EL表达式的扩展（也就是说JSTL依赖EL），JSTL是标签语言！JSTL标签使用以来非常方便，它与JSP动作标签一样，只不过它不是JSP内置的标签，需要我们自己导包，以及指定标签库而已
 如果你使用MyEclipse开发JavaWeb，那么在把项目发布到Tomcat时，你会发现，MyEclipse会在lib目录下存放jstl的Jar包！如果你没有使用MyEclipse开发那么需要自己来导入这个JSTL的Jar包：jstl-1.2.jar
 
 ##### 2.JSTL标签库
-
 JSTL一共包含四大标签库：
-
 - core: **核心标签库，我们学习的重点**
 - fmt: *格式化标签库，只需要学习两个标签即可*
 - sql: 数据库标签库，不需要学习了，它过时了
 - xml: xml标签库，不需要学习了，它过时了
 
 ##### 3.使用taglib指令导入标签库
-
 除了JSP动作标签外，使用其他第三方的标签库都需要：
-
 - 导包
 - 在使用标签的JSP页面中使用taglib指令导入标签库
 
@@ -34,9 +29,7 @@ JSTL一共包含四大标签库：
 - `uri="http://java.sun.com/jstl/core"`: 指定标签库的uri，它不一定是真实存在的网址，但它可以让JSP找到标签库的描述文件
 
 ##### 4.core标签库常用标签
-
 ###### 1. out和set标签
-
 | <c:out value=”aaa”/>                                         | 输出aaa字符串常量                                            |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | <c:out value=”${aaa}”/>                                      | 与${aaa}相同                                                 |
@@ -50,13 +43,11 @@ JSTL一共包含四大标签库：
  
 
 ###### 2. remove标签
-
 | <%                   pageContext.setAttribute("a","pageContext");                   request.setAttribute("a","session");                   session.setAttribute("a","session");                   application.setAttribute("a","application");  %>    <c: remove var="a"/>    <c: out value="${a}" default="none"/> | 删除所有域中name为a的数据！    |
 | ------------------------------------------------------------ | ------------------------------ |
 | <c:remove var="a" scope=”page”/>                             | 删除pageContext中name为a的数据 |
 
 ###### 3. url标签：该标签会在需要重写URL时添加
-
 | <c:url value="/"/>                                           | 输出上下文路径：/项目名/                                     |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | <c:url value="/" var="a" scope="request"/>                   | 把本该输出的结果赋给变量a。范围为request                     |
@@ -64,7 +55,6 @@ JSTL一共包含四大标签库：
 | <c:url value="/AServlet"><c:param name="username" value="abc"/><c:param name="password" value="123"/> | 输出：/项目名/AServlet?username=abc&password=123     如果参数中包含中文，那么会自动使用URL编码！ |
 
 ###### 4. if标签
-
 if标签的test属性必须是一个boolean类型的值，如果test的值为true，那么执行if标签的内容，否则不执行
 
 ```html
@@ -74,10 +64,7 @@ if标签的test属性必须是一个boolean类型的值，如果test的值为tru
 4. </c:if> 
 ```
 
-
-
 ###### 5. choose标签
-
 choose标签对应Java中的if/else if/else结构。when标签的test为true时，会执行这个when的内容。当所有when标签的test都为false时，才会执行otherwise标签的内容
 
 ```html
@@ -92,17 +79,12 @@ choose标签对应Java中的if/else if/else结构。when标签的test为true时�
 9. </c:choose> 
 ```
 
-
-
 ###### 6. forEach标签
-
 forEach当前就是循环标签了，forEach标签有多种两种使用方式：
-
 - 使用循环变量，指定开始和结束值，类似`for(int i = 1; i <= 10; i++) {}`
 - 循环遍历集合，类似`for(Object o : 集合)`
 
 循环变量:
-
 ```html
 1. <c:set var="sum" value="0" />   
 2. <c:forEach var="i" begin="1" end="10">   
@@ -116,10 +98,7 @@ forEach当前就是循环标签了，forEach标签有多种两种使用方式：
 10. <c:out value="sum = ${sum }"/>  
 ```
 
-
-
 遍历集合或数组方式:
-
 ```html
 1. <%  
 2. String[] names = {"zhangSan", "liSi", "wangWu", "zhaoLiu"};  
@@ -130,10 +109,7 @@ forEach当前就是循环标签了，forEach标签有多种两种使用方式：
 7. </c:forEach> 
 ```
 
-
-
 遍历List:
-
 ```html
 1. <%  
 2.     List<String> names = new ArrayList<String>();  
@@ -148,10 +124,7 @@ forEach当前就是循环标签了，forEach标签有多种两种使用方式：
 11. </c:forEach>
 ```
 
-
-
 遍历Map:
-
 ```html
 1. <%  
 2.     Map<String,String> stu = new LinkedHashMap<String,String>();  
@@ -166,16 +139,12 @@ forEach当前就是循环标签了，forEach标签有多种两种使用方式：
 11. </c:forEach> 
 ```
 
-
-
 forEach标签还有一个属性: `varStatus`，这个属性用来指定接收“循环状态”的变量名，例如：`<forEach varStatus=”vs” …/>`，这时就可以使用vs这个变量来获取循环的状态了
-
 - count：int类型，当前以遍历元素的个数
 - index：int类型，当前元素的下标
 - first：boolean类型，是否为第一个元素
 - last：boolean类型，是否为最后一个元素
 - current：Object类型，表示当前项目
-
 ```html
 1. <c:forEach var="item" items="${ns }" varStatus="vs">  
 2.     <c:if test="${vs.first }">第一行：/c:if  
@@ -186,14 +155,9 @@ forEach标签还有一个属性: `varStatus`，这个属性用来指定接收“
 7. </c:forEach > 
 ```
 
-
-
 ##### 5.fmt标签库常用标签
-
 fmt标签库是用来格式化输出的，通常需要格式化的有时间和数字
-
 ###### 格式化时间
-
 ```html
 1. <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 2. ......  
@@ -205,7 +169,6 @@ fmt标签库是用来格式化输出的，通常需要格式化的有时间和�
 ```
 
 ###### 格式化数字
-
 ```html
 1. <%  
 2.     double d1 = 3.5;  
@@ -216,17 +179,13 @@ fmt标签库是用来格式化输出的，通常需要格式化的有时间和�
 7. <fmt:formatNumber value="${d1 }" pattern="0.00"/><br/>  
 8. <fmt:formatNumber value="${d2 }" pattern="#.##"/>  
 ```
-
 *介绍了JSTL中的常用标签，那可以定义自己的标签吗？答案是：可以*
 
 
 
 #### 二、自定义标签
-
 ##### 1. 自定义标签
-
 ###### 1.1 步骤
-
 其实我们在JSP页面中使用标签就等于调用某个对象的某个方法一样，例如：<c:if test=””>，这就是在调用对象的方法一样。自定义标签其实就是自定义类一样！
 
 - 定义标签处理类：必须是Tag或SimpleTag的实现类；
@@ -236,10 +195,7 @@ fmt标签库是用来格式化输出的，通常需要格式化的有时间和�
 
 		Tag是老的，传统的自定义标签时使用的接口，现在不建议使用它了。
 
-
-
 ###### 1.2 SimpleTag接口介绍
-
 SimpleTag接口内容如下：
 
 - `void doTag()`：标签执行方法
@@ -248,24 +204,15 @@ SimpleTag接口内容如下：
 - `void setJspContext(JspContext context)`：设置PageContext
 - `void setJspBody(JspFragment jspBody)`：设置标签体对象
 
-
-
 请记住，万物皆对象! 在JSP页面中的标签也是对象! 你可以通过查看JSP的源码，清楚的知道，所有标签都会变成对象的方法调用。标签对应的类我们称之为“标签处理类”! 
 
 ###### 1.3 标签的生命周期
-
 *1、当容器（Tomcat）第一次执行到某个标签时，会创建标签处理类的实例；*
-
 *2、然后调用setJspContext(JspContext)方法，把当前JSP页面的pageContext对象传递给这个方法；*
-
 *3、如果当前标签有父标签，那么使用父标签的标签处理类对象调用setParent(JspTag)方法；*
-
 *4、如果标签有标签体，那么把标签体转换成JspFragment对象，然后调用setJspBody()方法；*
-
 *5、每次执行标签时，都调用doTag()方法，它是标签处理方法*。
-
 `HelloTag.java`
-
 ```java
 1. public class HelloTag implements SimpleTag {  
 2.     private JspTag parent;  
@@ -290,14 +237,10 @@ SimpleTag接口内容如下：
 21. }  
 ```
 
-
-
 ###### 1.4 标签库描述文件(TLD)
-
 标签库描述文件是用来描述当前标签库中的标签的！标签库描述文件的扩展名为tld，你可以把它放到WEB-INF下，这样就不会被客户端直接访问到了。
 
 `hello.tld`
-
 ```html
 1. <?xml version="1.0" encoding="UTF-8"?>  
 2. <taglib version="2.0" xmlns="http://java.sun.com/xml/ns/j2ee"  
@@ -316,14 +259,10 @@ SimpleTag接口内容如下：
 15.     </tag>  
 16. </taglib>
 ```
-
-**1.5　使用标签**
-
+###### 1.5使用标签
 在页面中使用标签分为两步：
-
 - 使用taglib导入标签库；
 - 使用标签；
-
 ```html
 1.  <%@ taglib prefix="it" uri="/WEB-INF/hello.tld" %>  
 2.    .......  
@@ -331,9 +270,7 @@ SimpleTag接口内容如下：
 ```
 
 ##### 2. 自定义标签进阶
-
 ###### 2.1 继承SimpleTagSupport
-
 继承SimpleTagSuppport要比实现SimpleTag接口方便太多了，现在你只需要重写doTag()方法，其他方法都已经被SimpleTagSuppport完成了。
 
 ```java
@@ -345,24 +282,17 @@ SimpleTag接口内容如下：
 ```
 
 ###### 2.2 有标签体的标签
-
 我们先来看看标签体内容的可选值：
-
 `<body-content>`元素的可选值有：
-
 - empty：无标签体
 - JSP：传统标签支持它，**SimpleTag已经不再支持使用<body-content>JSP</body-content>。**标签体内容可以是任何东西：EL、JSTL、<%=%>、<%%>，以及html
 - scriptless：标签体内容不能是Java脚本，但可以是EL、JSTL等。在SimpleTag中，**如果需要有标签体，那么就使用该选项**
 - tagdependent：标签体内容不做运算，由标签处理类自行处理，无论标签体内容是EL、JSP、JSTL，都不会做运算。**这个选项几乎没有人会使用！**
 
-
-
 自定义有标签体的标签需要：
-
 - 获取标签体对象：JspFragment jspBody = getJspBody()
 - 把标签体内容输出到页面：jspBody.invoke(null)
 - tld中指定标签内容类型：scriptless
-
 ```java
 1. public class HelloTag extends SimpleTagSupport {  
 2.     public void doTag() throws JspException, IOException {  
@@ -392,10 +322,7 @@ SimpleTag接口内容如下：
 
 ```
 
-
-
 ###### 2.3 不执行标签下面的页面内容
-
 如果希望在执行了自定义标签后，不再执行JSP页面下面的东西，那么就需要在doTag()方法中使用SkipPageException。
 
 ```java
@@ -417,10 +344,9 @@ SimpleTag接口内容如下：
 1. <itcast:skip/>  
 2. <h1>看不见我！</h1>  
 ```
+
 ###### 2.4 带有属性的标签
-
 一般标签都会带有属性，例如`<c:iftest=””>`，其test就是一个boolean类型的属性。完成带有属性的标签需要：
-
 - 在处理类中给出JavaBean属性（提供get/set方法）
 - 在TLD中部属相关属性
 
@@ -466,12 +392,9 @@ SimpleTag接口内容如下：
 
 
 ### Chapter 2
-
 ####  JSP标准标签库（JSTL）
-
 jsp标准标签库（jstl）是一个JSP标签集合，它封装了jsp应用的通用核心功能。 
 JSTL支持通用的、格式化的任务。比如：迭代、条件判断、XML文档操作、国际化标签、SQL标签。除了这些它还提供了一个框架来使用集成JSTL的自定义标签。 根据JSTL标签所提供的功能，可以将其分为5个类别：
-
 1. 核心标签
 2. 格式化标签
 3. SQL标签
@@ -481,9 +404,7 @@ JSTL支持通用的、格式化的任务。比如：迭代、条件判断、XML�
 使用任何库，你必须在每个JSP文件中的头部包含`<taglib>`标签。
 
 ##### 1.核心标签
-
 核心标签是最常用的JSTL标签。引用核心标签库的语法：
-
 ```html
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 ```
@@ -1041,7 +962,6 @@ pattern属性
 | scope   | Locale配置变量的作用域              | 否       | Page   |
 
 ##### 3.SQL标签
-
 JSTL SQL标签库提供了与关系型数据库（Oracle、mysql、sqlserver等等）进行交互的标签。引用SQL标签的语法：
 
 ```html
@@ -1060,9 +980,7 @@ JSTL SQL标签库提供了与关系型数据库（Oracle、mysql、sqlserver等�
 用的较少不做详细讲解
 
 ##### 4.XML标签
-
 JSTL XML标签库提供了创建和操作XML文件的标签。引用XML标签的语法：
-
 ```html
 <%@ taglib prefix="x" uri="http://java.sun.com/jsp/jstl/xml" %>
 ```
@@ -1081,7 +999,6 @@ JSTL XML标签库提供了创建和操作XML文件的标签。引用XML标签的
 用的较少不做详细讲解
 
 ##### 5.JSTL函数
-
 JSTL包含一系列函数，大部分是通用的字符串处理函数。引用JSTL函数的语法：
 
 ```html
