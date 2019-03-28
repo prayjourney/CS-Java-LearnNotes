@@ -1,5 +1,9 @@
-###MySQL和PostgreSQL的比较
-#####MySQL
+### MySQL和PostgreSQL的比较
+
+***
+
+##### MySQL
+
 - MySQL的优点
 | 优点 | 详细 |
 |--------|--------|
@@ -32,7 +36,8 @@
 |缺乏特色|再次提及，根据数据库引擎的选择标准，MySQL会缺乏一定的特性，如全文搜索|
 
 
-#####PostgreSQL
+
+##### PostgreSQL
 
 - PostgreSQL的优点
 | 优点 | 详细 |

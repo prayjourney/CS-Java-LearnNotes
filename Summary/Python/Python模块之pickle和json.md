@@ -1,9 +1,9 @@
-###Pickle&JSON
+### Pickle&JSON
 
-####pickle模块
+#### pickle模块
 pickle是腌制的意思，也就是**对象的序列化**，将动态的对象，保存在一个可以永久存储的文档之中（二进制或者文本）,这样可以*方便我们在网络之中的传输，便于在文件系统之中的永久保存*。
 
-#####主要方法
+##### 主要方法
 主要的函数有**dump**和**load**方法以及**dumps**和**loads**方法，分别表示将对象腌制成一个序列化的对象，表示从一个序列化对象加载出对象，pickle的操作，一般而言都和IO有关系，而且是二进制模式的IO。主要的方法签名如下
 
 | 方法签名                                     | 作用                                       |
@@ -19,7 +19,8 @@ pickle模块的主要作用是，可以将一些状态保存下来，然后在�
 ##### 扩展
 扩展可以继承**Pickler**和**Unpickler**类，来根据需要进行扩展
 
-#####应用
+##### 应用
+
 ```python
 #pickle模块的主要作用是，可以将一些状态保存下来，然后在下一次打开的时候，将其加载出来，保存之前的状态，比如游戏场景
 import pickle
@@ -53,10 +54,10 @@ if(hh==data2):
 
 
 
-####json模块
+#### json模块
 json(Java Script Object Notation)是一种轻量级**数据交互格式**，相对于XML而言更简单，易于阅读和编写，方便解析和生成，json是JavaScript中的一个子集，*json最广泛的应用是作为AJAX中web服务器和客户端的通讯的数据格式*。python2.6版本开始加入了json模块，python的json模块序列化与反序列化的过程分别是encoding和decoding。encoding: 把一个**python对象**编码转换成**json字符串**，decoding: 把**json格式字符串**编码转换成**python对象**。
 
-#####主要方法
+##### 主要方法
 主要的函数有**dump**和**load**方法以及**dumps**和**loads**方法，分别表示将对象腌制成一个序列化的对象，表示从一个序列化对象加载出对象，json的操作有两种，一种是文件的操作，一种是在内存中操作。主要的方法签名如下
 
 | 方法签名                                     | 作用                                       |
@@ -66,7 +67,7 @@ json(Java Script Object Notation)是一种轻量级**数据交互格式**，相�
 | *load(fp, cls=None, object_hook=None, parse_float=None, parse_int=None, parse_constant=None, object_pairs_hook=None, \*\*kw)* | 将一个**Json格式的字符串流，反序列化成一个Python对象，从文件之中读取**，对象和文件的交互，在文件系统之中 |
 | *loads(s, encoding=None, cls=None, object_hook=None, parse_float=None, parse_int=None, parse_constant=None, object_pairs_hook=None, \*\*kw)* | 将一个**Json格式的字符串，反序列化成一个Python对象，对象和对象的交互**，在内存之中 |
 
-#####类型对应
+##### 类型对应
 Json和Python之中数据类型的对应情况，如下表
 Json字符串(流)反序列化成Python对象
 
@@ -92,13 +93,13 @@ Python对象序列化成Json字符串(流)
 |    True     |  true  |
 |    False    | false  |
 |    None     |  null  |
-#####场景
+##### 场景
 json一种轻量级*数据交互格式*，在服务器和客户端之间的数据传输是它的一种最广泛而且重要的应用，另外其也是一种序列化的方式(*将对象，存储成为一种可以长期保留的格式，需要时可以随时加载，并且可以复原其当时的状态*)，从这点而言，其和pickle有点相似，但是更多的来说，json是一种通用的数据交互格式，它的重点作用在于数据的传输而非序列化功能
 
-#####扩展
+##### 扩展
 扩展可以继承**JSONEncoder**和**JSONDecoder**类，来根据需要进行扩展
 
-#####应用
+##### 应用
 
 ```python
 import json

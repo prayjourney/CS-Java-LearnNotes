@@ -1,6 +1,7 @@
-###PyQt5相关
+### PyQt5相关
+
 ***
-#####相关概念
+##### 相关概念
 **Qt**：是1991年由Qt Company开发的跨平台C++图形用户界面应用程序开发框架。
 **Qt Designer**：是用来设计界面的，只能设计图形，是个图形设计器。
 **Qt Creator**：是跨平台的 Qt IDE， Qt Creator 是 Qt 被 Nokia 收购后推出的一款新的轻量级集成开发环境（IDE）。QtCreator里集成了Qt Designer，QtCreator里有：Editor, Assistant, Designer, Debuger等。

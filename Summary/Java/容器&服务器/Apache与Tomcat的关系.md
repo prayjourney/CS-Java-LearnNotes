@@ -13,13 +13,13 @@
 
 经常在用Apache和Tomcat等这些服务器，可是总感觉还是不清楚他们之间有什么关系，在用Tomcat的时候总出现Apache，总感到迷惑，到底谁是主谁是次，因此特意在网上查询了一些这方面的资料，总结了一下： **Apache支持静态页，比如html，Tomcat支持动态的，比如servlet等**， 一般使用Apache+Tomcat的话，Apache只是作为一个转发，对jsp的处理是由Tomcat来处理的。 *Apache可以支持php\cgi\perl，但是要使用java的话，你需要Tomcat在Apache后台支撑，将java请求由Apache转发给Tomcat处理*。Apache是web服务器，Tomcat是应用（java）服务器，它只是一个servlet(jsp也翻译成servlet)容器，可以认为是Apache的扩展，但是可以独立于Apache运行。  
 
-#####比较点
+##### 比较点
 
 ###### 相同点：   
 
 1.两者都是Apache组织开发的，2.两者都有HTTP服务的功能，3.两者都是免费的  
 
-######不同点： 
+###### 不同点： 
 
 1.提供的服务不同
 

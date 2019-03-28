@@ -1,4 +1,7 @@
-#####1.日期
+### Java中日期的总结
+***
+
+##### 1.日期
 
 日期：主要使用的是*java.util.Date* 以及*java.sql.Date* ,
 
@@ -16,6 +19,8 @@ java.sql.Date  sqldate=new java.sql.Date(utildate.getTime());
 ```
 
 这种方式来转换，由于sql.Date是util.Date的子类，所以可以直接将sql.Date赋值给util.Date.
+
+
 
 ##### 2.日期和字符串
 日期和字符串之间的转换，主要是通过SimpleDateFormat类来完成的，之间的关系如下：
@@ -37,6 +42,8 @@ SimpleDateFormat sdf2=new SimpleDateFormat("yyyy-mm-dd hh:MM:ss");
 **format():日期转成字符串**。
 **parse();字符串转成日期**。
 **SimpleDateFormat**类的方法除了prase()之外，format()方法对于java.sql.Date和java.util.Date都是适用的。
+
+
 
 ##### 3.时间
 ==java.time==是jdk1.8之中新增的时间包，提供了日期和时间一致性的处理。
@@ -102,9 +109,14 @@ LocalTime is an immutable date-time object that represents a time, often viewed 
 > A date-time without a time-zone in the ISO-8601 calendar system, such as 2007-12-03T10:15:30.
 LocalDateTime is an immutable date-time object that represents a date-time, often viewed as year-month-day-hour-minute-second. Other date and time fields, such as day-of-year, day-of-week and week-of-year, can also be accessed. Time is represented to nanosecond precision. For example, the value "2nd October 2007 at 13:45.30.123456789" can be stored in a LocalDateTime.
 
-需要说明的是，以上的三个类之间相同点很多，而且其实现了==Comparable< ChronoLocalDateTime< ?>>==接口，可以通过before,after或者compaterTo方法比较时间，日期等,
+需要说明的是，以上的三个类之间相同点很多，而且其实现了==Comparable< ChronoLocalDateTime< ?>>==接口，可以通过before,after或者compaterTo方法比较时间，日期等
+
+
+
 ##### 4.时间，日期之间的大小比较
 主要分为java.util.Date类和java.time这两个区分，前者通过getTime()取得long值相减而得出，还有before()和after()两个方法，后者通过也可以通过getLong()来相减比较，也可以通过isAfter(), isBefore(), isEqual()等方法来得出，还有就是通过compareTo()方法来获得结果。
+
+
 
 ##### 5.Joda Time
 *==Joda Time ==*是一个非常好用的时间日期包，其有不可变性，瞬间性，局部性，时区等信息。**Joda 与 JDK 是百分之百可互操作的**，Joda的类能够生成java.util.Date 的实例（和 Calendar），Joda 类具有不可变性，因此它们的实例无法被修改。不可变类的一个优点就是它们是线程安全的。
@@ -149,9 +161,8 @@ Calculations on LocalTime are performed using a Chronology. This chronology will
 | LocalDate|**plusMonths(int months)**|Returns a copy of this date plus the specified number of months. |
 |LocalDate |**minusWeeks(int weeks)**|Returns a copy of this date minus the specified number of weeks.|
 | int	|compareTo(ReadablePartial other)|Compares this partial with another returning an integer indicating the order. |
-| boolean|	isBefore(ReadablePartial partial)|Is this partial earlier than the specified partial.| 
+| boolean|	isBefore(ReadablePartial partial)|Is this partial earlier than the specified partial.|
 |  DateTime	|toDateTime(ReadableInstant baseInstant)|Resolves this partial against another complete instant to create a new full instant.|
-
 
 
 
@@ -436,17 +447,10 @@ Calculations on LocalTime are performed using a Chronology. This chronology will
 
     }
   }
-
 ```
 
 
+
+---
 ref:
-[java中Date与String的相互转化](http://blog.csdn.net/woshisap/article/details/6742423/)
-[java日期比较，日期计算](http://www.cnblogs.com/xu-lei/p/5881899.html)
-[Java8 日期/时间（Date Time）API指南](http://www.importnew.com/14140.html)
-[ Joda-Time 用法](http://blog.csdn.net/top_code/article/details/50374078)
-[Joda-Time 简介](https://www.ibm.com/developerworks/cn/java/j-jodatime.html#artdownload)
-[Joda-Time Quick start guide](http://www.joda.org/joda-time/quickstart.html)
-[jodaTime 的使用说明](http://www.cnblogs.com/cb0327/archive/2016/05/18/5127507.html)
-[Joda-Time Date(jdk) String相互转换](http://blog.csdn.net/u014633144/article/details/48789447)
-[joda-time的使用](http://www.jcodecraeer.com/a/chengxusheji/java/2015/0127/2367.html)	
+1.[java中Date与String的相互转化](http://blog.csdn.net/woshisap/article/details/6742423/)   2.[java日期比较，日期计算](http://www.cnblogs.com/xu-lei/p/5881899.html)   3.[Java8 日期/时间（Date Time）API指南](http://www.importnew.com/14140.html)   4.[ Joda-Time 用法](http://blog.csdn.net/top_code/article/details/50374078),   5.[Joda-Time 简介](https://www.ibm.com/developerworks/cn/java/j-jodatime.html#artdownload),   6.[Joda-Time Quick start guide](http://www.joda.org/joda-time/quickstart.html),   7.[jodaTime 的使用说明](http://www.cnblogs.com/cb0327/archive/2016/05/18/5127507.html),   8.[Joda-Time Date(jdk) String相互转换](http://blog.csdn.net/u014633144/article/details/48789447),   9.[joda-time的使用](http://www.jcodecraeer.com/a/chengxusheji/java/2015/0127/2367.html)	

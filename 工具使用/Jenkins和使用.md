@@ -1,5 +1,5 @@
+### Jenkins和其使用
 
-###Jenkins和其使用
 ***
 
 ####  Jenkins是什么
@@ -70,7 +70,7 @@ CI系统在整个开发过程中的主要作用是控制：当系统在代码存
 
 
 
-### 安装Jenkins
+#### 安装Jenkins
 在最简单的情况下，Jenkins 只需要两个步骤：
 1. 下载最新的版本(一个 WAR 文件)。Jenkins官方网址: [http://Jenkins-ci.org/](http://jenkins-ci.org/)
 2. 命运行运行 `java -jar jenkins.war` (默认情况下端口是8080，如果要使用其他端口启动，可以通过命令行`java –jar Jenkins.war --httpPort=80`的方式修改）

@@ -2,12 +2,12 @@
 
 ***
 
-#####JSON介绍
+##### JSON介绍
 **JSON**(JavaScript Object Notation, JS 对象标记) 是一种轻量级的数据交换格式。它基于 **ECMAScript** (w3c制定的js规范)的一个子集，采用完全独立于编程语言的文本格式来存储和表示数据。简洁和清晰的层次结构使得 JSON 成为理想的数据交换语言。 易于人阅读和编写，同时也易于机器解析和生成，并有效地提升网络传输效率。JSON 文件的文件类型是 ".json"，JSON 文本的 MIME 类型是 "application/json"
 
 
 
-#####JSON值类型
+##### JSON值类型
 **键值对**(key/value)是JSON中最基本的数据结构，JSON键值对中的值(key-value中的value)可以是以下任意一种，而key值，都是string类型的，JSON的key值必须加双引号(**"**，其他的都不行
 
 |   Value类型   |                    形式                    |                    例子                    |
@@ -21,7 +21,7 @@
 
 
 
-#####JSON 语法
+##### JSON 语法
 **JSON 语法是 JavaScript 语法的子集**，JSON 文本格式在语法上与创建 JavaScript 对象的代码相同。由于这种相似性，无需解析器，JavaScript 程序能够使用内建的 eval() 函数，用 JSON 数据来生成原生的 JavaScript 对象。在 JavaScript 之中一切都是对象，**所以JSON文本也都是对象**，所有的JSON 文本都要使用**{}**包装起来
 
 - 数据在名称/值对中*(key:value)*
@@ -52,8 +52,9 @@
 
 
 
-#####JSON和JavaScript
+##### JSON和JavaScript
 因为 JSON 使用 JavaScript 语法，所以无需额外的软件就能处理 JavaScript 中的 JSON
+
 ```javascript
 //使用javascript
 var sites = [

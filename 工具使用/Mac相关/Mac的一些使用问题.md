@@ -1,4 +1,5 @@
 ### Mac的一些使用问题
+***
 1. LaunchRocket不起作用?
 A:
 2. 为何不能一次性加载所有的path, 而要自己去使用source /etc/profile?

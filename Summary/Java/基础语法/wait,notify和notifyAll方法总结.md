@@ -1,7 +1,11 @@
-#####引言
+### wait,notify和notifyAll方法总结
+
+***
+
+##### 引言
 在同步的问题之中，我们的关注点在于**效率和数据安全**，数据的安全比效率重要，我们引入多线程，就是为了提高效率。在实际工作之中，需要线程之间的协作。比如说最经典的生产者-消费者模型：当队列满时，生产者需要等待队列有空间才能继续往里面放入商品，而在等待的期间内，生产者必须**释放**对临界资源（即队列）的占用权。因为生产者如果不释放对临界资源的占用权，那么消费者就无法消费队列中的商品，就不会让队列有空间，那么生产者就会一直无限等待下去。因此，一般情况下，当队列满时，会让生产者交出对临界资源的占用权，并进入挂起状态。然后等待消费者消费了商品，然后消费者通知生产者队列有空间了。同样地，当队列空时，消费者也必须等待，等待生产者通知它队列中有商品了。这种互相通信的过程就是线程间的协作。
 
-#####wait()、notify()和notifyAll()方法
+##### wait()、notify()和notifyAll()方法
 
 wait()、notify()和notifyAll()是Object类中的方法，这三个方法，都是Java语言提供的实现线程间阻塞(Blocking)和控制进程内调度(inter-process communication)的底层机制，其在JDK中的作用注释如下
 ```java
@@ -44,7 +48,7 @@ public final native void wait(long timeout) throws InterruptedException;
 
 5.每个对象都拥有monitor（即锁），所以让当前线程等待某个对象的锁，当然应该通过这个对象来操作了。而不是用当前线程来操作，因为当前线程可能会等待多个线程的锁，如果通过线程来操作，则非常复杂，而且，由于Thread类继承了Object类，所以Thread类生成的对象也可以调用这三个方，因此，wait()、notify()和notifyAll()定义在Object之上
 
-#####普通案例
+##### 普通案例
 wait(),notify()的例子
 ```java
 public class OutputThread implements Runnable {
@@ -131,7 +135,7 @@ public class test4 {
 }
 ```
 
-#####生产者消费者
+##### 生产者消费者
 主要的点就是，生产者生产，消费者消费，当缓存满了之后，生产者就要挂起，释放它所占有的锁，而当缓存容量为0的时候，消费者要提醒生产者，开始生产。
 普通的实现
 ```java
@@ -291,7 +295,7 @@ public class PCByObject {
     }
 }
 ```
-#####小结
+##### 小结
 
 1.一个对象的固有锁和它的固有条件队列是相关的，为了调用对象X内条件队列的方法，你必须获得对象X的锁。这是因为等待状态条件的机制和保证状态连续性的机制是紧密的结合在一起的(An object's intrinsic lock and its intrinsic condition queue are related: in order to call any of the condition queue methods on object X, you must hold the lock on X. This is because the mechanism for waiting for state-based conditions is necessarily tightly bound to the mechanism fo preserving state consistency)
 2.根据上述两点，在调用wait(), notify()或notifyAll()的时候，必须先获得锁，且状态变量须由该锁保护，而固有锁对象与固有条件队列对象又是同一个对象。也就是说，要在某个对象上执行wait，notify，先必须锁定该对象，而对应的状态变量也是由该对象锁保护的。

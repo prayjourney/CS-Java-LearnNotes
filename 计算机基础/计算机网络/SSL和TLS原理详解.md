@@ -1,8 +1,9 @@
-###SSL/TLS原理详解
+### SSL/TLS原理详解
+
 * * *
 SSL/TLS作为一种互联网安全加密技术，原理较为复杂，枯燥而无味，我也是试图理解之后重新整理，尽量做到层次清晰。
 
-######SSL/TLS概览
+##### SSL/TLS概览
 1.1 整体结构
 **SSL是一个介于HTTP协议与TCP之间的一个可选层**，其位置大致如下:
 ![SSL/TLS概览](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_SSL%e5%92%8cTSL.png)
@@ -38,7 +39,8 @@ certificate_verify和finished消息：SSLv3.0和TLS在用certificate_verify和fi
 - 特定警报消息：TLS提供更多的特定和附加警报，以指示任一会话端点检测到的问题。TLS还对何时应该发送某些警报进行记录。
 
 
-######密钥协商过程——TLS握手
+
+##### 密钥协商过程——TLS握手
 *SSL协议分为两部分*：**Handshake Protocol**和**Record Protocol**。++其中**Handshake Protocol**用来协商密钥，协议的大部分内容就是通信双方如何利用它来安全的协商出一份密钥++。++**Record Protocol**则定义了传输的格式++。
 
 ==由于非对称加密的速度比较慢，所以它一般用于密钥交换，双方通过公钥算法协商出一份密钥，然后通过对称加密来通信==，当然，为了保证数据的完整性，在加密前要先经过HMAC的处理。

@@ -1,8 +1,10 @@
-###<center> 单元测试Junit </center>###
+###  单元测试与JUnit
+
 - - -
 1.**单元测试**：
 > ==单元测试==是软件之中对于最小的功能模块的的测试，其可以对最基本的软件构成单元来测试。
 > 需要注意的是：
+>
 > >**测试用例是用来达到测试想要的预期结果，而不能测试出程序的逻辑错误**。
 
 
@@ -43,12 +45,13 @@
   - *普通测试*：对于方法使用==@Test==注解标注。
   - *参数化测试*：对于测试类使用==@RunWith (Parameterized.class)==标注，使用==@(Parameter)==来将需要测试的参数，打包到一个集合之中，在后续的测试方法中运行。
   - *套件测试*：当我们需要测试的类很多的时候，如果每个类都独立运行则工作量很大，因此我们可以采用测试套件的方式来测试各个测试类和用例，我们可以使用如下的：
- ==@RunWith(Suite.class)
- @Suite.SuiteClasses({TaskTest1.class,TaskTest2.class,TaskTest3.class})
-public class SuiteTest {
+    ==@RunWith(Suite.class)
+     @Suite.SuiteClasses({TaskTest1.class,TaskTest2.class,TaskTest3.class})
+    public class SuiteTest {
     //此类之中不需要任何的方法
-}[^1]
-==
+
+    }[^1]
+    ==
 
 - *超时测试*：将@Test之中的(timeout=毫秒)设置一定的值，常用于如IO操作，网络连接等测试。
 - *忽略测试*：使用@Ignore注解，将对应的测试类或者测试方法忽略。
@@ -83,7 +86,7 @@ Junit 4 断言方法允许检查测试方法的期望结果值和真实返回值
 
 ==*Area.java*==
 
-```
+```java
     package Task;
    /**
     * Created by renjiaxin on 2017/7/25.
@@ -121,7 +124,7 @@ Junit 4 断言方法允许检查测试方法的期望结果值和真实返回值
 ```
 
 ==*Calcuate.java*==
-```
+```java
    package Task;
    /**
    * Created by renjiaxin on 2017/7/25.
@@ -176,7 +179,7 @@ Junit 4 断言方法允许检查测试方法的期望结果值和真实返回值
 ```
 
 ==*Perimeter.java*==
-```
+```java
     package Task;
     /**
     * Created by renjiaxin on 2017/7/25.
@@ -205,7 +208,7 @@ Junit 4 断言方法允许检查测试方法的期望结果值和真实返回值
 ```
 
 ==*Tax.java*==
-```
+```java
    package Task;
    /**
    * Created by renjiaxin on 2017/7/25.
@@ -238,7 +241,7 @@ Junit 4 断言方法允许检查测试方法的期望结果值和真实返回值
 ```
 
 ==*AreaTest.java*==
-```
+```java
     package ASuiteTestForTask;
 
     import Task.Area;
@@ -298,7 +301,7 @@ Junit 4 断言方法允许检查测试方法的期望结果值和真实返回值
 ```
 
 ==*CalcuateTest.java*==
-```
+```java
     package ASuiteTestForTask;
 
     import Task.Calcuate;
@@ -349,7 +352,7 @@ Junit 4 断言方法允许检查测试方法的期望结果值和真实返回值
 ```
 
 ==*PerimeterTest.java*==
-```
+```java
     package ASuiteTestForTask;
 
     import Task.Perimeter;
@@ -388,7 +391,7 @@ Junit 4 断言方法允许检查测试方法的期望结果值和真实返回值
 ```
 
 ==*TaxTest.java*==
-```
+```java
     package ASuiteTestForTask;
 
     import Task.Tax;
@@ -435,7 +438,7 @@ Junit 4 断言方法允许检查测试方法的期望结果值和真实返回值
 ```
 
 ==*TaskTestSuite.java*== 测试套件
-```
+```java
     package ASuiteTestForTask;
 
     import org.junit.runner.RunWith;
@@ -462,7 +465,7 @@ Junit 4 断言方法允许检查测试方法的期望结果值和真实返回值
 ```
 
 ==*AreaParameterizedTest.java*== :参数化测试
-```
+```java
    package ASuiteTestForTask;
 
    import Task.Area;

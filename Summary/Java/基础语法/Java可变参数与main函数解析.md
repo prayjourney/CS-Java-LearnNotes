@@ -1,6 +1,7 @@
-##### Java可变参数与main函数解析
+### Java可变参数与main函数解析
 - - -
-1.Java可变参数
+
+##### Java可变参数
 &nbsp;&nbsp;&nbsp;&nbsp;在Java5中提供了==可变长参数==，即方法定义中可以使用个数不确定的参数，对于同一方法可以使用不同个数的参数调用。比如有如下的例子：
 `print("hello");`
 `print("hello","lisi");`
@@ -115,11 +116,12 @@
     }
 ```
 - - -
-2.main()函数解析
 
 
 
+##### main()函数解析
+// todo
 
 - - -
 ref:
->1.[Java中可变长参数的使用及注意事项](http://www.cnblogs.com/lanxuezaipiao/p/3190673.html)
+1.[Java中可变长参数的使用及注意事项](http://www.cnblogs.com/lanxuezaipiao/p/3190673.html)

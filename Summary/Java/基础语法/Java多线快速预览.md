@@ -1,4 +1,5 @@
-###Java多线程快速预览
+### Java多线程快速预览
+
 ***
 
 
@@ -26,7 +27,7 @@ void transferMoney(User from, User to, float amount){
 
 
 
-####扎好马步：线程的状态
+#### 扎好马步：线程的状态
 先来两张图：
 
 ![线程状态](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_%e7%ba%bf%e7%a8%8b%e7%8a%b6%e6%80%81.jpg)
@@ -49,7 +50,7 @@ Blocked"和"Waiting"这两个状态的区别
 
 
 
-####内功心法：每个对象都有的方法（机制）
+#### 内功心法：每个对象都有的方法（机制）
 
 **原理**: synchronized, wait, notify, notifyAll是任何对象都具有的同步工具。让我们先来了解它们
 
@@ -148,7 +149,7 @@ Blocked"和"Waiting"这两个状态的区别
 
 
 
-####太祖长拳：基本线程类
+#### 太祖长拳：基本线程类
 
 基本线程类指的是Thread类，Runnable接口，Callable接口，Thread 类实现了Runnable接口，使用start()方法来启动一个线程
 
@@ -189,7 +190,7 @@ future.get() // return 返回值，阻塞直到该线程运行结束
 
 
 
-####九阴真经：高级多线程控制类
+#### 九阴真经：高级多线程控制类
 
 以上都属于内功心法，接下来是实际项目中常用到的工具了，JDK1.5提供了一个非常高效实用的多线程包:*`java.util.concurrent`*, 提供了大量高级工具,可以帮助开发者编写高效、易维护、结构清晰的Java多线程程序。
 

@@ -1,8 +1,14 @@
-###HTTP协议
-######简介
+### HTTP协议
+
+***
+
+###### 简介
 ![HTTP协议设计思路](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_webserver.png)
 HTTP 是基于**TCP/IP**协议的应用层协议。它不涉及数据包（packet）传输，**主要规定了客户端和服务器之间的通信格式，默认使用80端口**，**Http协议是无状态的**，++同一个客户端的这次请求和上次请求是没有对应关系，对Http服务器来说，它并不知道这两个请求来自同一个客户端。为了解决这个问题，Web程序引入了Cookie机制来维护状态++。
-######发展历史
+
+
+
+###### 发展历史
 1. HTTP/0.9
 最早版本是1991年发布的0.9版。该版本极其简单，只有一个命令GET，
 ```html
@@ -147,7 +153,9 @@ HTTP/2 复用TCP连接，在一个连接里，客户端和浏览器都可以同�
 **HTTP/2 允许服务器未经请求，主动向客户端发送资源，这叫做服务器推送（server push）**。
 常见场景是客户端请求一个网页，这个网页里面包含很多静态资源。正常情况下，客户端必须收到网页后，解析HTML源码，发现有静态资源，再发出静态资源请求。其实，服务器可以预期到客户端请求网页后，很可能会再请求静态资源，所以就主动把这些静态资源随着网页一起发给客户端了。
 
-######关于URL
+
+
+###### 关于URL
 1. URL的组成
 以`http://www.aspxfans.com:8080/news/index.asp?boardID=5&ID=24618&page=1#name`为例，可以看出，一个完整的URL包括以下几部分：
     - **协议部分**：该URL的协议部分为“==http:==”，这代表网页使用的是http协议。本例中使用的是http协议。在=="http"后面的“//”为分隔符==
@@ -172,7 +180,9 @@ HTTP/2 复用TCP连接，在一个连接里，客户端和浏览器都可以同�
 >在Java的URI中，一个URI实例可以代表绝对的，也可以是相对的，只要它符合URI的语法规则。而URL类则不仅符合语义，还包含了定位该资源的信息，因此它不能是相对的。
 在Java类库中，URI类不包含任何访问资源的方法，它唯一的作用就是解析。相反的是，URL类可以打开一个到达资源的流。
 
-######HTTP工作原理
+
+
+###### HTTP工作原理
 HTTP协议定义Web客户端如何从Web服务器请求Web页面，以及服务器如何把Web页面传送给客户端。**HTTP协议采用了请求/响应模型**。客户端向服务器发送一个请求报文，请求报文包含请求的方法、URL、协议版本、请求头部和请求数据。服务器以一个状态行作为响应，响应的内容包括协议的版本、成功或者错误代码、服务器信息、响应头部和响应数据。以下是 HTTP 请求/响应的步骤：
 
 1. **客户端连接到Web服务器**
@@ -198,9 +208,12 @@ Web服务器解析请求，定位请求资源。**服务器将资源复本写到
 6、浏览器将该 html 文本并显示内容
 ```
 
-######HTTP请求
+
+
+###### HTTP请求
 请求行以一个方法符号开头，以空格分开，后面跟着请求的URI和协议的版本
 ![请求](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_%e8%af%b7%e6%b1%82.png)
+
 - Get请求
 Get请求例子，使用Fiddler抓取的request：
 ```html
@@ -239,13 +252,16 @@ name=Professional%20Ajax&publisher=Wiley
 3.**空行**，第7行的空行
 4.**请求数据**，第8行
 
-######HTTP响应
+
+
+###### HTTP响应
 **HTTP响应也由四个部分组成，分别是：状态行、消息报头、空行和响应正文**。
 ![响应](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_%e5%93%8d%e5%ba%94.png)
     ```html
     HTTP/1.1 200 OK
     Date: Fri, 22 May 2009 06:07:21 GMT
     Content-Type: text/html; charset=UTF-8
+    ```
 
     <html>
           <head></head>
@@ -260,7 +276,10 @@ name=Professional%20Ajax&publisher=Wiley
 4.**响应正文**，服务器返回给客户端的文本信息。空行后面的html部分为响应正文。
 ![response](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_respone.png)
 
-######HTTP请求方法
+
+
+
+###### HTTP请求方法
 
 HTTP1.0定义了三种请求方法： **GET**, **POST** 和 **HEAD**方法。
 HTTP1.1新增了五种请求方法：**OPTIONS**, **PUT**, **DELETE**, **TRACE** 和 **CONNECT** 方法。
@@ -276,7 +295,9 @@ HTTP1.1新增了五种请求方法：**OPTIONS**, **PUT**, **DELETE**, **TRACE**
 | OPTIONS |     允许客户端查看服务器的性能     |
 |  TRACE  |     回显服务器收到的请求，主要用于测试或诊断     |
 
-######Get和Post区别
+
+
+###### Get和Post区别
 1. 完全介绍
 GET请求
 ```html
@@ -391,9 +412,12 @@ name=Professional%20Ajax&publisher=Wiley
 |**504** | 	Gateway Time-out  |  充当网关或代理的服务器，未及时从远端服务器获取请求  |
 |505	 |  HTTP Version not supported  |  服务器不支持请求的HTTP协议的版本，无法完成处理  |
 
-#####一次完整的浏览器请求流程
+
+
+##### 一次完整的浏览器请求流程
 整个过程如下:
 1.**域名解析**：解析域名对应的IP地址
+
 1. 浏览器**搜索浏览器自身的DNS缓存**，如找不到，进行第2步
 2. 向**本地配置的首选DNS服务器**发起域名解析请求，如找不到，进行第3步
 3. **找到根DNS地址**，**发起请求（请问www.jianshu.com这个域名的IP地址是多少啊？）**，根域发现这是一个顶级域com域的一个域名，于是就告诉运营商的DNS我不知道这个域名的IP地址，但是我知道com域的IP地址，进行第4步
@@ -408,5 +432,7 @@ name=Professional%20Ajax&publisher=Wiley
 6.浏览器对页面进行**渲染**呈现给用户
 ***IP--->MAC***:ARP(地址解析协议)
 ***MAC--->IP***:RARP(反向地址解析协议)
+
+---
 ref:
 1.[HTTP 协议入门](http://www.ruanyifeng.com/blog/2016/08/http.html), 2.[关于HTTP协议，一篇就够了](http://www.cnblogs.com/ranyonsue/p/5984001.html), 3.[详解URL的组成](http://blog.csdn.net/ergouge/article/details/8185219), 4.[HTTP状态码](http://www.runoob.com/http/http-status-codes.html), 5.[HTTP协议详解](http://www.cnblogs.com/TankXiao/archive/2012/02/13/2342672.html), 6.[关于HTTP协议，一篇就够了](http://www.jianshu.com/p/80e25cb1d81a), 7.[深入理解HTTP协议（转）](http://www.blogjava.net/zjusuyong/articles/304788.html), 8.[Journey to HTTP/2](http://kamranahmed.info/blog/2016/08/13/http-in-depth/), 9.[HTTP协议详解](http://blog.csdn.net/sayhello_world/article/details/75018519), 10.[网络请求过程扫盲](http://www.jianshu.com/p/8a40f99da882), 11.[一次完整的浏览器请求流程](http://www.jianshu.com/p/fbe0e9fa45a6), 12.[通信协议——Http、TCP、UDP](http://www.cnblogs.com/xhwy/archive/2012/03/03/2378293.html)

@@ -1,10 +1,11 @@
-## 五大开源web服务器
+### 五大开源web服务器
+***
 
 统计数据显示，超过80%的web应用程序和网站都是使用的开源web服务器。在本文中，我们将介绍目前市场上最流行的5大开源web服务器，并简要回顾它们的历史，技术特性以及更多相关内容，方便你自己能够更加轻松的部署这些流行的web服务器。
 
 根据维基百科介绍，web服务器是“通过HTTP协议处理web请求的计算机系统”(a computer system that processes requests via HTTP)。这个词可以指代整个系统，也可以指代可接收和管理HTTP请求的的程序。本文中介绍的web服务器指的是为终端用户处理web请求的程序。
 
-### **Apache HTTP Server**
+#### **Apache HTTP Server**
 
 ------
 
@@ -14,7 +15,9 @@ Apache httpd通常运行在Linux上，也可以部署在OS X和Windows之上，�
 
 从1996年开始，Apache HTTP Server就已经是最为流行的web服务器了，这与它拥有伟大的文档和软件项目集成支持的特性是分不开的，你可以在Apache基金会的[项目页面](https://httpd.apache.org/)上找到它的更多信息。
 
-### **NGINX**
+
+
+#### **NGINX**
 
 ------
 
@@ -24,7 +27,9 @@ NGINX依靠异步事件驱动架构来帮助其处理大量的并发会话，由
 
 NGINX在类BSD（Berkeley Software Distribution）许可协议的授权下发布的，它不仅可作为web服务器进行部署，也可作为代理服务器或负载平衡器。你可以在[NGINX社区网站](https://nginx.org/en/)找到它的更多信息。
 
-### **Apache Tomcat**
+
+
+#### **Apache Tomcat**
 
 ------
 
@@ -34,7 +39,9 @@ Apache Tomcat是在Apache许可证 2.0 版的授权下进行发布的，通常�
 
 另外，Apache Tomcat还经常内嵌在其它开源Java应用服务器中，如[JBoss](http://www.jboss.org/products/eap/overview/), [Wildfly](http://wildfly.org/)和[Glassfish](https://glassfish.java.net/)。
 
-### **Node.js**
+
+
+#### **Node.js**
 
 ------
 
@@ -44,7 +51,9 @@ Node.js是一个用于web服务器等网络应用的服务器端JavaScript环境
 
 Node.js是在[混合授权协议下](https://raw.githubusercontent.com/nodejs/node/master/LICENSE)发布的，更多信息可以查看[该项目网站](https://nodejs.org/en/)。
 
-### **Lighttpd**
+
+
+#### **Lighttpd**
 
 ------
 
@@ -52,7 +61,9 @@ Lighttpd，于2003年3月首次发布，目前全球有大约0.1%的网站在使
 
 Lighttpd以其低内存占用，低CPU负载和处理速度的优化而独立于世，它使用事件驱动架构，对大量并行连接进行优化，支持FastCGI, SCGI, Auth,Output-compression, URL-rewriting等多种功能。Lighttpd主要用于Catalyst和Ruby on Rails的web框架。通过[项目主页](http://www.lighttpd.net/)，你可以找到它的更多信息。
 
-### **小贴士**
+
+
+**小贴士**
 
 ------
 

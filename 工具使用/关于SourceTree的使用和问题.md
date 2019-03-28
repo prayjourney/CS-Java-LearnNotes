@@ -1,11 +1,12 @@
 ### 关于SourceTree的使用和问题
 
 ***
-####sourceTree 添加 ssh key 方法
+#### sourceTree 添加 ssh key 方法
 
 ##### 1.使用 git 客户的生成公私钥：id_rsa、id_rsa.pub
 
 1.1 设置Git的user name和email：
+
 ```
 $ git config --global user.name "xxx"
 $ git config --global user.email "xxx.mail@xxx.com"

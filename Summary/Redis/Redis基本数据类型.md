@@ -12,21 +12,21 @@ Redis常用的数据类型包括5种, 分别是:
 **String(字符串), List(列表), Hash(字典), Set(集合), Sorted Set(有序集合)**
 几个基本的命令:
 **KEYS \* **: *获得当前数据库的所有键*
-![rediskeys](../../../images/rediskeys.png)
+![rediskeys](../../images/rediskeys.png)
 **EXISTS key [key ...] **: *判断键是否存在, 返回个数, 如果key有一样的也是叠加数(存在一个返回1, 存在两个返回2)*
-![rediskeys](../../../images/redisexists.png)
+![rediskeys](../../images/redisexists.png)
 **DEL key [key ...]**: *删除键，返回删除的个数*
-![rediskeys](../../../images/redisdel.png)
+![rediskeys](../../images/redisdel.png)
 **TYPE key**: *获取减值的数据类型(string, hash, list, set, zset)*
-![rediskeys](../../../images/redistype.png)
+![rediskeys](../../images/redistype.png)
 **SELECT no**: *选择一个数据库, no为1, 2, 3...默认情况下, 一个redis数据库有16个库*
-![rediskeys](../../../images/redisselect.png)
+![rediskeys](../../images/redisselect.png)
 **FLUSHALL**: * 清空所有数据库*
-![rediskeys](../../../images/redisflushall.png)
+![rediskeys](../../images/redisflushall.png)
 **CONFIG [get、set] xx**: *redis配置*
 **-inf**: *负无穷*
 **+inf**: *正无穷*
-![redisdatatype](../../../images/redisdatatype.jpg)
+![redisdatatype](../../images/redisdatatype.jpg)
 
 
 
@@ -113,7 +113,7 @@ String在redis内部存储默认就是一个字符串, 被redisObject所引用, 
 
 ##### Hash类型(字典, 哈希表)
 Hash类型是String类型的filed和value的映射表, 或者说一个String集合. 它特别适合存储对象, 相比较而言, **将一个对象类型存储在Hash类型里要比存储在String类型里占用更少的内存空间, 并方便存取整个对象**.Redis Hash对应Value内部实际就是一个HashMap, 实际有2种不同实现, 这个Hash的成员比较少时Redis为了节省内存会采用类似一维数组的方式来紧凑存储, 而不会采用真正的HashMap结构, 对应的value redisObject的encoding为zipmap, 当成员数量增大时会自动转成真正的HashMap, 此时encoding为ht.
-![redisdatatype](../../../images/redishashrun.jpg)
+![redisdatatype](../../images/redishashrun.jpg)
 
 **语法形式**:
 >设置单个：HSET                         语法：HSET key field value，不存在时返回1，存在时返回0，没有更新和插入之分

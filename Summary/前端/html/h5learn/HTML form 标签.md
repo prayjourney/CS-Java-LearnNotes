@@ -141,7 +141,3 @@ http://www.example.com/example/program?x=28&y=66
 ```html
 <input type="text" name="example1" size="20" maxlength="15" />
 ```
-
-
-
-##### 多行文本框

@@ -2,7 +2,7 @@
 
 ***
 
-![gitsiweidaotu](../images/gitsiweidaotu.jpg)
+![gitsiweidaotu](../../images/gitsiweidaotu.jpg)
 
 ***
 ref:

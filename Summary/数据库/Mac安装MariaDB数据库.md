@@ -1,4 +1,4 @@
-# Mac安装MariaDB数据库
+### Mac安装MariaDB数据库
 ***
 Mac上的开发者，你可以在macos上通过Homebrew来简单的获取安装最新稳定版本的MariaDB,接下来我们将一步步的来指导安装MariaDB数据库，如果你的Mac中已经安装好了Homebrew的话，则直接开始安装。
 

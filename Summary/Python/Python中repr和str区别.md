@@ -1,13 +1,15 @@
-###Python中__repr__和__str__区别
+### Python中__repr__和__str__区别
+
 ***
-#####官方解释是
+##### 官方解释是
 str是给普通用户看的，repr是给编译器/程序员看的
 
 > The str() function is meant to return representations of values which are fairly human-readable, while repr() is meant to generate representations which can be read by the interpreter (or will force a SyntaxError if there is not equivalent syntax).
 
 
 
-#####例子
+##### 例子
+
 ```python
 class Test(object):
     def __init__(self, value='hello, world!'):
@@ -51,8 +53,9 @@ calss TestStr(Test):
 
 
 
-#####总结
+##### 总结
 __repr__和__str__这两个方法都是用于显示的，__str__是面向用户的，而__repr__面向编译器/程序员。
+
 - 打印操作会首先尝试__str__和str内置函数(print运行的内部等价形式)，它通常应该返回一个友好的显示。
 - __repr__用于所有其他的环境中：用于交互模式下提示回应以及repr函数，如果没有使用__str__，会使用print和str。它通常应该返回一个编码字符串，可以用来重新创建对象，或者给开发者详细的显示。
 

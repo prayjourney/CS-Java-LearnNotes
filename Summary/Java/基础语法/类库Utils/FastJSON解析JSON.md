@@ -13,11 +13,11 @@
 
 我们可以把**JSONObject当成一个Map<String,Object>**来看, 只是JSONObject提供了更为丰富便捷的方法, 方便我们对于对象属性的操作. 源码如下图.
 
-![img](../../../images/json1.png)
+![img](../../../../images/json1.png)
 
 同样我们可以把**JSONArray当做一个List\<Object\>**, 可以把**JSONArray看成JSONObject对象**的一个集合. 源码如下图.
 
-![img](../../../images/json2.png)
+![img](../../../../images/json2.png)
 
 此外，由于JSONObject和JSONArray继承了JSON，所以说也可以直接使用两者对JSON格式字符串与JSON对象及javaBean之间做转换, **不过为了避免混淆我们还是使用JSON**.
 
@@ -26,7 +26,7 @@
 ##### 序列化
 **序列化就是指把JavaBean对象转成JSON格式的字符串**. fastjson提供了许多方法(多态)实现序列化.
 
-![img](../../../images/json3.png)
+![img](../../../../images/json3.png)
 
 ###### 1.**基本的序列化(对象转化为JSON字符串)** 
 
@@ -138,7 +138,7 @@ String objJson = JSON.toJSONString(Object object, boolean prettyFormat);
 
 **反序列化就是把JSON格式的字符串转化为Java Bean对象**, fastjson提供了许多方法(多态)实现反序列化.
 
-![img](../../../images/json6.png)
+![img](../../../../images/json6.png)
 
  
 
@@ -404,9 +404,9 @@ String objJson = JSON.toJSONString(Object object, SerializerFeature... features)
 
 传入一个对象和SerializerFeature类型的可变变量. SerializerFeature是一个枚举. `com.alibaba.fastjson.serializer.SerializerFeature`
 
-![img](F:/CodeBank/MyGit/SummaryOfProgramming/images/json4.png)
+![img](../../../../images/json4.png)
 
-![img](F:/CodeBank/MyGit/SummaryOfProgramming/images/json5.png)
+![img](../../../../images/json5.png)
 
 1.日期格式化
 

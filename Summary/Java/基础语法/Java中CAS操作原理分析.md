@@ -1,12 +1,13 @@
-###Java中CAS操作原理分析
+### Java中CAS操作原理分析
+
 ***
 
-#####CAS
+##### CAS
 CAS: Compare and Swap(CAS)，翻译成比较并交换，java.util.concurrent包完全建立在CAS之上的，没有CAS就不会有此包。可见CAS的重要性。 java.util.concurrent包中借助CAS实现了区别于synchronouse同步锁的一种乐观锁。
 
 
 
-#####CAS应用
+##### CAS应用
 CAS有3个操作数，**内存值V**，**旧的预期值A**，**要修改的新值B**。*当且仅当预期值A和内存值V相同时，将内存值V修改为B，否则什么都不做*。
 
 **非阻塞算法 （nonblocking algorithms）**
@@ -87,7 +88,7 @@ return false;
 
 
 
-#####CAS原理
+##### CAS原理
 
 **CAS通过调用JNI的代码实现的。JNI:Java Native Interface为JAVA本地调用，允许java调用其他语言。而compareAndSwapInt就是借助C来调用CPU底层指令实现的**。
 
@@ -136,7 +137,7 @@ inline jint     Atomic::cmpxchg    (jint     exchange_value, volatile jint*     
 
 
 
-#####CPU的锁机制
+##### CPU的锁机制
 
 1.处理器自动保证基本内存操作的原子性
 首先处理器会自动保证基本的内存操作的原子性。处理器保证从系统内存当中读取或者写入一个字节是原子的，意思是当一个处理器读取一个字节时，其他处理器不能访问这个字节的内存地址。奔腾6和最新的处理器能自动保证单处理器对同一个缓存行里进行16/32/64位的操作是原子的，但是复杂的内存操作处理器不能自动保证其原子性，比如跨总线宽度，跨多个缓存行，跨页表的访问。但是处理器提供**总线锁定**和**缓存锁定**两个机制来保证复杂内存操作的原子性。 
@@ -156,7 +157,7 @@ inline jint     Atomic::cmpxchg    (jint     exchange_value, volatile jint*     
 
 
 
-#####CAS缺点
+##### CAS缺点
 
 CAS虽然很高效的解决原子操作，但是CAS仍然存在三大问题。**ABA问题**，**循环时间长开销大**和**只能保证一个共享变量的原子操作**
 
@@ -168,8 +169,9 @@ CAS虽然很高效的解决原子操作，但是CAS仍然存在三大问题。**
 
 
 
-#####concurrent包的实现
+##### concurrent包的实现
 由于java的CAS同时具有 volatile 读和volatile写的内存语义，因此Java线程之间的通信现在有了下面四种方式：
+
 - A线程写volatile变量，随后B线程读这个volatile变量。
 - A线程写volatile变量，随后B线程用CAS更新这个volatile变量。
 - A线程用CAS更新一个volatile变量，随后B线程用CAS更新这个volatile变量。

@@ -1,9 +1,9 @@
 
 
-##Selenium和Robot Framework简介
-***
+## Selenium和Robot Framework简介
 
-###Selenium发展历史
+
+### Selenium发展历史
 ![se](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_se.jpg)
 Jason Huggins在2004年发起了Selenium项目，当时身处ThoughtWorks的他，为了不想让自己的时间浪费在无聊的重复性工作中，幸运的是，所有被测试的浏览器都支持Javascript。Jason和他所在的团队采用Javascript编写一种测试工具来验证浏览器页面的行为；这个JavaScript类库就是Selenium core，同时也是seleniumRC、Selenium IDE的核心组件。Selenium由此诞生。
 关于Selenium的命名比较有意思，当时QTP mercury是主流的商业自化工具，是化学元素汞（俗称水银），而Selenium是开源自动化工具，是化学元素硒，硒可以对抗汞。
@@ -41,12 +41,13 @@ Selenium 3.0做了一些不大不小的更新,终于去掉了RC，简单用公�
 
  
 
-###Robot Framework
+### Robot Framework
 
-#####Robot Framework简介
+##### Robot Framework简介
 **Robot Framework**简称RF，是一款python编写的功能自动化测试框架。具备良好的可扩展性，支持关键字驱动，可以同时测试多种类型的客户端或者接口，可以进行分布式测试执行。主要用于轮次很多的验收测试和验收测试驱动开发（ATDD）。Robot Framework是开源软件，由Nokia Siemens Networks开发并提供支持。
 
-#####RF特性
+##### RF特性
+
 - 测试用例使用文本文件（txt或者tsv文件）保存，使用制表符分隔数据。可以方便的使用任何文本编辑器，或者EXCEL编辑测试用例。也可以使用HTML格式创建用例。
 - 测试用例中支持变量使用，可以使用IF语句和FOR循环语句。
 - 可以利用“标签”功能对测试用例进行分类和有选择执行。
@@ -60,28 +61,28 @@ Selenium 3.0做了一些不大不小的更新,终于去掉了RC，简单用公�
 - 测试人员可以使用Python和java创建自己需要的测试库。
 - 提供了远程测试执行接口，可以进行分布式测试执行。
 
-#####RIDE
+##### RIDE
 RIDE是一款专门用来编辑Robot Framework用例的软件，用Python编写并且开源。RIDE可以从Robot Framework官网找到最新的下载链接。
 
-#####Robot Framework+WebDriver 架构
+##### Robot Framework+WebDriver 架构
 ![RF+WebDriver](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_RFWebDriver.jpg)
 
-#####环境搭建
+##### 环境搭建
 整个robot framework自动化环境的搭建包括robotframework运行环境的搭建、Web自动化测试环境搭建、appium自动化测试环境搭建、接口自动化环境搭建、数据库自动化环境的搭建等等，此章节先介绍robot framework运行环境的搭建、Web自动化测试环境搭建，下载可以使用如下[链接](http://pan.baidu.com/s/1qYMn5SS)。
 
-######安装Python
+###### 安装Python
 安装完Python之后，将其安装路径加入到Path环境变量之中(包括安装的Scripts)
 
-######安装setuptools
+###### 安装setuptools
 setuptools 是Python Enterprise Application Kit（PEAK）的一个副项目，它是一组Python 的distutilsde工具的增强工具可以让程序员更方便的创建和发布Python 包，特别是那些对其它包具有依赖性的状况。在DOS下切换到下setuptools解压目录下，执行python setup.py install即可安装
 
-######安装pip
+###### 安装pip
 pip 是一个安装和管理Python 包的工具，通过pip 去安装Python 包将变得十分简单，我们将省去了搜索--查找版本--下载--安装等繁琐的过程。pip 的安装依赖于setuptools ，所以在安装pip 之间需要先安装setuptools，在DOS下切换到下pip解压目录下，执行python setup.py install，现在一般而言setuptools和pip工具都已经随着Python环境安装好了
 
 ###### 安装Selenium
 通过pip install selenium直接安装
 
-######安装wxPython
+###### 安装wxPython
 robot framework-ride的版本必须要和wxPython版本匹配，否则无法运行
 
 ###### 安装robot framework
@@ -90,14 +91,13 @@ robot framework-ride的版本必须要和wxPython版本匹配，否则无法运�
 ###### 安装robotframework-ride
 双击安装即可，[下载地址](https://pypi.python.org/pypi/robotframework-ride/1.3)
 
-######安装Selenium2Library的依赖库decorator
+###### 安装Selenium2Library的依赖库decorator
 decorator是Selenium2Library的依赖库
 
-######安装Selenium2Library库
+###### 安装Selenium2Library库
 这个库主要是用于页面Web UI操作，pip install robotframework-selenium2library，robot framework 的运行环境搭建完成，下面就可以使用RIDE去编写程序。
 
-
-#####辅助软件安装
+##### 辅助软件安装
 以火狐浏览器为例，安装**FireBug**，**selenium-ide**，**FirePath**等插件，为测试做好准备
 
  

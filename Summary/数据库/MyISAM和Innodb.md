@@ -1,9 +1,12 @@
 ### MyISAM和Innodb
 ***
-#####重要区别
-**两种类型最主要的差别就是Innodb 支持++事务++处理与++外键++和++行级锁++**
+##### 重要区别
+两种类型最主要的差别就是Innodb 支持__事务处理__与__外键__和__行级锁__。
 
-#####简易区别
+
+
+##### 简易区别
+
 MyISAM和Innodb的最大区别是：**两种类型最主要的差别就是Innodb 支持事务处理与外键和行级锁**，**读操作多用MyISAM，写操作多用InnoDB**
 InnoDB和MyISAM是MySQL中最常用的两个表类型，这两个表类型各有优劣，视具体应用而定。基本的差别为：**MyISAM类型不支持事务处理等高级处理，而InnoDB类型支持事务处理**。*MyISAM类型的表强调的是性能，其执行数度比InnoDB类型更快，但是不提供事务支持*，而**InnoDB提供事务支持以及外部键等高级数据库功能**。
   以下是一些细节和具体实现的差别：
@@ -14,7 +17,9 @@ InnoDB和MyISAM是MySQL中最常用的两个表类型，这两个表类型各有
 　5.*LOAD TABLE FROM MASTER操作对InnoDB是不起作用的，解决方法是首先把InnoDB表改成MyISAM表，导入数据后再改成InnoDB表，但是对于使用的额外的InnoDB特性(例如外键)的表不适用。
 　++另外，InnoDB表的行锁也不是绝对的，假如在执行一个SQL语句时MySQL不能确定要扫描的范围，InnoDB表同样会锁全表，例如update table set num=1 where name like “%aaa%”++
 
-#####详细区别
+
+
+##### 详细区别
 
 1.**MySQL默认采用的是MyISAM**
 2.**MyISAM不支持事务，而InnoDB支持**。==InnoDB的AUTOCOMMIT默认是打开的，即每条SQL语句会默认被封装成一个事务==，自动提交，这样会影响速度，*所以最好是把多条SQL语句显示放在begin和commit之间，组成一个事务去提交*。

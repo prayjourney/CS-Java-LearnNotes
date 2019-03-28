@@ -1,4 +1,4 @@
-### Git工作流指南：Gitflow工作流
+### Gitflow工作流
 
 ***
 
