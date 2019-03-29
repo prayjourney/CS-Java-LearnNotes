@@ -3,24 +3,24 @@
 ***
 
 #### 基础概念
-![漫画告诉你什么是DDoS攻击?](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_w1.png)
+![漫画告诉你什么是DDoS攻击?](../../images/o_w1.png)
 **分布式拒绝服务攻击**(Distributed Denial of Service)指借助于*客户/服务器*技术，将多个计算机联合起来作为攻击平台，对一个或多个目标发动攻击，从而成倍地提高拒绝服务攻击的威力。通常，攻击者使用一个偷窃帐号将DDoS主控程序安装在一个计算机上，在一个设定的时间主控程序将与大量代理程序通讯，代理程序已经被安装在网络上的许多计算机上。代理程序收到指令时就发动攻击。利用客户/服务器技术，主控程序能在几秒钟内激活成百上千次代理程序的运行。
 
 
 
 #### 趣味介绍
 让我们来举个栗子，假设A开了一家店，生意还不错
-![漫画告诉你什么是DDoS攻击?](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_w2.png)
+![漫画告诉你什么是DDoS攻击?](../../images/o_w2.png)
 此时隔壁家生意萧条的B盯上了A
-![漫画告诉你什么是DDoS攻击?](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_w3.png)
+![漫画告诉你什么是DDoS攻击?](../../images/o_w3.png)
 于是他雇佣来了一群闹事的小混混
-![漫画告诉你什么是DDoS攻击?](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_w4.png)
+![漫画告诉你什么是DDoS攻击?](../../images/o_w4.png)
 紧接着，A就发现突然店里来了一大波客人。AA完全应接不暇，而且他们老找A问这问那，东看西看，就是不买东西，更可恶，赖着不走了！
-![漫画告诉你什么是DDoS攻击?](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_w5.png)
+![漫画告诉你什么是DDoS攻击?](../../images/o_w5.png)
 而真正的顾客连进店的地方都没有了！**这就是所谓的DDoS攻击——一群“恶意访问”、“堵店门”、“占空间”、还“调戏店员”的非法流量**。*他们是黑客通过网络上事先留了木马后门的僵尸主机发动的，只不过他们装的和正常访问的数据几乎一样，使得NF或其他防护设备根本无法识别哪些是非法的数据流量*。
-![漫画告诉你什么是DDoS攻击?](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_w6.png)
+![漫画告诉你什么是DDoS攻击?](../../images/o_w6.png)
 那么，这时候的解决办法就是，需要一个“明眼人”帮忙清理现场了。具体来说，就是利用某种抗DDoS攻击的工具来精准识别这些非法流量，比如绿盟科技的ADS。
-![漫画告诉你什么是DDoS攻击?](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_w7.png)
+![漫画告诉你什么是DDoS攻击?](../../images/o_w7.png)
 
 
 
@@ -62,22 +62,22 @@ TCP/IP中的IP数据包在网络传递时，数据包可以分成更小的片段
 #### 如何精准识别非法流量
 
 - 反欺骗：他会对数据包的地址及端口的正确性进行验证，同时进行反向探测。
-![漫画告诉你什么是DDoS攻击?](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_w8.png)
+![漫画告诉你什么是DDoS攻击?](../../images/o_w8.png)
 
 - 协议栈行为模式分析：每个数据包类型需要符合RFC规定，这就好像每个数据包都要有完整规范的着装，只要不符合规范，ADS会自动识别并过滤。
-![漫画告诉你什么是DDoS攻击?](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_w9.png)
+![漫画告诉你什么是DDoS攻击?](../../images/o_w9.png)
 
 - 特定应用防护：非法流量总是有一些特定特征的，这就好比即便你混进了顾客群中，但你的行为还是会暴露出你的动机，比如老重复问店员同一个问题，老做同样的动作，这样，你仍然还是会被发现的。
-![漫画告诉你什么是DDoS攻击?](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_w10.png)
+![漫画告诉你什么是DDoS攻击?](../../images/o_w10.png)]
 
 - 用户行为模式分析：真是的数据是随机访问的，这就好比顾客进店后的行为是随机的，或看看商品，或询询价，或来回比对，或和店员攀谈，而非法流量会大规模地，步调一致地去访问某一个点，这样一来，也是会被ADS识别。
-![漫画告诉你什么是DDoS攻击?](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_w11.png)
+![漫画告诉你什么是DDoS攻击?](../../images/o_w11.png)
 
 - 动态指纹识别:合法的流量数据，都会有相应的加密算法，这就好比每个数据进入服务器前，都要通过私下分配的口令验证，如果你说不出口令或这口令不对，那么，ADS就直接把你OUT了。
-![漫画告诉你什么是DDoS攻击?](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_w12.png)
+![漫画告诉你什么是DDoS攻击?](../../images/o_w12.png)
 
 - 带宽控制：而真实的访问数据过大时，ADS可以限制其最大输出的流量，以减少下游网络系统的压力，有了这个功能，苹果公司就可以不用这么手忙脚乱了。
-![漫画告诉你什么是DDoS攻击?](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_w13.png)
+![漫画告诉你什么是DDoS攻击?](../../images/o_w13.png)
 
 
 

@@ -3,7 +3,7 @@
 
 越来越多的软件，开始采用云服务。云服务**是基于互联网的相关服务的增加、使用和交互模式，通常涉及通过互联网来提供动态易扩展且经常是虚拟化的资源**。*云是网络、互联网的一种比喻说法*。云服务只是一个统称，可以分成三大类。
 
-![img](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_iasspaassaas.jpg)
+![mg](../../images/o_iasspaassaas.jpg)
 
 > - **IaaS**：基础设施服务，Infrastructure-as-a-service
 > - **PaaS**：平台服务，Platform-as-a-service
@@ -15,7 +15,7 @@ IBM 的软件架构师 Albert Barron 曾经使用披萨作为比喻，[解释](h
 
 请设想你是一个餐饮业者，打算做披萨生意。
 
-![img](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_pz1.jpg)
+![img](../../images/o_pz1.jpg)
 
 你可以从头到尾，自己生产披萨，但是这样比较麻烦，需要准备的东西多，因此你决定外包一部分工作，采用他人的服务。你有三个方案。
 
@@ -23,34 +23,34 @@ IBM 的软件架构师 Albert Barron 曾经使用披萨作为比喻，[解释](h
 
 他人提供厨房、炉子、煤气，你使用这些基础设施，来烤你的披萨。
 
-![img](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_pz2.jpg)
+![img](../../images/o_pz2.jpg)
 
 **（2）方案二：PaaS**
 
 除了基础设施，他人还提供披萨饼皮。
 
-![img](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_pz3.jpg)
+![img](../../images/o_pz3.jpg)
 
 你只要把自己的配料洒在饼皮上，让他帮你烤出来就行了。也就是说，你要做的就是设计披萨的味道（海鲜披萨或者鸡肉披萨），他人提供平台服务，让你把自己的设计实现。
 
-![img](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_pz4.jpg)
+![img](../../images/o_pz4.jpg)
 
 
 **（3）方案三：SaaS**
 
 他人直接做好了披萨，不用你的介入，到手的就是一个成品。你要做的就是把它卖出去，最多再包装一下，印上你自己的 Logo。
 
-![img](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_pz5.jpg)
+![img](../../images/o_pz5.jpg)
 
 上面的三种方案，可以总结成下面这张图。
 
-![img](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_pz6.png)
+![img](../../images/o_pz6.png)
 
 从左到右，自己承担的工作量（上图蓝色部分）越来越少，IaaS > PaaS > SaaS。
 
 对应软件开发，则是下面这张图。
 
-![img](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_pz7.jpg)
+![img](../../images/o_pz7.jpg)
 
 **SaaS 是软件的开发、管理、部署都交给第三方，不需要关心技术问题，可以拿来即用。**普通用户接触到的互联网服务，几乎都是 SaaS，下面是一些例子。
 

@@ -2,7 +2,7 @@
 ---
 
 ###### 简介
-![HTTP协议设计思路](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_webserver.png)
+![HTTP协议设计思路](../../images/o_webserver.png)
 HTTP 是基于**TCP/IP**协议的应用层协议。它不涉及数据包（packet）传输，**主要规定了客户端和服务器之间的通信格式，默认使用80端口**，**Http协议是无状态的**，++同一个客户端的这次请求和上次请求是没有对应关系，对Http服务器来说，它并不知道这两个请求来自同一个客户端。为了解决这个问题，Web程序引入了Cookie机制来维护状态++。
 
 
@@ -210,11 +210,12 @@ Web服务器解析请求，定位请求资源。**服务器将资源复本写到
 
 
 ###### HTTP请求
-请求行以一个方法符号开头，以空格分开，后面跟着请求的URI和协议的版本
-![请求](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_%e8%af%b7%e6%b1%82.png)
-
 - Get请求
+
+请求行以一个方法符号开头，以空格分开，后面跟着请求的URI和协议的版本
+![o_qingqiu](../../images/o_qingqiu.jpg)
 Get请求例子，使用Fiddler抓取的request：
+
 ```html
 GET /562f25980001b1b106000338.jpg HTTP/1.1
 Host    img.mukewang.com
@@ -233,7 +234,7 @@ GET说明请求类型为GET,[/562f25980001b1b106000338.jpg]为要访问的资源
 3.**空行**，请求头部后面的空行是必须的
 即使第四部分的请求数据为空，也必须有空行。
 4.**请求数据**也叫主体，可以添加任意的其他数据。这个例子的请求数据为空。
-![get请求](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_get.png)
+![get请求](../../images/o_get.png)
 
 - POST请求例子，使用Fiddler抓取的request：
 ```html
@@ -255,7 +256,7 @@ name=Professional%20Ajax&publisher=Wiley
 
 ###### HTTP响应
 **HTTP响应也由四个部分组成，分别是：状态行、消息报头、空行和响应正文**。
-![响应](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_%e5%93%8d%e5%ba%94.png)
+![o_响应](../../images/o_响应.png)
     ```html
     HTTP/1.1 200 OK
     Date: Fri, 22 May 2009 06:07:21 GMT
@@ -273,7 +274,7 @@ name=Professional%20Ajax&publisher=Wiley
 2.**第二行和第三行为消息报头**，Date:生成响应的日期和时间；Content-Type:指定了MIME类型的HTML(text/html),编码类型是UTF8
 3.**空行**，消息报头后面的空行是必须的
 4.**响应正文**，服务器返回给客户端的文本信息。空行后面的html部分为响应正文。
-![response](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_respone.png)
+![response](../../images/o_respone.png)
 
 
 
@@ -340,7 +341,8 @@ name=Professional%20Ajax&publisher=Wiley
     3.GET方式需要使用**Request.QueryString**来取得变量的值，而POST方式通过**Request.Form**来获取变量的值。
     4.**GET方式提交数据，会带来安全问题，比如一个登录页面，通过GET方式提交数据时，用户名和密码将出现在URL上，如果页面可以被缓存或者其他人可以访问这台机器，就可以从历史记录获得该用户的账号和密码**
 
-######HTTP状态码
+###### HTTP状态码
+
 1. 常见状态码
 当浏览者访问一个网页时，浏览者的浏览器会向网页所在服务器发出请求。当浏览器接收并显示网页前，**此网页所在的服务器会返回一个包含HTTP状态码的信息头（server header）用以响应浏览器的请求**。下面是常见的HTTP状态码:**
 **200** - 请求**成功**
@@ -422,7 +424,7 @@ name=Professional%20Ajax&publisher=Wiley
 3. **找到根DNS地址**，**发起请求（请问www.jianshu.com这个域名的IP地址是多少啊？）**，根域发现这是一个顶级域com域的一个域名，于是就告诉运营商的DNS我不知道这个域名的IP地址，但是我知道com域的IP地址，进行第4步
 4. **com域服务器**告诉运营商的DNS我不知道www.jianshu.com这个域名的IP地址，但是我知道jianshu.com这个域的DNS地址，进行第5步
 5. 运营商的DNS又向www.jianshu.com这个域名的DNS地址（这个一般就是由**域名注册商**提供的，像万网，新网等）发起请求，这个时候运营商的DNS服务器就拿到了www.jianshu.com这个域名对应的IP地址，并返回给Windows系统内核，内核又把结果返回给浏览器，终于浏览器拿到了www.jianshu.com对应的IP地址
-![域名解析](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_DNS%e8%af%b7%e6%b1%822.jpg)
+![o_DNS请求2](../../images/o_DNS请求2.jpg)
 
 2.发起TCP的**3次握手**，建立连接（关闭连接时用4次挥手）
 3.建立TCP连接后**发起http请求**

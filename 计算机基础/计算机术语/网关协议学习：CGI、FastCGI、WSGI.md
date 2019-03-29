@@ -108,13 +108,13 @@ WSGI区分为两个部份：一为“服务器”或“网关”，另一为“�
 
 WSGI将 web 组件分为三类： web服务器，web中间件,web应用程序， wsgi基本处理模式为 ： WSGI Server -> (WSGI Middleware)* -> WSGI Application 。
 
-[![wsgi](http://www.biaodianfu.com/wp-content/uploads/2014/08/wsgi.png)](http://www.biaodianfu.com/wp-content/uploads/2014/08/wsgi.png)
+![wsgi](../../images\wsgi.png)
 
 1.WSGI Server/gateway
 
 wsgi server可以理解为一个符合wsgi规范的web server，接收request请求，封装一系列环境变量，按照wsgi规范调用注册的wsgi app，最后将response返回给客户端。文字很难解释清楚wsgi server到底是什么东西，以及做些什么事情，最直观的方式还是看wsgi server的实现代码。以python自带的wsgiref为例，wsgiref是按照wsgi规范实现的一个简单wsgi server。它的代码也不复杂。
 
-[![wsgi-gateway](http://www.biaodianfu.com/wp-content/uploads/2014/08/wsgi-gateway.png)](http://www.biaodianfu.com/wp-content/uploads/2014/08/wsgi-gateway.png)
+![wsgi-gateway](../../images/wsgi-gateway.png)
 
 1. 服务器创建socket，监听端口，等待客户端连接。
 2. 当有请求来时，服务器解析客户端信息放到环境变量environ中，并调用绑定的handler来处理请求。

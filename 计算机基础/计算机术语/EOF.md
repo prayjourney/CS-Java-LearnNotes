@@ -4,7 +4,7 @@
 
 **EOF**是*End Of File*的缩写，在操作系统中表示资料源无更多的资料可读取。资料源通常称为档案或串流。可以理解为换行符。
 **EOF**表示"文字流"（stream）的结尾。这里的"文字流"，可以是文件（file），也可以是标准输入（stdin）
-![eof](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_EOF.jpg)
+![eof](../../images/o_EOF.jpg)
 
 比如，下面这段代码就表示，如果不是文件结尾，就把文件的内容复制到屏幕上。
 ```c

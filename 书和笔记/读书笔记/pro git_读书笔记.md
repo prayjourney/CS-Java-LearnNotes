@@ -14,7 +14,7 @@ Git 项目有*~~三个工作区域~~*的概念：**工作目录**，**暂存区�
 
 Git之中的文件有三种状态，文件可能处于其中之一：**已提交（committed）**、**已修改（modified）**和**已暂存（staged）**。*已提交表示数据已经安全的保存在本地数据库中*。 已修改表示修改了文件，但还没保存到数据库中。 这三种状态其实并不重要，重要的是三个工作区域的概念，已提交表示`git commit -m'xxx'`，文件保存到仓库了，已暂存表示文件已经执行了`git add file`，**已暂存表示对一个已修改文件的当前版本做了标记，使之包含在下次提交的快照中**，已修改表示对于本地工作目录之中的文件，进行了修改，是我们普通创作的基本操作
 
-![工作目录、暂存区域以及 Git 仓库](https://git-scm.com/book/en/v2/images/areas.png)
+![工作目录、暂存区域以及 Git 仓库](../../images/areas.png)
 
 
 
@@ -150,7 +150,7 @@ $ git clone https://github.com/libgit2/libgit2 mylibgit
 
 工作目录下的每一个文件都不外乎这两种状态：**已跟踪**或**未跟踪**。 **已跟踪的文件是指那些被纳入了版本控制的文件，在上一次快照中有它们的记录**，在工作一段时间后，它们的状态可能处于未修改，已修改或已放入暂存区。 工作目录中除已跟踪文件以外的所有其它文件都属于**未跟踪文件，它们既不存在于上次快照的记录中，也没有放入暂存区**。 *初次克隆某个仓库的时候，工作目录中的所有文件都属于已跟踪文件，并处于未修改状态*。编辑过某些文件之后，由于自上次提交后对它们做了修改，Git 将它们标记为已修改文件。 我们逐步将这些修改过的文件放入暂存区，然后提交所有暂存了的修改，如此反复。所以使用 Git 时文件的生命周期如下：
 
-![Git 下文件生命周期图。](https://git-scm.com/book/en/v2/images/lifecycle.png)
+![Git 下文件生命周期图](../../images/lifecycle.png)
 
 要查看哪些文件处于什么状态，可以用 `git status` 命令。 如果在克隆仓库后立即使用此命令，会看到类似这样的输出
 
@@ -952,15 +952,15 @@ $ git commit -m 'The initial commit of my project'
 
 当使用 `git commit` 进行提交操作时，Git 会先计算每一个子目录（本例中只有项目根目录）的校验和，然后在 Git 仓库中这些校验和保存为**树对象**。 随后，**Git 便会创建一个提交对象**，*它除了包含上面提到的那些信息外，还包含指向这个树对象（项目根目录）的* **指针**。如此一来，**Git 就可以在需要的时候重现此次保存的快照**。现在，Git 仓库中有五个对象：**三个 blob 对象**（保存着文件快照）、**一个树对象**（记录着目录结构和 blob 对象索引）以及**一个提交对象**（包含着指向前述树对象的指针和所有提交信息）
 
-![首次提交对象及其树结构。](https://git-scm.com/book/en/v2/images/commit-and-tree.png)
+![首次提交对象及其树结构](../../images/commit-and-tree.png)
 
 如果我们做些修改后再次提交，那么**这次产生的提交对象会包含一个指向上次提交对象（父对象）的指针**
 
-![提交对象及其父对象。](https://git-scm.com/book/en/v2/images/commits-and-parents.png)
+![提交对象及其父对象](../../images/commits-and-parents.png)
 
 **Git 的分支，其实本质上仅仅是指向提交对象的可变指针**。 Git 的默认分支名字是 `master`。 在多次提交操作之后，*其实已经有一个指向最后那个提交对象的 `master` 分支*。 它会在每次的提交操作中自动向前移动
 
-![分支及其提交历史。](https://git-scm.com/book/en/v2/images/branch-and-history.png)
+![分支及其提交历史](../../images/branch-and-history.png)
 
 
 
@@ -968,11 +968,11 @@ $ git commit -m 'The initial commit of my project'
 
 **Git 创建新分支实际相当于它只是创建了一个可以移动的新的指针**。 比如，创建一个 testing 分支， 只需要使用 `git branch testing ` 命令，即可创建一个新的分支，这会**在当前所在的提交对象上创建一个指针**。这会在当前所在的提交对象上创建一个指针
 
-![两个指向相同提交历史的分支。](https://git-scm.com/book/en/v2/images/two-branches.png)
+![两个指向相同提交历史的分支](../../images/two-branches.png)
 
 *当有多个分支时，Git 是怎么知道当前在哪一个分支上呢*？ **它使用名为 `HEAD` 的特殊指针**。在 Git 中，**`HEAD` 指向当前所在的本地分支**（将 `HEAD` 想象为当前分支的别名）。 在本例中，此时仍然在 `master` 分支上。 `git branch` 命令仅仅 *创建* 一个新分支，并不会自动切换到新分支中去。**此时，当前 “master” 和 “testing” 分支均指向校验和以 `f30ab` 开头的提交对象**
 
-![HEAD 指向当前所在的分支。](https://git-scm.com/book/en/v2/images/head-to-master.png)
+![HEAD 指向当前所在的分支](../../images/head-to-master.png)
 
 你可以简单地使用 `git log` 命令查看各个分支当前所指的对象。 提供这一功能的参数是 `--decorate`。
 
@@ -989,7 +989,7 @@ f30ab (HEAD, master, testing) add feature #32 - ability to add new
 
 要切换到一个已存在的分支，需要使用 `git checkout [branche name]` 命令。 `git checkout testing`将分支切换到新创建的 `testing` 分支上，这样 `HEAD` 就指向 `testing` 分支了。就是说，**切换分支，其实是将HEAD指针的位置切换在对应的分支**，而`HEAD` 指针本身指向当前所在的本地分支，就将分支切换过去了
 
-![HEAD 指向当前所在的分支。](https://git-scm.com/book/en/v2/images/head-to-testing.png)
+![HEAD 指向当前所在的分支](../../images/head-to-testing.png)
 
 此时，我们在 `testing` 分支，修改其中的文件内容，然后再次提交
 
@@ -998,9 +998,9 @@ $ vim test.rb
 $ git commit -a -m 'made a change'
 ```
 
-![HEAD 分支随着提交操作自动向前移动。](https://git-scm.com/book/en/v2/images/advance-testing.png)
+![HEAD 分支随着提交操作自动向前移动](../../images/advance-testing.png)
 
-如图所示， `testing` 分支向前移动了，但是 `master` 分支却没有，它仍然指向运行 `git checkout` 时所指的对象。现在我们运行`$ git checkout master`，切换回 `master` 分支，有如下情况，显示了`HEAD` 指针的移动情况![检出时 HEAD 随之移动。](https://git-scm.com/book/en/v2/images/checkout-master.png)
+如图所示， `testing` 分支向前移动了，但是 `master` 分支却没有，它仍然指向运行 `git checkout` 时所指的对象。现在我们运行`$ git checkout master`，切换回 `master` 分支，有如下情况，显示了`HEAD` 指针的移动情况![检出时 HEAD 随之移动](../../images/checkout-master.png)
 
 这条命令做了两件事： **一是使 HEAD 指回 `master` 分支，二是将工作目录恢复成 `master` 分支所指向的快照内容**。 也就是说，现在做修改的话，项目将始于一个较旧的版本。**本质上来讲，这就是忽略 `testing` 分支所做的修改，以便于向另一个方向进行开发**。*分支切换会改变工作目录中的文件，在切换分支时，一定要注意工作目录里的文件会被改变。 如果是切换到一个较旧的分支，你的工作目录会恢复到该分支最后一次提交时的样子*。此时我们在`master` 分支上做些修改并提交
 
@@ -1011,7 +1011,7 @@ $ git commit -a -m 'made other changes'
 
 现在，**此项目的提交历史已经产生了分叉**。 因为我们在两个分支上切换，并且进行了一些修改和提交。 上述两次改动针对的是不同分支，所以导致提交历史有了分叉。我们可以在不同分支间不断地来回切换和工作，在时机成熟时可以将它们合并起来。 完成这些工作需要的命令有 `branch`、`checkout` 和 `commit`
 
-![项目分叉历史。](https://git-scm.com/book/en/v2/images/advance-master.png)
+![项目分叉历史](../../images/advance-master.png)
 
 
 
@@ -1065,7 +1065,7 @@ $ git commit -a -m 'fixed the broken email address'
  1 file changed, 2 insertions(+)
 ```
 
-![基于 `master` 分支的紧急问题分支（hotfix branch）。](https://git-scm.com/book/en/v2/images/basic-branching-4.png)
+![基于 `master` 分支的紧急问题分支](../../images/basic-branching-4.png)
 
 
 
@@ -1082,7 +1082,7 @@ Fast-forward
  1 file changed, 2 insertions(+)
 ```
 
-![`master` 被快进到 `hotfix`。](https://git-scm.com/book/en/v2/images/basic-branching-5.png)
+![`master` 被快进到 `hotfix`](../../images/basic-branching-5.png)
 
 
 
@@ -1095,7 +1095,7 @@ $ git branch -d hotfix
 Deleted branch hotfix (3a0874c).
 ```
 
-![继续在 `iss53` 分支上的工作。](https://git-scm.com/book/en/v2/images/basic-branching-6.png)
+![继续在 `iss53` 分支上的工作](../../images/basic-branching-6.png)
 
 `hotfix`分支已经删除，在 `hotfix` 分支上所做的工作并没有包含到 `iss53` 分支中。 如果需要拉取 `hotfix` 所做的修改，可以使用 `git merge master` 命令将 `master` 分支合并入 `iss53` 分支，或者也可以等到 `iss53` 分支完成其使命，再将其合并回 `master` 分支。
 
@@ -1116,11 +1116,11 @@ index.html |    1 +
 
 这和之前合并 `hotfix` 分支的时候看起来有一点不一样。 在这种情况下，开发历史从一个更早的地方开始分叉开来（diverged）。 因为，`master` 分支所在提交并不是 `iss53` 分支所在提交的直接祖先，Git 不得不做一些额外的工作。 **出现这种情况的时，Git 会使用两个分支的末端所指的快照（`C4` 和 `C5`）以及这两个分支的工作祖先（`C2`），做一个简单的三方合并**。
 
-![一次典型合并中所用到的三个快照。](https://git-scm.com/book/en/v2/images/basic-merging-1.png)
+![一次典型合并中所用到的三个快照](../../images/basic-merging-1.png)
 
 和之前将分支指针向前推进所不同的是，**Git 将此次三方合并的结果做了一个新的快照并且自动创建一个新的提交指向它。 这个被称作一次合并提交，它的特别之处在于他有不止一个父提交**
 
-![一个合并提交。](https://git-scm.com/book/en/v2/images/basic-merging-2.png)
+![一个合并提交](../../images/basic-merging-2.png)
 
 需要指出的是，**Git 会自行决定选取哪一个提交作为最优的共同祖先，并以此作为合并的基础**；这和更加古老的 CVS 系统或者 Subversion （1.5 版本之前）不同，在这些古老的版本管理系统中，用户需要自己选择最佳的合并基础。 Git 的这个优势使其在合并操作上比其他系统要简单很多，在自己的电脑上的例子如下
 
@@ -1177,7 +1177,7 @@ fsdafsaf.txt  m1.txt           pt.txt      tt1.txt  我是一个新建的文档.
 
 分支与合并的情况如图显示，此图之中有两次合并，最新的一次是当前的，此时这两个分支都是处于HEAD处的，但是其实，此时仍然可以在v1和master分支上面各自提交文档或者其他内容，但是一般而言，此时会选择将合并后的分支删除掉，或者保留不再去有新的更新
 
-![branchstatus](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_branchstatus.jpg)
+![branchstatus](../../images/o_branchstatus.jpg)
 
 
 
@@ -1282,7 +1282,7 @@ no changes added to commit (use "git add" and/or "git commit -a")
 
 ```
 
-![gitmergeconflict](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_gitmergeconflict.jpg)
+![gitmergeconflict](../../images/o_gitmergeconflict.jpg)
 
 **任何因包含合并冲突而有待解决的文件，都会以未合并状态标识出来**。 Git 会在有冲突的文件中加入标准的冲突解决标记，这样你可以打开这些包含冲突的文件然后手动解决冲突。 出现冲突的文件会包含一些特殊区段，看起来像下面这个样子
 
@@ -1307,7 +1307,7 @@ please contact us at email.support@github.com
 
 此时冲突文档`mtk.txt`之中的内容如下图，**需要我们手动解决冲突，保留`=======`的以上或者以下的部分，也可以自己修改，添加其他内容，然后存到暂存状态(stash)`git add`，就会消除冲突状态**
 
-![txtstatus](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_txtstatus.jpg)
+![txtstatus](../../images/o_txtstatus.jpg)
 
 ```shell
 hello@PC-HELLO MINGW64 /e/Codes/gittest (master|MERGING)
@@ -1349,7 +1349,7 @@ $
 
 当前的状态如下，此时已经又在各个分支上做了提交操作，表示各个分支已经又改变了，而非仅仅是合并时的情况
 
-![nowsta](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_nowsta.jpg)
+![nowsta](../../images/o_nowsta.jpg)
 
 如果想使用图形化工具来解决冲突，你可以运行 `git mergetool`，该命令会为启动一个合适的可视化合并工具，并一步一步解决这些冲突。解决了冲突之后，如果对结果感到满意，并且确定之前有冲突的的文件都已经暂存了，这时你可以输入 `git commit` 来完成合并提交
 
@@ -1410,11 +1410,11 @@ If you are sure you want to delete it, run 'git branch -D testing'.
 
 一般开发之中，都会有bug产生，然后需要我们去处理和修复这些问题，因此稳定分支的指针总是在提交历史中落后一大截，而前沿分支的指针往往比较靠前。一般而言，我们会fork多个分支，比如`master`,`develop`,作为平行分支，当开发的功能达到一个比较稳定的状态时，就将其合并到`master`分支，这样，在确保这些已完成的特性分支（短期分支，比如之前的 `iss53` 分支）能够通过所有测试，并且不会引入更多 bug 之后，就可以合并入主干分支中，等待下一次的发布
 
-![渐进稳定分支的线性图。](https://git-scm.com/book/en/v2/images/lr-branches-1.png)
+![渐进稳定分支的线性图](../../images/lr-branches-1.png)
 
 通常可以把各个分支的流，想象成流水线（work silos），那些经过测试考验的提交会被遴选到更加稳定的流水线上去
 
-![渐进稳定分支的工作流（“silo”）视图。](https://git-scm.com/book/en/v2/images/lr-branches-2.png)
+![渐进稳定分支的工作流](../../images/lr-branches-2.png)
 
 使用多个长期分支的方法并非必要，但是这么做通常很有帮助，尤其是当你在一个非常庞大或者复杂的项目中工作时，因此而言，使用`git flow`将会是一个有益的尝试
 
@@ -1426,11 +1426,11 @@ If you are sure you want to delete it, run 'git branch -D testing'.
 
 假如，在 `master` 分支上工作到 `C1`，这时为了解决一个问题而新建 `iss91` 分支，在 `iss91`分支上工作到 `C4`，然而对于那个问题我们又有了新的想法，于是可以再新建一个 `iss91v2` 分支试图用另一种方法解决那个问题，接着回到 `master` 分支工作了一会儿，又冒出了一个不太确定的想法，便在 `C10`的时候新建一个 `dumbidea` 分支，并在上面做些实验。 我们的提交记录可以描述如下
 
-![拥有多个特性分支的提交历史。](https://git-scm.com/book/en/v2/images/topic-branches-1.png)
+![拥有多个特性分支的提交历史](../../images/topic-branches-1.png)
 
 现在，我们假设两件事情：决定使用第二个方案来解决那个问题，即使用在 `iss91v2` 分支中方案；另外，当我们将 `dumbidea` 分支拿给其他同事看过之后，结果发现这是个惊人之举。 这时我们可以抛弃 `iss91` 分支（即丢弃 `C5` 和 `C6` 提交），然后把另外两个分支合并入主干分支。 最终我们的提交历史看起来像下
 
-![合并了 `dumbidea` 和 `iss91v2` 分支之后的提交历史。](https://git-scm.com/book/en/v2/images/topic-branches-2.png)
+![合并了 `dumbidea` 和 `iss91v2` 分支之后的提交历史](../../images/topic-branches-2.png)
 
 以上的所有这一切都只发生在本地的 Git 版本库中，暂时没有和服务器发生交互
 
@@ -1448,11 +1448,11 @@ If you are sure you want to delete it, run 'git branch -D testing'.
 
 ~~`“origin”` 并无特殊含义远程仓库名字` “origin”` 与分支名字 `“master”` 一样，在 Git 中并没有任何特别的含义一样。 同时` “master”` 是当我们运行 `git init` 时默认的起始分支名字，原因仅仅是它的广泛使用，`“origin”` 是当你运行 `git clone` 时默认的远程仓库名字。 如果你运行 `git clone -o booyah`，那么你默认的远程分支名字将会是 `booyah/master`。~~从远程`clone`仓库的示意图如下
 
-![克隆之后的服务器与本地仓库。](https://git-scm.com/book/en/v2/images/remote-branches-1.png)
+![克隆之后的服务器与本地仓库](../../images/remote-branches-1.png)
 
 如果在本地的 `master` 分支做了一些工作，然而在同一时间，其他人推送提交到 `git.ourcompany.com`并更新了它的 `master` 分支，那么我们的提交历史将向不同的方向前进。 但是，**只要不与origin 服务器连接 `origin/master` 指针就不会移动， `origin/master` 是远程仓库在本地的分支，`master`是本地仓库的分支**
 
-![本地与远程的工作可以分叉。](https://git-scm.com/book/en/v2/images/remote-branches-2.png)
+![本地与远程的工作可以分叉](../../images/remote-branches-2.png)
 
 
 
@@ -1460,9 +1460,9 @@ If you are sure you want to delete it, run 'git branch -D testing'.
 
 如果远程的仓库有更新，我们要将其同步到本地仓库，可以运行 `git fetch origin` 命令来获取更新。 这个命令查找 “origin” 是哪一个服务器（在本例中，它是 `git.ourcompany.com`），从中抓取本地没有的数据，并且更新本地数据库，移动 `origin/master` 指针指向新的、更新后的位置。**可以看出，当本地和远程有不同的更新时候，其会在最近的共同祖先节点(`f4265`)处分叉** ,下面第二张图片说明了`origin/master`和`master`之间的关系
 
-![`git fetch` 更新你的远程仓库引用。](https://git-scm.com/book/en/v2/images/remote-branches-3.png)
+![`git fetch` 更新你的远程仓库引用](../../images/remote-branches-3.png)
 
-![originandoriginmaster](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_originandoriginmaster.jpg)
+![originandoriginmaster](../../images/o_originandoriginmaster.jpg)
 
 
 
@@ -1470,7 +1470,7 @@ If you are sure you want to delete it, run 'git branch -D testing'.
 
 从远程仓库克隆到本地，Git 的 `clone` 命令会在本地建立两个分支，一个是代表本地仓库分支的`master`，一个是代表远程仓库分支的`origin/master`，当本地修改，提交到远程时，一般这两个指针指向同一个HEAD，但是当本地和远程有不同的操作时，这两个分支的头会有不同，此时就会产生分叉，简而言之，**就是两个不同的分支，一个代表本地分支，一个代表远程分支**。在未改变仓库分支内容时，这两个分支指向是一致的。详细可见**跟踪分支**部分。下图是本地提交，二者合并后的情况
 
-![mergeagain](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_mergeagain.jpg)
+![mergeagain](../../images/o_mergeagain.jpg)
 
 
 
@@ -1478,11 +1478,11 @@ If you are sure you want to delete it, run 'git branch -D testing'.
 
 为了演示有多个远程仓库与远程分支的情况，我们假定有另一个内部 Git 服务器，仅用于 sprint 小组的开发工作。 这个服务器位于 `git.team1.ourcompany.com`。 **我们可以运行 `git remote add` 命令添加一个新的远程仓库引用到当前的项目**。 将这个远程仓库命名为 `teamone`，将其作为整个 URL 的缩写
 
-![添加另一个远程仓库。](https://git-scm.com/book/en/v2/images/remote-branches-4.png)
+![添加另一个远程仓库](../../images/remote-branches-4.png)
 
 此时，*我们可以运行 `git fetch teamone` 来抓取远程仓库 `teamone` 有，而本地没有的数据*。 **因为那台服务器上现有的数据是 `origin` 服务器上的一个子集**，~~所以 Git 并不会抓取数据而是会设置远程跟踪分支 `teamone/master` 指向 `teamone` 的 `master` 分支~~，这相当于新开了一个分支
 
-![远程跟踪分支 `teamone/master`。](https://git-scm.com/book/en/v2/images/remote-branches-5.png)
+![远程跟踪分支 `teamone/master`](../../images/remote-branches-5.png)
 
 
 
@@ -1572,11 +1572,11 @@ To https://github.com/schacon/simplegit
 
 **在当前的git版本中，路径之中出现中文，变基会产生问题**！可以考虑之前的例子，假若之前的开发任务分叉到两个不同分支，又各自提交了更新
 
-![分叉的提交历史。](https://git-scm.com/book/en/v2/images/basic-rebase-1.png)
+![分叉的提交历史](../../images/basic-rebase-1.png)
 
 **整合分支最容易的方法是 `merge` 命令**。 它会把两个分支的最新快照（`C3` 和 `C4`）以及二者最近的共同祖先（`C2`）进行三方合并，合并的结果是生成一个新的快照（并提交）
 
-![通过合并操作来整合分叉了的历史。](https://git-scm.com/book/en/v2/images/basic-rebase-2.png)
+![通过合并操作来整合分叉了的历史](../../images/basic-rebase-2.png)
 
 其实，还有一种方法：**可以提取在 `C4` 中引入的补丁和修改，然后在 `C3` 的基础上应用一次**。 在 Git 中，这种操作就叫做***变基* **。可以使用 `rebase` 命令将提交到某一分支上的所有修改都移至另一分支上，就好像“重新播放”一样。在上面这个例子中，运行
 
@@ -1589,7 +1589,7 @@ Applying: added staged command
 
 **它的原理是首先找到这两个分支（即当前分支 `experiment`、变基操作的目标基底分支 `master`）的最近共同祖先 `C2`，然后对比当前分支相对于该祖先的历次提交，提取相应的修改并存为临时文件，然后将当前分支指向目标基底 `C3`, 最后以此将之前另存为临时文件的修改依序应用**。（写明了 commit id，以便理解，下同）
 
-![将 `C4` 中的修改变基到 `C3` 上。](https://git-scm.com/book/en/v2/images/basic-rebase-3.png)
+![将 `C4` 中的修改变基到 `C3` 上](../../images/basic-rebase-3.png)
 
 现在回到 `master` 分支，进行一次快进合并
 
@@ -1598,7 +1598,7 @@ $ git checkout master
 $ git merge experiment
 ```
 
-![master 分支的快进合并。](https://git-scm.com/book/en/v2/images/basic-rebase-4.png)
+![master 分支的快进合并](../../images/basic-rebase-4.png)
 
 此时，`C4'` 指向的快照就和上面使用 `merge` 命令的例子中 `C5` 指向的快照一模一样了。 这两种整合方法的最终结果没有任何区别，但是**变基使得提交历史更加整洁**。 你在查看一个经过变基的分支的历史记录时会发现，*尽管实际的开发工作是并行的，但它们看上去就像是串行的一样，提交历史是一条直线没有分叉
 
@@ -1828,11 +1828,11 @@ hello@HELLO MINGW64 /f/gittest (v-33)
 $
 ```
 
-![beforerebase](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_beforerebase.jpg)
+![beforerebase](../../images/o_beforerebase.jpg)
 
-![rebaseconflict](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_rebaseconflict.jpg)
+![rebaseconflict](../../images/o_rebaseconflict.jpg)
 
-![afterrebase](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_afterrebase.jpg)
+![afterrebase](../../images/o_afterrebase.jpg)
 
 
 
@@ -1849,7 +1849,7 @@ hello@HELLO MINGW64 /f/gittest (v-rebase)
 $
 ```
 
-![checkoutvrebase](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_checkoutvrebase.jpg)
+![checkoutvrebase](../../images/o_checkoutvrebase.jpg)
 
 ```shell
 hello@HELLO MINGW64 /f/gittest (v-rebase)
@@ -1876,7 +1876,7 @@ $
 
 ```
 
-![afterrebase222](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_afterrebase222.jpg)
+![afterrebase222](../../images/o_afterrebase222.jpg)
 
 
 
@@ -1884,7 +1884,7 @@ $
 
 在对两个分支进行变基时，所生成的“重放”并不一定要在目标分支上应用，**也可以指定另外的一个分支进行应用**。 就像**从一个特性分支里再分出一个特性分支的提交历史中**的例子那样。 我们创建了一个特性分支 `server`，为服务端添加了一些功能，提交了 `C3` 和 `C4`。 然后从 `C3` 上创建了特性分支 `client`，为客户端添加了一些功能，提交了 `C8` 和 `C9`。 最后，回到 `server` 分支，又提交了 `C10`。
 
-![从一个特性分支里再分出一个特性分支的提交历史。](https://git-scm.com/book/en/v2/images/interesting-rebase-1.png)
+![从一个特性分支里再分出一个特性分支的提交历史](../../images/interesting-rebase-1.png)
 
 假设我们希望将 `client` 中的修改合并到主分支并发布，但暂时并不想合并 `server` 中的修改，因为它们还需要经过更全面的测试。 这时，就可以使用 `git rebase` 命令的 `--onto` 选项，选中在 `client` 分支里但不在 `server` 分支里的修改（即 `C8` 和 `C9`），将它们在 `master` 分支上重放
 
@@ -1894,7 +1894,7 @@ $ git rebase --onto master server client
 
 以上命令的意思是：“取出 `client` 分支，找出处于 `client` 分支和 `server` 分支的共同祖先之后的修改，然后把它们在 `master` 分支上重放一遍”。 这理解起来有一点复杂，不过效果非常酷
 
-![截取特性分支上的另一个特性分支，然后变基到其他分支。](https://git-scm.com/book/en/v2/images/interesting-rebase-2.png)
+![截取特性分支上的另一个特性分支，然后变基到其他分支](../../images/interesting-rebase-2.png)
 
 现在可以快进合并 `master` 分支了。（如下图：快进合并 master 分支，使之包含来自 client 分支的修改）
 
@@ -1903,7 +1903,7 @@ $ git checkout master
 $ git merge client
 ```
 
-![快进合并 master 分支，使之包含来自 client 分支的修改。](https://git-scm.com/book/en/v2/images/interesting-rebase-3.png)
+![快进合并 master 分支，使之包含来自 client 分支的修改](../../images/interesting-rebase-3.png)
 
 接下来我们决定将 `server` 分支中的修改也整合进来。 使用 `git rebase [basebranch] [topicbranch]` 命令可以直接将特性分支（即本例中的 `server`）变基到目标分支（即 `master`）上。这样做能省去你先切换到 `server`分支，再对其执行变基命令的多个步骤。
 
@@ -1913,7 +1913,7 @@ $ git rebase master server
 
 如下图(将 server 中的修改变基到 master)上所示，`server` 中的代码被“续”到了 `master` 后面。
 
-![将 server 中的修改变基到 master 上。](https://git-scm.com/book/en/v2/images/interesting-rebase-4.png)
+![将 server 中的修改变基到 master 上](../../images/interesting-rebase-4.png)
 
 然后就可以快进合并主分支 master 了
 
@@ -1929,7 +1929,7 @@ $ git branch -d client
 $ git branch -d server
 ```
 
-![最终的提交历史。](https://git-scm.com/book/en/v2/images/interesting-rebase-5.png)
+![最终的提交历史](../../images/interesting-rebase-5.png)
 
 
 

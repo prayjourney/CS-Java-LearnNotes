@@ -3,15 +3,16 @@
 #### 概述
 首先放图
 
-![TCP,IP,HTTP,SOCKET区别和联系](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_TCP,IP,HTTP,SOCKET%e5%8c%ba%e5%88%ab%e5%92%8c%e8%81%94%e7%b3%bb2.png)
+![o_TCP,IP,HTTP,SOCKET区别和联系2](../../images/o_TCP,IP,HTTP,SOCKET区别和联系2.png)
 
 通过上图，我们可以回顾TCP/IP体系的5（4）层架构，与**各个层运行的主要的协议**，从上面看还不太清楚，可以看下面，**HTTP**对应**应用层**，**TCP**对应**传输层**，HTTP高于TCP，这就说明**TCP协议是为HTTP协议服务的**，实际上也是如此，++TCP协议为HTTP提供可靠交付的协议++，**需要说明的是HTTP协议是基于TCP服务的，<font color=red>没有基于UDP的版本</font>**。
 进一步，还可以看出的是，IP协议对应于网络层，在TCP协议之下，因此**IP协议为TCP协议提供服务**，++IP协议本身是一个**尽力**交付的协议，但是*配合ICMP(英特网报文控制协议)，就可以提供可靠交付的服务*。
 
-![TCP,IP,HTTP,SOCKET区别和联系](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_TCP,IP,HTTP,SOCKET%e5%8c%ba%e5%88%ab%e5%92%8c%e8%81%94%e7%b3%bb.png)
+![o_TCP,IP,HTTP,SOCKET区别和联系](../../images/o_TCP,IP,HTTP,SOCKET区别和联系.png)
 
 但是上图没有体现出Socket的概念，其实，**Socket是一个抽象出来的概念**，其目的在于方便我们对于TCP或者UPD传输协议的使用，**是面向于编程语言层级**的，位于**应用层**（HTTP）与**传输层**（TCP）“之间”，++<font color=red>方便编程的使用</font>++。
-######各自阐述
+
+###### 各自阐述
 <font color=Blue>HTTP是**轿车**，提供了封装或者显示数据的具体形式；Socket是**车轮**，提供了通信的驱动力，TCP是**发动机**，提供了原始的通信能力</font>。
 
 | 名称 | 层次 | 作用 | 备注 |

@@ -6,7 +6,7 @@ SSL/TLS作为一种互联网安全加密技术，原理较为复杂，枯燥而�
 ##### SSL/TLS概览
 1.1 整体结构
 **SSL是一个介于HTTP协议与TCP之间的一个可选层**，其位置大致如下:
-![SSL/TLS概览](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_SSL%e5%92%8cTSL.png)
+![o_SSL和TSL](../../images/o_SSL和TSL.png)
 
 **SSL**：**（Secure Socket Layer，安全套接字层）**，为Netscape所研发，用以保障在Internet上数据传输之安全，利用数据加密(Encryption)技术，可确保数据在网络上之传输过程中不会被截取。当前版本为3.0。它已被广泛地用于Web浏览器与服务器之间的身份认证和加密数据传输。**SSL协议位于TCP/IP协议与各种应用层协议之间，为数据通讯提供安全支持**。SSL协议可分为两层： **SSL记录协议（SSL Record Protocol）**：*它建立在可靠的传输协议（如TCP）之上，为高层协议提供数据封装、压缩、加密等基本功能的支持*。 **SSL握手协议（SSL Handshake Protocol）**：*它建立在SSL记录协议之上，用于在实际的数据传输开始前，通讯双方进行身份认证、协商加密算法、交换加密密钥等*。
 **TLS**：**(Transport Layer Security，传输层安全协议)**，*用于两个应用程序之间提供保密性和数据完整性*。TLS 1.0是IETF（Internet Engineering Task Force，Internet工程任务组）制定的一种新的协议，它**建立在SSL 3.0协议规范之上**，是SSL 3.0的后续版本，可以理解为SSL 3.1，它是写入了 RFC 的。该协议由两层组成： TLS 记录协议（TLS Record）和 TLS 握手协议（TLS Handshake）。较低的层为 TLS 记录协议，位于某个可靠的传输协议（例如 TCP）上面。
@@ -46,7 +46,7 @@ certificate_verify和finished消息：SSLv3.0和TLS在用certificate_verify和fi
 ==由于非对称加密的速度比较慢，所以它一般用于密钥交换，双方通过公钥算法协商出一份密钥，然后通过对称加密来通信==，当然，为了保证数据的完整性，在加密前要先经过HMAC的处理。
 
 SSL缺省只进行server端的认证，客户端的认证是可选的。以下是其流程图（摘自TLS协议）。
-![TLS握手](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_TSL%e6%8f%a1%e6%89%8b.png)
+![o_TSL握手](../../images/o_TSL握手.png)
 
 2.1 **客户端发出请求**（ClientHello）
 由于客户端(如浏览器)对一些加解密算法的支持程度不一样，但是在TLS协议传输过程中必须使用同一套加解密算法才能保证数据能够正常的加解密。**在TLS握手阶段，客户端首先要告知服务端，自己支持哪些加密算法，所以客户端需要将本地支持的加密套件(Cipher Suite)的列表传送给服务端**。除此之外，**客户端还要产生一个随机数**，这个随机数一方面需要在客户端保存，另一方面需要传送给服务端，客户端的随机数需要跟服务端产生的随机数结合起来产生后面要讲到的*Master Secret*
@@ -89,7 +89,7 @@ SSL缺省只进行server端的认证，客户端的认证是可选的。以下�
 **Secret Keys**:上面的分析和讲解主要是为了突出握手的过程，所以**PreMaster secret**，**Master secret**，**session secret**都是一代而过，但是对于Https，SSL/TLS深入的理解和掌握，这些**Secret Keys**是非常重要的部分。所以，准备把这些Secret Keys抽出来单独分析和讲解。
 
 我们先来看看这些Secret Keys的生成过程以及作用流程图：
-![secret](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_secret.png)
+![secret](../../images/o_secret.png)
 
 **PreMaster secret**
 PreMaster Secret是在客户端使用RSA或者Diffie-Hellman等加密算法生成的。它将用来跟服务端和客户端在Hello阶段产生的随机数结合在一起生成 Master Secret。在客户端使用服务端的公钥对PreMaster Secret进行加密之后传送给服务端，服务端将使用私钥进行解密得到PreMaster secret。也就是说服务端和客户端都有一份相同的PreMaster secret和随机数。
@@ -99,7 +99,7 @@ PreMaster Secret是在客户端使用RSA或者Diffie-Hellman等加密算法生�
 上面已经提到，由于服务端和客户端都有一份相同的PreMaster secret和随机数，这个随机数将作为后面产生Master secret的种子，结合PreMaster secret，客户端和服务端将计算出同样的Master secret。
 
 Master secret是一系列的hash值组成的，它将作为数据加解密相关的secret的 Key Material 的一部分。Key Material最终解析出来的数据如下：
-![key123](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_key123.png)
+![key123](../../images/o_key123.png)
 
 其中，write MAC key，就是session secret或者说是session key。Client write MAC key是客户端发数据的session secret，Server write MAC secret是服务端发送数据的session key。MAC(Message Authentication Code)，是一个数字签名，用来验证数据的完整性，可以检测到数据是否被串改。
 ==*关于Session Secret(Key)的计算请参考[Https SSL/TLS Session Secret(Key)计算](http://www.fenesky.com/blog/2014/07/25/how-session-secret.html)*==

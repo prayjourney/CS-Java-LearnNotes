@@ -4,7 +4,7 @@
 
 ###### HTTPS简介
 **HTTPS是运行于SSL/TLS的Http版本**，其有是有两部分组成：**HTTP**和**SSL/TLS**，++也就是在HTTP上又加了一层处理加密信息的模块++。服务端和客户端的信息传输都会通过TLS进行加密，所以++传输的数据都是加密后的数据++。具体是如何进行加密，解密，验证的，且看下图。
-![httpsinfo](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_httpsinfo.png)
+![httpsinfo](../../images/o_httpsinfo.png)
 
 
 
