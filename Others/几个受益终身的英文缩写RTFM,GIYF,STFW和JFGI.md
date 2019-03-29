@@ -16,7 +16,7 @@ RTFM 是 Read The Fucking Manual 的缩写，译为中文大概可以是“去�
 
 读手册是治根治本的方法，但不那么容易见效，而且许多知识没有人整理成手册。所以很多时候遇到急事，就不那么容易通过 RTFM 来解决了，这时我们要记得 GIYF。GIYF 就是 Google Is Your Friend，当遇到少见的代码编译错误号，连接数据库抛出异常，遇到一个没见过的英文缩写，或者在 A 机运行正常的代码在 B 机总是跑不起来，就是到了去探访 Google 这个朋友的时候了！
 
-![img](http://www.kuqin.com/upimg/allimg/120207/0G6122300-0.gif)
+![0G6122300-0](../images/0G6122300-0.png)
 
 ### STFW 和 JFGI
 
@@ -24,7 +24,7 @@ RTFM 是 Read The Fucking Manual 的缩写，译为中文大概可以是“去�
 
 ### 小结
 
-![img](http://www.kuqin.com/upimg/allimg/120207/0G6126096-1.jpg)
+![0G6126096-1](../images/0G6126096-1.jpg)
 
 其实这几个缩写的核心思想都是一致的：就是自己的问题自己想办法解决。不要把论坛、maillist、同学同事、亲戚朋友或客服电话看作解决问题的第一选择。要有 the buck stops here （什么意思？JFGI！）的责任心和勇气，摆脱对其他人的依赖，才能真正提高自己。
 
