@@ -25,8 +25,9 @@ root用户的密码可以修改也可以不修改, 最好修改, 如下是linux�
 ##### 注意的点
 
 回顾整个安装的过程, 其实关键点在于**配置**, 也就是在` /etc/my.cnf `之中的配置, 我们需要在 mariadb安装目录下的support-files文件夹之中选择一个配置模板, 一般我们个人选择my-medium.cnf 或者my-large.cnf 即可,将其复制到`/etc/my.cnf`之中, 然后在`/etc/my.cnf`之中添加`basedir = /usr/local/mariadb`, 也就是数据库的安装目录, 完成后保存.
-[![mysqlinstall1.png](../images/mysqlinstall1.png)]()
+![mysqlinstall1.png](../images/mysqlinstall1.png)
 初次安装, 要**创建mysql用户和组, 并给当前目录赋予权限**:
+
 ```bash
 groupadd mysql
 useradd -r -g mysql -s /sbin/nologin mysql
@@ -41,7 +42,7 @@ chown -R mysql data/
 启动脚本 : `bin/mysqld_safe --user=mysql & `
 添加mysql到系统服务目录： `cp support-files/mysql.server /etc/init.d/mysqld `
 如果是之前安装过mysql，那么现在就已经启动了，第一次安装需要手动启动服务： `/etc/init.d/mysqld start `
-[![mysqlinstall2.png](../images/mysqlinstall2.png)]()
-[![mysqlinstall3.png](../images/mysqlinstall3.png)]()
+![mysqlinstall2.png](../images/mysqlinstall2.png)
+![mysqlinstall3.png](../images/mysqlinstall3.png)
 
 

@@ -28,10 +28,10 @@ git commit -m "注释语句1"
 ------
 
 **第四步：去github上创建自己的Repository，创建页面如下图所示：** 
-![这里写图片描述](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/gh1.jpg)
+![gh1](../images/gh1.jpg)
 
 **点击下面的Create repository，就会进入到类似下面的一个页面，拿到创建的仓库的https地址，红框标示的就是** 
-![这里写图片描述](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/gh2.jpg)
+![gh2](../images/gh2.jpg)
 
 **第五步：重点来了，将本地的仓库关联到github上**
 
@@ -49,7 +49,7 @@ git pull origin master1
 
 **敲回车后，会执行输出类似如下** 
 
-![这里写图片描述](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/gh3.jpg)
+![gh3](../images/gh3.jpg)
 
 
 
@@ -64,7 +64,7 @@ git push -u origin master1
 **执行完后，如果没有异常，等待执行完就上传成功了，中间可能会让你输入Username和Password，你只要输入github的账号和密码就行了**
 
 **最后附上代码上传成功后的截图：** 
-![这里写图片描述](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/gh4.jpg)
+![gh4](../images/gh4.jpg)
 
 
 

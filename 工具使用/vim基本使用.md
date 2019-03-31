@@ -400,12 +400,13 @@ vim -d a.txt b.txt
 看完**diff**，用 `:only` 回到原本编辑的文件，觉得`diff`的讨厌颜色还是在哪里，只要用`:diffoff`关闭就好了。
 还有个常用的`diff`中的就是`:diffu`,这个是`diffupdate`的简写，更新的时候用。
 Vim的`diff`能显示效果如下所示：
-![linuxdiff](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_linuxdiff.jpg)
+![linuxdiff](../images/o_linuxdiff.jpg)
 **sort**
 Linux命令`sort`可以对文本内容进行按行中的字符比较、排序，但在终端里使用`sort` 命令处理文件，并不能实时查看文件内容。具体用法请自查手册。
 **xxd**
 `vim+xxd`是Linux下最常用的二进制文本编辑工具，`xxd`其实是Vim外部的一个转换程序，随Vim一起发布，在Vim里调用它来编辑二进制文本非常方便。
 首先以二进制模式在终端里打开一个文件：
+
 ```vim
 vim -b filename
 ```

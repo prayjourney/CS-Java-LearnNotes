@@ -12,7 +12,7 @@
 
 【箭头指向】：**带三角箭头的实线，箭头指向父类**
 
-![img](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_uml1.gif)
+![img](../images/o_uml1.gif)
 
 
 
@@ -22,7 +22,7 @@
 
 【箭头指向】：**带三角箭头的虚线，箭头指向接口**
 
-![img](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_uml2.gif)
+![img](../images/o_uml2.gif)
 
 
 
@@ -36,11 +36,11 @@
 
 【箭头及指向】：**带普通箭头的实心线，指向被拥有者**
 
-![img](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_uml3.gif)
+![img](../images/o_uml3.gif)
 
 上图中，老师与学生是双向关联，老师有多名学生，学生也可能有多名老师。但学生与某课程间的关系为单向关联，一名学生可能要上多门课程，课程是个抽象的东西他不拥有学生。下图为自身关联
 
-![img](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_uml4.gif)
+![img](../images/o_uml4.gif)
 
 
 
@@ -54,7 +54,7 @@
 
 【箭头及指向】：**带空心菱形的实心线，菱形指向整体**
 
-![img](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_uml5.gif)
+![img](../images/o_uml5.gif)
 
 
 
@@ -66,7 +66,7 @@
 
 【箭头及指向】：**带实心菱形的实线，菱形指向整体**
 
-![img](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_uml6.gif)
+![img](../images/o_uml6.gif)
 
 
 
@@ -78,7 +78,7 @@
 
 【箭头及指向】：**带箭头的虚线，指向被使用者**
 
- ![img](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_uml7.gif)
+ ![img](../images/o_uml7.gif)
 
 
 
@@ -88,7 +88,7 @@
 
 下面这张UML图，比较形象地展示了各种类图关系：
 
-![img](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_uml8.gif)
+![img](../images/o_uml8.gif)
 
 
 

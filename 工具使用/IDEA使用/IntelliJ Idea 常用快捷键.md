@@ -2,11 +2,11 @@
 
 ***
 
-![ideakey1](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_ideakey1.png)
+![ideakey1](C:\src-repo\CS-Java-LearnNotes\images\o_ideakey1.png)
 
-![ideakey1](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_ideakey2.png)
+![ideakey1](C:\src-repo\CS-Java-LearnNotes\images\o_ideakey2.png)
 
-![ideakey1](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_ideakey3.png)
+![ideakey1](C:\src-repo\CS-Java-LearnNotes\images\o_ideakey3.png)
 
 级别：1.红，2.蓝，3.绿，4.黑
 
@@ -314,19 +314,19 @@ Ctrl+Alt+N，内联
   - 选中对象后，拖动对象到 `Watches`。
   - 选中对象后，鼠标悬停在对象上 2 秒左右
 
-![img1](https://raw.githubusercontent.com/prayjourney/_mypictures/master/dev/bebug1.gif)
+![img1](../../images/bebug1111.gif)
 
 ② 如下图 Gif 所示，在弹出表达式输入框中 IntelliJ IDEA 也是能帮我们智能提示。
-![img2](https://raw.githubusercontent.com/prayjourney/_mypictures/master/dev/bebug2.gif)
+![img1](../../images/bebug2222.gif)
 
 ③ 如下图 Gif 所示，当我们需要过掉后面的所有断点的时候，我们不需要去掉这些断点，只需要点击左下角那个小圆点，点击小圆点之后，所有断点变成灰色，然后我们再在按快捷键 F9 即可过掉当前和后面所有的断点。
-![img3](https://raw.githubusercontent.com/prayjourney/_mypictures/master/dev/bebug3.gif)
+![img3](../../images/bebug3333.gif)
 
 ④ 如下图 Gif 所示，我们可以给断点设置进入的条件，因为变量 temp3 不等于 200 所以该断点没有被进入直接跳过。
-![img4](https://raw.githubusercontent.com/prayjourney/_mypictures/master/dev/bebug4.gif)
+![img4](../../images/bebug4444.gif)
 
 ⑤ 如 下图Gif 演示，有时候当我们步入方法体之后，还想回退到方法体外，断点进入 addNum 方法后，点击 Drop Frame 按钮之后，断点重新回到方法体之外。
-![img5](https://raw.githubusercontent.com/prayjourney/_mypictures/master/dev/bebug5.gif)
+![img5](../../images/bebug5555.gif)
 
 
 
@@ -334,11 +334,11 @@ Ctrl+Alt+N，内联
 
 设置多窗口没有快捷键, 需要自己设置, 我设置的水平分割是SHIFT+H, 垂直分割是SHIFT+V, 设置如下
 
-![](../images/settingshfs.png)
+![](../../images/settingshfs.png)
 
 显示效果如下
 
-![](../images/settingsplitshow.png)
+![](../../images/settingsplitshow.png)
 
 
 
@@ -346,7 +346,7 @@ Ctrl+Alt+N，内联
 
 在Project窗口设置如下*Setting*--->*sort by type*--->*folders always on top*
 
-![](../images/filesorted.png)
+![](../../images/filesorted.png)
 
 ref:
 
