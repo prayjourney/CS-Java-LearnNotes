@@ -1,4 +1,4 @@
-### Python基本语法
+### Python基本语法-下篇
 - - -
 接上[Python基本语法(1)](https://github.com/prayjourney/SummaryOfProgramming/blob/master/Python%E5%9F%BA%E6%9C%AC%E8%AF%AD%E6%B3%95(1).md)
 - - -
@@ -195,8 +195,9 @@
    x("qwe")
 ```
 其运行结果如下：
-![lambda默认值](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_lambda.png)
+![lambda默认值](../../images/o_lambda.png)
 lambda表达式通常来写跳转表（包含行为的列表或者字典），**lambda针对*小段的内联代码，而且专注于在使用`def`定义时繁琐的情况下**，++**lambda表达式之中通常是*短小精悍的*==逻辑代码==**++，在实践之中，最好别嵌套lambda表达式。
+
 ```python
 	#lambda表达式写跳转表
     L = [(lambda x: x**2),
@@ -209,7 +210,7 @@ lambda表达式通常来写跳转表（包含行为的列表或者字典），**
         'f3':(lambda: 2**3)}
     print(D['f1'](),D['f2'](),D['f3']())
 ```
-![运行情况](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_111.png)
+![运行情况](../../images/o_111.png)
 ```python
 	#python交互模式下lambda表达式嵌套的情况
     >>> action=lambda x:(lambda y:x+y)
@@ -218,7 +219,7 @@ lambda表达式通常来写跳转表（包含行为的列表或者字典），**
     <function <lambda>.<locals>.<lambda> at 0x00000000040EF0D0>#说明了返回的是函数
     >>> act(3)
 ```
-![lambda嵌套](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_222.png)
+![lambda嵌套](../../images/o_222.png)
 11.标准库学习
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*0.[learn_python_module.ipynb](https://github.com/prayjourney/PythonModuleNotes/blob/master/learn_python_module.ipynb)*
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*1.[Python pdb模块.md](https://github.com/prayjourney/SummaryOfProgramming/blob/master/%E7%BC%96%E7%A0%81/Python/Python%20pdb%E6%A8%A1%E5%9D%97.md)*
@@ -226,6 +227,7 @@ lambda表达式通常来写跳转表（包含行为的列表或者字典），**
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*3.[Python io, os, shutil.md](https://github.com/prayjourney/SummaryOfProgramming/blob/master/%E7%BC%96%E7%A0%81/Python/Python%20io%2C%20os%2C%20shutil.md)*
 12.注意（待续）
 &nbsp;&nbsp;在Python之中，字符的处理对于编码有要求，Python默认的字符集对于中文的支持不太好，所以我们需要在__*每个py文件的第一句，写上如下代码:*__
+
 ```python
 # -*- coding: utf-8 -*-
 ```

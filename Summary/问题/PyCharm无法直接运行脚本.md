@@ -4,19 +4,15 @@
 
 ##### 情况
 
-此处所说的无法直接运行脚本是指只有unittest run，有两种可能行会导致这样，一个是默认的配置，一个是脚本文件命名，名称开头不能出现test字样
+此处所说的无法直接运行脚本是指
 
+ython和Python tests两个部分，把要运行的文件配置从Python tests删掉加在Python里就可以了。这是因为最开始直接run的时候没选，所以默认按照单元测试run的，这个保存到本地配置里了，所以你下次每次运行都会按照单元测试跑，使用Alt+Shift+F10调出Edit Configurations
 
-
-##### 变成普通的运行
-
-从unittest run变成普通的run，如果当前是unittest in xxx.py的时候，菜单栏里选Run，然后选Edit Configurations，然后会发现有Python和Python tests两个部分，把要运行的文件配置从Python tests删掉加在Python里就可以了。这是因为最开始直接run的时候没选，所以默认按照单元测试run的，这个保存到本地配置里了，所以你下次每次运行都会按照单元测试跑，使用Alt+Shift+F10调出Edit Configurations
-
-![keykeykey](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_keykeykey.png)
+![keykeykey](../../images/o_keykeykey.png)
 
 对于一个文件想单独run的时候，在菜单栏Run里选Run...,然后会弹出两个选择一个是xxx.py 另一个是 unittest in xxx.py，模拟效果如下
 
-![deleteshow](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_deleteshow.gif)
+![deleteshow](../../images/o_deleteshow.gif)
 
 
 

@@ -1,8 +1,7 @@
-### JSON
+### json介绍
 
-***
+---
 
-##### JSON介绍
 **JSON**(JavaScript Object Notation, JS 对象标记) 是一种轻量级的数据交换格式。它基于 **ECMAScript** (w3c制定的js规范)的一个子集，采用完全独立于编程语言的文本格式来存储和表示数据。简洁和清晰的层次结构使得 JSON 成为理想的数据交换语言。 易于人阅读和编写，同时也易于机器解析和生成，并有效地提升网络传输效率。JSON 文件的文件类型是 ".json"，JSON 文本的 MIME 类型是 "application/json"
 
 
@@ -192,3 +191,4 @@ document.getElementById("demo").innerHTML = myJSON1;
 
 ref:
 1.[JavaScript JSON](http://www.runoob.com/js/js-json.html),  2.[JS操作JSON总结](http://www.cnblogs.com/worfdream/articles/1956449.html),  3.[【简明教程】JSON](http://www.jianshu.com/p/8b428e1d1564),  4.[JSON 语法](http://www.runoob.com/json/json-syntax.html),  5.[JSON 对象](http://www.runoob.com/json/js-json-objects.html),  6.[JSON 数组](http://www.runoob.com/json/js-json-arrays.html),  7.[JSON.parse()](http://www.runoob.com/json/json-parse.html),  8.[JSON.stringify()](http://www.runoob.com/json/json-stringify.html)
+

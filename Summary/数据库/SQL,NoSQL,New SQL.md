@@ -39,7 +39,7 @@ SQL和No SQL两者存在许多显著的不同点，其中最重要的是NoSQL不
   图形结构的数据库同其他行列以及刚性结构的SQL数据库不同，它是使用灵活的图形模型，并且能够扩展到多个服务器上。NoSQL数据库没有标准的查询语言(SQL)，因此进行数据库查询需要制定数据模型。许多NoSQL数据库都有REST式的数据接口或者查询API。如：Neo4J, InfoGrid, Infinite Graph.
 
 
-![nosql](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/NoSQL.png)
+![nosql](../../images/NoSQL.png)
 
 ###### 适用情况
 NoSQL数据库在以下的这几种情况下比较适用：1、数据模型比较简单；2、需要灵活性更强的IT系统；3、对数据库性能要求较高；4、不需要高度的数据一致性；5、对于给定key，比较容易映射复杂值的环境。

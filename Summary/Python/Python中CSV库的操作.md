@@ -6,7 +6,7 @@
 
 CSV是Comma-Separated Values的缩写，CSV文件格式是一种通用的电子表格和数据库导入导出格，是用文本文件形式储存的表格数据，比如如下的表格：
 
-![tablecontent](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_tablecontent.jpg)
+![tablecontent](../../images/o_tablecontent.jpg)
 
 就可以存储为csv文件，文件内容是：
 

@@ -16,7 +16,7 @@
 
 现有文件如下
 
-![readsheet](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_readsheet.jpg)
+![readsheet](../../images/o_readsheet.jpg)
 
 首先用
 ```python
@@ -92,7 +92,7 @@ wb.save('保存一个新的excel.xlsx')
 
 显示效果如下
 
-![writesheet](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_writesheet.jpg)
+![writesheet](../../images/o_writesheet.jpg)
 
 
 

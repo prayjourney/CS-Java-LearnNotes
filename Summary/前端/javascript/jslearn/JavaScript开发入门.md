@@ -89,7 +89,7 @@ e.引入方式选择依据
 ```
 
 2.DOM树 
-![这里写图片描述](http://img.blog.csdn.net/20170511162928680?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](../../../../images/SouthEastrtete.png)
 
 3.DOM主要节点
 
@@ -361,7 +361,7 @@ e.针对节点属性的操作
             outerText：设置（包含标签本身）或获取（不包括标签）对象的文本
 ```
 
-![这里写图片描述](http://img.blog.csdn.net/20170511163628721?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](../../../../images/SouthEastertet.png)
 
 ```
             兼容：FF不支持innerText和outerText
@@ -392,7 +392,7 @@ e.针对节点属性的操作
     // boxEle.outerText = "内容";
 ```
 
-![这里写图片描述](http://img.blog.csdn.net/20170511163850018?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](../../../../images/SouthEastfsdafas.png)
 
 ##### 四、详解
 

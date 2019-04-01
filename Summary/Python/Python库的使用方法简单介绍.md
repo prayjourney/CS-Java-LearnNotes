@@ -1,4 +1,4 @@
-### Python库的使用方法简单介绍
+Python库的使用方法简单介绍
 
 ***
 Python有各种各样的库，为开发提供了很大的便利，但是如何使用这些库呢？
@@ -18,15 +18,15 @@ Python有各种各样的库，为开发提供了很大的便利，但是如何�
 
 ##### 图片支持
 类的构造函数
-![类的构造函数](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_%e7%b1%bb%e7%9a%84%e6%9e%84%e9%80%a0%e5%87%bd%e6%95%b0.png)
+![o_类的构造函数](../../images/o_类的构造函数.png)
 模块之中的类
-![模块之中的类](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_%e6%a8%a1%e5%9d%97%e4%b9%8b%e4%b8%ad%e7%9a%84%e7%b1%bb.png)
+![o_模块之中的类](../../images/o_模块之中的类.png)
 模块之中的函数
-![模块之中的函数](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_%e6%a8%a1%e5%9d%97%e4%b9%8b%e4%b8%ad%e7%9a%84%e5%87%bd%e6%95%b0.png)
+![o_模块之中的函数](../../images/o_模块之中的函数.png)
 模块之中的字段
-![模块之中的字段](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_%e6%a8%a1%e5%9d%97%e4%b9%8b%e4%b8%ad%e7%9a%84%e5%ad%97%e6%ae%b5.png)
+![o_模块之中的字段](../../images/o_模块之中的字段.png)
 函数的参数与返回值
-![函数的参数](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_%e5%87%bd%e6%95%b0%e7%9a%84%e5%8f%82%e6%95%b0.png)
+![o_函数的参数](../../images/o_函数的参数.png)
 
 
 
@@ -49,4 +49,4 @@ from time import struct_time
 st=struct_time((1992,2,5,2,3,4,1,2,8))#使用模块之中的类,调用模块之中的方法
 print("年："+str(st.tm_year),"日："+str(st.tm_mday))
 ```
-![Python库的使用](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_Python%e5%ba%93%e7%9a%84%e4%bd%bf%e7%94%a8.png)
+![o_Python库的使用](../../images/o_Python库的使用.png)

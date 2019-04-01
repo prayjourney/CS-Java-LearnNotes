@@ -286,7 +286,7 @@ d.标签名选择器                0001
 e.伪类选择器                 0010
 ```
 
-![这里写图片描述](http://img.blog.csdn.net/20170511153128259?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](../../../../images/SouthEastweqweqw.png)
 
 CSS选择器优先级 
 <http://www.h5course.com/a/20150527191.html>
@@ -784,7 +784,7 @@ c.标签之间的距离 —— 外边距
 
 ```
 
-![这里写图片描述](http://img.blog.csdn.net/20170511153043882?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](../../../../images/SouthEastertewtwre.png)
 
 2．外边距 margin
 
@@ -1403,7 +1403,7 @@ b.二维变形与三维变形的区别
 
 ```
 
-![这里写图片描述](http://img.blog.csdn.net/20170511152915896?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](../../../../images/SouthEast123123asfa.png)
 
 ```
     1)旋转
@@ -1438,7 +1438,7 @@ a.浏览器支持程度
 
 ```
 
-![这里写图片描述](http://img.blog.csdn.net/20170511154444871?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](../../../../images/SouthEastdasfasdfgsd.png)
 
 ```
 b.拆分书写

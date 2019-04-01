@@ -4,19 +4,19 @@
 
 
 ### Selenium发展历史
-![se](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_se.jpg)
+![se](../../images/o_se.jpg)
 Jason Huggins在2004年发起了Selenium项目，当时身处ThoughtWorks的他，为了不想让自己的时间浪费在无聊的重复性工作中，幸运的是，所有被测试的浏览器都支持Javascript。Jason和他所在的团队采用Javascript编写一种测试工具来验证浏览器页面的行为；这个JavaScript类库就是Selenium core，同时也是seleniumRC、Selenium IDE的核心组件。Selenium由此诞生。
 关于Selenium的命名比较有意思，当时QTP mercury是主流的商业自化工具，是化学元素汞（俗称水银），而Selenium是开源自动化工具，是化学元素硒，硒可以对抗汞。
 
 ##### Selenium 1.0
-![se10](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_se10.jpg)
+![se10](../../images/o_se10.jpg)
 用简单的公式：
 **Selenium 1.0** = Selenium IDE + Selenium Grid + Selenium RC
 
 **Selenium IDE**：Selenium IDE是嵌入到Firefox浏览器中的一个插件，实现简单的浏览器操作的录制与回放功能。
 **Selenium Grid**：Selenium Grid是一种自动化的测试辅助工具，Grid通过利用现有的计算机基础设施，能加快Web-App的功能测试。利用Grid可以很方便地实现在多台机器上和异构环境中运行测试用例。
 **Selenium RC(Remote Control)**:是Selenium家族的核心部分。Selenium RC 支持多种不同语言编写的自动化测试脚本，通过Selenium RC的服务器作为代理服务器去访问应用，从而达到测试的目的。*Selenium RC分为Client Libraries和Selenium Server*。Client Libraries库主要用于编写测试脚本，用来控制Selenium Server的库。Selenium Server负责控制浏览器行为。所以，我们在学习Selenium1.0的时候，核心应该是学习RC，它的工作原理是这样的：
-![se10rc](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_se10rc.jpg)
+![se10rc](../../images/o_se10rc.jpg)
 在2006年的时候，Google的工程师Simon Stewart发起了WebDriver的项目；因为长期以来Google一直是Selenium的重度用户，但却被限制在有限的操作范围内。**Selenium RC 是在浏览器中运行JavaScript应用**，使用浏览器内置的JavaScript翻译器来翻译和执行selenese命令（selenese是Selenium命令集合）。**WebDriver是通过原生浏览器支持或者浏览器扩展来直接控制浏览器**。WebDriver针对各个浏览器而开发，取代了嵌入到被测Web应用中的JavaScript，与浏览器紧密集成，因此支持创建更高级的测试，避免了JavaScript安全模型导致的限制。除了来自浏览器厂商的支持之外，WebDriver还利用操作系统级的调用，模拟用户输入。
 Selenium与WebDriver原是属于两个不同的项目，WebDriver的创建者Simon Stewart早在2009年8月的一份邮件中解释了项目合并的原因。*Selenium与WebDriver合并原因：为何把两个项目合并？部分原因是WebDriver解决了Selenium存在的缺点（例如能够绕过JavaScript沙箱，我们有出色的API），部分原因是Selenium解决了WebDriver存在的问题（例如支持广泛的浏览器），部分原因是因为Selenium的主要贡献者和我都觉得合并项目是为用户提供最优秀框架的最佳途径*。
 
@@ -25,7 +25,7 @@ Selenium与WebDriver原是属于两个不同的项目，WebDriver的创建者Sim
 **Selenium 2.0** = Selenium 1.0 + WebDriver
 
 需要强调的是，在Selenium 2.0中主推的是WebDriver，可以将其看作Selenium RC的替代品。因为Selenium为了保持向下的兼容性，所以在Selenium 2.0中并没有彻底地抛弃Selenium RC。所以，我们在学习Selenium2.0的时候，核心是学习WebDriver。它的工作原理是这样的：
-![se20web](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_se20web.jpg)
+![se20web](../../images/o_se20web.jpg)
 2016年7月，Selenium3.0悄悄发布第一个beta版。
 
 #####  Selenium 3.0
@@ -65,7 +65,7 @@ Selenium 3.0做了一些不大不小的更新,终于去掉了RC，简单用公�
 RIDE是一款专门用来编辑Robot Framework用例的软件，用Python编写并且开源。RIDE可以从Robot Framework官网找到最新的下载链接。
 
 ##### Robot Framework+WebDriver 架构
-![RF+WebDriver](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_RFWebDriver.jpg)
+![RF+WebDriver](../../images/o_RFWebDriver.jpg)
 
 ##### 环境搭建
 整个robot framework自动化环境的搭建包括robotframework运行环境的搭建、Web自动化测试环境搭建、appium自动化测试环境搭建、接口自动化环境搭建、数据库自动化环境的搭建等等，此章节先介绍robot framework运行环境的搭建、Web自动化测试环境搭建，下载可以使用如下[链接](http://pan.baidu.com/s/1qYMn5SS)。

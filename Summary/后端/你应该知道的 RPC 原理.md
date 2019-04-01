@@ -40,7 +40,7 @@ public class HelloWorldServiceImpl implements HelloWorldService {
 
 **如果有一种方式能让我们像调用本地服务一样调用远程服务，而让调用者对网络通信这些细节透明，那么将大大提高生产力，比如服务消费方在执行helloWorldService.sayHello(“test”)时，实质上调用的是远端的服务**。这种方式其实就是RPC（Remote Procedure Call Protocol），在各大互联网公司中被广泛使用，如阿里巴巴的hsf、dubbo（开源）、Facebook的thrift（开源）、Google grpc（开源）、Twitter的finagle等。要让网络通信细节对使用者透明，我们自然需要对通信细节进行封装，我们先看下一个RPC调用的流程：
 
-![img](http://images2015.cnblogs.com/blog/522490/201510/522490-20151003120412386-363334260.png)
+![img](../../images/522490-20151003120412386-363334260.png)
 
 - 1）服务消费方（client）调用以本地调用方式调用服务；
 - 2）client stub接收到调用后负责将方法、参数等组装成能够进行网络传输的消息体；
@@ -151,7 +151,7 @@ public class Test {
 
 如下图所示，线程A和线程B同时向client socket发送请求requestA和requestB，socket先后将requestB和requestA发送至server，而server可能将responseA先返回，尽管requestA请求到达时间更晚。我们需要一种机制保证responseA丢给ThreadA，responseB丢给ThreadB。
 
-![img](http://images2015.cnblogs.com/blog/522490/201510/522490-20151003171953574-1892668698.png)
+![img](../../images/522490-20151003171953574-1892668698.png)
 
 怎么解决呢？
 
@@ -182,9 +182,7 @@ private void setDone(Response res) {
 
 
 
-
-
-####如何发布自己的服务？
+#### 如何发布自己的服务？
 
 如何让别人使用我们的服务呢？有同学说很简单嘛，告诉使用者服务的IP以及端口就可以了啊。确实是这样，这里问题的关键在于是自动告知还是人肉告知。
 
@@ -194,7 +192,7 @@ private void setDone(Response res) {
 
 简单来讲，zookeeper可以充当一个`服务注册表`（Service Registry），让多个`服务提供者`形成一个集群，让`服务消费者`通过服务注册表获取具体的服务访问地址（ip+端口）去访问具体的服务提供者。如下图所示：
 
-![img](http://images2015.cnblogs.com/blog/522490/201510/522490-20151003183747543-2138843838.png)
+![img](../../images/522490-20151003183747543-2138843838.png)
 
 具体来说，zookeeper就是个分布式文件系统，每当一个服务提供者部署后都要将自己的服务注册到zookeeper的某一路径上: /{service}/{version}/{ip:port}, 比如我们的HelloWorldService部署到两台机器，那么zookeeper上就会创建两条目录：分别为/HelloWorldService/1.0.0/100.19.20.01:16888  /HelloWorldService/1.0.0/100.19.20.02:16888。
 
@@ -204,7 +202,7 @@ zookeeper提供了“心跳检测”功能，它会定时向各个服务提供�
 
 更为重要的是zookeeper 与生俱来的容错容灾能力（比如leader选举），可以确保服务注册表的高可用性。
 
-####小结
+#### 小结
 
 RPC几乎是每一个从学校进入互联网公司的同学都要首先学习的框架，之前面试过一个在大型互联网公司工作过两年的同学，对RPC还是停留在使用层面，这是不应该的。本文也仅是对RPC的一个比较粗糙的描述，希望对大家有所帮助，错误之处也请指出修正。
 

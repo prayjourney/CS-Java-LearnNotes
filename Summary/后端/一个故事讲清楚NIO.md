@@ -1,6 +1,5 @@
 ### 一个故事讲清楚 NIO
 
-
 ***
 ##### 假设某银行只有10个职员。该银行的业务流程分为以下4个步骤：
 
@@ -35,7 +34,7 @@
 
 可以看到典型NIO有三类线程，分别是mainReactor线程、subReactor线程、work线程。不同的线程干专业的事情，最终每个线程都没空着，系统的吞吐量自然就上去了。
 
-![img](http://ww1.sinaimg.cn/mw690/6941baebjw1eusnf4g3gkj20jw0didj2.jpg)
+![img](../../images/6941baebjw1eusnf4g3gkj20jw0didj2.jpg)
 
  
 

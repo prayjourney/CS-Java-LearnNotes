@@ -520,7 +520,7 @@ if (judge) {
 d.对象（null的数据类型也是对象）
 ```
 
-```
+```javascript
 <div class="wrap" id="conBox">HTML5学堂</div>
 <script>
 var con = document.getElementById("conBox");
@@ -540,11 +540,11 @@ if (judge) {
 // 输出false
 ```
 
-```
+```javascript
 e.undefined
 ```
 
-```
+```javascript
 var judge;
 if (judge) {
     console.log("true");
@@ -574,7 +574,7 @@ a.显式转换
         ⑩　十六进制输出：
 ```
 
-```
+```javascript
         var a = "0x70";
         console.log(typeof parseInt(a));            // 输出number
         console.log(parseInt(a))                    // 输出112
@@ -587,7 +587,7 @@ a.显式转换
             0开头字符串在IE8-及以下版本会解析成8进制，其他浏览器则按照10进制正常解析
 ```
 
-```
+```javascript
         var a = "070";
         console.log(typeof parseInt(a));            // 输出number
         console.log(parseInt(a))                    // 输出70
@@ -650,7 +650,7 @@ a.显式转换
         ⑩　parseFloat()将空字符串转换为数值，只能输出NaN
 ```
 
-```
+```javascript
         var a = "070";
         console.log(typeof parseFloat(a));          // 输出number
         console.log(parseFloat(a));                 // 输出70
@@ -693,7 +693,7 @@ a.显式转换
         ④　可将空字符串转换为0
 ```
 
-```
+```javascript
         var a = "5.634646465";
         console.log(typeof Number(a));              // 输出number
         console.log(Number(a));                     // 输出5.634646465
@@ -708,7 +708,7 @@ a.显式转换
         console.log(Number(a));                     // 输出NaN
 ```
 
-```
+```javascript
         console.log(Number('meng520'));             // 输出NaN
         console.log(Number('520meng'));             // 输出NaN
         console.log(Number('1234520'));             // 输出1234520
@@ -732,7 +732,7 @@ a.显式转换
         ③　a不可用数字直接代替，需要将数字存储在变量中，再使用toString()方法进行转换
 ```
 
-```
+```javascript
         var a = 10;
         console.log(typeof a.toString());           //输出string
         console.log(a.toString());                  //输出10
@@ -766,7 +766,7 @@ a.显式转换
         alert(a.toFixed(0)); // IE8-中，输出0
 ```
 
-```
+```javascript
         var a = 0.2 * 0.4;
                 console.log(typeof a);                  //输出number
                 console.log(a);                         //输出0.08000000000000002
@@ -797,7 +797,7 @@ b.隐式转换
         +两边都是数字 + 数学运算的加法
 ```
 
-```
+```javascript
     var a = 10;
         console.log(typeof a);      // 输出 number
         var b = a + "";             // “”空字符串，" "空格字符串
@@ -814,7 +814,7 @@ b.隐式转换
         %也可以进行数字字符串到数字的隐式转换，但无法保留原来的值
 ```
 
-```
+```javascript
         var a = "10";
         var b;
         console.log(typeof a);      // 输出 string
@@ -834,7 +834,7 @@ b.隐式转换
         非0的正数除0得到Infinity（无穷大），非0的负数除0得到-Infinity（负无穷大）
 ```
 
-```
+```javascript
         var a = 10 / 0;
         console.log(a);             //输出Infinity（无穷大）
         console.log(typeof a);      // number
@@ -862,7 +862,7 @@ g.条件操作符
 h.赋值操作符
 ```
 
-![这里写图片描述](http://img.blog.csdn.net/20170512113112927?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](../../../../images/SouthEast.png)
 
 2.操作符的概念
 
@@ -873,7 +873,7 @@ a.函数运算操作符
     函数调用运算符将计算它的每一个运算数，第一个运算数指定为函数名（括号前），而括号中间的所有运算数的值将传递给这个函数作为函数的参数。
 ```
 
-```
+```javascript
 var a = 1;
 var b = 2;
 var c = 3;
@@ -898,7 +898,7 @@ b.赋值操作符
     例如：
 ```
 
-```
+```javascript
         var plus = 100;
         plus *= 100;
         // plus = plus * 100;
@@ -910,7 +910,7 @@ c.算数操作符
     + - * / 算法:
 ```
 
-```
+```javascript
         var minus = 150;
         minus = minus - plus;
         console.log(minus);
@@ -949,7 +949,7 @@ d.关系操作符
     // === 不仅要求值相等，而且数据类型也要相等， 输出false
 ```
 
-```
+```javascript
     console.log(1 > 0 < 1);         // 输出false
     console.log(2 != 2 > 1);        // 输出true
     console.log(0 == 0 > 1);        // 输出true
@@ -983,7 +983,7 @@ f.逻辑操作符
     4)若后面的表达式结果为计算式结果赋值或者直接赋值，则输出赋值的结果。
 ```
 
-```
+```javascript
     var a = 2;
     var b = 3;
     c = (a < b) && (a = 5);
@@ -1008,7 +1008,7 @@ f.逻辑操作符
         7)若两个表达式一个为0一个为false，则将后面的表达式的结果输出给整个||表达式
 ```
 
-```
+```javascript
         var a = 2;
         var b = 3;
         c = (a < b) || (a = 5);
@@ -1047,7 +1047,7 @@ f.逻辑操作符
         // false
 ```
 
-```
+```javascript
         // 逻辑操作符的短路操作：如果&&前面的条件不成立，自动不执行后面的表达式；如果||前面的表达式成立，自动不执行后面的表达式
         var num = 10;
         (num > 9) || (num = 100);
@@ -1081,7 +1081,7 @@ g.自增、自减操作符
     --自减操作符同理
 ```
 
-```
+```javascript
     var a = 1;
     function show() {
         var b;
@@ -1110,7 +1110,7 @@ h., 逗号操作符
     3)逗号操作符的优先级最低
 ```
 
-```
+```javascript
     var a = 2;
     var b = 3;
     var n = (a, b);     // 输出3，函数运算操作符()提高了内部表达式的优先级，按逗号运算符规则运算
@@ -1119,7 +1119,7 @@ h., 逗号操作符
     console.log(n); // 输出2，因=赋值运算符优先级高于逗号运算符，所以n = a看做一个单独的语句被运行。
 ```
 
-```
+```javascript
     // 逗号操作符
     // 从左到右进行计算，并返回最后一个值
     var a = 10, b = 20;
@@ -1135,7 +1135,7 @@ h., 逗号操作符
     console.log(c); // 返回10
 ```
 
-```
+```javascript
     // 逗号操作符与()函数调用操作符的冲突
     var a = 1;
     var b = 2;
@@ -1150,7 +1150,7 @@ h., 逗号操作符
     console.log(c);             // 输出5
 ```
 
-```
+```javascript
     // 逗号操作符和赋值操作符的冲突
     var a = 20;
     var b = ++a, 10;    
@@ -1199,7 +1199,7 @@ a.全局中的this指向
 b.对象.方法的this指向
 ```
 
-```
+```javascript
     // 指向对象
     var obj = {
         name: "HTML5",
@@ -1331,7 +1331,7 @@ g.call和apply改变this指向
     call和apply的传参方式不同，call传的值可以是任意的，而apply传的剩余值必须为数组。
 ```
 
-```
+```javascript
     var oo = {
         "name" : "我是oo"
     }
@@ -1389,13 +1389,13 @@ b.计时器延迟问题
         从而只能在onclick事件运行完成后才能进行调用，所以会造成计时器延迟。
 ```
 
-![这里写图片描述](http://img.blog.csdn.net/20170512115611331?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](../../../../images/SouthEast132dgdf.png)
 
-![这里写图片描述](http://img.blog.csdn.net/20170512115644800?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](../../../../images/SouthEastgggdfsdfa.png)
 
 2)延迟的解决方法
 
-```
+```javascript
 timer = setTimeout(function() {
     // clearInterval();
     // clearTimeout(timer);
@@ -1415,9 +1415,9 @@ c.计时器的提前问题
         此时会有部分新加入的计时器，因原本线程中有代码在等待运行而被舍弃跳过。
 ```
 
-![这里写图片描述](http://img.blog.csdn.net/20170512115744913?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](../../../../images/SouthEastjkljklj.png)
 
-![这里写图片描述](http://img.blog.csdn.net/20170512115805757?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](../../../../images/SouthEasteeee.png)
 
 ```
     2)计时器提前问题解决方法
@@ -1834,7 +1834,7 @@ scrollTop：获取/设置当前对象右滚动的举例
 
 ```
 
-![这里写图片描述](http://img.blog.csdn.net/20170512125730089?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](../../../../images/SouthEast34345.png)
 
 2.临界值计算所需属性
 
@@ -1851,13 +1851,13 @@ i.clientTop：效果和边框宽度相同，很少用到
 
 ```
 
-![这里写图片描述](http://img.blog.csdn.net/20170512125804731?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](../../../../images/SouthEast3333.png)
 
-![这里写图片描述](http://img.blog.csdn.net/20170512125909128?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](../../../../images/SouthEasthjkh.png)
 
-![这里写图片描述](http://img.blog.csdn.net/20170512125935613?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](../../../../images/SouthEast123123.png)
 
-![这里写图片描述](http://img.blog.csdn.net/20170512125959816?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](../../../../images/SouthEastedc.png)
 
 ##### 十、Event事件对象
 
@@ -1930,17 +1930,17 @@ HTML 4.0 的新特性之一是能够使 HTML 事件触发浏览器中的行为�
 下面是一个属性列表，可将之插入 HTML 标签以定义事件的行为。
 ```
 
-![这里写图片描述](http://img.blog.csdn.net/20170512130154735?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](../../../../images/SouthEasterttert.png)
 
 5.鼠标 / 键盘属性
 
-![这里写图片描述](http://img.blog.csdn.net/20170512130300818?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](../../../../images/SouthEast12ds.png)
 
 6.IE 属性
 
 除了上面的鼠标/事件属性，IE 浏览器还支持下面的属性：
 
-![这里写图片描述](http://img.blog.csdn.net/20170512130347097?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](../../../../images/SouthEasteded.png)
 
 7.标准 Event 属性
 
@@ -1948,7 +1948,7 @@ HTML 4.0 的新特性之一是能够使 HTML 事件触发浏览器中的行为�
 下面列出了 2 级 DOM 事件标准定义的属性。
 ```
 
-![这里写图片描述](http://img.blog.csdn.net/20170512130440941?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](../../../../images/SouthEast676767.png)
 
 8.标准 Event 方法
 
@@ -1956,7 +1956,7 @@ HTML 4.0 的新特性之一是能够使 HTML 事件触发浏览器中的行为�
 下面列出了 2 级 DOM 事件标准定义的方法。IE 的事件模型不支持这些方法：
 ```
 
-![这里写图片描述](http://img.blog.csdn.net/20170512130517536?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](../../../../images/SouthEastqqq.png)
 
 ##### 十一、本地存储
 
@@ -2024,9 +2024,9 @@ b.lcoalStorage
         IE8+支持
 ```
 
-![这里写图片描述](http://img.blog.csdn.net/20170512131121592?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](../../../../images/SouthEastqweq.png)
 
-```
+```javascript
     if (window.localStorage) {
         var ls = window.localStorage;
     } else  {
@@ -2093,7 +2093,7 @@ b.lcoalStorage
         当一个域名下的本地存储的值被修改后，就会触发该事件。这个事件是跨窗口触发。
 ```
 
-![img](http://img.blog.csdn.net/20170512131213040?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![img](../../../../images/SouthEastoooo.png)
 
 ```
 c.sessionStorage
@@ -2129,7 +2129,7 @@ c.Vp8 + Vorbis = Webm
 
 2．支持程度
 
-![这里写图片描述](http://img.blog.csdn.net/20170512131252688?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](../../../../images/SouthEasthhhh.png)
 
 3．HTML5视频的使用 —— video标签
 
@@ -2158,7 +2158,7 @@ c.播放控制 ——
 d.其他属性
 ```
 
-![这里写图片描述](http://img.blog.csdn.net/20170512131517614?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](../../../../images/SouthEastsdfsdf.png)
 
 ##### 十三、硬件调用
 
@@ -2198,7 +2198,7 @@ c.PC端调用QQ
 
 d.IP定位
 
-![这里写图片描述](http://img.blog.csdn.net/20170512131700256?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](../../../../images/SouthEastdasd.png)
 
 ##### 十四、Canvas
 
@@ -2254,7 +2254,7 @@ c.文字的设置
     3)textBaseline文字垂直对齐方式（文字基线是普通的字母基线）
 ```
 
-![这里写图片描述](http://img.blog.csdn.net/20170512153416442?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](../../../../images/SouthEastfg123.png)
 
 6．Canvas快速绘制
 
@@ -2289,7 +2289,7 @@ eAngle              结束角，以弧度计。
 counterclockwise    可选。规定应该逆时针还是顺时针绘图。False = 顺时针，true = 逆时针。
 ```
 
-![这里写图片描述](http://img.blog.csdn.net/20170512153520036?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](../../../../images/SouthEast111ioio.png)
 
 ```
 c.贝赛尔曲线
@@ -2300,7 +2300,7 @@ c.贝赛尔曲线
         三次贝塞尔曲线
 ```
 
-![这里写图片描述](http://img.blog.csdn.net/20170512153620911?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](../../../../images/SouthEastttt123.png)
 
 7．Canvas绘制思路
 
@@ -2392,7 +2392,7 @@ arr.push(allEle[i]);    // 使用push往数组里面添加内容，push为向后
 通过标签名获取标签浮动返回值不是真正的数组，只是与数组类似，是类数组
 ```
 
-```
+```javascript
 // 绑定数组标准写法
 var eleArr = document.getElementById("outerEle").getElementsByTagName("div");
 for(var i = 0; i < eleArr.length; i++) {
@@ -2419,7 +2419,7 @@ a.数组的定义
         数据类型为object
 ```
 
-```
+```javascript
 var arr = [];
 var newArr = new Array();
 
@@ -2432,7 +2432,7 @@ console.log(typeof newArr);     // object
         数据类型为object
 ```
 
-```
+```javascript
 var arr = [];
 var newArr = new Array();
 
@@ -2458,7 +2458,7 @@ d.数组操作
         可添加多个值，添加到数组的尾部，push()方法的返回值为添加后的数组长度。
 ```
 
-```
+```javascript
 var arr = [1, 2, 3];
 
 console.log(arr.push(4, [11, 22, 33], '入栈'));
@@ -2472,7 +2472,7 @@ console.log(arr);
         每次运行只能删除最后一个值，如需删除多个值，只能写多次。
 ```
 
-```
+```javascript
 var arr = [1, 2, 3];
 console.log(arr.pop());
 console.log(arr);
@@ -2489,7 +2489,7 @@ console.log(arr);
         可添加多个值，添加到数组的头部，unshift()方法的返回值为添加后的数组长度。
 ```
 
-```
+```javascript
 var arr = [1, 2, 3];
 console.log(arr.unshift('入队'));
 console.log(arr);
@@ -2506,7 +2506,7 @@ console.log(arr);
         每次运行只能删除最后一个值，如需删除多个值，只能写多次。
 ```
 
-```
+```javascript
 var arr = ['a', 'b', 'c'];
 console.log(arr.shift());
 console.log(arr);
@@ -2542,7 +2542,7 @@ b.字符串赋值
     两种字符串赋值方式的数据存储方式不同。
 ```
 
-```
+```javascript
 var str = 'HTML5';
 var newStr = new String('HTML5');
 
@@ -2555,7 +2555,7 @@ c.获取字符串的长度
     .length属性获取字符串长度
 ```
 
-```
+```javascript
 console.log(str.length);        // 5
 console.log(newStr.length); // 5
 ```
@@ -2574,7 +2574,7 @@ d.字符串操作
         字符串分割成数组，分割位置的字符会被删除，且不会改变原数组的值
 ```
 
-```
+```javascript
 var str = 'HTML5.jpg';
 console.log(str.split(5));      // ["HTML", ".jpg"]
 console.log(str);           // 'HTML5.jpg'
@@ -2584,7 +2584,7 @@ console.log(str);           // 'HTML5.jpg'
     5)字符串转换为小写、大写
 ```
 
-```
+```javascript
 toLowerCase();      // 转换为小写
 toUpperCase();      // 转换为大写
 ```
@@ -2595,7 +2595,7 @@ toUpperCase();      // 转换为大写
         只会替换第一个符合替换要求的字符
 ```
 
-```
+```javascript
 var str = 'HTML5-5.jpg';
 console.log(str.replace('5', '8'));
 console.log(str);
@@ -2652,7 +2652,7 @@ a. .在正则中的应用
     .在正则中可匹配任意字符
 ```
 
-```
+```javascript
 var str = 'HTML5-5.jpg';
 var reg = /./;
 console.log(str.replace(reg,'*'));          // 输出*TML5-5.jpg，.在正则中可匹配任意字符
@@ -2753,7 +2753,7 @@ RegExpObject.lastIndex
 例子：
 ```
 
-```
+```javascript
 var idValue = '13wqrwrq123';
 var idReg = /^\w{6,12}$/gi;
 
@@ -2782,7 +2782,7 @@ console.log(idReg.test(idValue));       // true
 函数内部创建另一个函数，并将内部的函数返回给外部函数 
 示例1：
 
-```
+```javascript
 function outer(num) {
         return function() {
             console.log(num);
@@ -2806,7 +2806,7 @@ result3(); // 输出2
 示例2：
 ```
 
-```
+```javascript
 var len = titArr.length;
 // 闭包函数
 for (var i = 0; i < len; i++) {
@@ -2834,7 +2834,7 @@ function handleClass(index) {
     匿名函数也具有相同性质，一旦被赋值给某个变量，在被调用时，就会在该变量下开辟固定的空间来存放变量。
 ```
 
-```
+```javascript
 function outer() {
     var a = 1;
     return function inner() {
@@ -2906,7 +2906,7 @@ alert(d);
     2)闭包被赋值给其他变量并被调用后，内存无法释放，闭包会一直存储在内存中。
 ```
 
-```
+```javascript
 function outer(num) {
     num++;
     console.log(num);
@@ -2932,7 +2932,7 @@ result2();
     3)当将一个带参数的闭包赋值给变量时，只运行外部函数中的语句和将参数传递给闭包，闭包函数不会进行任何操作
 ```
 
-```
+```javascript
 function outer(num) {
     num++;
     console.log(num);
@@ -3032,14 +3032,14 @@ c.原型模式
         ①　每个函数，无论是否构造函数，都包含prototype属性，且其中的constructor属性都指向该函数本身
 ```
 
-```
+```javascript
 function Show() {
     console.log('a');
 }
 var showFun = new Show();
 ```
 
-![这里写图片描述](http://img.blog.csdn.net/20170512155042589?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](../../../../images/SouthEastggg.png)
 
 ```
         ②　函数中存在的prototype属性中的constructor属性指向函数本身，形成一个无限循环
@@ -3055,7 +3055,7 @@ var showFun = new Show();
     6)原型模式的指向图解
 ```
 
-![这里写图片描述](http://img.blog.csdn.net/20170512155114933?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](../../../../images/SouthEastttt.png)
 
 ![这里写图片描述](http://img.blog.csdn.net/20170512155127268?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
@@ -3175,15 +3175,13 @@ e.AJAX的使用步骤
     1)创建向后台服务器的一个请求对象
 ```
 
-```
+```javascript
 var xhr = new XMLHttpRequest();
 ```
 
-```
-    2)确定发送的方法
-```
 
-```
+    2)确定发送的方法
+```javascript
 // 第一个参数：post、get
 // 第二个参数：请求的地址
 // 第三个参数：同步与异步，true代表异步，false代表同步
@@ -3196,7 +3194,7 @@ xhr.open('get', 'images/163bg.png', true);
 // xhr.open('get', 'js/index.js', true);
 ```
 
-![这里写图片描述](http://img.blog.csdn.net/20170512161032036?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](../../../../images/SouthEast111.png)
 
 ```
         GET和POST的区别：
@@ -3294,7 +3292,7 @@ b.XML —— 数据格式，扩展性标记语言
 
 2．JSON常见形式
 
-![这里写图片描述](http://img.blog.csdn.net/20170512161525289?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvY2hlbmNsMTk4Ng==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![这里写图片描述](../../../../images/SouthEast123.png)
 
 ```
 a.JSON数组

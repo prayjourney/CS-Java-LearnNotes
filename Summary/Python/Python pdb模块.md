@@ -10,11 +10,11 @@
 ##### pdb常用的模式
 一般有两种pdb的调试模式，一种是硬编码的，直接在脚本里面设置断点，使用`pdb.set_trace()`，这种模式之下，可以在命令行之中，对于一个脚本直接进行运行调试
 
-![pdb_debug](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_pdb_debuger.jpg)
+![pdb_debug](../../images/o_pdb_debuger.jpg)
 
 第二种是写好一个脚本后，使用run命令，来调用某一个方法，然后进行调试，使用`pdb.run('hello2.add()')`
 
-![pdb_debuger2](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_pdb_debuger2.jpg)
+![pdb_debuger2](../../images/o_pdb_debuger2.jpg)
 
 
 

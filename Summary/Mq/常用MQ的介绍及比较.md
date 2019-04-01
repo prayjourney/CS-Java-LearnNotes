@@ -150,7 +150,7 @@ RocketMQ可以运行在Java语言所支持的平台之上.
 
 ##### MQ对比
 这里列举了上述四种消息队列的差异对比:
-![mqanddiff](D:\MarkdowNotes\CS-Java-LearnNotes\images\mqanddiff.png) 
+![mqanddiff](../../images/mqanddiff.png) 
 结论:
 Kafka在于分布式架构, RabbitMQ基于AMQP协议来实现, RocketMQ/思路来源于kafka, 改成了主从结构, 在事务性可靠性方面做了优化. 广泛来说, 电商, 金融等对事务性要求很高的, 可以考虑RabbitMQ和RocketMQ, 对性能要求高的可考虑Kafka. 
 

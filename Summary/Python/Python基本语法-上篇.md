@@ -1,4 +1,4 @@
-### Python基本语法
+### Python基本语法-上篇
 
 - - -
 
@@ -69,7 +69,7 @@ printfun(s) #元组作为参数
      def profile(name,age,city):
         print("your name is: "+name+", age is: "+
                age+" ,address is: "+address)
-
+    
      profile(name="Lucy",age=24,city="上海")
      profile(name="张三",age=22,city="重庆")
 
