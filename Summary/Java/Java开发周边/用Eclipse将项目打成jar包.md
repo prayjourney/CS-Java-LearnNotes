@@ -6,19 +6,19 @@
 
 1.首先选择要打包的文件，导出JAR file
 
-![img](http://img.blog.csdn.net/20170622095805417?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzc5MzI4NjM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center)
+![img](../../../images/Center13123123.png)
 
-![img](http://img.blog.csdn.net/20170622095833407?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzc5MzI4NjM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![img](../../../images/SouthEastsdfasf.png)
 
 2.next
 
-![img](http://img.blog.csdn.net/20170622095903646?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzc5MzI4NjM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![img](../../../images/SouthEastdfsafa.png)
 
-![img](http://img.blog.csdn.net/20170622095925955?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzc5MzI4NjM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![img](../../../images/SouthEastdsafdas.png)
 
 这样在我们的存储路径里面，就可以找到刚才打成jar包的文件了
 
-![img](http://img.blog.csdn.net/20170622100015366?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzc5MzI4NjM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![img](../../../images/SouthEastsdgasdgsd.png)
 
 此外还有一种简便的方法，就是选择**可执行的jar包**，然后选择运行的主类，直接可以生成
 
@@ -48,35 +48,37 @@
 
 
 
-#####将jar包打成exe程序
+##### 将jar包打成exe程序
 
 此步骤我们使用的工具是exe4j，按照如下截图，基本上没有障碍
 
-![img](http://img.blog.csdn.net/20170622101502922?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzc5MzI4NjM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![img](../../../images/SouthEastfdfs.png)
 
-![img](http://img.blog.csdn.net/20170622101433915?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzc5MzI4NjM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![img](../../../images/SouthEastdsafdhfdjgh.png)
 
-![img](http://img.blog.csdn.net/20170622101529566?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzc5MzI4NjM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![img](../../../images/SouthEastsdafas.png)
 
-![img](http://img.blog.csdn.net/20170622101549376?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzc5MzI4NjM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![mg](../../../images/SouthEast786087098.png)
 
-![img](http://img.blog.csdn.net/20170622101632017?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzc5MzI4NjM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)![img](http://img.blog.csdn.net/20170622101654151?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzc5MzI4NjM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![img](../../../images/SouthEastsdfafas.png)![img](../../../images/SouthEast45546.png)
 
-![img](http://img.blog.csdn.net/20170622101714314?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzc5MzI4NjM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![img](../../../images/s沙发上sdfgadfgadf.png)
 
-![img](http://img.blog.csdn.net/20170622101731786?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzc5MzI4NjM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![img](../../../images/SouthEastdasdas.png)
 
-![img](http://img.blog.csdn.net/20170622101752964?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzc5MzI4NjM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![img](../../../images/SouthEastsdfsddfasdf.png)
 
-![img](http://img.blog.csdn.net/20170622101818476?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzc5MzI4NjM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
-![img](http://img.blog.csdn.net/20170622101839572?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzc5MzI4NjM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
 
-![img](http://img.blog.csdn.net/20170622101902096?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzc5MzI4NjM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![img](../../../images/SouthEastsdfsafas.png)
 
-![img](http://img.blog.csdn.net/20170622101925533?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzc5MzI4NjM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![img](../../../images/SouthEastfasfasfas.png)
 
-![img](http://img.blog.csdn.net/20170622101939136?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvcXFfMzc5MzI4NjM=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![img](../../../images/SouthEastsdfsafsdfasfa.png)
+
+![img](../../../images/SouthEastsdfasdf.png)
+
+![img](../../../images/SouthEastsdfasfsdfas.png)
 
 至此打成exe结束，在我们选择的位置就可以看到了
 

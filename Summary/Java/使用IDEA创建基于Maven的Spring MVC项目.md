@@ -5,19 +5,19 @@
 ##### 创建项目
 
 新建一个maven project。选择create new project--->*Maven-Create from archetype*。找到maven-archetype-webapp这个骨架，点击next 
-![project1](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/project1.jpg) 
+![project1](../../images/project1.jpg) 
 
 输入GroupId和ArtifactId，这里的GroupId: **一般是写成com.xxx的模式，其实就是公司或者组织域名的倒写**，ArtifactID: **一般就是项目的名称**，填写好之后，点击next
-![project2](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/project2.jpg) 
+![project2](../../images/project2.jpg) 
 
 然后填写项目名，点击next，然后finish
-![project3](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/project3.jpg) 
+![project3](../../images/project3.jpg) 
 
 接下来idea开始创建项目，这里你要把maven自动导入打开
-![project4](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/project4.jpg) 
+![project4](../../images/project4.jpg) 
 
 然后等待maven创建项目成功
-![project5](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/project5.jpg) 
+![project5](../../images/project5.jpg) 
 
 完成以上步骤，我们就添加好了项目的框架
 
@@ -26,7 +26,7 @@
 ##### 添加pom依赖 
 
 创建好之后的项目目录如图所示 
-![project6](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/project6.jpg) 
+![project6](../../images/project6.jpg) 
 
 我们打开其中的pom.xml，添加依赖。这里我把我的依赖全部放出来，复制到pom.xml的dependencies标签之间就可以了，pom文件依赖示例如下
 
@@ -123,23 +123,22 @@
 ##### 添加框架支持 
 
 配置完pom.xml之后，我们在idea中要添加一下框架的支持。 右击我们的项目文件夹，选择Add Framework Support
-![project7](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/project7.jpg) 
+![project7](../../images/project7.jpg) 
 
 然后在窗口中分别选中spring和springmvc，并且选择spring是，记得勾选springconfig.xml
-![project8](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/project8.jpg) 
-
+![project8](../../images/project8.jpg) 
 
 因为我们之前下载过相应的文件，所以这里直接用我们下载好的spring文件。 点击ok之后，我们会发现WEB-INF文件夹下多出了两个文件，这个就是我们之后要配置的文件，先不用管
-![project9](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/project9.jpg) 
+![project9](../../images/project9.jpg) 
 
 **此处有可能出现添加Framework支持，没有maven和spring的情况**
 
 IDEA右键项目中的Add Frameworks Support没有spring和Maven
 
-![project10](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/project10.jpg) 
+![project10](../../images/project10.jpg) 
 
 转到文件>项目结构(**Ctrl+Alt+Shift+S**)，调出你文件目录和结构，会看到Spring(*你的项目的名字*)。在这种情况下，如下图的**HelloWorldDemo**。然后点击*Spring（HelloWorldDemo）*并选择删除
-![project11](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/project11.jpg) 
+![project11](../../images/project11.jpg) 
 
 然后在回去Add Frameworks Support，就会有Spring和Maven了
 
@@ -148,10 +147,10 @@ IDEA右键项目中的Add Frameworks Support没有spring和Maven
 ##### 完善目录结构 
 
 项目创建完成之后，进入**project structure**(Ctrl+Alt+Shift+S)，在界面的右上角进入project structure
-![project12](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/project12.jpg) 
+![project12](../../images/project12.jpg) 
 
 项目创建完成后，src-main下建立java目录后，是无法在该目录下创建新的包和java类等文件的。在idea中需要对目录进行标注
-![project13](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/project13.jpg)      
+![project13](../../images/project13.jpg)      
 
 > - Sources 一般用于标注类似 src 这种可编译目录。有时候我们不单单项目的 src 目录要可编译，还有其他一些特别的目录也许我们也要作为可编译的目录，就需要对该目录进行此标注。只有 Sources 这种可编译目录才可以新建 Java 类和包，这一点需要牢记。
 > - Tests 一般用于标注可编译的单元测试目录。在规范的 maven 项目结构中，顶级目录是 src，maven 的 src 我们是不会设置为 Sources 的，而是在其子目录 main 目录下的 java 目录，我们会设置为 Sources。而单元测试的目录是 src - test - java，这里的 java 目录我们就会设置为 Tests，表示该目录是作为可编译的单元测试目录。一般这个和后面几个我们都是在 maven 项目下进行配置的，但是我这里还是会先说说。从这一点我们也可以看出 IntelliJ IDEA 对 maven 项目的支持是比较彻底的。
@@ -162,10 +161,10 @@ IDEA右键项目中的Add Frameworks Support没有spring和Maven
 >   （引用自http://wiki.jikexueyuan.com/project/intellij-idea-tutorial/eclipse-java-web-project-introduce.html）
 
 标注完后，建立如下的目录
-![project14](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/project14.jpg)        
+![project14](../../images/project14.jpg)        
 
 然后在module中选择设置各个模块，其中java文件夹是 sources，test是Test，改完之后，点ok，文件夹会变色，然后在java文件夹之中创建包，com.example包，创建controller、dao、pojo(domain)、service等包。
-![project15](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/project15.jpg)                                                                                                             
+![project15](../../images/project15.jpg)                                                                                                             
 
 这样我们配置前的工作就完成了，接下来就是对springmvc进行配置。我把两种配置的方法分成两部分，以供参考。
 
@@ -341,22 +340,22 @@ p
 
 **配置tomcat**
 本地如果没有tomcat，去官网下载tomcat7以上的版本即可。 右上角 
-![project16](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/project16.jpg) 
+![project16](../../images/project16.jpg) 
 
 然后选择tomcat 
-![project17](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/project17.jpg) 
+![project17](../../images/project17.jpg) 
 
 配置相关信息 
-![project18](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/project18.jpg) 
+![project18](../../images/project18.jpg) 
 
 还有deployment
-![project19](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/project19.jpg) 
+![project19](../../images/project19.jpg) 
 
 选择第二个 
-![project20](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/project20.jpg) 
+![project20](../../images/project20.jpg) 
 
 这里的名称和项目名一样。 
-![project21](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/project21.jpg) 
+![project21](../../images/project21.jpg) 
 
 上面的Application context可以直接设置成/，也可以设置成/XXX，XXX表示的是项目名称。然后点击OK，完成配置。
 
@@ -384,12 +383,12 @@ maven插件的话有tomcat和jetty，两者都是servlet的容器。此处配置
 ```
 
 再在idea中配置jetty
-![project22](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/project22.jpg) 
+![project22](../../images/project22.jpg) 
 
 ###### 运行第一个Spring MVC应用
 
 最后运行tomcat，在浏览器输入<http://localhost:8080/Demo/home/index> 即可。 
-![project23](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/project23.jpg) 
+![project23](../../images/project23.jpg) 
 
 出现上面的页面，表示运行成功
 
@@ -397,7 +396,7 @@ maven插件的话有tomcat和jetty，两者都是servlet的容器。此处配置
 java配置参考*spring in action* 第四版这个书，所以此处这里更加倾向于把java配置和xml配置中的相同功能的部分进行比较，也是能对java配置又以有一个更加直观的认识。 
 
 首先我们先完成准备工作，也就是本文的前四个直到文件目录完成，但是目录需要一点小的修改，因为多了配置类，如下图。 
-![project24](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/project24.jpg) 
+![project24](../../images/project24.jpg) 
 
 可以看到我们多了一个config包，这个里面就是放配置类的。
 

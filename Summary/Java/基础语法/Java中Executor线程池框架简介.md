@@ -56,7 +56,7 @@ public class Executors {
 
 ##### Executor vs ExecutorService vs Executors三者的区别
 正如上面所说，这三者均是 Executor 框架中的一部分。可以通过下图来观察其之间的关系
-![executor框架UML图](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_executor%e6%a1%86%e6%9e%b6.png)
+![o_executor框架](../../../images/o_executor框架.png)
 简单明了的说，其区别如下
 
 ```java

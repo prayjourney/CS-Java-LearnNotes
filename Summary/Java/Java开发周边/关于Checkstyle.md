@@ -10,7 +10,7 @@
 
 Eclipse菜单栏上选择 Help -> Install New Software...，进入如下安装界面：
 
-![img](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_ch1.jpg)
+![img](../../../images/o_ch1.jpg)
 
 点击“Add...”打开Add Repository对话框，如图输入Name和Location，点击“OK”。选择刚刚添加的JAutodoc，一直点击“Next >”直到安装结束。
 
@@ -20,13 +20,13 @@ Eclipse菜单栏上选择 Help -> Install New Software...，进入如下安装�
 
 Eclipse菜单栏上选择 Window -> Preferences -> Checkstyle，进入如下设置界面：
 
-![img](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_ch2.jpg)
+![img](../../../images/o_ch2.jpg)
 
 在Global Check Configurations框中，列出可以选择的检查配置（Check Configuration），Default栏标记为对勾的默认配置。
 
 如果想自己配置检查选择，可以点击“New...”按钮新建一个配置，进入如下Check Configuration界面：
 
-![img](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_ch3.jpg)
+![img](../../../images/o_ch3.jpg)
 
 检查配置的类型，可以有多种选择。Internal Configuration类型是检查配置存在于Eclipse内部；External Configuration类型相当于导入一个已有的xml配置文件。Checkstyle配置都是xml文件。
 
@@ -50,7 +50,7 @@ Checkstyle会在代码开发过程中，不断地检查代码规范，一般检�
 
 下面这段代码经过Checkstyle检查之后，不符合规范的代码，底色都会被标记为浅黄色进行提示。点击行头的提示标记，就会显示具体不符合规范的地方。示例如下图所示：
 
-![img](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_ch4.jpg)
+![img](../../../images/o_ch4.jpg)
 
 
 

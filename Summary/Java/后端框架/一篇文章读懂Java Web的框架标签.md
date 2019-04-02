@@ -8,11 +8,11 @@
 
 比如为了控制页面一些显示逻辑，实现类似代码里if/else这种效果，就会使用到core标签里的内容，类似这样：
 
-![tag1](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/tag1.jpg)
+![tag1](../../../images/tag1.jpg)
 
 要实现一个容器数据的遍历，可以直接使用core标签的foreach。
 
-![tag2](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/tag2.jpg)
+![tag2](../../../images/tag2.jpg)
 
 要实现页面上数据的格式化，则可以直接使用format标签，进行对应数据的格式化展现。
 
@@ -26,11 +26,11 @@
 
 例如本文前面的 if 标签，对应生成的Servlet内容是这样的：
 
-![tag3](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/tag3.jpg)
+![tag3](../../../images/tag3.jpg)
 
 再看 foreach 这个标签，生成的内容是这样的：
 
-![tag4](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/tag4.jpg)
+![tag4](../../../images/tag4.jpg)
 
 我们看到，foreach 被直接转换成了do while 循环。
 
@@ -51,7 +51,7 @@ doEndTag用于确认该标签执行后，页面是否要继续渲染。
 
 而这些标签的声明，是通过类似这样的形式，被保存在Jar文件或者WEB-INF这些地方。
 
-![tag5](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/tag5.jpg)
+![tag5](../../../images/tag5.jpg)
 
 具体的标签实现类，一般继承TagSupport，然后重写我们上面提到的doStartTag 和 doEndTag 方法。
 
@@ -59,11 +59,11 @@ doEndTag用于确认该标签执行后，页面是否要继续渲染。
 
 这些Tag声明的tld，一般会在应用部署后启动时进行扫描，然后添加到Map里。
 
-![tag6](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/tag6.jpg)
+![tag6](../../../images/tag6.jpg)
 
 页面解析执行的时候，会判断对应声明的tld是否存在，没有就会停止页面执行。
 
-![tag7](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/tag7.jpg)
+![tag7](../../../images/tag7.jpg)
 
 页面解析生成Servlet类之后，执行时会调用具体标签的属性设置，doStartTag这些方法，此时如果一些属性不存在，绑定不成功等这些具体的标签逻辑会被暴露出来。
 
@@ -75,17 +75,17 @@ doEndTag用于确认该标签执行后，页面是否要继续渲染。
 
 此时，JSP生成的内容是这样的：
 
-![tag8](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/tag8.jpg)
+![tag8](../../../images/tag8.jpg)
 
 然后页面渲染时，会真正的进行数据绑定，判断这些属性的合法性等等，这里由于是随便写的一行代码，无法绑定所有报错了。
 
-![tag9](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/tag9.jpg)
+![tag9](../../../images/tag9.jpg)
 
 所以，对于 Spring、Struts2 等等这些框架的标签，本质上执行也还是这些逻辑，如果页面在渲染的时候出现问题，了解清楚是在哪一步的时候出了问题，知道具体这些标签的工作原理。
 
 例如下图 Spring 的 InputTag 继承关系，也没有脱离Servlet 的Tag这个框。
 
-![tag`0](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/tag10.jpg)
+![tag`0](../../../images/tag10.jpg)
 
 总结下，Taglib的工作原理，是在应用部署的时候，解析tld的声明。页面渲染的时候，解析如果引入的tld不存在，就会报错。tld合法之后执行 tag 的具体逻辑，根据返回值判断是否继续页面的渲染。
 

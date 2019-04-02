@@ -144,7 +144,7 @@ inline jint     Atomic::cmpxchg    (jint     exchange_value, volatile jint*     
 
 2.使用总线锁保证原子性
 **第一个机制是通过总线锁保证原子性**。如果多个处理器同时对共享变量进行读改写（i++就是经典的读改写操作）操作，那么共享变量就会被多个处理器同时进行操作，这样读改写操作就不是原子的，操作完之后共享变量的值会和期望的不一致，举个例子：如果i=1,我们进行两次i++操作，我们期望的结果是3，但是有可能结果是2。如下图
-![cpu1cpu2](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_cpu1cpu2.png)
+![o_cpu1cpu2](../../../images/o_cpu1cpu2.png)
 
 原因是有可能多个处理器同时从各自的缓存中读取变量i，分别进行加一操作，然后分别写入系统内存当中。**如果想要保证读改写共享变量的操作是原子的，就必须保证CPU1读改写共享变量的时候，CPU2不能操作缓存了该共享变量内存地址的缓存**。处理器使用总线锁就是来解决这个问题的。所谓总线锁就是使用处理器提供的一个LOCK＃信号，当一个处理器在总线上输出此信号时，其他处理器的请求将被阻塞住,那么该处理器可以独占使用共享内存。
 
@@ -184,7 +184,7 @@ Java的CAS会使用现代处理器上提供的高效机器级别原子指令，�
 - 同时，配合以volatile的读/写和CAS所具有的volatile读和写的内存语义来实现线程之间的通信。
 
 AQS，非阻塞数据结构和原子变量类（java.util.concurrent.atomic包中的类），这些concurrent包中的基础类都是使用这种模式来实现的，而concurrent包中的高层类又是依赖于这些基础类来实现的。从整体来看，concurrent包的实现示意图如下：
-![currentcomplete](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_currentcomplete.png)
+![currentcomplete](../../../images/o_currentcomplete.png)
 
 
 ref:

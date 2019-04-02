@@ -112,7 +112,7 @@ Log4j提供的layout有以下几种：
 
 **1.新建maven工程** 
 
-![这里写图片描述](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/log1.png) 
+![这里写图片描述](../../../images/log1.png) 
 **2.导入log4j坐标**：
 
 ```xml
@@ -135,7 +135,7 @@ Log4j提供的layout有以下几种：
 
 **3.新建 log4j.properties 放到src\main\resources目录下（log4j默认读取跟目录下名字为 log4j.properties 文件）** 
 
-![这里写图片描述](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/log2.png) 
+![这里写图片描述](../../../images/log2.png) 
 
 ```json
 ### 设置###  
@@ -185,9 +185,9 @@ public class Test {
 
 **5.运行查看结果** 
 *1.控制台结果：* 
-![这里写图片描述](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/log3.png)  
+![这里写图片描述](../../../images/log3.png)  
 2.文件结果： 
-![这里写图片描述](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/log4.png) 
+![这里写图片描述](../../../images/log4.png) 
 
 ref:
 

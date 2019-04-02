@@ -4,8 +4,6 @@
 
 - [ ] jdbctemplate之中query和queryForObject的区别，jdbctemplate之中的RowMapper的API，以及queryForObject所可以接受的类型
 
-- - -
-
 **1.JdbcTemplate**
 
   - 介绍
@@ -26,7 +24,7 @@ Can be used within a service implementation via direct instantiation with a Data
 
   - 常用方法
 
-  ```
+  ```java
 
     int[]	 batchUpdate(String... sql)
 
@@ -96,7 +94,7 @@ Can be used within a service implementation via direct instantiation with a Data
 
     Query given SQL to create a prepared statement from SQL and a list of arguments to bind to the query, expecting a result list.
 
-```
+  ```
 
 
 

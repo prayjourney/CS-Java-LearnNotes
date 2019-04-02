@@ -5,18 +5,18 @@
 - - -
 1.path的理解
 &nbsp;&nbsp;&nbsp;&nbsp;安装了Java之后，当我们直接在Windows命令行之中调用`java -version`，返回的结果通常如下图：
-![不是命令](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_path1.png)
+![不是命令](../../../images/o_path1.png)
 但是，我们并不希望出现这样的结果，而是希望出现如下的结果：
-![java -version](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_path2.png)
+![java -version](../../../images/o_path2.png)
 &nbsp;&nbsp;&nbsp;&nbsp;为什么会出现这种情况呢？由图一之中的错误提示可以了解到`'java' 不是内部或者外部命令，也不是可以运行的程序或批处理文件`，由于在Windows之下安装软件都要选择一条路径，比如`C:\Installation\Java\jdk1.8.0_92\bin`,但是当我们进入此目录，却又可以运行`java -version`的命令，这就说明，其实我们执行的"java"、"java -version"在本质上都是执行了一个程序，而这个程序就是文件夹下的"==java.exe=="，这表明，我们如果采用绝对路径定位到相关命令的路径下，那么就是可以执行这个命令的，但是如果每次都是用绝对路径，又显得很麻烦，所以我们要找个解决的方法。
-![java -version](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_path3.png)
-![命令](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_path5.png)
+![java -version](../../../images/o_path3.png)
+![命令](../../../images/o_path5.png)
 **解决的方法就是Path环境变量**。
 &nbsp;&nbsp;&nbsp;&nbsp;path是路径的意思，path环境变量中存放的值，就是一连串的路径。不同的路径之间，用英文的分号（==**;**==）分隔开。系统执行用户命令时，若用户未给出绝对路径，则在**当前目录**下寻找相应的可执行文件、批处理文件（另外一种可以执行的文件）等。若找不到，再依次在path保存的这些路径中寻找相应的可执行的程序文件。系统就以第一次找到的为准；若搜寻完path保存的所有路径都未找到，则会显示类似于图一的错误信息。
 &nbsp;&nbsp;&nbsp;&nbsp;明白了这些，我们就把bin目录的完整路径添加到path中。在命令行窗口下，可使用set命令完成此类的任务。直接运行set，会显示系统当前所有环境变量的值，运行==set /?==，会显示关于此命令的帮助信息。使用set命令设置环境变量值的格式为：set 环境变量名=环境变量值。我们可以使用命令`set path=C:\Installation\Java\jdk1.8.0_92\bin`将java等程序文件所在的目录添加到path环境变量中（Windows下环境变量名不区分大小写，这与UNIX不同）。但是这样会使path的值只有"C:\Installation\Java\jdk1.8.0_92\bin"，它预先设定供其他程序使用的值就都被覆盖了。因此，我们应该把值"C:\Installation\Java\jdk1.8.0_92\bin"追加到path中。为此，我们可以使用如下命令：
 `set path=%path%;C:\Installation\Java\jdk1.8.0_92\bin`
 &nbsp;&nbsp;&nbsp;&nbsp;把path放在两个百分号之间，指把path原有的值取出。其后的分号表示分隔不同的路径值，之后才是我们要添加的值。注意，请在英文输入法状态下使用此命令。但是这种使用set命令的方式设置的环境变量只对当前命令行窗口有效。一旦关闭此窗口，再次运行另一个命令行窗口时，path环境变量还是原来的值。因此，我们必须在Windows下修改path环境变量。我们可以通过`echo %path%`，`echo %classpath%`
-![echo命令](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_path7.png)
+![echo命令](../../../images/o_path7.png)
 
 - - -
 2.内部命令、外部命令和批处理命令

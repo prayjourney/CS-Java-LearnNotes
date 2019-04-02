@@ -139,13 +139,13 @@ public class TestObjSerializeAndDeserialize {
 ```
 
 **代码运行结果如下：**
-![data1](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_data1.jpg)
+![data1](../../../images/o_data1.jpg)
 序列化Person成功后在E盘生成了一个Person.txt文件，而反序列化Person是读取E盘的Person.txt后生成了一个Person对象
 
 ##### serialVersionUID的作用
 **serialVersionUID**: 字面意思上是序列化的版本号，凡是实现Serializable接口的类都有一个表示序列化版本标识符的静态变量
 `private static final long serialVersionUID`，实现Serializable接口的类如果类中没有添加serialVersionUID，那么就会出现如下的警告提示
-![data2](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_data2.jpg)
+![data2](../../../images/o_data2.jpg)
 **serialVersionUID有两种生成方式**
 
 - 默认生成
@@ -158,7 +158,7 @@ private static final long serialVersionUID = 4603642343377807741L;
 ```
 
 添加了之后就不会出现那个警告提示了，如下所示：
-![data3](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_data3.jpg)
+![data3](../../../images/o_data3.jpg)
 
 **serialVersionUID(序列化版本号)作用**
 上面说了很多，那么serialVersionUID(序列化版本号)到底有什么用呢，我们用如下的例子来说明一下serialVersionUID的作用，看下面的代码：
@@ -379,7 +379,7 @@ class Customer implements Serializable {
 
 
 
-#####serialVersionUID的取值
+##### serialVersionUID的取值
 serialVersionUID的取值是Java运行时环境根据类的内部细节自动生成的。如果对类的源代码作了修改，再重新编译，新生成的类文件的serialVersionUID的取值有可能也会发生变化。
 类的serialVersionUID的默认值完全依赖于Java编译器的实现，对于同一个类，用不同的Java编译器编译，有可能会导致不同的 serialVersionUID，也有可能相同。**为了提高serialVersionUID的独立性和确定性，强烈建议在一个可序列化类中显示的定义serialVersionUID，为它赋予明确的值**。
 

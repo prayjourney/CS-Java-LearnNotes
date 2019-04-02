@@ -35,9 +35,9 @@ EL表达式的格式：**用美元符号 $ 定界,内容包括在花括号 {} �
 
 - **EL隐藏对象** 
 **常用** 
-![jstlobj](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/jstlobj.png) 
+![jstlobj](../../../images/jstlobj.png) 
 
-![jstlel1](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/jstlel1.png)
+![jstlel1](../../../images/jstlel1.png)
 
 ##### **PS：使用EL的时候，默认会以一定顺序（pageContext、request、session、application）搜索四个作用域，将最先找到的变量值显示出来。**
 
@@ -55,10 +55,10 @@ ${mcType[“id”]}
 
 - **EL运算符** 
 
-![jstlel2](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/jstlel2.png)
+![jstlel2](../../../images/jstlel2.png)
 
 
-![jstlel3](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/jstlel3.png)
+![jstlel3](../../../images/jstlel3.png)
 
 
 
@@ -109,7 +109,7 @@ JSTL(JSP Standard Tag Library,JSP标准标签库)是一个不断完善的开放�
 
 ##### JSTL标签库分类
 
-![jstl1](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/jstl1.png)
+![jstl1](../../../images/jstl1.png)
 
 **core 标签库**：提供了定制操作，通过限制了作用域的变量管理数据，以及执行页面内容的迭代和条件操作。它还提供了用来生成和操作 URL 的标记。 
 
@@ -125,7 +125,7 @@ JSTL(JSP Standard Tag Library,JSP标准标签库)是一个不断完善的开放�
 
 ##### JSTL的优点
 
-![jstl2](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/jstl2.png)
+![jstl2](../../../images/jstl2.png)
 
 
 

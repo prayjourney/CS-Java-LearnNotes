@@ -57,7 +57,7 @@
 
 `<display-name>test-hwp-web-application</display-name>`定义了web应用的名称，可以在<http://localhost:8080/manager/html>中显示。如下所示：
 
-![img](http://img.blog.csdn.net/20180107122615744?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmVsaWV2ZWphdmE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![img](../../../images/SouthEastrrrrr.png)
 
 ### 4. <distributable/>
 
@@ -107,7 +107,7 @@
 
 对应工程目录结构如下所示：
 
-![img](http://img.blog.csdn.net/20180107123652181?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmVsaWV2ZWphdmE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![img](../../../images/SouthEastdfsgssd.png)
 
 部署在同一容器中的多个Web项目，要配置不同的webAppRootKey，web.xml文件中最好定义webAppRootKey参数，如果不定义，将会缺省为“webapp.root”，如下：
 
@@ -734,7 +734,7 @@ ServletConfig获取配置参数的方法和ServletContext获取配置参数的�
 我们在平台项目两个工程中分别使用了不同的配置方式，介绍如下：
 
 (1). 在business-client工程中按照默认方式查找MVC的配置文件，配置文件目录为： /WEB-INF/business-servlet.xml。工程目录结构如下所示：
- ![img](http://img.blog.csdn.net/20180107221229630?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmVsaWV2ZWphdmE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+ ![img](../../../images/SouthEastwertw.png)
 (2).在public-base-server工程中，通过第2种方式进行配置，把spring-servlet.xml放到src/main/resources/config/spring-servlet.xml，则需要在配置DispatcherServlet时指定<init-param>标签。具体代码如下：
 
 ```html
@@ -756,7 +756,7 @@ ServletConfig获取配置参数的方法和ServletContext获取配置参数的�
 
 工程目录结构如下：
 
-![img](http://img.blog.csdn.net/20180107221333060?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmVsaWV2ZWphdmE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)![img](http://img.blog.csdn.net/20180107221352019?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmVsaWV2ZWphdmE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![img](../../../images/SouthEastdfsgsdg.png)
 
 其中，classpath是web项目的类路径，可以理解为classes下面。因为无论这些配置文件放在哪，编译之后如果没有特殊情况的话都直接在classes下面。jar包的话虽然放在lib文件夹里，但实际上那些类可以直接引用，比如：com.test.ABC，仿佛也在classes下面一样。
 
@@ -766,7 +766,7 @@ ServletConfig获取配置参数的方法和ServletContext获取配置参数的�
 
 #### **9.4 ContextLoaderListener和DispatcherServlet初始化上下文关系和区别：**
 
-![img](http://img.blog.csdn.net/20180107223756504?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvYmVsaWV2ZWphdmE=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast)
+![img](../../../images/Sout12312312hEast.png)
 
 从上图可以看出，ContextLoaderListener初始化的上下文加载的Bean是对于整个应用程序共享的，一般如：DAO层、Service层Bean；DispatcherServlet初始化的上下文加载的Bean是只对Spring MVC有效的Bean，如：Controller、HandlerMapping、HandlerAdapter等，该初始化上下文只加载Web相关组件。
 

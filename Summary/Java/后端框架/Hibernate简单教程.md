@@ -8,11 +8,11 @@ Hibernate 架构是分层的，作为数据访问层，你不必知道底层 API
 
 下面是一个非常高水平的 Hibernate 应用程序架构视图。
 
-![image](https://img.w3cschool.cn/attachments/image/wk/hibernate/hibernate_high_level.jpg)
+![image](../../../images/hibernate_high_level.jpg)
 
 下面是一个详细的 Hibernate 应用程序体系结构视图以及一些重要的类。
 
-![image](https://img.w3cschool.cn/attachments/image/wk/hibernate/hibernate_architecture.jpg)
+![image](../../../images/hibernate_architecture.jpg)
 
 Hibernate 使用不同的现存 Java API，比如 JDBC，Java 事务 API（JTA），以及 Java 命名和目录界面（JNDI）。JDBC 提供了一个基本的抽象级别的通用关系数据库的功能， Hibernate 支持几乎所有带有 JDBC 驱动的数据库。JNDI 和 JTA 允许 Hibernate 与 J2EE 应用程序服务器相集成。
 
@@ -464,7 +464,7 @@ Hibernate 注释是一种强大的来给对象和关系映射表提供元数据�
 
 下面我们将使用 EMPLOYEE 表来存储对象:
 
-```
+```sql
 create table EMPLOYEE (
    id INT NOT NULL auto_increment,
    first_name VARCHAR(20) default NULL,
@@ -476,7 +476,7 @@ create table EMPLOYEE (
 
 以下是用带有注释的 Employee 类来映射使用定义好的 Employee 表的对象:
 
-```
+```java
 import javax.persistence.*;
 
 @Entity
@@ -893,7 +893,7 @@ cr.setProjection(Projections.sum("salary"));
 
 考虑下面的 POJO 类：
 
-```
+```java
 public class Employee {
    private int id;
    private String firstName; 
@@ -970,7 +970,7 @@ create table EMPLOYEE (
 
 最后，我们将用 main() 方法创建应用程序类来运行应用程序，我们将使用 **Criteria** 查询：
 
-```
+```java
 import java.util.List; 
 import java.util.Date;
 import java.util.Iterator; 

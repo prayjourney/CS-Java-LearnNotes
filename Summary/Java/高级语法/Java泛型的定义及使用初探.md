@@ -456,7 +456,7 @@ staticFans.<Integer>OtherMethod(new Integer(123));//使用方法二
 ```
 
 结果如下：
-![genericrunreslut2](F:\CodeBank\MyGit\SummaryOfProgramming\images\genericrunreslut2.png)
+![genericrunreslut2](../../../images/genericrunreslut2.png)
 
 首先，我们看静态泛型函数的使用方法：
 ```java
@@ -937,7 +937,7 @@ box = new Box<String>();
 #### 通配符？的绑定
 ##### extends绑定
 从上面我们可以知道通配符？可以代表任意类型，但跟泛型一样，如果不加以限定，在后期的使用中编译器可能不会报错。所以我们同样，要对？加以限定。**绑定的形式，同样是通过extends关键字**，意义和使用方法都用泛型变量一致。同样，以我们上面的Point<T>泛型类为例，因为Point在实例意义中，其中的值是数值才有意义，所以将泛型变量T填充为Object类型、String类型等都是不正确的。所以我们要对Point<?> point加以限定：只有数值类型才能赋值给point；我们把代码改成下面的方式：
-![genericrunreslut7](F:\CodeBank\MyGit\SummaryOfProgramming\images\genericrunreslut7.png)
+![genericrunreslut7](../../../images/genericrunreslut7.png)
 
 我们给通配符加上限定： `Point<? extends Number> point;`此时，最后两行，当将T填充为String和Object时，赋值给point就会报错！这里?表示所有的类，但是extends关键字还是发挥了它的作用，表示不关?代表什么类，必须是Number类或者Number类的子类。~~这里虽然是指派生自Number的任意类型，但大家注意到了没： new Point<Number>();也是可以成功赋值的，这说明包括边界自身~~。再重复一遍：**无边界通配符只是泛型T的填充方式，给他加上限定，只是限定了赋值给它（比如这里的point）的实例类型**。如果想从根本上解决乱填充Point的问题，需要从Point泛型类定义时加上\<T extends Number\>:
 ```java

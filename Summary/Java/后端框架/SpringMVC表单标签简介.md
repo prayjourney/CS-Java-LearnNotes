@@ -384,7 +384,7 @@ Blog类的代码如下：
 
 从以上代码中我们可以看到我们放在ModelMap中的roleList对象有三个元素，分别是role1、role2和role3，而我们的表单对象User的roles属性只拥有两个元素，分别是role1和role3,，所以当我们访问该处理器方法返回如上所示的视图页面时，我们要展现的复选框项是roleList，也就是role1、role2和role3，而我们表单对象只拥有role1和role3，所以在页面进行渲染的时候会展示3个复选框项，但只有role1和role3会被设定为选中状态。
 
-![img](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/roles1.png)
+![img](../../../images/roles1.png)
 
 上面介绍的这种情况是使用List作为展现复选框项的数据源，这种情况我们已经看到了它所呈现出来的标签Label和它的值是一样的。使用Array和Set作为数据源也是这种情况。那么如果要让checkboxes呈现出来的Label和实际上送的value不同的话应该怎么做呢？这个时候我们就可以使用Map作为数据源了。使用Map作为checkboxes的items属性的数据源时Key将作为真正的复选框的value，而Map的value将作为Label进行展示。当使用Map作为checkboxes的items属性的数据源时我们绑定的表单对象属性的类型可以是Array、集合和Map，这种情况就是判断items Map中是否含有对应的key来决定当前的复选框是否处于选中状态。我们来看以下一个处理器方法以及其对应的视图代码。
 
@@ -428,7 +428,7 @@ Blog类的代码如下：
 
 这个时候我们知道会呈现出3个复选框，而checkboxes绑定的表单对象user的roles属性是一个集合对象，其包含的两个元素都能在checkboxes的items数据源中找到对应的Key，所以以这两个元素为value的checkbox将处于选中状态。效果如下：
 
-![img](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/roles2.png)
+![img](../../../images/roles2.png)
 
  
 
@@ -503,7 +503,7 @@ radiobuttons标签跟radiobutton标签的区别如同checkbox标签对checkboxes
 
 在上述代码中我们可以看到我们使用了radiobuttons的delimiter属性，该属性表示进行展示的radiobutton之间的分隔符。这里用的是一个空格。结果页面如下所示：
 
-![img](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/roles3.png)
+![img](../../../images/roles3.png)
 
  
 
@@ -550,9 +550,8 @@ select标签将会被渲染为一个普通的HTML select标签。这里还拿前
 13. </form:form> 
 ```
 
-
 这个时候会渲染出如下结果：
-![img](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/roles4.png)
+![img](../../../images/roles4.png)
 
  
 
@@ -585,7 +584,7 @@ option标签会被渲染为一个普通的HTML option标签。当一个SpringMVC
 ```
 
 我们可以看到在上面代码中我们是没有指定select标签的数据源的，而是通过在select标签体里面指定普通HTML option标签和SpringMVC option标签来指定可选项。其渲染的效果如下：
-![img](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/roles5.png)
+![img](../../../images/roles5.png)
 
 这个时候你可能会有两个疑问：
 
@@ -615,9 +614,8 @@ option标签会被渲染为一个普通的HTML option标签。当一个SpringMVC
 17. </form:form> 
 ```
 
-
 从上述代码中我们可以看出来我们就是给select标签加了一个items属性，然后指定其数据源为当前pageContext的ballMap属性。此时，将渲染出如下效果：
-![img](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/roles6.png)
+![img](../../../images/roles6.png)
 
  
 
@@ -645,14 +643,13 @@ option标签会被渲染为一个普通的HTML option标签。当一个SpringMVC
 18. </form:form> 
 ```
 
-
 我们可以看到，在上面代码中，我们定义了一个select标签，其绑定了当前表单对象user的favoriteBall属性，而且我们没有给该select指定items数据源。值得注意的是在该select标签体中我们通过普通HTML option和SpringMVC option标签定义了两个value均为4的option元素，而且我们也知道当前表单对象user的favoriteBall属性的值是4。接着我们来看一下上面代码渲染出的效果：
-![img](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/roles7.png)
+![img](../../../images/roles7.png)
 
  
 
 接着我们把上述代码中以SpringMVC option标签定义的option给删除，再看一下其渲染出的效果如下：
-![img](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/roles8.png)
+![img](../../../images/roles8.png)
 
  
 
@@ -683,9 +680,8 @@ option标签会被渲染为一个普通的HTML option标签。当一个SpringMVC
 16. </form:form> 
 ```
 
-
 上面代码将渲染出如下效果：
-![img](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/roles9.png)
+![img](../../../images/roles9.png)
 
 #### 1.12    textarea标签
 
@@ -805,7 +801,7 @@ SpringMVC errors标签是对应于SpringMVC的Errors对象的。它的作用就�
 ```
 
 当我们提交上面的表单的时候会往Errors中注入两个错误信息，展示的页面信息将如下所示：
-![img](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/roles10.png)
+![img](../../../images/roles10.png)
 
 
 
@@ -882,7 +878,7 @@ Select phone:
 
 显示效果：
 
-![img](https://raw.githubusercontent.com/prayjourney/_mypictures/master/blog/roles11.jpg)
+![img](../../../images/roles11.jpg)
 
 以上的例子说明了path，commandName(modelAttribute)的来源，path就是我需要的一个值的对应的**Domain(Model,POJO)类之中的相应的字段**，commandName(modelAttribute)就是在**Controller之中定义的Model(ModelMap, ModelAndView)对应的Model的key**。此处需要理清楚数据绑定的对象，数据绑定的方向。**path是POJOl类之中的字段，commandName和modelAttribute其实是相同的，都是modelXXX的key，最重要的是commandName=modelAttribute**。只不过其差别在于在form之中定义的时候，一个写的是commandName=key，一个写的是modelAttribute=key。form之中绑定了commandName和modelAttribute是为了方便绑定数据，但是，如果此处不需要明显绑定数据，或者说此时主要作用是**提交信息**，提交表单，那么此处可以不绑定commandName和modelAttribute，但是，也有绑定了commandName和modelAttribute的情况，有两种情况，一种是虽然绑定了，但是没有使用；另一种情况是，绑定commandName和modelAttribute，方便了数据的获取，本质没有改变，都是为了提交数据，但是此时，可以不用在此处再次手动输入，而是进入该页面后，已经直接有了其他页面传来的数据值，则可以直接提交，省去输入的时间，即**不是明显需要绑定commandName和modelAttribute的地方，绑定了commandName和modelAttribute，主要可以从其他地方获取数据，省去输入信息的步骤，但是其本质没有变，都是为了提交信息，将信息提交到需要处理的action**。
 

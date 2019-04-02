@@ -13,7 +13,7 @@
 - 并行：多个CPU实例或者多台机器同时执行一段处理逻辑，是真正的同时
 - 并发：通过CPU调度算法，让用户看上去同时执行，实际上从CPU操作层面不是真正的同时。并发往往在场景中有公用的资源，那么针对这个公用的资源往往产生瓶颈，我们会用TPS或者QPS来反应这个系统的处理能力
 
-![并发和并行](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_%e5%b9%b6%e8%a1%8c%e5%92%8c%e5%b9%b6%e5%8f%91.jpg)
+![并发和并行](../../../images/o_并行和并发.jpg)
 
 **线程安全**: 经常用来描绘一段代码。指在并发的情况之下，该代码经过多线程使用，线程的调度顺序不影响任何结果。这个时候使用多线程，我们只需要关注系统的内存，CPU是不是够用即可。反过来，线程不安全就意味着线程的调度顺序会影响最终结果，如不加事务的转账代码：
 
@@ -30,11 +30,11 @@ void transferMoney(User from, User to, float amount){
 #### 扎好马步：线程的状态
 先来两张图：
 
-![线程状态](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_%e7%ba%bf%e7%a8%8b%e7%8a%b6%e6%80%81.jpg)
+![线程状态](../../../images/o_线程状态.jpg)
 
-![线程状态转换1](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_%e7%ba%bf%e7%a8%8b%e7%8a%b6%e6%80%81%e8%bd%ac%e6%8d%a21.png)
+![线程状态转换1](../../../images/o_线程状态转换1.png)
 
-![线程状态转换2](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_%e7%ba%bf%e7%a8%8b%e7%8a%b6%e6%80%81%e8%bd%ac%e6%8d%a22.jpg)
+![线程状态转换2](../../../images/o_线程状态转换2.jpg)
 
 线程在Running的过程中可能会遇到阻塞(Blocked)情况
 
@@ -54,7 +54,7 @@ Blocked"和"Waiting"这两个状态的区别
 
 **原理**: synchronized, wait, notify, notifyAll是任何对象都具有的同步工具。让我们先来了解它们
 
-![monitor](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_monitor.jpg)
+![monitor](../../../images/o_monitor.jpg)
 
 它们是应用于同步问题的人工线程调度工具。讲其本质，首先就要明确monitor的概念，**Java中的每个对象都有一个监视器，来监测并发代码的重入**。*在非多线程编码时该监视器不发挥作用，反之如果在synchronized 范围内，监视器发挥作用*
 
@@ -143,7 +143,7 @@ Blocked"和"Waiting"这两个状态的区别
 
 - volatile
 
-  ![volatile](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_volatile.jpg)
+  ![volatile](../../../images/o_volatile.jpg)
 
 多线程的内存模型有：main memory（主存）、working memory（线程栈）等的区分，在处理数据时，线程会把值从主存load到本地栈，完成操作后再save回去，volatile关键词的作用就是**每次针对该变量的操作都激发一次load and save**。在多线程的情况下，定义变量时如果不是volatile或者final修饰的，很有可能产生不可预知的结果（*另一个线程修改了这个值，但是之后在某线程看到的是修改之前的值*）。其实道理上讲同一实例的同一属性本身只有一个副本。但是多线程是会缓存值的，本质上，volatile就是不去缓存，直接取值。在线程安全的情况下加volatile会牺牲性能。**synchronized关键字可以实现volatile关键字的功能，但是synchronized关键字的性能要低一些，此外volatile虽然保证取到的值是最新的，但是不能保证其一定正确，也就是说，它没有锁的功能，无法保证每一次操作没有脏读脏写，无法保证原子性**
 
@@ -240,7 +240,7 @@ ReentrantReadWriteLock.WriteLock
 - 性能更高
 
 synchronized和Lock性能对比
-![synchronized和Lock性能对比](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_synchronized%e5%92%8cLock%e6%80%a7%e8%83%bd%e5%af%b9%e6%af%94.jpg)
+![synchronized和Lock性能对比](../../../images/o_synchronized和Lock性能对比.jpg)
 
 **ReentrantLock**: 可重入的意义在于持有锁的线程可以继续持有，并且要释放对等的次数后才真正释放该锁。
 使用方法是：
@@ -274,7 +274,7 @@ WriteLock w = lock.writeLock();
 
 **BlockingQueue**: 阻塞队列。该类是`java.util.concurrent`包下的重要类，这个queue是单向队列，可以在队列头添加元素和在队尾删除或取出元素。类似于一个管道，特别适用于**先进先出**策略的一些应用场景。普通的queue接口主要实现有`PriorityQueue`（优先队列）`BlockingQueue`在队列的基础上添加了多线程协作的功能
 
-![BlockingQueue](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_BlockingQueue.jpg)
+![BlockingQueue](../../../images/o_BlockingQueue.jpg)
 
 除了传统的queue功能（表格左边的两列）之外，还提供了阻塞接口put和take，带超时功能的阻塞接口offer和poll。put会在队列满的时候阻塞，直到有空间时被唤醒；take在队列空的时候阻塞，直到有东西拿的时候才被唤醒。用于生产者-消费者模型尤其好用，堪称神器。
 
@@ -306,7 +306,7 @@ e.execute(new MyRunnableImpl());
 
 该类内部是通过ThreadPoolExecutor实现的，掌握该类有助于理解线程池的管理，本质上，他们都是ThreadPoolExecutor类的各种实现版本。请参见javadoc，ThreadPoolExecutor参数解释如下
 
-![ThreadPoolExecutor参数解释](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_ThreadPoolExecutor%e5%8f%82%e6%95%b0%e8%a7%a3%e9%87%8a.jpg)
+![ThreadPoolExecutor参数解释](../../../images/o_ThreadPoolExecutor参数解释.jpg)
 
 - corePoolSize:池内线程初始值与最小值，就算是空闲状态，也会保持该数量线程
 - maximumPoolSize:线程最大值，线程的增长始终不会超过该值

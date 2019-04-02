@@ -11,26 +11,26 @@ Findbugs很多人都并不陌生，Eclipse中有插件可以帮助查找代码�
 
 #### 安装
 
-![findbugs_01](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_fb1.png)
+![findbugs_01](../../../images/o_fb1.png)
 
-![findbugs_02](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_fb2.png)
+![findbugs_02](../../../images/o_fb2.png)
 
-![findbugs_03](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_fb3.png)
+![findbugs_03](../../../images/o_fb3.png)
 
 安装完之后，重启studio,会发现左下角会出现findbugs的图标 
-![findbugs_04](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_fb4.png)
+![findbugs_04](../../../images/o_fb4.png)
 
 可以分析单个文件，包下面的所有文件，整个module下的文件，整个project下的文件，右键想要分析的文件名/包名/module名/project
 
-![findbugs_05](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_fb5.png)
+![findbugs_05](../../../images/o_fb5.png)
 
 分析完之后就会出现结果面板
 
-![findbugs_06](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_fb6.png)
+![findbugs_06](../../../images/o_fb6.png)
 
 点击对应的item在右边会定位到具体的代码
 
-![findbugs_07](http://images.cnblogs.com/cnblogs_com/prayjourney/1041349/o_fb7.png)
+![findbugs_07](../../../images/o_fb7.png)
 
 根据需要可以进行更改，其中**Correctness这个错误使我们重点关注的对象，这里大多是空指针的错误，根据提示进行处理**。
 
