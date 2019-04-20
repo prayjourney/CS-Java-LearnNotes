@@ -11,6 +11,7 @@ Maven坐标通过5个元素定义: GroupID, artifactID, version必选, packaging
 
 #### 生命周期
 maven的生命周期有3个, 3个之间相互独立, 作用不同, 分别是: **Clean Lifecycle, Default Lifecycle和Site Lifecycle**, 其作用如下表格:
+
 |      生命周期名称    |            作用                                  |
 |---------------------|--------------------------------------------------|
 |Clean Lifecycle      |在进行真正的构建之前进行一些清理工作                 |
@@ -19,6 +20,7 @@ maven的生命周期有3个, 3个之间相互独立, 作用不同, 分别是: **
 
 
 ##### Clean Lifecycle的步骤
+
 | 步骤 |         名称      |               工作                 |
 |------|-------------------|-----------------------------------|
 |  1   |预清洁(pre-clean)  |执行一些需要在clean之前完成的工作     |
@@ -27,6 +29,7 @@ maven的生命周期有3个, 3个之间相互独立, 作用不同, 分别是: **
 
 
 ##### Site Lifecycle的步骤
+
 | 步骤 |           名称         |                             工作                     |
 |------|-----------------------|------------------------------------------------------|
 |  1   |预清洁(pre-site)       |执行一些需要在生成站点文档之前完成的工作                  |
@@ -37,31 +40,32 @@ maven的生命周期有3个, 3个之间相互独立, 作用不同, 分别是: **
 
 ##### Default Lifecycle的步骤
 作为最常用, 最重要的生命周期, 名字却最平凡, 最不起眼, 下面介绍其功能
+
 | 步骤 |                     名称                   |                             工作                     |
 |------|-------------------------------------------|------------------------------------------------------|
 |  1   |验证(validate)                             |验证项目是正确的, 所有必要的信息可用                     |
-|  2   |初始化(initialize)                         |初始化构建状态, 例如设置属性或创建目录                    |
+|  2   |初始化(initialize)                         |初始化构建状态, 例如设置属性或创建目录                   |
 |  3   |产生来源(generate-sources)                 |生成包含在编译中的任何源代码                             |
 |  4   |流程源(process-sources)                    |处理源代码, 例如过滤任何值                               |
 |  5   |生成资源(generate-resources)               |生成包含在包中的资源                                     |
-|  6   |流程资源(process-resources)                |将资源复制并处理到目标目录中, 准备打包                     |
+|  6   |流程资源(process-resources)                |将资源复制并处理到目标目录中, 准备打包                   |
 |  7   |编译(compile)                              |编译项目的源代码                                         |
-|  8   |工艺类(process-classes)                    |从编译后处理生成的文件, 例如对Java类进行字节码增强         |
-|  9   |生成测试来源(generate-test-sources)         |生成包含在编译中的任何测试源代码                          |
-|  10  |流程测试来源(process-test-sources)          |处理测试源代码, 例如过滤任何值                            |
+|  8   |工艺类(process-classes)                    |从编译后处理生成的文件, 例如对Java类进行字节码增强       |
+|  9   |生成测试来源(generate-test-sources)         |生成包含在编译中的任何测试源代码                        |
+|  10  |流程测试来源(process-test-sources)          |处理测试源代码, 例如过滤任何值                          |
 |  11  |生成测试资源(generate-test-resources)       |创建测试资源                                            |
-|  12  |流程测试资源(process-test-resources)        |将资源复制并处理到测试目标目录中                          |
-|  13  |测试编译(test-compile)                      |将测试源代码编译到测试目标目录中                         |
+|  12  |流程测试资源(process-test-resources)        |将资源复制并处理到测试目标目录中                        |
+|  13  |测试编译(test-compile)                      |将测试源代码编译到测试目标目录中                        |
 |  14  |流程检验类(process-test-classes)            |从测试编译中处理生成的文件, 例如对Java类进行字节码增强. 对于Maven 2.0.5及以上版本          |
-|  15  |测试(test)                                  |使用合适的单元测试框架运行测试. 这些测试不应该要求代码被打包或部署                        |
+|  15  |测试(test)                                  |使用合适的单元测试框架运行测试. 这些测试不应该要求代码被打包或部署                         |
 |  16  |制备包(prepare-package)                     |在实际包装之前, 执行必要的准备包装的操作. 这通常会导致打包的处理版本的包. (Maven 2.1及以上)|
-|  17  |打包(package)                               |采取编译的代码, 并以其可分发的格式(如JAR)进行打包                                       |
+|  17  |打包(package)                               |采取编译的代码, 并以其可分发的格式(如JAR)进行打包                                          |
 |  18  |预集成测试(pre-integration-test)            |在执行集成测试之前执行所需的操作. 这可能涉及诸如设置所需环境等                             |
-|  19  |集成测试(integration-test)                  |如果需要, 可以将该包过程并部署到可以运行集成测试的环境中                                  |
-|  20  |整合后的测试(post-integration-test)          |执行集成测试后执行所需的操作. 这可能包括清理环境                                         |
-|  21  |校验(verify)                                |运行任何检查以验证包装是否有效并符合质量标准                                             |
-|  22  |安装(install)                               |将软件包安装到本地存储库中, 以作为本地其他项目的依赖关系                                  |
-|  23  |部署(deploy)                                |在集成或发布环境中完成, 将最终软件包复制到远程存储库, 以与其他开发人员和项目共享            |
+|  19  |集成测试(integration-test)                  |如果需要, 可以将该包过程并部署到可以运行集成测试的环境中                                   |
+|  20  |整合后的测试(post-integration-test)          |执行集成测试后执行所需的操作. 这可能包括清理环境                                          |
+|  21  |校验(verify)                                |运行任何检查以验证包装是否有效并符合质量标准                                               |
+|  22  |安装(install)                               |将软件包安装到本地存储库中, 以作为本地其他项目的依赖关系                                   |
+|  23  |部署(deploy)                                |在集成或发布环境中完成, 将最终软件包复制到远程存储库, 以与其他开发人员和项目共享           |
 
 
 
@@ -83,26 +87,27 @@ mvn [plugin-name]:[goal-name]
 
 
 ##### 常用命令汇总
+
 | 序号  |            命令         |                                       作用                               |
-|------|-------------------------|--------------------------------------------------------------------------|
+|------|-------------------------|---------------------------------------------------------------------------|
 | 0    | mvn -version            |显示版本信息                                                               |
 | 1    | **mvn clean**           |清理项目生产的临时文件, 一般是模块下的target目录                              |
 | 2    | **mvn compile**         |编译源代码, 一般编译模块下的src/main/java目录                                 |
 | 3    | **mvn install**         |在本地repository中安装jar(包含mvn compile, mvn package, 然后上传到本地仓库)   |
-| 4    | **mvn deploy**          |上传到私服(包含mvn install, 然后上传到私服)                                  |
+| 4    | **mvn deploy**          |上传到私服(包含mvn install, 然后上传到私服)                                   |
 | 5    | **mvn package**         |项目打包, 会在模块下的target目录生成jar或war等文件                            |
-| 6    | mvn test                |测试命令, 或执行src/test/java/下junit的测试用例                              |
-| 7    | mvn site                |生成项目相关信息的网站                                                       |
-| 8    | mvn validate            |验证工程是否正确, 所有需要的资源是否可用                                       |
-| 9    | mvn test-compile        |编译测试代码                                                                |
-| 10   | mvn -Dtest package      |只打包不测试                                                                |
+| 6    | mvn test                |测试命令, 或执行src/test/java/下junit的测试用例                               |
+| 7    | mvn site                |生成项目相关信息的网站                                                        |
+| 8    | mvn validate            |验证工程是否正确, 所有需要的资源是否可用                                      |
+| 9    | mvn test-compile        |编译测试代码                                                                  |
+| 10   | mvn -Dtest package      |只打包不测试                                                                  |
 | 11   | **mvn package -Dmaven.test.skip=true**                  |      项目打包, 并且这个过程之中跳过测试      |
 | 12   | mvn test -skipping compile -skipping test-compile       |      只测试而不编译，也不测试编译            |
-| 13   | **mvn deploy**          |将打包的文件发布到远程仓库哦, 提供其他人员进行下载依赖                          |
-| 14   | mvn eclipse:eclipse     |将项目转化为eclipse项目(maven-eclipse-plugin)                                |
-| 15   | mvn idea:idea           |将项目转化为ieda项目(maven-idea-plugin)                                      |
-| 16   | **mvn jetty:run**       |运行项目于jetty上 (maven-jetty-plugin)                                       |
-| 17   | **mvn jar:jar**         |只打jar包(maven-jar-plugin)                                                 |
+| 13   | **mvn deploy**          |将打包的文件发布到远程仓库哦, 提供其他人员进行下载依赖                        |
+| 14   | mvn eclipse:eclipse     |将项目转化为eclipse项目(maven-eclipse-plugin)                                 |
+| 15   | mvn idea:idea           |将项目转化为ieda项目(maven-idea-plugin)                                       |
+| 16   | **mvn jetty:run**       |运行项目于jetty上 (maven-jetty-plugin)                                        |
+| 17   | **mvn jar:jar**         |只打jar包(maven-jar-plugin)                                                   |
 
 
 ##### 命令参数和注意事项
@@ -432,10 +437,6 @@ Maven本质上是一个插件框架, 它的核心并不执行任何具体的构�
     </build>
 </project>
 ```
-
-
-##### maven多模块的工程实例
-maven多模块工程例子: [maventest](https://gitlab.com/zuiguangyin/maventest)
 
 
 
