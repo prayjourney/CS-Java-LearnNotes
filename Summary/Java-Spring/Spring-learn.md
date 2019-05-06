@@ -15,3 +15,4 @@
 12.[AOP——SpringAOP](https://www.cnblogs.com/solverpeng/p/5628100.html)
 13.[结合Java实例代码来理解 AOP--面向切面编程 中的各个术语](https://blog.csdn.net/qq_27093465/article/details/53351403)
 14.[Spring MVC 总结](https://www.bcoder.top/2017/06/01/Spring-MVC-%E6%80%BB%E7%BB%93/)
+15.[陈本布衣-Spring系列随笔](https://www.cnblogs.com/chenbenbuyi/)
