@@ -5,4 +5,4 @@
 2.[历史记录](https://jingyan.baidu.com/article/ad310e8006c13f1848f49e7f.html)
 3.[IDEA控制台输出中文乱码问题](https://blog.csdn.net/liu865033503/article/details/81094575)
 4.[修改Idea默认的maven等全局设置](https://blog.csdn.net/asdfsadfasdfsa/article/details/79988360)
-
+5.[idea 启动时报错javax.imageio.IIOException](https://blog.csdn.net/Migumigu1316/article/details/82986134)
