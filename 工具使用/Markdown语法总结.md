@@ -173,19 +173,10 @@
 5. **转义字符**：在Markdown语法之中有一些是固定的语法标识符，如果直接使用就会显示为该标识符的功能，此时就需要使用转义字符，其为"**\\**"，例如，我需要一个反斜杠，则使用两个反斜杠表示"\\"，我需要一个星号，则使用"\*"来表示。
 6. **空格**：半方大的空白"& ensp;"全方大的空白"& emsp;"不断行的空白格"& nbsp;"都可以表示为空格，这其实也是HTML之中的实体键，可以在md之中直接使用，通常的空格可以直接用"& nbsp;"表示，此处的空格是为了显示方便才添加的，实践之中不需要，另外不能忽略了最后面的英文";"。
 
+
+
 ref:
-1.[Markdown 语法说明](http://www.appinn.com/markdown/)
-2.[flowchart](https://github.com/adrai/flowchart.js)
-3.[mermaid](https://github.com/knsv/mermaid)
-4.[Markdown中插入数学公式的法](http://blog.csdn.net/xiahouzuoxin/article/details/26478179)
-5.[markdown流程图语法](http://blog.csdn.net/aizhaoyu/article/details/44350821)
-6.[为什么我的markdown里无法直接画出流程图？](https://segmentfault.com/q/1010000010637970)
-7.[markdown绘图插件----mermaid简介](http://blog.csdn.net/wangyaninglm/article/details/52887045)
-
-8.[Markdown笔记：如何画流程图](https://segmentfault.com/a/1190000006247465),   9.[用Markdown画序列图和流程图](https://blog.csdn.net/ely2007/article/details/53056782),   10.[Markdown里面的流程图](https://blog.csdn.net/Subson/article/details/75126945),   11.[Markdown 语法手册 （完整整理版）](https://blog.csdn.net/witnessai1/article/details/52551362),   12.[Markdown里面的序列图](https://blog.csdn.net/subson/article/details/78032857),   13.[Markdown里面使用mermaid画流程图（基础）](https://blog.csdn.net/Subson/article/details/78054689)
-
-
-
+1.[Markdown 语法说明](http://www.appinn.com/markdown/),   2.[flowchart](https://github.com/adrai/flowchart.js),   3.[mermaid](https://github.com/knsv/mermaid),   4.[Markdown中插入数学公式的法](http://blog.csdn.net/xiahouzuoxin/article/details/26478179),   5.[markdown流程图语法](http://blog.csdn.net/aizhaoyu/article/details/44350821),   6.[为什么我的markdown里无法直接画出流程图？](https://segmentfault.com/q/1010000010637970),   7.[markdown绘图插件----mermaid简介](http://blog.csdn.net/wangyaninglm/article/details/52887045),   8.[Markdown笔记：如何画流程图](https://segmentfault.com/a/1190000006247465),   9.[用Markdown画序列图和流程图](https://blog.csdn.net/ely2007/article/details/53056782),   10.[Markdown里面的流程图](https://blog.csdn.net/Subson/article/details/75126945),   11.[Markdown 语法手册 （完整整理版）](https://blog.csdn.net/witnessai1/article/details/52551362),   12.[Markdown里面的序列图](https://blog.csdn.net/subson/article/details/78032857),   13.[Markdown里面使用mermaid画流程图（基础）](https://blog.csdn.net/Subson/article/details/78054689),   14.[markdown编辑器中可以使用的6种空格标记](https://blog.csdn.net/testcs_dn/article/details/78957685)
 
 
 
