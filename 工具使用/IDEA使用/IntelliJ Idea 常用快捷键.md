@@ -1,173 +1,95 @@
-### IntelliJ Idea 常用快捷键
-
-***
-
-![ideakey1](C:\src-repo\CS-Java-LearnNotes\images\o_ideakey1.png)
-
-![ideakey1](C:\src-repo\CS-Java-LearnNotes\images\o_ideakey2.png)
-
-![ideakey1](C:\src-repo\CS-Java-LearnNotes\images\o_ideakey3.png)
-
-级别：1.红，2.蓝，3.绿，4.黑
-
- 
-
-1、文本编辑
-
-​         删除:      Ctrl + Y
-
-​         复制:      Ctrl + D
-
-​         重命名:     Shift + F6
-
-​         快速寻找:      Alt ＋ F3    
-
-​         注释代码:     Ctrl ＋ / 和 Ctrl ＋ Shift ＋ /
-
-​         查找变量来源:      F4 
-
- 
-
-2、智能提示
-
-​         提示:      Ctrl + Space
-
-​         智能提示:      Ctrl + Shift + Space
-
-​         自动完成当前语句:      Ctrl + Shift + Enter
-
-​         建议提示为参数:      Ctrl+ Alt + P
-
- 
-
-3、搜索使用
-
-​         发现使用情况/行:      Alt + F7 / Ctrl + F7
-
-​         高亮使用行:      Ctrl + Shift + F7
-
-​         显示使用情况:      Ctrl + Alt + F7
-
- 
-
- 
-
-4、位置定位
-
-​         定位到下一个或上一个错误:      F2 / Shift + F2
-
-​         定位文件头:      Ctrl +G   （定位到文件行数）
-
-​         定位到代码块开始:      Ctrl + [
-
-​         定位到代码块结束:      Ctrl + ]
-
-​         回到最近的窗口:      F12
-
-​         回到之前的文件:      Alt + Left
-
-​         回到之后的文件:      Alt + Right
-
-​         定位到最后编辑位置:      Ctrl + Shift + Backspace
-
-​         从ToolWindow或其他Window切换到文件编辑:      Esc
-
-​         关闭最近打开的窗口:      Shift+ Esc
-
-​         关闭当前窗口:     Ctrl+F4
-
-​         切换标签页:      Ctrl+Tab
-
-​         切换窗口:      Alt+Num，常用的有1-项目结构，3-搜索结果，4/5-运行调试。       
-
- 
-
-5、类、方法、文件定位
-
-​         查找类:      Ctrl + N
-
-​         查找文件:      Ctrl + Shift + N
-
-​         符号定位:      Ctrl + Alt + Shift + N
-
-​         查看文件结构:      Ctrl + F12
-
-​         最近打开的文件:      Ctrl + E
-
-​         打开最近编辑的文件:      Ctrl + Shift + E
-
-​         定位下一个方法:      Alt + down
-
-​         定位上一个方法:      Alt + up
-
-​         查看方法参数信息:      Ctrl + P
-
-​         查看方法、类的document:     Ctrl + Q
-
- 
-
-6、类、方法的结构查看、定位
-
-​         跳到类或方法的声明:      Ctrl+B
-
-​         定位到类的父类、接口:      Ctrl+ U
-
-​         查看类的继承结构:      Ctrl+ H
-
-​         查看方法的继承结构:      Ctrl+ Shift + H
-
-​         查看类或方法被调用情况:      Ctrl+ Alt +H 
-
-​         原地参看类、方法的声明:      Ctrl+Shift + I
-
- 
-
-7、运行与调试
-
-运行：
-
-​         Ctrl + F2:      停止
-
-​         Shift + F10:      运行
-
-​         Shift + F9:      Debug
-
-​         Ctrl + F9:      Make工程(编译模块和依赖文件)
-
-​         Ctrl + Shift + F9:      编译所选的文件或者模块
-
-​         Ctrl + Shift + F10:      运行当前编辑器之中的文件
-
-​         Alt + Shift + F10:      运行所选的文件
-
-​         Alt + Shift + F9:      Debug所选的文件
-
-调试:
-
-​         F8:      步过(向下执行一行)
-
-​         F7:      步入(如果该行有自定义方法，则运行进入自定义方法(不会进入官方类库的方法))
-
-​         Shift + F7:      强制进入代码(任何代码)
-
-​         Shift + F8:      步出(跳到下一个断点)
-
-​         Alt + F9:      运行到光标处
-
-​         Alt + F8:      Debug时选中查看值
-
-​         F9:      恢复程序
-
-​         Ctrl + F8:      钉住断点
-
-​         Ctrl + Shift + F8:      查看断点
-
-
-
-
-
-##### 1. -----------自动代码--------
-
+### IntelliJ IDEA 常用快捷键
+---
+**1.文本编辑**
+&nbsp;&nbsp;&nbsp;&nbsp;删除:      Ctrl + Y
+&nbsp;&nbsp;&nbsp;&nbsp;复制:      Ctrl + D
+&nbsp;&nbsp;&nbsp;&nbsp;重命名:     Shift + F6
+&nbsp;&nbsp;&nbsp;&nbsp;快速寻找:      Alt ＋ F3    
+&nbsp;&nbsp;&nbsp;&nbsp;注释代码:     Ctrl ＋ / 和 Ctrl ＋ Shift ＋ /
+&nbsp;&nbsp;&nbsp;&nbsp;查找变量来源:      F4 
+
+
+
+**2.智能提示**
+&nbsp;&nbsp;&nbsp;&nbsp;提示:      Ctrl + Space
+&nbsp;&nbsp;&nbsp;&nbsp;智能提示:      Ctrl + Shift + Space
+&nbsp;&nbsp;&nbsp;&nbsp;自动完成当前语句:      Ctrl + Shift + Enter
+&nbsp;&nbsp;&nbsp;&nbsp;建议提示为参数:      Ctrl+ Alt + P
+
+
+
+**3.搜索使用**
+&nbsp;&nbsp;&nbsp;&nbsp;发现使用情况/行:      Alt + F7 / Ctrl + F7
+&nbsp;&nbsp;&nbsp;&nbsp;高亮使用行:      Ctrl + Shift + F7
+&nbsp;&nbsp;&nbsp;&nbsp;显示使用情况:      Ctrl + Alt + F7
+
+
+
+**4.位置定位**
+&nbsp;&nbsp;&nbsp;&nbsp;定位到下一个或上一个错误:      F2 / Shift + F2
+&nbsp;&nbsp;&nbsp;&nbsp;定位文件头:      Ctrl +G   （定位到文件行数）
+&nbsp;&nbsp;&nbsp;&nbsp;定位到代码块开始:      Ctrl + [
+&nbsp;&nbsp;&nbsp;&nbsp;定位到代码块结束:      Ctrl + ]
+&nbsp;&nbsp;&nbsp;&nbsp;回到最近的窗口:      F12
+&nbsp;&nbsp;&nbsp;&nbsp;回到之前的文件:      Alt + Left
+&nbsp;&nbsp;&nbsp;&nbsp;回到之后的文件:      Alt + Right
+&nbsp;&nbsp;&nbsp;&nbsp;定位到最后编辑位置:      Ctrl + Shift + Backspace
+&nbsp;&nbsp;&nbsp;&nbsp;从ToolWindow或其他Window切换到文件编辑:      Esc
+&nbsp;&nbsp;&nbsp;&nbsp;关闭最近打开的窗口:      Shift+ Esc
+&nbsp;&nbsp;&nbsp;&nbsp;关闭当前窗口:     Ctrl+F4
+&nbsp;&nbsp;&nbsp;&nbsp;切换标签页:      Ctrl+Tab
+&nbsp;&nbsp;&nbsp;&nbsp;切换窗口:      Alt+Num，常用的有1-项目结构，3-搜索结果，4/5-运行调试。
+
+
+
+**5.类、方法、文件定位**
+&nbsp;&nbsp;&nbsp;&nbsp;查找类:      Ctrl + N
+&nbsp;&nbsp;&nbsp;&nbsp;查找文件:      Ctrl + Shift + N
+&nbsp;&nbsp;&nbsp;&nbsp;符号定位:      Ctrl + Alt + Shift + N
+&nbsp;&nbsp;&nbsp;&nbsp;查看文件结构:      Ctrl + F12
+&nbsp;&nbsp;&nbsp;&nbsp;最近打开的文件:      Ctrl + E
+&nbsp;&nbsp;&nbsp;&nbsp;打开最近编辑的文件:      Ctrl + Shift + E
+&nbsp;&nbsp;&nbsp;&nbsp;定位下一个方法:      Alt + down
+&nbsp;&nbsp;&nbsp;&nbsp;定位上一个方法:      Alt + up
+&nbsp;&nbsp;&nbsp;&nbsp;查看方法参数信息:      Ctrl + P
+&nbsp;&nbsp;&nbsp;&nbsp;查看方法、类的document:     Ctrl + Q
+
+
+
+**6.类、方法的结构查看、定位**
+&nbsp;&nbsp;&nbsp;&nbsp; 跳到类或方法的声明:      Ctrl+B
+&nbsp;&nbsp;&nbsp;&nbsp;定位到类的父类、接口:      Ctrl+ U
+&nbsp;&nbsp;&nbsp;&nbsp; 查看类的继承结构:      Ctrl+ H
+&nbsp;&nbsp;&nbsp;&nbsp;查看方法的继承结构:      Ctrl+ Shift + H
+&nbsp;&nbsp;&nbsp;&nbsp;查看类或方法被调用情况:      Ctrl+ Alt +H 
+&nbsp;&nbsp;&nbsp;&nbsp;原地参看类、方法的声明:      Ctrl+Shift + I
+
+
+
+**7.运行与调试**
+&nbsp;&nbsp;运行：
+&nbsp;&nbsp;&nbsp;&nbsp;Ctrl + F2:      停止
+&nbsp;&nbsp;&nbsp;&nbsp;Shift + F10:      运行
+&nbsp;&nbsp;&nbsp;&nbsp;Shift + F9:      Debug
+&nbsp;&nbsp;&nbsp;&nbsp;Ctrl + F9:      Make工程(编译模块和依赖文件)
+&nbsp;&nbsp;&nbsp;&nbsp;Ctrl + Shift + F9:      编译所选的文件或者模块
+&nbsp;&nbsp;&nbsp;&nbsp;Ctrl + Shift + F10:      运行当前编辑器之中的文件
+&nbsp;&nbsp;&nbsp;&nbsp;Alt + Shift + F10:      运行所选的文件
+&nbsp;&nbsp;&nbsp;&nbsp;Alt + Shift + F9:      Debug所选的文件
+&nbsp;&nbsp;调试:
+&nbsp;&nbsp;&nbsp;&nbsp;F8:      步过(向下执行一行)
+&nbsp;&nbsp;&nbsp;&nbsp;F7:      步入(如果该行有自定义方法，则运行进入自定义方法(不会进入官方类库的方法))
+&nbsp;&nbsp;&nbsp;&nbsp;Shift + F7:      强制进入代码(任何代码)
+&nbsp;&nbsp;&nbsp;&nbsp;Shift + F8:      步出(跳到下一个断点)
+&nbsp;&nbsp;&nbsp;&nbsp;Alt + F9:      运行到光标处
+&nbsp;&nbsp;&nbsp;&nbsp;Alt + F8:      Debug时选中查看值
+&nbsp;&nbsp;&nbsp;&nbsp;F9:      恢复程序
+&nbsp;&nbsp;&nbsp;&nbsp;Ctrl + F8:      钉住断点
+&nbsp;&nbsp;&nbsp;&nbsp;Ctrl + Shift + F8:      查看断点
+
+
+
+##### 1. 自动代码
 Ctrl+Alt+O 优化导入的类和包
 Alt+Insert 生成代码(如get,set方法,构造函数等)
 Ctrl+Alt+T  生成try catch  或者 Alt+enter
@@ -194,8 +116,7 @@ Ctrl+Alt+V 提取变量
 
 
 
-##### 2. -----------查询快捷键--------
-
+##### 2. 查询快捷键
 Ctrl＋Shift＋Backspace可以跳转到上次编辑的地
 CTRL+ALT+ left/right 前后导航编辑过的地方
 ALT+7  靠左窗口显示当前文件的结构
@@ -241,8 +162,7 @@ Alt+6    查找TODO
 
 
 
-##### 3.---------------------其他快捷键-------------------
-
+##### 3.其他快捷键
 SHIFT+ENTER 另起一行
 CTRL+Z   倒退(撤销)
 CTRL+SHIFT+Z  向前(取消撤销)
@@ -255,17 +175,8 @@ Ctrl+~，快速切换方案（界面外观、代码风格、快捷键映射等�
 
 
 
-##### 4.--------------svn快捷键---------------
-
-ctrl+k 提交代码到SVN
-ctrl+t 更新代码
-
-
-
-##### 5.--------------调试快捷键---------------
-
+##### 4.调试快捷键
 **其实常用的 就是F8 F7 F9 最值得一提的 就是Drop Frame  可以让运行过的代码从头再来**
-
 Alt+F8          debug时选中查看值
 Alt+Shift+F9，选择 Debug
 Alt+Shift+F10，选择 Run
@@ -282,9 +193,10 @@ Ctrl+Alt+F9，强制运行至光标处
 F9，恢复程序
 Alt+F10，定位到断点
 
-##### 6.--------------重构---------------
 
-Ctrl+Alt+Shift+T，弹出重构菜单
+
+##### 5.重构
+**Ctrl+Alt+Shift+T，弹出重构菜单**
 Shift+F6，重命名
 F6，移动
 F5，复制
@@ -293,7 +205,7 @@ Ctrl+Alt+N，内联
 
 
 
-##### IDEA调试快捷键
+##### 6. 调试整合(IDEA调试快捷键)
 
 | 键                | 模式           | 作用                                 |
 | ----------------- | -------------- | ------------------------------------ |
@@ -308,7 +220,6 @@ Ctrl+Alt+N，内联
 | Alt + Shift + F7  | Debug          | 进入嵌套的方法之中                   |
 
 ##### IDEA的Debug使用
-
 ① 如下图 Gif 所示，查看所选对象的方法常用有三种方式：
   - 选中对象后，使用快捷键 `Alt + F8`。
   - 选中对象后，拖动对象到 `Watches`。
@@ -331,23 +242,28 @@ Ctrl+Alt+N，内联
 
 
 ##### IDEA设置多个窗口
-
 设置多窗口没有快捷键, 需要自己设置, 我设置的水平分割是SHIFT+H, 垂直分割是SHIFT+V, 设置如下
-
 ![](../../images/settingshfs.png)
-
 显示效果如下
-
 ![](../../images/settingsplitshow.png)
 
 
 
 ##### IDEA设置项目列表之中文件和文件夹的排序
-
 在Project窗口设置如下*Setting*--->*sort by type*--->*folders always on top*
-
 ![](../../images/filesorted.png)
 
-ref:
 
+
+
+![ideakey1](C:\src-repo\CS-Java-LearnNotes\images\o_ideakey1.png)
+
+![ideakey1](C:\src-repo\CS-Java-LearnNotes\images\o_ideakey2.png)
+
+![ideakey1](C:\src-repo\CS-Java-LearnNotes\images\o_ideakey3.png)
+
+级别：1.红，2.蓝，3.绿，4.黑
+
+---
+ref:
 1.[IntelliJ Idea 常用快捷键 列表](http://www.cnblogs.com/tq03/p/5218754.html),   2.[Intellij IDEA常用快捷键介绍 Intellij IDEA快捷键大全汇总](http://www.jb51.net/softjc/261714.html),   3.[IDEA快捷键图](http://files.jb51.net/file_images/article/201412/2014121711113294_jb51.png),   4.[IntelliJ IDEA 快捷键说明大全（中英对照、带图示详解）](http://blog.csdn.net/deniro_li/article/details/72902621),   5.[IDEA 图标介绍。 缓存和索引介绍、清理方法和Debug使用](http://www.cnblogs.com/wangmingshun/p/6416397.html)
