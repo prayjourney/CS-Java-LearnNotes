@@ -260,7 +260,6 @@ F5通常只是刷新本地缓存；Ctrl+F5可以把INTERNET临时文件夹的文
 - 勾选Debugger下的Disable JavaScript 复选框。
 ![chromerefreshcookie](../images/chromestopjsdebug.png)
 
-
-
+---
 ref:
 1.[超完整的 Chrome 浏览器客户端调试大全](http://web.jobbole.com/89344/),   2.[Chrome格式化JavaScript](https://www.cnblogs.com/chucklu/p/9101066.html),   3.[前端开发神一样的工具chrome调试技巧](https://blog.csdn.net/nanjingshida/article/details/72775687),   4.[谷歌浏览器怎么调试js](https://www.cnblogs.com/hongmaju/p/5115801.html),  5. [Google Chrome 调试JS简单教程(更新)](https://www.cnblogs.com/mq0036/p/3850035.html),   6.[谷歌Chrome浏览器开发者工具教程—JS调试篇](https://blog.csdn.net/cyyax/article/details/51242720),   7.[Chrome（谷歌）浏览器调试教程珍藏版](https://blog.csdn.net/milogenius/article/details/78897745),   8.[聊聊 Chrome DevTools 中你可能不知道的调试技巧](http://web.jobbole.com/95089/),   9.[Chrome 调试技巧](http://web.jobbole.com/95178/),   10.[chrome调试技巧--持续更新](https://www.cnblogs.com/freeyiyi1993/p/3620670.html)
