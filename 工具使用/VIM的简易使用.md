@@ -160,6 +160,6 @@ Change this line to UPPERCASE, THEN TO lowercase.
 
 
 
+---
 ref:
 1.[SpaceVim的基本安装和常见问题](https://www.cnblogs.com/zhuxiaoxi/p/8433157.html),   2.[**learn-vim**](https://github.com/prayjourney/learn-vim)
-
