@@ -4,29 +4,53 @@
 a="hello world!"
 num=2
 echo "a is : $a , num is ${num}nd"
+
+#切片
 stringass="123gdfsgsd1312313131231"
 echo ${stringass:1:4}
 if `ps -ef| grep pickup`; then echo hello; fi
+
 # 无限循环
 #while :
 #do 
 #    echo "$a"
 #done
-s=100
-while (($s -gt 120))
-do 
- echo"毛sssfsfa"
- # 数值运算
- s=$((s+2))
+
+echo "hello while loop"
+let s=124
+while [ $s -gt 120 ]
+do :
+    # set -x是开启调试, 会打印出来信息, set +x是关闭调试
+    set -x
+    # set +x
+    echo "=========="
+    # 数值运算
+    s=$(($s - 2))
 done
 
+
+i=94
+sum=0
+while [ $i -le 100 ]
+do
+  let sum=sum+$i
+  let i+=2
+done
+
+echo $sum
+
+
+
+# if 和[]之间, 条件和[]之间,都要留下空格
 # ifelse
 if [ "$SHELL" = "/bin/bash" ];then
-echo "your shell is the bash \n"
-echo "SHELL is :$SHELL"
+    echo "your shell is the bash \n"
+    echo "SHELL is :$SHELL"
 else
-echo "SHELL is not bash but $SHELL"
+    echo "SHELL is not bash but $SHELL"
 fi
+
+
 # 注释
 #[ -f "somefile" ] : 判断是否是一个文件
 #[ -x "/bin/ls" ] : 判断/bin/ls是否存在并有执行权限
