@@ -9,4 +9,4 @@
 6.[Intellij idea 项目中引用的包变红](https://xmliu.iteye.com/blog/2077023)
 7.[IDEA修改选取单词颜色和搜索结果的颜色](https://blog.csdn.net/qq_23146763/article/details/78722932)
 8.[idea 设置选中代码得背景颜色](https://www.cnblogs.com/xuange306/p/8136920.html)
-
+9.[IDEA设置CodeGlance颜色](https://www.cnblogs.com/prayjourney/p/11070415.html)
