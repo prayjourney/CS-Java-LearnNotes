@@ -29,12 +29,14 @@ do :
 done
 
 
+#定义常量
 i=94
 sum=0
 while [ $i -le 100 ]
 do
-  let sum=sum+$i
-  let i+=2
+    #定义变量
+    let sum=sum+$i
+    let i+=2
 done
 
 echo $sum
