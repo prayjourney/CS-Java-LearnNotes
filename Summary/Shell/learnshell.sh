@@ -1,7 +1,7 @@
 #!/usr/bin/bash
 #是注释符号, !/bin/sh要写在第一句,指出哪一个bash运行此程序
 echo "Hello World!"
-echo "learn shell https://blog.csdn.net/qq769651718/article/category/7467504"
+echo "learn shell:https://blog.csdn.net/qq769651718/article/category/7467504"
 
 #定义常量,x= xxx, x = xxx是错误的
 a="hello world!"
@@ -24,7 +24,7 @@ let s=124
 while [ $s -gt 120 ]
 do :
     # set -x是开启调试, 会打印出来信息, set +x是关闭调试
-    set -x
+    set +x
     # set +x
     echo "=========="
     # 数值运算
@@ -82,9 +82,9 @@ echo $varu
 #[ "$a" = "$b"] : 判断$a和$b是否相等
 [ -f "/etc/shadow" ] && echo "this is password computer"
 if [ -f "/etc/shadow" ];then
-echo "123123123"
+	echo "123123123"
 else
-echo "没有"
+	echo "没有"
 fi  
 
 # 分片
