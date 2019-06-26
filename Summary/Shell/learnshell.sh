@@ -1,5 +1,8 @@
 #!/usr/bin/bash
 #是注释符号, !/bin/sh要写在第一句,指出哪一个bash运行此程序
+echo "Hello World!"
+echo "learn shell https://blog.csdn.net/qq769651718/article/category/7467504"
+
 #定义常量,x= xxx, x = xxx是错误的
 a="hello world!"
 num=2
@@ -41,7 +44,19 @@ done
 
 echo $sum
 
+#定义数组
+array_name=("value1" "value2" "value3")
+echo ${array_name[1]}
+#@和*都是打印参数
+echo ${array_name[@]}
 
+
+length=${#array_name[@]}
+echo ${length}
+
+#这样直接定义了三个参数
+array_name1=(value1 value2 value31)
+echo ${array_name1[*]}
 
 # if 和[]之间, 条件和[]之间,都要留下空格
 # ifelse
@@ -52,8 +67,15 @@ else
     echo "SHELL is not bash but $SHELL"
 fi
 
+#-p是输出时候的提示信息
+read -p  "请输入1,2,3三个参数: " var1 var2 var3
+echo $var1 $var2 $var3
 
-# 注释
+read -t 5 -p "5s之后就会过期,请快速输入: " varu
+echo $varu
+
+
+# 文件的判断
 #[ -f "somefile" ] : 判断是否是一个文件
 #[ -x "/bin/ls" ] : 判断/bin/ls是否存在并有执行权限
 #{ -n "$var" } : 判断$var变量是否有值
