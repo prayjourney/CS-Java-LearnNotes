@@ -1,9 +1,6 @@
 ### IDEA常见问题和设置
 ---
 
-IDEA常见问题和设置
----
-
 1.[查看方法的文档:快捷键 Ctrl-Q(Ctrl-J(mac))](https://www.cnblogs.com/jylzj/p/9818211.html)
 2.[历史记录](https://jingyan.baidu.com/article/ad310e8006c13f1848f49e7f.html)
 3.[IDEA控制台输出中文乱码问题](https://blog.csdn.net/liu865033503/article/details/81094575)
@@ -21,4 +18,5 @@ IDEA常见问题和设置
 15.[RGB颜色值与十六进制颜色码转换工具](https://www.sioe.cn/yingyong/yanse-rgb-16/)
 16.[Intellij Idea安装主题史上最详细步骤](https://blog.csdn.net/weixin_44000004/article/details/88047889)
 17.[设置IDEA中各种线条颜色](https://www.cnblogs.com/prayjourney/p/11176965.html)
+18.[IntelliJ IDEA在Java文件中避免自动集成import.\*包](https://blog.csdn.net/huangdingsheng/article/details/82982180)
 
