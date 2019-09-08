@@ -34,22 +34,24 @@ class Hello{
 需要注意, javac有一个选线`javac -d xxxx`,通过这个命令, 我们可以将class文件输出到不同的目录之中.
 如果有包呢? 比如com. zgy这样的包? 怎么打包呢?
 ```java
-package com.zgy
-class Tom{
-     public static void speak(){
-         System.out.println("hello");
-     }
+package com.cqu;
+
+import com.zgy.Tom;
+
+public class Mg {
+    public static void main(String[] agrs){
+        Tom tom = new Tom();
+        tom.speak();
+    }
 }
 ```
 ```java
-package com.cqu
+package com.zgy;
 
-import com.zgy;
-
-class Hello{
-     public static void main(String[] agrs){
-         Tom.speak();
-     }
- }
+public class Tom {
+    public void speak(){
+        System.out.println("hello");
+    }
+}
 ```
 
