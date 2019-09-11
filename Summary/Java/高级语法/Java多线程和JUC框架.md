@@ -10,6 +10,7 @@
 所以, notify与notifyAll没有太多的区别, 只是notify仅唤醒一个线程并允许它去获得锁, notifyAll是唤醒所有等待这个对象的线程并允许它们去获得对象锁, 只要是在synchronied块中的代码, 没有对象锁是寸步难行的. 其实唤醒一个线程就是重新允许这个线程去获得对象锁并向下运行.
 notifyAll, 虽然是对每个wait的对象都调用一次notify, 但是这个还是有顺序的, 每个对象都保存这一个等待对象链, 调用的顺序就是这个链的顺序. 其实启动等待对象链中各个线程的也是一个线程, 在具体应用的时候, 需要注意一下.
 **wait(), notify(), notifyAll()不属于Thread类, 而是属于Object基础类, 也就是说每个对像都有wait(), notify(), notifyAll()的功能. 因为都个对像都有锁, 锁是每个对像的基础, 当然操作锁的方法也是最基础了**.
+
 >**wait():**
 等待对象的同步锁, 需要获得该对象的同步锁才可以调用这个方法, 否则编译可以通过, 但运行时会收到一个异常: IllegalMonitorStateException.
 调用任意对象的 wait() 方法导致该线程阻塞, 该线程不可继续执行, 并且该对象上的锁被释放.
@@ -58,4 +59,4 @@ notifyAll, 虽然是对每个wait的对象都调用一次notify, 但是这个还
 
 ---
 ref:
-1.[Java多线程之wait(),notify(),notifyAll()](https://blog.csdn.net/oracle_microsoft/article/details/6863662),   2.[java wait用法详解](https://blog.csdn.net/superjunenaruto/article/details/58315357)
+1.[Java多线程之wait(),notify(),notifyAll()](https://blog.csdn.net/oracle_microsoft/article/details/6863662),   2.[java wait用法详解](https://blog.csdn.net/superjunenaruto/article/details/58315357),   3.[Java 线程的6种状态](https://blog.csdn.net/sinat_36265222/article/details/78249503),   4.[**Java线程的6种状态及切换(透彻讲解)**](https://blog.csdn.net/pange1991/article/details/53860651),   5.[**Java中的多线程你只要看这一篇就够了**](https://www.cnblogs.com/wxd0108/p/5479442.html),   6.[JAVA多线程及线程状态转换](https://www.cnblogs.com/nwnu-daizh/p/8036156.html),   7.[**Java多线程学习之wait、notify/notifyAll 详解**](https://www.cnblogs.com/moongeek/p/7631447.html),   8.[Java wait() notify()方法使用实例讲解](https://blog.csdn.net/zhaoheng2017/article/details/78409404),   9.[**Java多线程之wait(),notify(),notifyAll()**](https://blog.csdn.net/oracle_microsoft/article/details/6863662),   10.[**java wait用法详解**](https://blog.csdn.net/superjunenaruto/article/details/58315357)
