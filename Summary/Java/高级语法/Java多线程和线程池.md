@@ -103,8 +103,7 @@ class Ticket {
 
 
 
-
-#### Java多线程
+#### 基本的Java多线程
 Java多线程主要的类是`Thread`和`Runnable`接口, 类只可以单继承, 接口可以多实现, 所以使用`Runnable`接口更加方便, 运行任务时候, 只需要重写run()方法, 就可以了. `Thread`有使用`Runnable`构造线程的构造函数. `Thread`之中的方法有run 和start需要注意, run是运行线程, 但是它只是运行, 也就是简单的执行, 达不到开启多条线程的效果, 而start方法是可以开启多条线程的, 开启多线程, 就需要多条线程同时start.
 
 **多线程买票的例子**
@@ -254,6 +253,355 @@ public class StopThread extends Thread {
         System.out.println(currentThread().getName() + ": " + count);
     }
 }
+```
+
+
+
+#### 多线程进阶
+在使用基本的多线程的时候, 除了Thread, Runnable创建之外, 还有多线程的状态, Java之中有6种状态明确的说明, 可以通过`Thread.State.values()`来获取.分别是: NEW, RUNNABLE, BLOCKED, WAITING, TIMED_WAITING, TERMINATED. 之间的转换关系如图
+![threadstate6](../../../images/threadstate6.png)
+另外, 需要说明的是, wait(), notify(), notifyAll()方法, 以及condition方法, 对于前三者, 他们是对象的属性, 而非Thread, 每个对象都有锁, 所以锁的获取和释放是基于对象的, 因此, 我们在synchronize的时候, 都是对`Integer obj = 0;` 的 obj 操作, 而非是`int obj = 0;`的obj操作, 如`synchronized(obj){......}`, 所以要记着这一点, 锁是针对和基于对象的, 然后就是wait(), notify(), notifyAll()都要在`synchronized(obj){......}`,的....之中, 也就是在有这个对象锁的时候采取操作, 而非其他的时候, 在其他时间操作的话, 就会出现`  java.lang.IllegalMonitorStateException:current thread not owner`的错误. wait(), notify(), notifyAll()以及condition是非常适合于一些条件的, 但是对于简单的比如买票这种就没有什么用处, 很多程度上, 这种是针对比如生产者消费者的例子设计的, 比如下面的, 就没有很好的控制, 当我们的一个线程停止, 就无法再去启动了, 比如下面的代码,  **当消费者最后一次无法消费的时候, 这样消费者线程就自动停止了**, 这样我们就要设计条件, 使得当条件不满足继续消费的时候, 可以让出自己的对象锁, 让生产者生产一会儿, 后续的话, 就可以自己又重新生产了, 最直观的理解, 应该就是这样了. 代码如下:
+
+```java
+/**
+ * @Author: zgy
+ * @Despcription: 银行余额, 有存款和消费两个动作, 所以放在一起会相互阻塞, 所以呢, 要多线程走起
+ *                这是一个不完全的生产者消费者的例子, 生产者是一直存钱, 消费者是一直消费,  但是如果消费者线程停下来, 就无法再继续消费了
+ *                同理, 生产者如果停下来, 也就无法继续生产了, 无法保证系统的持续运行,
+ *                因此我们需要在无法维持生产, 或者消费的时候, 就去释放了自己的锁, 然后唤醒其他的线程去消费或者生产, 这样系统既可以一直运行了
+ *                所以, 我们也就可以理解了, 为什么wait, notify, notifyAll方法必须在synchronized体之中进行操作了
+ * @Date: Created in 2019/9/10 22:17
+ * @Modified by:
+ */
+@Data
+public class BankBalance {
+    // 卡号
+    private int idcard;
+    // 客户
+    private String name;
+    // 余额是一个临界资源, 那就要对这个临界资源进行控制
+    private static Integer balance;
+    // 每次消费的数目, 假设每次都一样多
+    private static int consumeNo;
+    // 每次存储的数目, 假设每次都一样多
+    private int saveNo;
+    // 消费的次数
+    private int countConsumeTimes = 1;
+    // 存钱的次数
+    private int countSaveTimes = 1;
+    // 打印出时间
+    // DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-DD HH:mm:ss");
+    // static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy年MM月dd HH时mm分ss秒");
+    private static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy年MM月dd HH:mm:ss");
+
+    public BankBalance() {
+
+    }
+
+    public BankBalance(int idcard, String name, int consumeNo, int saveNo, Integer balance) {
+        this.idcard = idcard;
+        this.name = name;
+        this.consumeNo = consumeNo;
+        this.saveNo = saveNo;
+        this.balance = balance;
+    }
+
+    // 存款, 每次只存一次, 而不是while循环起来, 不停的操作
+    public void save() {
+        try {
+            Thread.sleep(2500);
+            synchronized (balance) {
+                balance += saveNo;
+                String time = dtf.format(LocalDateTime.now());
+                // System.out.println("第 " + countSaveTimes + "次存款, 当前的时间是: " + time + " 余额是: " + balance);
+                String saveInfo = String.format("第 %d 次存款, 时间: %s , 当前的余额是: %d", countSaveTimes, time, balance);
+                System.out.println(saveInfo);
+                countSaveTimes++;
+            }
+            // 释放锁
+            // balance.notify();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // 消费
+    public void consume() {
+        // 每次只消费一次, 而不是一消费就停不下来!
+        // while (balance > consumeNo) {
+        if (balance > consumeNo) {
+            try {
+                Thread.sleep(1300);
+                synchronized (balance) {
+                    balance -= consumeNo;
+                    System.out.println("第 " + countConsumeTimes + "次消费, 余额是: " + balance);
+                    countConsumeTimes++;
+                }
+                // 释放锁
+                //balance.notify();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    // 存钱线程, 所做的事情就是不断存钱
+    class SaveMoney implements Runnable {
+        private BankBalance b;
+
+        public SaveMoney(BankBalance b) {
+            this.b = b;
+        }
+
+        @Override
+        public void run() {
+            // 存钱可以一直存
+            // 当消费停止后, 存钱还一直在进行, 其实这个相当于生产者和消费者的情况了, 只是没有连续的不断的进行, 当有一方停止, 就无法重新启动了
+            // 设置一个条件, 让到达一定程度都停止吧
+            while (b.balance < 1500) {
+                b.save();
+            }
+        }
+    }
+
+    // 花钱消费线程, 所做的事情就是不断花钱
+    class ConsumeShopping implements Runnable {
+
+        private BankBalance b;
+
+        public ConsumeShopping(BankBalance b) {
+            this.b = b;
+        }
+
+        @Override
+        public void run() {
+            // 花钱最少一次不能小于设定的额度
+            while (b.balance > b.consumeNo) {
+                b.consume();
+            }
+        }
+    }
+
+
+    public static void main(String[] args) {
+        BankBalance bb = new BankBalance(123, "赵云", 220, 130, 1000);
+
+        // 消费线程
+        SaveMoney sm = bb.new SaveMoney(bb);
+        // 挣钱线程
+        ConsumeShopping cs = bb.new ConsumeShopping(bb);
+
+        new Thread(sm).start();
+        new Thread(cs).start();
+    }
+}
+```
+输出为如下示意:
+```txt
+第 1次消费, 余额是: 780
+第 1 次存款, 时间: 2019年09月11 22:55:48 , 当前的余额是: 910
+第 2次消费, 余额是: 690
+第 3次消费, 余额是: 470
+第 2 次存款, 时间: 2019年09月11 22:55:51 , 当前的余额是: 600
+第 4次消费, 余额是: 380
+第 5次消费, 余额是: 160
+第 3 次存款, 时间: 2019年09月11 22:55:53 , 当前的余额是: 290
+第 4 次存款, 时间: 2019年09月11 22:55:56 , 当前的余额是: 420
+第 5 次存款, 时间: 2019年09月11 22:55:58 , 当前的余额是: 550
+第 6 次存款, 时间: 2019年09月11 22:56:01 , 当前的余额是: 680
+第 7 次存款, 时间: 2019年09月11 22:56:03 , 当前的余额是: 810
+第 8 次存款, 时间: 2019年09月11 22:56:06 , 当前的余额是: 940
+第 9 次存款, 时间: 2019年09月11 22:56:08 , 当前的余额是: 1070
+第 10 次存款, 时间: 2019年09月11 22:56:11 , 当前的余额是: 1200
+第 11 次存款, 时间: 2019年09月11 22:56:13 , 当前的余额是: 1330
+第 12 次存款, 时间: 2019年09月11 22:56:16 , 当前的余额是: 1460
+第 13 次存款, 时间: 2019年09月11 22:56:18 , 当前的余额是: 1590
+
+Process finished with exit code 0
+```
+使用wait和notify的生产者消费者, 当前还有点问题
+```java
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+/**
+ * @Author: renjiaxin
+ * @Despcription: 完全的生产者消费者, 保持系统一直持续运行, 使用了wait, notify, notifyAll方法
+ * @Date: Created in 2019/9/11 23:32
+ * @Url: https://blog.csdn.net/ldx19980108/article/details/81707751 https://www.jianshu.com/p/abf9cbda80d0
+ * https://www.cnblogs.com/yunche/p/9540561.html  https://blog.csdn.net/fallwind_of_july/article/details/92812756
+ * @Modified by:
+ */
+@Data
+public class ProduceConsume {
+    // 盘子的总容量
+    @Getter
+    @Setter
+    private static Integer capacity;
+    // 盘子当前的容量
+    @Getter
+    @Setter
+    private static Integer currentCapacity;
+    // 定义一个公共的锁
+    public Object lockObj = new Object();
+    // 定义一个公共的时间格式化标准
+    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("yyyy年MM月dd HH:mm:ss");
+
+    public static void main(String[] args) {
+        // 开启生产和消费的过程
+        ProduceConsume pc = new ProduceConsume();
+        // 盘子总容量为100
+        ProduceConsume.setCapacity(100);
+        // 当前容量为66
+        ProduceConsume.setCurrentCapacity(67);
+
+        //创建一个消费者线程, 一次消费的容量为22
+        Consumer consumer = pc.new Consumer("奶茶妹妹", 22);
+        Thread consumeThread = new Thread(consumer);
+        //创建一个生产者线程, 一次生产的容量为14
+        Producer producer = pc.new Producer("张三", 14);
+        Thread productThread = new Thread(producer);
+        // 开启消费和生产的线程
+        consumeThread.start();
+        productThread.start();
+
+    }
+
+    /**
+     * 生产者
+     */
+    @Data
+    @AllArgsConstructor
+    class Producer implements Runnable {
+        // 生产者
+        private String name;
+        // 每次生产的数量
+        private int productNo;
+
+        @Override
+        public void run() {
+            // 条件允许则一直生产, 条件控制在每一次基本的生产过程之中
+//            while (currentCapacity + capacity <= 100) {
+            while (true) {
+                try {
+                    // 控制生产的速度
+                    Thread.sleep(1000);
+                    produce();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
+        // 一次基本的生产过程
+//        public synchronized void produce() throws InterruptedException {
+        public void produce() throws InterruptedException {
+            // 生产前, 需要先拿到公共锁
+            synchronized (lockObj) {
+                // 不能大于盘子的容积
+                if (currentCapacity + productNo >= 100) {
+                    System.out.println("盘子已满, 装不下了, 不能再生产了...");
+                    // 阻塞===>生产线程
+                    this.wait();
+                    // 唤醒消费线程
+                    this.notifyAll();
+                    System.out.println(Thread.currentThread().getState());
+
+                } else {
+                    currentCapacity += productNo;
+                    String time = timeFormatter.format(LocalDateTime.now());
+                    String productInfo = String.format("生产者: %s 于 %s 进行了一次生产, 目前盘子容量为 %d. ",
+                            getName(), time, ProduceConsume.getCurrentCapacity());
+                    System.out.println(productInfo);
+                }
+            }
+        }
+    }
+
+    /**
+     * 消费者
+     */
+    @Data
+    @AllArgsConstructor
+    class Consumer implements Runnable {
+        // 消费者
+        private String name;
+        // 每次消耗的数量
+        private int consumeNo;
+
+        @Override
+        public void run() {
+            // 条件允许则一直消费, 条件控制在每一次基本的消费过程之中
+//            while (currentCapacity - consumeNo > 0) {
+            while (true) {
+                try {
+                    // 控制消费的速度
+                    Thread.sleep(300);
+                    consume();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
+
+        // 一次基本的消耗过程
+//        public synchronized void consume() throws InterruptedException {
+        public void consume() throws InterruptedException {
+            // 消费前, 需要先拿到公共锁
+            synchronized (lockObj) {
+                if (currentCapacity - consumeNo < 0) {
+                    System.out.println("盘子已空, 无可消费物品, 不能再消费了...");
+                    // 阻塞当前===>消费线程
+                    wait();
+                    // 唤起生产线程
+                    notifyAll();
+                } else {
+                    currentCapacity -= consumeNo;
+                    String time = timeFormatter.format(LocalDateTime.now());
+                    String productInfo = String.format("消费者: %s 于 %s 进行了一次消费, 目前盘子容量为 %d. ",
+                            getName(), time, ProduceConsume.getCurrentCapacity());
+                    System.out.println(productInfo);
+                }
+            }
+        }
+    }
+}
+```
+输出如下:
+```txt
+消费者: 奶茶妹妹 于 2019年09月12 01:48:40 进行了一次消费, 目前盘子容量为 45. 
+消费者: 奶茶妹妹 于 2019年09月12 01:48:40 进行了一次消费, 目前盘子容量为 23. 
+消费者: 奶茶妹妹 于 2019年09月12 01:48:40 进行了一次消费, 目前盘子容量为 1. 
+生产者: 张三 于 2019年09月12 01:48:40 进行了一次生产, 目前盘子容量为 15. 
+盘子已空, 无可消费物品, 不能再消费了...
+Exception in thread "Thread-0" java.lang.IllegalMonitorStateException
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:502)
+	at com.cqu.rjx.complexsyntax.mutilthread.thread.produceVSconsume.ProduceConsume$Consumer.consume(ProduceConsume.java:142)
+	at com.cqu.rjx.complexsyntax.mutilthread.thread.produceVSconsume.ProduceConsume$Consumer.run(ProduceConsume.java:126)
+	at java.lang.Thread.run(Thread.java:748)
+生产者: 张三 于 2019年09月12 01:48:41 进行了一次生产, 目前盘子容量为 29. 
+生产者: 张三 于 2019年09月12 01:48:42 进行了一次生产, 目前盘子容量为 43. 
+生产者: 张三 于 2019年09月12 01:48:43 进行了一次生产, 目前盘子容量为 57. 
+生产者: 张三 于 2019年09月12 01:48:44 进行了一次生产, 目前盘子容量为 71. 
+生产者: 张三 于 2019年09月12 01:48:45 进行了一次生产, 目前盘子容量为 85. 
+生产者: 张三 于 2019年09月12 01:48:46 进行了一次生产, 目前盘子容量为 99. 
+盘子已满, 装不下了, 不能再生产了...
+Exception in thread "Thread-1" java.lang.IllegalMonitorStateException
+	at java.lang.Object.wait(Native Method)
+	at java.lang.Object.wait(Object.java:502)
+	at com.cqu.rjx.complexsyntax.mutilthread.thread.produceVSconsume.ProduceConsume$Producer.produce(ProduceConsume.java:90)
+	at com.cqu.rjx.complexsyntax.mutilthread.thread.produceVSconsume.ProduceConsume$Producer.run(ProduceConsume.java:73)
+	at java.lang.Thread.run(Thread.java:748)
+
+Process finished with exit code 0
 ```
 
 
@@ -603,5 +951,6 @@ class MyFuture implements Callable<Integer> {
 
 
 
+---
 ref:
-1.[java 线程池——异步任务](https://www.cnblogs.com/0201zcr/p/6060068.html),   2.[Executor框架的使用简介](https://blog.csdn.net/qq_16811963/article/details/52161713),   3.[Java并发编程系列之十五：Executor框架](https://blog.csdn.net/u011116672/article/details/51057585),   4.[Java并发编程-Executor框架](https://blog.csdn.net/chenchaofuck1/article/details/51606224),   5.[Java 线程池学习](https://www.cnblogs.com/jersey/archive/2011/03/30/2000231.html),   6.[JAVA多线程高并发学习笔记(三)——Callable、Future和FutureTask](https://www.cnblogs.com/superfj/p/7526855.html),   7.[Java多线程：Callable,Future,FutureTask](https://www.cnblogs.com/ITtangtang/p/3966484.html),   8.[Java多线程编程：Callable、Future和FutureTask浅析](https://www.cnblogs.com/lcngu/p/6863529.html),   9.[java并发编程--Runnable Callable及Future](https://www.cnblogs.com/MOBIN/p/6185387.html),   10.[Java多线程编程：Callable、Future和FutureTask浅析（多线程编程之四）](https://blog.csdn.net/javazejian/article/details/50896505),  11.[Java并发之Runnable、Callable、Future、FutureTask](https://www.jianshu.com/p/cf12d4244171),   12.[Java并发编程：Callable、Future和FutureTask](https://lidong1665.github.io/2017/02/27/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%EF%BC%9ACallable%E3%80%81Future%E5%92%8CFutureTask/),   13.[在Java中使用Callable、Future进行并行编程](https://segmentfault.com/a/1190000012291442),   14.[Java中的Runnable、Callable、Future、FutureTask的区别与示例](https://blog.csdn.net/bboyfeiyu/article/details/24851847),   15.[Java多线程编程：Callable、Future和FutureTask浅析（多线程编程之四）](https://blog.csdn.net/javazejian/article/details/50896505),   16.[Java并发编程与技术内幕:Callable、Future、FutureTask、CompletionService](https://blog.csdn.net/Evankaka/article/details/51610635),   17.[Callable 有返回值的异步（Runnable 异步是没有返回值的）](https://blog.csdn.net/xiaojin21cen/article/details/41820983)
+1.[java 线程池——异步任务](https://www.cnblogs.com/0201zcr/p/6060068.html),   2.[Executor框架的使用简介](https://blog.csdn.net/qq_16811963/article/details/52161713),   3.[Java并发编程系列之十五：Executor框架](https://blog.csdn.net/u011116672/article/details/51057585),   4.[Java并发编程-Executor框架](https://blog.csdn.net/chenchaofuck1/article/details/51606224),   5.[Java 线程池学习](https://www.cnblogs.com/jersey/archive/2011/03/30/2000231.html),   6.[JAVA多线程高并发学习笔记(三)——Callable、Future和FutureTask](https://www.cnblogs.com/superfj/p/7526855.html),   7.[Java多线程：Callable,Future,FutureTask](https://www.cnblogs.com/ITtangtang/p/3966484.html),   8.[Java多线程编程：Callable、Future和FutureTask浅析](https://www.cnblogs.com/lcngu/p/6863529.html),   9.[java并发编程--Runnable Callable及Future](https://www.cnblogs.com/MOBIN/p/6185387.html),   10.[Java多线程编程：Callable、Future和FutureTask浅析（多线程编程之四）](https://blog.csdn.net/javazejian/article/details/50896505),  11.[Java并发之Runnable、Callable、Future、FutureTask](https://www.jianshu.com/p/cf12d4244171),   12.[Java并发编程：Callable、Future和FutureTask](https://lidong1665.github.io/2017/02/27/Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%EF%BC%9ACallable%E3%80%81Future%E5%92%8CFutureTask/),   13.[在Java中使用Callable、Future进行并行编程](https://segmentfault.com/a/1190000012291442),   14.[Java中的Runnable、Callable、Future、FutureTask的区别与示例](https://blog.csdn.net/bboyfeiyu/article/details/24851847),   15.[Java多线程编程：Callable、Future和FutureTask浅析（多线程编程之四）](https://blog.csdn.net/javazejian/article/details/50896505),   16.[Java并发编程与技术内幕:Callable、Future、FutureTask、CompletionService](https://blog.csdn.net/Evankaka/article/details/51610635),   17.[Callable 有返回值的异步（Runnable 异步是没有返回值的）](https://blog.csdn.net/xiaojin21cen/article/details/41820983),   18.[Java 线程的6种状态](https://blog.csdn.net/sinat_36265222/article/details/78249503),   19.[**Java线程的6种状态及切换(透彻讲解)**](https://blog.csdn.net/pange1991/article/details/53860651),   20.[**Java中的多线程你只要看这一篇就够了**](https://www.cnblogs.com/wxd0108/p/5479442.html),   21.[JAVA多线程及线程状态转换](https://www.cnblogs.com/nwnu-daizh/p/8036156.html),   22.[**Java多线程学习之wait、notify/notifyAll 详解**](https://www.cnblogs.com/moongeek/p/7631447.html),   23.[Java wait() notify()方法使用实例讲解](https://blog.csdn.net/zhaoheng2017/article/details/78409404),   24.[**Java多线程之wait(),notify(),notifyAll()**](https://blog.csdn.net/oracle_microsoft/article/details/6863662),   25.[**java wait用法详解**](https://blog.csdn.net/superjunenaruto/article/details/58315357)
