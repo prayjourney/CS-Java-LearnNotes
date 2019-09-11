@@ -434,7 +434,9 @@ import java.time.format.DateTimeFormatter;
  * @Despcription: 完全的生产者消费者, 保持系统一直持续运行, 使用了wait, notify, notifyAll方法
  * @Date: Created in 2019/9/11 23:32
  * @Url: https://blog.csdn.net/ldx19980108/article/details/81707751 https://www.jianshu.com/p/abf9cbda80d0
- * https://www.cnblogs.com/yunche/p/9540561.html  https://blog.csdn.net/fallwind_of_july/article/details/92812756
+ *       https://www.cnblogs.com/yunche/p/9540561.html  https://blog.csdn.net/fallwind_of_july/article/details/92812756
+ *       https://blog.csdn.net/zhaoheng2017/article/details/78409404 https://www.cnblogs.com/nwnu-daizh/p/8036156.html
+ *       https://blog.csdn.net/superjunenaruto/article/details/58315357 https://blog.csdn.net/pange1991/article/details/53860651
  * @Modified by:
  */
 @Data
@@ -507,10 +509,17 @@ public class ProduceConsume {
                 // 不能大于盘子的容积
                 if (currentCapacity + productNo >= 100) {
                     System.out.println("盘子已满, 装不下了, 不能再生产了...");
+
+                    /* 使用哪个对象锁了, 就需要用哪个对象来解开锁, 此处用this.wait(), wait()都不是使用lockObj,
+                     * this.wait()用的是this对象, wait()用的是类对象?
+                     * 反正不是同一个对象
+                     * 使用锁的时候, 尤其有交互, 必须保证是同一个对象!!!
+                     */
+
                     // 阻塞===>生产线程
-                    this.wait();
+                    lockObj.wait();
                     // 唤醒消费线程
-                    this.notifyAll();
+                    lockObj.notifyAll();
                     System.out.println(Thread.currentThread().getState());
 
                 } else {
@@ -520,6 +529,7 @@ public class ProduceConsume {
                             getName(), time, ProduceConsume.getCurrentCapacity());
                     System.out.println(productInfo);
                 }
+
             }
         }
     }
@@ -558,10 +568,17 @@ public class ProduceConsume {
             synchronized (lockObj) {
                 if (currentCapacity - consumeNo < 0) {
                     System.out.println("盘子已空, 无可消费物品, 不能再消费了...");
+
+                    /* 使用哪个对象锁了, 就需要用哪个对象来解开锁, 此处用this.wait(), wait()都不是使用lockObj,
+                     * this.wait()用的是this对象, wait()用的是类对象?
+                     * 反正不是同一个对象
+                     * 使用锁的时候, 尤其有交互, 必须保证是同一个对象!!!
+                     */
+
                     // 阻塞当前===>消费线程
-                    wait();
+                    lockObj.wait();
                     // 唤起生产线程
-                    notifyAll();
+                    lockObj.notifyAll();
                 } else {
                     currentCapacity -= consumeNo;
                     String time = timeFormatter.format(LocalDateTime.now());
@@ -570,8 +587,10 @@ public class ProduceConsume {
                     System.out.println(productInfo);
                 }
             }
+
         }
     }
+
 }
 ```
 输出如下:
@@ -602,6 +621,22 @@ Exception in thread "Thread-1" java.lang.IllegalMonitorStateException
 	at java.lang.Thread.run(Thread.java:748)
 
 Process finished with exit code 0
+
+已经解决,方法如下:
+/* 使用哪个对象锁了, 就需要用哪个对象来解开锁, 此处用this.wait(), 
+ * wait()都不是使用lockObj,
+ * this.wait()用的是this对象, wait()用的是类对象?
+ * 反正不是同一个对象
+ * 使用锁的时候, 尤其有交互, 必须保证是同一个对象!!!
+ */
+ // 阻塞当前===>消费线程
+ lockObj.wait();
+ // 唤起生产线程
+ lockObj.notifyAll();
+ 
+ 
+但是还不能循环:
+
 ```
 
 
