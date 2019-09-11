@@ -1,7 +1,110 @@
 ### Java多线程和线程池
 ***
 
-#### 多线程
+#### 多线程代码思路
+首先, 我们为什么要写多线程的代码? 因为要使用并行, 让CPU和资源利用率提高, 办事效率提高, 当我们不去考虑, 使用普通模式的时候, 这样就只有一个main线程, 然后在这个main线程之中, 我们做多件事, 就会发生阻塞, 这样问题怎么解决?
+就是开启多个线程, 最简单的说使用Thread或者Runnable, 这样的话, 我们就解决了这个问题.但是, 问题来了, 如果有一个变量是大家都要操作的**临界变量**, 这个时候, 我们多线程可能会造成混乱, 所以要对对象枷锁. 这个是后话, 那么如何写多线程的代码呢? 首先, <font color = red>**我们事情是一件一件做的, 那么就以下面的买车票为例子, 就需要完成一个基本的单元===首先, 买一张车票, 有了这个基本的单元, 然后让多个线程去运行===**</font >, 这样的话, 就可以到run方法之中循环了, 我们知道, run方法是启动线程运行的一个必经之地, **那么要在满足我们条件的前提下, 不断运行,让很多线程去竞争买车票, 就需要在run方法之中调用我们的基本购买操作单元, 这样, 一般就需要在run方法之中调用 work, sell等只做一次运行的基本方法, 让其不断运行, ** 直到不满足条件或者自然结束, 整个线程任务才算结束.
+
+也就是有如下:
+```java
+    // 买一张票的情况
+    public void saleTicket() {
+        //在买票环节有所控制, 而非是run处
+        synchronized (no) {
+            if (no > 0) {
+                System.out.println(this.getSaleName() + "卖出去了第" + this.getNo() + "张票");
+                no = no - 1;
+            } else {
+                System.out.println("票已经卖完！");//为何有两个"票已经卖完了!"了的语句?
+                return; // 结束线程, break, continue
+            }
+        }
+    }
+```
+上面是专一每次只购买一张车票的基本单元, 下面是不断疯狂运行的画面, 需要说明的是, 对于**临界变量**的*控制, 需要在基本的操作之中, 就做起来, 不然就混乱了*! 
+```java
+    @Override
+    public void run() {
+        // 循环是指线程不停的去卖票
+        while (no > 0) {
+            try {
+                Thread.sleep(1000);
+                saleTicket();
+            } catch (InterruptedException e) {
+                log.error("多个窗口买票出现问题", e);
+            }
+        }
+    }
+```
+**另外, 最好把动作和属性分操作, 这样可能更加清楚了就**:
+
+```java
+@Slf4j
+public class SaleTicket3 implements Runnable {
+    @Getter
+    @Setter
+    private String sellName;
+    // ReentrantLock代替synchronized, 把synchronized的隐式对象锁变成了ReentrantLock的显示对象锁
+    private Lock lock = new ReentrantLock();
+    DateTimeFormatter dft = DateTimeFormatter.ofPattern("yyyy-mm-dd hh:mm:ss");
+
+    SaleTicket3(String sellName) {
+        this.sellName = sellName;
+    }
+
+    // 疯狂重复, 各个线程竞争的画面
+    @Override
+    public void run() {
+        while (Ticket.getTicket() > 0) {
+            try {
+                Thread.sleep(1000);
+                sellTicket();
+            } catch (Exception e) {
+                log.error("买票出现问题", e);
+            }
+        }
+    }
+
+    // 一次单个的基本买票操作
+    public void sellTicket() {
+        // 在买票环节有所控制, 而非是run处
+        // 使用lock来代替synchronized, 此处是获取锁
+        lock.lock();
+        if (Ticket.getTicket() > 0) {
+            String sInfo = String.format("%s 卖出了第 %d 张票, 交易时间是: %s", this.getSellName(),
+                    Ticket.getTicket(), dft.format(LocalDateTime.now()));
+            System.out.println(sInfo);
+            Ticket.ticket--;
+        } else {
+            System.out.println("票已经卖完了!");//为何有两个"票已经卖完了!"了的语句?
+            return;
+        }
+        // 释放锁
+        lock.unlock();
+    }
+
+    public static void main(String[] args) {
+        RunnaleThread.setTicket(20);//设置一共有100张票
+        RunnaleThread rt1 = new RunnaleThread("小明");
+        RunnaleThread rt2 = new RunnaleThread("Jack");
+        new Thread(rt1).start();
+        new Thread(rt2).start();
+    }
+}
+
+// 把一个临界变量和一个多线程操作分开, 可能更清楚, 也可以使用内部类
+class Ticket {
+    @Getter
+    @Setter
+    public static Integer ticket;
+}
+```
+以上, 就是写多线程代码的最基本的思路, 我们的着重点是每一次怎么做, 在每一次之中, 都要去做好临界变量的控制, 否则就会出错, 做好了这一点, 我们再去想着开启多线程.
+
+
+
+
+#### Java多线程
 Java多线程主要的类是`Thread`和`Runnable`接口, 类只可以单继承, 接口可以多实现, 所以使用`Runnable`接口更加方便, 运行任务时候, 只需要重写run()方法, 就可以了. `Thread`有使用`Runnable`构造线程的构造函数. `Thread`之中的方法有run 和start需要注意, run是运行线程, 但是它只是运行, 也就是简单的执行, 达不到开启多条线程的效果, 而start方法是可以开启多条线程的, 开启多线程, 就需要多条线程同时start.
 
 **多线程买票的例子**
