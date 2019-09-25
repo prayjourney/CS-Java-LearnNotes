@@ -1,8 +1,6 @@
-###  Java泛型的定义及使用初探
+###  Java泛型基本使用
 
 ***
-[TOC]
-
 #### 泛型是什么
 
 ##### 0.概述
@@ -226,7 +224,7 @@ System.out.println(p.getX());
 ```java
 Point<String> p = new Point<String>() ; 
 ```
-这里与普通构造类实例的不同之点在于，普通类构造函数是这样的：Point p = new Point() ; 而泛型类的构造则需要在类名后添加上<String>，即一对尖括号，中间写上要传入的类型。**虽然在定义泛型类的时候我们需要在后面写上<T> ，但是在构造函数之中，并不需要<T>**，这点需要注意如下：
+这里与普通构造类实例的不同之点在于，普通类构造函数是这样的：Point p = new Point() ; 而泛型类的构造则需要在类名后添加上\<String>，即一对尖括号，中间写上要传入的类型。**虽然在定义泛型类的时候我们需要在后面写上\<T> ，但是在构造函数之中，并不需要\<T>**，这点需要注意如下：
 ```java
 class Point<T>{
     private T t1;
@@ -238,7 +236,7 @@ class Point<T>{
     }
 }
 ```
-因为我们构造时，是这样的：class Point<T>，所以在使用的时候也要在Point后加上类型来定义T代表的意义。然后在getVar（）和setVar（）时就没有什么特殊的了，直接调用即可。从上面的使用时，明显可以看出泛型的作用，在构造泛型类的实例的时候：
+因为我们构造时，是这样的：class Point\<T>，所以在使用的时候也要在Point后加上类型来定义T代表的意义。然后在getVar（）和setVar（）时就没有什么特殊的了，直接调用即可。从上面的使用时，明显可以看出泛型的作用，在构造泛型类的实例的时候：
 ```java
 //IntegerPoint使用
 Point<Integer> p = new Point<Integer>() ; 
@@ -1137,13 +1135,78 @@ Point<?> point3 = new Point(new Integer(23),new Integer(23));
 10 *///:~ 
 ```
 
-在代码的第4行和第5行，我们分别定义了一个接受String类型的List和一个接受Integer类型的List，按照我们正常的理解，泛型ArrayList<T>虽然是相同的，但是我们给它传了不同的类型参数，那么c1和2的类型应该是不同的。但是结果恰恰想法，运行程序发现二者的类型时相同的。这是为什么呢？这里就要说到Java语言实现泛型所独有的——擦除，即当我们声明List<String>和List<Integer>时，在运行时实际上是相同的，都是List，而具体的类型参数信息String和Integer被擦除了。这就导致一个很麻烦的问题：**在泛型代码内部，无法获得任何有关泛型参数类型的信息**(摘自《Java编程思想第4版》)。
+在代码的第4行和第5行，我们分别定义了一个接受String类型的List和一个接受Integer类型的List，按照我们正常的理解，泛型ArrayList\<T>虽然是相同的，但是我们给它传了不同的类型参数，那么c1和2的类型应该是不同的。但是结果恰恰想法，运行程序发现二者的类型时相同的。这是为什么呢？这里就要说到Java语言实现泛型所独有的——擦除，即当我们声明List\<String>和List\<Integer>时，在运行时实际上是相同的，都是List，而具体的类型参数信息String和Integer被擦除了。这就导致一个很麻烦的问题：**在泛型代码内部，无法获得任何有关泛型参数类型的信息**(摘自《Java编程思想第4版》)。
 
 
 
+#### 泛型的总结
+泛型是为了明确在集合等操作对象的类型, 否则的话都是Object的类型, 这样就可以减少编译时候出现的问题.
+泛型在使用的时候, 有3种, 1.**泛型类**, 2.**泛型接口**, 3.**泛型方法**, 泛型类比较常见, 泛型接口是泛型接口更加抽象的一种形态, 泛型方法的话就比较常用了.
+
+泛型类定义
+```java
+public class PeopleOfWorld<T1, U1> implements Person<T1, U1> {
+
+    // 可变长参数的使用
+    @Override
+    public T1 next(T1... ts) {
+        if (ts.length == 0) {
+            return null;
+        } else {
+            return ts[0];
+        }
+    }
+
+    @Override
+    public U1 info(U1 u) {
+        return u;
+    }
+
+    public static void main(String[] args) {
+        // 如下的方式是创建不出来真实对象的, 所以必须把T1, U1换成了真实的类, 才可以创建好 对象啊!
+        // PeopleOfWorld<T1, U1> Pow =new PeopleOfWorld<T1, U1>();
+        // 必须用包装类, 不能用基本的8种类型
+        PeopleOfWorld<String, Integer> pow = new PeopleOfWorld<>();
+        System.out.println(pow.info(122));
+        System.out.println(pow.next("小顽皮", "喀秋莎", "瓦特"));
+    }
+}
+```
+
+泛型接口定义
+```java
+public interface Person<T1, U1> {
+    // 因为T1, U1都在上面接口命名处已经写出来了, 所以不用在这儿再次在方法前面加<T1> T1 next(T1 ... ts) ,<U1> U1 info(U1 u)
+    public T1 next(T1... ts);
+
+    public U1 info(U1 u);
+}
+```
+
+泛型方法定义
+```java
+// 使用可变参数和泛型方法
+// 第一个T是泛型的标志,  第二个TreeSet<T>是该方法的返回类型, 第三个T是参数的类型, 其中使用了泛型和可变参数
+public static <T> TreeSet<T> addElement(TreeSet<T> tSet, T... ts) {
+    for (int i = 0; i < ts.length; i++) {
+        tSet.add(ts[i]);
+    }
+    return tSet;
+}
+
+public static <T> void iteratorPrint(Iterator<T> it) {
+    while (it.hasNext()) {
+        System.out.println(it.next().toString() + ",");
+    }
+}
+```
+**需要注意的是, 我们在创建泛型对象的时候, T, U 这些类型, 必须是一个真实存在的类, 我们才可以去创建对象, 对于泛型方法而言, 也是同样的道理, 只有T, U, E, V等具体成为某个真实存在的类型, 我们才可以调用**.
+**继承关系上, Pets是Dog的父类, 但是ArrayList\<Pets>和ArrayList\<Dog>的对象之间, 没有任何的继承关系**, 因为对象在运行期间, 类型会擦除, 这样可以防止对象的类型膨胀!
+
+**T 表示最普通的通配符, 代表一个类型, ?无解通配符, 可以代表任意多个类型, 配合extends和super使用, `? super XXX`中, ?代表的类型, 必须是XXX或者XXX的父类, `? extends XXX`中, ?代表的类型, 必须是XXX或者XXX的子类, T用的更加广泛**.
+
+
+
+---
 ref:
-
-1.[Java泛型详解：<T>和Class<T>的使用。泛型类，泛型方法的详细使用实例](https://blog.csdn.net/qq_27093465/article/details/73229016),   2.[夯实JAVA基本之一 —— 泛型详解(1):基本使用](https://blog.csdn.net/harvic880925/article/details/49872903),   3.[夯实JAVA基本之一——泛型详解(2)：高级进阶](https://blog.csdn.net/harvic880925/article/details/49883589),   4.[java 泛型详解-绝对是对泛型方法讲解最详细的，没有之一](https://blog.csdn.net/s10461/article/details/53941091),   5.[Java总结篇系列：Java泛型](https://www.cnblogs.com/lwbqqyumidi/p/3837629.html),   6.[Java：泛型](https://www.cnblogs.com/studyLog-share/p/5380090.html),   7.[深入理解java泛型](https://www.cnblogs.com/hq233/p/7227887.html),   8.[【Java心得总结三】Java泛型上——初识泛型](https://www.cnblogs.com/xlturing/p/3649386.html),   9.[【Java心得总结四】Java泛型下——万恶的擦除](https://www.cnblogs.com/xlturing/p/3671943.html),   10.[Java泛型详解](http://www.importnew.com/24029.html),   11.[java 泛型详解-绝对是对泛型方法讲解最详细的，没有之一](https://www.cnblogs.com/gscq073240/articles/8094423.html),   12.[Java泛型学习一](https://www.cnblogs.com/upcwanghaibo/p/5651168.html),   13.[Java泛型学习二](https://www.cnblogs.com/upcwanghaibo/p/5651489.html),   14.[关于Java泛型深入理解小总结](https://www.cnblogs.com/fantasy01/p/3963593.html),   15.[[疯狂Java]泛型：类型参数多态问题、类型通配符（?）、类型通配符的上下限、类型参数的上限（类、接口）](https://blog.csdn.net/Lirx_Tech/article/details/51594703),   16.[Eclipse V3.1 中的 Java 泛型支持](https://www.ibm.com/developerworks/cn/opensource/os-ecljgs/index.html)
-
-
-
+1.[Java泛型详解：\<T>和Class\<T>的使用。泛型类，泛型方法的详细使用实例](https://blog.csdn.net/qq_27093465/article/details/73229016),   2.[夯实JAVA基本之一 —— 泛型详解(1):基本使用](https://blog.csdn.net/harvic880925/article/details/49872903),   3.[夯实JAVA基本之一——泛型详解(2)：高级进阶](https://blog.csdn.net/harvic880925/article/details/49883589),   4.[java 泛型详解-绝对是对泛型方法讲解最详细的，没有之一](https://blog.csdn.net/s10461/article/details/53941091),   5.[Java总结篇系列：Java泛型](https://www.cnblogs.com/lwbqqyumidi/p/3837629.html),   6.[Java：泛型](https://www.cnblogs.com/studyLog-share/p/5380090.html),   7.[深入理解java泛型](https://www.cnblogs.com/hq233/p/7227887.html),   8.[【Java心得总结三】Java泛型上——初识泛型](https://www.cnblogs.com/xlturing/p/3649386.html),   9.[【Java心得总结四】Java泛型下——万恶的擦除](https://www.cnblogs.com/xlturing/p/3671943.html),   10.[Java泛型详解](http://www.importnew.com/24029.html),   11.[java 泛型详解-绝对是对泛型方法讲解最详细的，没有之一](https://www.cnblogs.com/gscq073240/articles/8094423.html),   12.[Java泛型学习一](https://www.cnblogs.com/upcwanghaibo/p/5651168.html),   13.[Java泛型学习二](https://www.cnblogs.com/upcwanghaibo/p/5651489.html),   14.[关于Java泛型深入理解小总结](https://www.cnblogs.com/fantasy01/p/3963593.html),   15.[[疯狂Java]泛型：类型参数多态问题、类型通配符（?）、类型通配符的上下限、类型参数的上限（类、接口）](https://blog.csdn.net/Lirx_Tech/article/details/51594703),   16.[Eclipse V3.1 中的 Java 泛型支持](https://www.ibm.com/developerworks/cn/opensource/os-ecljgs/index.html),   17.[泛型 T 和 通配符 ？](https://blog.csdn.net/qq_18581651/article/details/81942221),   18.[java泛型中T和?（通配符）的区别与使用声明](https://blog.csdn.net/NK_TF/article/details/78954090),   19.[Java泛型中T和问号（通配符）的区别](https://blog.csdn.net/ikownyou/article/details/65630385),   20.[java泛型：T与?的使用及区别](https://blog.csdn.net/cris001cris/article/details/53712189),   21.[Java泛型：T与?的使用及区别](https://blog.csdn.net/weixin_43145299/article/details/82883007),   22.[泛型中占位符T和?有什么区别？](https://blog.csdn.net/woshizisezise/article/details/79374460)
