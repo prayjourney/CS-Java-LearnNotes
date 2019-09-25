@@ -783,3 +783,10 @@ kill: usage: kill [-s 信号声明 | -n 信号编号 | -信号声明] 进程号 
 通过kill -l我们可以找到相应的信号, 然后用相应的数字, 比如常用的`kill -9 pid`, 9表示立即强制杀死. 比如` kill -9 1234`.
 参考链接:
 1.[Linux kill、kill-15、kill-9区别](https://www.cnblogs.com/xiaojinniu425/p/9429716.html),   2.[Linux kill -9 和 kill -15 的区别](https://www.cnblogs.com/liuhouhou/p/5400540.html)
+
+
+
+---
+ref:
+1.[50个最常用的Unix/Linux命令](http://gywbd.github.io/posts/2014/8/50-linux-commands.html)
+
