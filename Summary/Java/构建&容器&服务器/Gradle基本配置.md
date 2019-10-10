@@ -12,21 +12,21 @@
 
 **6.gradle-wrapper：**Wrapper是对Gradle的一层包装，便于在团队开发过程中统一Gradle构建的版本号，这样大家都可以使用统一的Gradle版本进行构建。gradle-wrapper.properties文件中，我们其实最关心的应该是distributionUrl这个属性，他是下载Gradle的路径，
 
-![img](C:/Users/Administrator/AppData/Local/YNote/data/prayjourney@yeah.net/f1129a3540c04389ba0e9fd6dfcfbe4c/clipboard.png)
+![img](../../../images/gradle1.png)
 
 它下载的东西会出现.gradle>wrapper>dists之中，是各个版本的gradle，然后我们下载的lib，都是在这个里面，结构如dists>gradle-4.10.2-all>divx0s2uj4thofgytb7gf9fsi或者dists>gradle-4.10.2-bin>divx0s2uj4thofgytb7gf9fsi
 
-![img](C:/Users/Administrator/AppData/Local/YNote/data/prayjourney@yeah.net/540d115f2104444680a1ff007ac6eac7/clipboard.png)
+![img](../../../images/gradle2.png)
 
 gradle-4.10.2-all是带有源码的，
 
 
 
-![img](C:/Users/Administrator/AppData/Local/YNote/data/prayjourney@yeah.net/91cbf9953b4545d3a7c54680039d6ffc/clipboard.png)
+![img](../../../images/gradle3.png)
 
 而gradle-4.10.2-bin只是二进制的文件，在这两个之中，有一个文件夹gradle-4.10.2，里面包含了lib, 就是我们下载下来的lib, 项目就依赖这些jar包和依赖。
 
-![img](C:/Users/Administrator/AppData/Local/YNote/data/prayjourney@yeah.net/3ac99eb381224a7e9ebaa0358859fba8/clipboard.png)
+![img](../../../images/gradle4.png)
 
 **7.buildscript:** 其中的声明是gradle脚本自身需要使用的资源。可以声明的资源包括依赖项、第三方插件、maven仓库地址等
 
