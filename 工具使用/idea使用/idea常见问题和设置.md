@@ -21,3 +21,4 @@
 18.[IntelliJ IDEA在Java文件中避免自动集成import.\*包](https://blog.csdn.net/huangdingsheng/article/details/82982180)
 19.[IDEA-not allow to run in parallel](https://blog.csdn.net/wait_for_eva/article/details/86557930)
 20.[intellij idea设置打开多个文件显示在多行tab上](https://blog.csdn.net/With_Her/article/details/82254187)
+21.[idea中添加mybatis mapper 样例](https://www.cnblogs.com/wzzxz/p/10444217.html),  [Spring基础01——在IDEA中编写spring.xml](https://www.cnblogs.com/fengyun2019/p/10818824.html)
