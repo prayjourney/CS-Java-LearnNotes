@@ -25,4 +25,4 @@
 22.[idea中iml文件的问题](https://www.cnblogs.com/prayjourney/p/11776075.html)
 23.[idea设置调用方法时提示方法注释](https://blog.csdn.net/WxQ92222/article/details/79415089)
 24.idea查看document的方法, mac:F1, ^+J win: Ctrl + Q
-
+25.[IntelliJ IDEA，代码行宽度超出限制时设置自动换行](https://blog.csdn.net/deb_ug/article/details/50512927)
