@@ -1,5 +1,0 @@
-### SQL_learn
-
-***
-
-//todo
