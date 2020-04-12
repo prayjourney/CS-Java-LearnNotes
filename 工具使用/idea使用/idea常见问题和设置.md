@@ -1,6 +1,3 @@
-### IDEA常见问题和设置
----
-
 1.[查看方法的文档:快捷键 Ctrl-Q(Ctrl-J(mac))](https://www.cnblogs.com/jylzj/p/9818211.html)
 2.[历史记录](https://jingyan.baidu.com/article/ad310e8006c13f1848f49e7f.html)
 3.[IDEA控制台输出中文乱码问题](https://blog.csdn.net/liu865033503/article/details/81094575)
@@ -26,3 +23,4 @@
 23.[idea设置调用方法时提示方法注释](https://blog.csdn.net/WxQ92222/article/details/79415089)
 24.idea查看document的方法, mac:F1, ^+J win: Ctrl + Q
 25.[IntelliJ IDEA，代码行宽度超出限制时设置自动换行](https://blog.csdn.net/deb_ug/article/details/50512927)
+26.[idea中HTML格式化时标签缩进问题](https://www.cnblogs.com/zhaoyanhaoBlog/p/10956332.html)
