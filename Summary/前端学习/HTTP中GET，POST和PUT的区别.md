@@ -39,8 +39,4 @@ PUT和POST都有更改指定URI的语义。但PUT被定义为idempotent的方法
  
 
 参考：
-http://www.cnblogs.com/logsharing/p/8448446.html
-http://www.cnblogs.com/shanyou/archive/2011/10/17/2215930.html
-http://www.jellythink.com/archives/806
-https://blog.csdn.net/qq_36183935/java/article/details/80570062
-https://www.cnblogs.com/fundebug/p/http_post_vs_put.html
+http://www.cnblogs.com/logsharing/p/8448446.html, http://www.cnblogs.com/shanyou/archive/2011/10/17/2215930.html, http://www.jellythink.com/archives/806, https://blog.csdn.net/qq_36183935/java/article/details/80570062, https://www.cnblogs.com/fundebug/p/http_post_vs_put.html
