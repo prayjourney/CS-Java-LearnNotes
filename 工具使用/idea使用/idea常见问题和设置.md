@@ -25,3 +25,4 @@
 25.[IntelliJ IDEA，代码行宽度超出限制时设置自动换行](https://blog.csdn.net/deb_ug/article/details/50512927)
 26.[idea中HTML格式化时标签缩进问题](https://www.cnblogs.com/zhaoyanhaoBlog/p/10956332.html)
 27.[IntelliJ IDEA侧边栏的lambda图标不显示](https://blog.csdn.net/qq_39413186/article/details/102668589)
+28.[IntelliJ IDEA配置Run Dashboard的方法](https://blog.csdn.net/a772304419/article/details/105051510/)
