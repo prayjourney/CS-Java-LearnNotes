@@ -28,3 +28,4 @@
 28.[IntelliJ IDEA配置Run Dashboard的方法](https://blog.csdn.net/a772304419/article/details/105051510/)
 29.[idea中中文字体设置](https://blog.csdn.net/weixin_43925859/article/details/98187139)
 30.[idea右下角显示使用内存情况](https://www.cnblogs.com/xiaostudy/p/11404573.html)
+31.[IDEA，goland 无法识别README.md](https://blog.csdn.net/fuckluy/article/details/104531666)
