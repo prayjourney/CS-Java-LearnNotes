@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQueryTest</title><!--src="./jquery-1.11.3.js"--><!--这样也是可以的-->
+    <script language="JavaScript" type="text/javascript" src="http://ajax.microsoft.com/ajax/jquery
+            /jquery-1.4.min.js" >
+
+        jQuery("ul>li:first").addClass("selected");
+        $("ul>li:last").addClass("m");
+        $(function(){
+                    alert('welecom to jQuery');
+                }
+        );
+    </script>
+    <script type="text/css">
+        .selected
+        {
+            background-color:darkturquoise;
+        }
+        .m
+        {
+            background-color: azure;
+        }
+        .test
+        {
+            background-color: chartreuse;
+        }
+    </script>
+</head>
+<body>
+<h3>jQuery 构造函数</h3>
+<ul>
+    <li>jQuery(1)</li>
+    <li>jQuery(2)</li>
+    <li>jQuery(3)</li>
+    <li>jQuery(4)</li>
+</ul>
+<div class="m">
+    <p>
+        你好，世界！
+    </p>
+</div>
+<p class="test">
+    jQuery学习与测试！
+</p>
+<!--此处和在head里面的script之中都可以声明
+<script type="text/javascript">
+  jQuery("ul>li:first").addClass("selected");
+  $("ul>li:last").addClass("m");
+
+</script>
+-->
+</body>
+</html>

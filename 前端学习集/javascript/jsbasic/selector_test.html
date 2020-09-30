@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Selector</title>
+    <script src="./jquery-1.11.3.js" type="text/javascript"></script>
+</head>
+<body>
+<input value="1" /> +
+<input value="2" />
+<input type="button" value="=" />
+<label>&nbsp;</label>
+<script type="text/javascript" language="JavaScript">
+    $("input[type='button']").click(function(){
+        var i = 0;
+        $("input[type='text']").each(function(){
+            i += parseInt($(this).val());
+        });
+        $('label').text(i);
+    });
+    $('input:lt(2)')
+            .add('label')
+            .css('border','none')
+            .css('borderBottom','solid 1px navy')
+            .css({'width':'30px'});
+    $("div").one("click", function(){
+        alert("hello world!");
+    });
+</script>
+<div name="mm">
+    <p>
+        hello world!
+    </p>
+</div>
+</body>
+</html>

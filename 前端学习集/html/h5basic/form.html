@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--一般的登录什么的都只是用form-->
+<!--当有内容的需要通过网页体现出来，才使用table-->
+<!--使用table进行页面的划分，很不科学，而且相当落伍-->
+<form>
+    姓名：<input type="text/submit" value="请输入姓名"/><br>
+    密码：<input type="text/submit" value="请输入密码"/><br>
+    <input type="submit" value="取消"/>
+    <input type="submit" value="确定"/>
+</form>
+
+<hr>
+
+<form action="test.jsp" method="get" id="user_form">
+    E-mail: <input type="email" name="userid"/><br>
+    <input type="submit" value="提交"/><br>
+    <input type="submit" formaction="/test.jsp" value="管理员提交"/><br>
+    <input type="submit" formnovalidate="true" value="无验证提交"/><br>
+</form>
+
+<hr>
+<!--action是将要跳转的动作-->
+<form action="tagtest.html" method="get" width="300">
+    账号: <input type="text" name="name" width="500"/><br>
+    密码: <input type="text" name="name" width="500"/><br>
+    评论: <textarea></textarea><br>
+    <input type="submit" value="Submit"/>
+</form>
+
+
+</body>
+</html>
