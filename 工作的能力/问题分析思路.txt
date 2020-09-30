@@ -1,0 +1,87 @@
+问题分析思路:
+
+1.查看日志的调用链条:
+
+error message :
+    1.fail to update certificate for cert eReplication-NodeAgent,  cause null 
+    2.please check compent server
+
+方法调用:
+com.huawei.ism.drm.rest.interceptor.RestSecurityInterceptor
+handleMessage(194)--->verifyIdentification(363)
+                            |
+                            |
+                            |------>initFault(417)
+                            |---------------------->(365)constructUser(443)
+                                                             |
+                                                             |
+                                                             |---------->checkUserObj(490)
+                                                                                |------------->(488)checkIp(377)
+
+问题: ip 有问题
+            |===================>fe80:0:0:0:f816:3eff:fed5:eb2%2
+            com.huawei.lego.core.sdk.util.AddressUtil#isIPv4Address
+            com.huawei.lego.core.sdk.util.AddressUtil#isIPv6Address
+                                                     |------------------------>转化成正常的ipv6的格式.
+                                                                           
+
+
+2. 从日志入手:
+查看相关的日志, 使用tail实时监控, 使用vim去查看相关的日志内容. 如下: tail -f NodeAgent.log |grep ERROR 或者 vim NodeAgent.log.
+
+com/huawei/ism/drm/cloudservice/web/security/CloudServiceRestInterceptor.java:98
+token = service.decodeToken(account.get(0));        
+com.huawei.ism.drm.openstack.resource.authentication.AuthenticationHelper#getOpenstackInfo
+com.huawei.ism.drm.openstack.resource.authentication.AuthenticationHelper#getOpenstack
+                                                       logger.error("openstack instance is not exist.");
+                                                       fail to update certificate for cert
+
+
+com.huawei.ism.drm.cloudservice.rest.cloudservice.bcs.BcsRestServiceImpl #updateCertificate,1323
+com.huawei.ism.drm.cloudservice.rest.cloudservice.bcs.BcsRestServiceImpl][updateCertificate,1306]
+[2019/05/11 15:05:56.934][][][INFO][req-8192879f202746919dbba791a14bcdc0:request is/bcs/certificate/update, msg is update certificate. projectId: null][com.huawei.ism.drm.cloudservice.rest.cloudservice.BaseCloudRestService]
+[2019/05/11 15:05:56.939][][][INFO][update certificate succeed.certName=eReplication-NodeAgent][com.huawei.ism.drm.cloudservice.rest.cloudservice.bcs.BcsRestServiceImpl][updateCertificate,1323][http-nio-fc09:0:0:0:0:0:0:64-9443-exec-3]
+
+
+INFO 2019-05-11 14:06:33,079 [com.huawei.nodeagent.processor.ThriftServerCertTask] [doWork-102] - nodeAgent cert service start, listen ip [fc09::66], port 25412.
+ERROR 2019-05-11 14:06:33,079 [com.huawei.nodeagent.processor.ThriftServerCertTask] [doWork-107] - start thrift server failed, ip:[fc09::66], host:EulerOS-BaseTemplate. cause: key store file is empty
+                                                                                                        |
+                                                                                                        |
+                                                                                                        |
+                                                                                                        |-------------->ThriftServerCertTask的doWork方法失败, 错误在于107行列.
+
+
+INFO 2019-05-11 14:06:33,075 [com.huawei.nodeagent.processor.ServerTaskHandler] [submitTask-79] - Submit Task Succeed. task: com.huawei.nodeagent.processor.ThriftServerCertTask@2d6a9952.
+DEBUG 2019-05-11 14:06:33,076 [com.huawei.lego.lego_core] [log-630] - [2019/05/11 14:06:33.075][][][DEBUG][fc09::66is not a ipv4 address!][com.huawei.lego.core.sdk.util.AddressUtil][isIPv4Address,588][main]
+DEBUG 2019-05-11 14:06:33,076 [com.huawei.lego.lego_core] [log-630] - [2019/05/11 14:06:33.076][][][DEBUG][fc09::66is not a ipv4 address!][com.huawei.lego.core.sdk.util.AddressUtil][isIPv4Address,588][main]
+INFO 2019-05-11 14:06:33,078 [com.huawei.nodeagent.processor.ServerTaskHandler] [submitTask-68] - Submit Task. task: com.huawei.nodeagent.processor.ThriftServerLocalTask@2ac1fdc4
+INFO 2019-05-11 14:06:33,079 [com.huawei.nodeagent.processor.ThriftServerTask] [run-127] - Back task beginning, listen ip [fc09::66], port 25412.
+                                                                                                        |
+                                                                                                        |
+                                                                                                        |------->开始监听了, ip和端口, 网络连接, 监听先行, 拒绝链接, 很可能就是没有监听或没权限;
+                                                                                                                                                    |
+                                                                                                                                                    |--->往可能的方向出发,去尝试解决.
+
+                                                                                                                                                
+INFO 2019-05-11 14:06:33,079 [com.huawei.nodeagent.processor.ThriftServerCertTask] [doWork-102] - nodeAgent cert service start, listen ip [fc09::66], port 25412.
+ERROR 2019-05-11 14:06:33,079 [com.huawei.nodeagent.processor.ThriftServerCertTask] [doWork-107] - start thrift server failed, ip:[fc09::66], host:EulerOS-BaseTemplate. cause: key store file is empty
+                                                                                                        |
+                                                                                                        |
+                                                                                                        |-------------->ThriftServerCertTask的doWork方法失败, 错误在于107行列.
+                                                                                                                                |
+                                                                                                                                |------>为什么失败呢?在于什么原因, 可能相关的有哪些?
+
+
+INFO 2019-05-11 14:06:33,079 [com.huawei.nodeagent.processor.ThriftServerTask] [run-130] - Back task run succeed.
+INFO 2019-05-11 14:06:33,079 [com.huawei.nodeagent.processor.ServerTaskHandler] [submitTask-79] - Submit Task Succeed. task: com.huawei.nodeagent.processor.ThriftServerLocalTask@2ac1fdc4.
+INFO 2019-05-11 14:06:33,079 [com.huawei.nodeagent.processor.ThriftServerTask] [run-127] - Back task beginning, listen ip [::1], port 25410.
+INFO 2019-05-11 14:06:33,080 [com.huawei.nodeagent.processor.ThriftServerLocalTask] [doWork-56] - nodeAgent local service start, listen ip [::1], port 25410.
+ERROR 2019-05-11 14:06:33,080 [com.huawei.nodeagent.processor.ThriftServerLocalTask] [doWork-74] - start thrift local server failed, ip:[::1], host:localhost
+                                                                                                                    |
+                                                                                                                    |
+                                                                                                                    |--------->这个任务失败了,启动失败
+
+
+INFO 2019-05-11 14:06:33,080 [com.huawei.nodeagent.processor.ThriftServerTask] [run-130] - Back task run succeed.
+INFO 2019-05-11 14:16:33,079 [com.huawei.nodeagent.main.MainServer] [startServer-122] - running......
+INFO 2019-05-11 14:26:33,080 [com.huawei.nodeagent.main.MainServer] [startServer-122] - running......
