@@ -5,13 +5,13 @@
 在调试代码的过程中，为了更好的定位及解决问题，有时候需要我们使用远程调试的方法。在本文中，记录了如何利用 IntelliJ IDEA 进行远程 Tomcat 的调试。
 
 首先，配置remote：
-![idearemoteadd](../../images/idearemoteadd.png)
+![idearemoteadd](../../img/idearemoteadd.png)
 
 如上图所示，点击Edit Configurations，进入如下界面：
-![ideaaddremotearg](../../images/ideaaddremotearg.png)
+![ideaaddremotearg](../../img/ideaaddremotearg.png)
 
 如上图所示，我们进入了Run/Debug Configurations界面，然后点击左上角的+，选择Remote：
-![idearemotedebug](../../images/idearemotedebug.png)
+![idearemotedebug](../../img/idearemotedebug.png)
 
 - 标注 1：运行远程 JVM 的命令行参数；
 - 标注 2：传输方式，默认为`Socket`；
@@ -39,10 +39,10 @@
 两者的区别在于导入语句的关键字不同以及有无引号，Linux 系统的导入关键字为export，Windows 为set；Linux 的导入值需要用单引号**' '**括起来，而 Windows 则不用。
 
 接下来，修改 Tomcat 的 bin 目录下的catalina.sh文件（如果是 Windows 系统则修改catalina.bat文件），将上述的导入语句添加到此文件中即可：
-![changeshorbattomcat](../../images/changeshorbattomcat.png)
+![changeshorbattomcat](../../img/changeshorbattomcat.png)
 
 在这里，我们假设服务器的 IP 地址为`10.11.12.39`，端口号为`16203`，设置完成后，进入`Debug`模式，如果连接成功，则会出现如下提示：
-![remoteok](../../images/remoteok.png)
+![remoteok](../../img/remoteok.png)
 
 至此，IntelliJ IDEA 远程调试 Tomcat 的配置已经完成了，调试的后续步骤按正常的调试技巧进行就可以啦！
 
