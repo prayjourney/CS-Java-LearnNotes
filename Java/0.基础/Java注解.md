@@ -314,7 +314,7 @@ public class FruitRun {
 
 
 ##### 注解图解
-![annotationnotes](../../../images/annotationnotes.jpg)
+![annotationnotes](../../img/annotationnotes.jpg)
 
 
 
